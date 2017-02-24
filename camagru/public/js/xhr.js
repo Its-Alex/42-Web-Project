@@ -1,5 +1,7 @@
+var xhr = null;
+
 function getXMLHttpRequest() {
-  var xhr = null;
+  xhr = null;
   
   if (window.XMLHttpRequest || window.ActiveXObject) {
     if (window.ActiveXObject) {
@@ -18,12 +20,18 @@ function getXMLHttpRequest() {
   return xhr;
 }
 
-function request(method, url, cb) {
-  var xhr = getXMLHttpRequest();
+function request(method, url, variable, cb) {
+  if (xhr && xhr.readyState != 0) {
+    xhr.abort(); // On annule la requête en cours !
+  }
+
+  xhr = getXMLHttpRequest();
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-      cb(xhr.responseText);
+      console.log(xhr)
+      if (xhr.responseText)
+        cb(xhr.responseText);
     }
   }
 
@@ -31,5 +39,5 @@ function request(method, url, cb) {
   if (method === `POST`) {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   }
-  xhr.send(null);
+  xhr.send(variable);
 }

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mendeleiev</title>
+	<style type="text/css">
+		html, body {
+			width: 100%;
+			margin: 0px;
+			padding: 0px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+		}
+		td {
+			border: 2px solid black;
+		}
+		.invisible {
+			border: none;
+		}
+		.num {
+			text-align: right;
+			font-size: 10px;
+		}
+		.name {
+			font-size: 40px;
+		}
+		.width {
+			text-align: left;
+			font-size: 10px;
+		}
+	</style>
+</head>
+<body>
+	<table>
+	  <caption><b>Elements</b></caption>
+	  <tr>
+		<td style="background-color: #B5FBFF;"><div class="num">1</div><div class="name">H</div><div class="width">1,007</div></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td style="background-color: #FF8633;"><div class="num">2</div><div class="name">He</div><div class="width">4,002</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">3</div><div class="name">Li</div><div class="width">6,941</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">4</div><div class="name">Be</div><div class="width">9,012</div></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td style="background-color: red;"><div class="num">5</div><div class="name">B</div><div class="width">10,811</div></td>
+		<td style="background-color: red;"><div class="num">6</div><div class="name">C</div><div class="width">12,010</div></td>
+		<td style="background-color: red;"><div class="num">7</div><div class="name">N</div><div class="width">14,006</div></td>
+		<td style="background-color: red;"><div class="num">8</div><div class="name">O</div><div class="width">15,999</div></td>
+		<td style="background-color: red;"><div class="num">9</div><div class="name">F</div><div class="width">18,998</div></td>
+		<td style="background-color: #FF8633;"><div class="num">10</div><div class="name">Ne</div><div class="width">20,179</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">11</div><div class="name">Na</div><div class="width">22,989</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">12</div><div class="name">Mg</div><div class="width">24,305</div></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td style="background-color: #ACFFFF;"><div class="num">13</div><div class="name">Al</div><div class="width">26,981</div></td>
+		<td style="background-color: #FF255A;"><div class="num">14</div><div class="name">Si</div><div class="width">28,085</div></td>
+		<td style="background-color: red;"><div class="num">15</div><div class="name">P</div><div class="width">30,973</div></td>
+		<td style="background-color: red;"><div class="num">16</div><div class="name">S</div><div class="width">32,06</div></td>
+		<td style="background-color: red;"><div class="num">17</div><div class="name">Cl</div><div class="width">35,45</div></td>
+		<td style="background-color: #FF8633;"><div class="num">18</div><div class="name">Ar</div><div class="width">39,948</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">19</div><div class="name">K</div><div class="width">39,098</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">20</div><div class="name">Ca</div><div class="width">40,078</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">21</div><div class="name">Sc</div><div class="width">44,955</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">22</div><div class="name">Ti</div><div class="width">47,867</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">23</div><div class="name">V</div><div class="width">50,941</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">24</div><div class="name">Cr</div><div class="width">51,996</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">25</div><div class="name">Mn</div><div class="width">54,938</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">26</div><div class="name">Fe</div><div class="width">55,845</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">27</div><div class="name">Co</div><div class="width">58,933</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">28</div><div class="name">Ni</div><div class="width">58,693</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">29</div><div class="name">Cu</div><div class="width">63,546</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">30</div><div class="name">Zn</div><div class="width">65,38</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">31</div><div class="name">Ga</div><div class="width">69,723</div></td>
+		<td style="background-color: #FF255A;"><div class="num">32</div><div class="name">Ge</div><div class="width">72,63</div></td>
+		<td style="background-color: #FF255A;"><div class="num">33</div><div class="name">As</div><div class="width">74,921</div></td>
+		<td style="background-color: red;"><div class="num">34</div><div class="name">Se</div><div class="width">78,96</div></td>
+		<td style="background-color: red;"><div class="num">35</div><div class="name">Br</div><div class="width">79,904</div></td>
+		<td style="background-color: #FF8633;"><div class="num">36</div><div class="name">Kr</div><div class="width">83,789</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">37</div><div class="name">Rb</div><div class="width">85,467</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">38</div><div class="name">Sr</div><div class="width">87,62</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">39</div><div class="name">Y</div><div class="width">88,905</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">40</div><div class="name">Zr</div><div class="width">91,224</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">41</div><div class="name">Nb</div><div class="width">92,906</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">42</div><div class="name">Mo</div><div class="width">95,96</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">43</div><div class="name">Tc</div><div class="width">98</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">44</div><div class="name">Ru</div><div class="width">101</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">45</div><div class="name">Rh</div><div class="width">102,90</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">46</div><div class="name">Pd</div><div class="width">106,42</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">47</div><div class="name">Ag</div><div class="width">107,87</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">48</div><div class="name">Cd</div><div class="width">112,41</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">49</div><div class="name">In</div><div class="width">114,82</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">50</div><div class="name">Sn</div><div class="width">118,71</div></td>
+		<td style="background-color: #FF255A;"><div class="num">51</div><div class="name">Sb</div><div class="width">121,76</div></td>
+		<td style="background-color: #FF255A;"><div class="num">52</div><div class="name">Te</div><div class="width">127,6</div></td>
+		<td style="background-color: red;"><div class="num">53</div><div class="name">I</div><div class="width">126,9</div></td>
+		<td style="background-color: #FF8633;"><div class="num">54</div><div class="name">Xe</div><div class="width">131,29</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">55</div><div class="name">Cs</div><div class="width">132,90</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">56</div><div class="name">Ba</div><div class="width">137,32</div></td>
+		<td style="background-color: #F88EFF;"><div class="num"></div><div class="name">La-Lu</div><div class="width"></div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">72</div><div class="name">Hf</div><div class="width">178,49</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">73</div><div class="name">Ta</div><div class="width">180,49</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">74</div><div class="name">W</div><div class="width">183,84</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">75</div><div class="name">Re</div><div class="width">186,20</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">76</div><div class="name">Os</div><div class="width">190,23</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">77</div><div class="name">Ir</div><div class="width">192,21</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">78</div><div class="name">Pt</div><div class="width">195,08</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">79</div><div class="name">Au</div><div class="width">196,96</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">80</div><div class="name">Hg</div><div class="width">200,59</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">81</div><div class="name">Tl</div><div class="width">204,38</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">82</div><div class="name">Pb</div><div class="width">207,2</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">83</div><div class="name">Bi</div><div class="width">208,98</div></td>
+		<td style="background-color: #FF255A;"><div class="num">84</div><div class="name">Po</div><div class="width">209</div></td>
+		<td style="background-color: red;"><div class="num">85</div><div class="name">At</div><div class="width">210</div></td>
+		<td style="background-color: #FF8633;"><div class="num">86</div><div class="name">Rn</div><div class="width">222</div></td>
+	  </tr>
+	  <tr>
+		<td style="background-color: #30B6FF;"><div class="num">87</div><div class="name">Fr</div><div class="width">223</div></td>
+		<td style="background-color: #30B6FF;"><div class="num">88</div><div class="name">Ra</div><div class="width">226</div></td>
+		<td style="background-color: #F88EFF;"><div class="num"></div><div class="name">Ac-Lr</div><div class="width"></div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">104</div><div class="name">Rf</div><div class="width">267</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">105</div><div class="name">Db</div><div class="width">268</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">106</div><div class="name">Sg</div><div class="width">271</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">107</div><div class="name">Bh</div><div class="width">272</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">108</div><div class="name">Hs</div><div class="width">270</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">109</div><div class="name">Mt</div><div class="width">276</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">110</div><div class="name">Ds</div><div class="width">281</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">111</div><div class="name">Rg</div><div class="width">280</div></td>
+		<td style="background-color: #3D5EFF;"><div class="num">112</div><div class="name">Cn</div><div class="width">285</div></td>
+		<td style="background-color: red;"><div class="num">113</div><div class="name">Nh</div><div class="width">284</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">114</div><div class="name">Fl</div><div class="width">289</div></td>
+		<td style="background-color: red;"><div class="num">115</div><div class="name">Mc</div><div class="width">288</div></td>
+		<td style="background-color: #ACFFFF;"><div class="num">116</div><div class="name">Lv</div><div class="width">293</div></td>
+		<td style="background-color: red;"><div class="num">117</div><div class="name">Ts</div><div class="width">294</div></td>
+		<td style="background-color: #FF8633;"><div class="num">118</div><div class="name">Og</div><div class="width">294</div></td>
+		</tr>
+	  <tr>
+		<td class="invisible"></td>
+	  </tr>
+	  <tr>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td style="background-color: #ACFF7E;"><div class="num">57</div><div class="name">La</div><div class="width">138,9</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">58</div><div class="name">Ce</div><div class="width">140,11</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">59</div><div class="name">Pr</div><div class="width">140,9</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">60</div><div class="name">Nd</div><div class="width">144,24</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">61</div><div class="name">Pm</div><div class="width">145</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">62</div><div class="name">Sm</div><div class="width">150,36</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">63</div><div class="name">Eu</div><div class="width">151,964</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">64</div><div class="name">Gd</div><div class="width">157,25</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">65</div><div class="name">Td</div><div class="width">158,92</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">66</div><div class="name">Dy</div><div class="width">162,5</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">67</div><div class="name">Ho</div><div class="width">164,93</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">68</div><div class="name">Er</div><div class="width">167,25</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">69</div><div class="name">Tm</div><div class="width">168,93</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">70</div><div class="name">Yb</div><div class="width">173,05</div></td>
+		<td style="background-color: #ACFF7E;"><div class="num">71</div><div class="name">Lu</div><div class="width">174,97</div></td>
+	  </tr>
+	  <tr>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td class="invisible"></td>
+		<td style="background-color: #1FE840;"><div class="num">89</div><div class="name">Ac</div><div class="width">227</div></td>
+		<td style="background-color: #1FE840;"><div class="num">90</div><div class="name">Th</div><div class="width">232.03</div></td>
+		<td style="background-color: #1FE840;"><div class="num">91</div><div class="name">Pa</div><div class="width">231,03</div></td>
+		<td style="background-color: #1FE840;"><div class="num">92</div><div class="name">U</div><div class="width">238,02</div></td>
+		<td style="background-color: #1FE840;"><div class="num">93</div><div class="name">Np</div><div class="width">237</div></td>
+		<td style="background-color: #1FE840;"><div class="num">94</div><div class="name">Pu</div><div class="width">244</div></td>
+		<td style="background-color: #1FE840;"><div class="num">95</div><div class="name">Am</div><div class="width">243</div></td>
+		<td style="background-color: #1FE840;"><div class="num">96</div><div class="name">Cm</div><div class="width">247</div></td>
+		<td style="background-color: #1FE840;"><div class="num">97</div><div class="name">Bk</div><div class="width">247</div></td>
+		<td style="background-color: #1FE840;"><div class="num">98</div><div class="name">Cf</div><div class="width">251</div></td>
+		<td style="background-color: #1FE840;"><div class="num">99</div><div class="name">Es</div><div class="width">252</div></td>
+		<td style="background-color: #1FE840;"><div class="num">100</div><div class="name">Fm</div><div class="width">257</div></td>
+		<td style="background-color: #1FE840;"><div class="num">101</div><div class="name">Md</div><div class="width">258</div></td>
+		<td style="background-color: #1FE840;"><div class="num">102</div><div class="name">No</div><div class="width">259</div></td>
+		<td style="background-color: #1FE840;"><div class="num">103</div><div class="name">Lr</div><div class="width">262</div></td>
+	  </tr>
+	</table>
+	<img src="http://www.larousse.fr/encyclopedie/data/images/1310399-Dmitri_Ivanovitch_Mendele%C3%AFev.jpg">
+</body>
+</html>

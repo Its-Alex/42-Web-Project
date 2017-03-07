@@ -1,2 +1,2 @@
 # 42-Web-Project
-All my project in web at 42
+All my web project at 42

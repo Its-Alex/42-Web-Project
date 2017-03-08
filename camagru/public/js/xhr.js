@@ -29,7 +29,6 @@ function request(method, url, variable, cb) {
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-      console.log(xhr)
       if (xhr.responseText)
         cb(xhr.responseText);
     }

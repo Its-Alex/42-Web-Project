@@ -1,23 +1,30 @@
 <?php
-	require '/Users/malexand/http/MyWebSite/models/insert.php';
+	require_once '/Users/malexand/http/MyWebSite/models/User.Class.php';
+	require_once '/Users/malexand/http/MyWebSite/models/Database.Class.php';
 
 	$err = "";
 	$success = "false";
 
-	if (empty($_POST[name]) || empty($_POST[password]) || empty($_POST[mail]))
-		$err .= "-empty-";
+	if (empty($_POST[name]) || empty($_POST[passwd]) || empty($_POST[confirmPasswd]) || empty($_POST[mail]))
+		$err .= "empty";
 	if (strlen($_POST[name]) < 4 || strlen($_POST[name]) > 25 || !preg_match("#[a-zA-Z0-9]#", $_POST[name]))
-		$err .= "-name-";
-	if (strlen($_POST[password]) < 6 || strlen($_POST[password]) > 25 || !preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST[password]))
-		$err .= "-pasword-";
+		$err .= "name";
+	if (strlen($_POST[passwd]) < 6 || strlen($_POST[passwd]) > 25 || !preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST[passwd]) || strcmp($_POST[passwd], $_POST[confirmPasswd]) != 0)
+		$err .= "password";
 	if (strlen($_POST[mail]) < 6 || strlen($_POST[mail]) > 30 || filter_var($_POST[mail], FILTER_VALIDATE_EMAIL) == false)
-		$err .= "-mail-";
+		$err .= "mail";
 	if (strcmp($err, "") == 0)
-		if (insertUser($_POST[name], hash("whirlpool", $POST_[mail] . $_POST[password]), "USER", "NEED_VALID", $_POST[mail]) == true)
-			$success = "true";
-
-	echo "{
-				\"success\": \"$success\",
-				\"err\": \"$err\"
-				}";
+	{
+		$user = new User(array('name' => $_POST[name],
+												'password' => $_POST[password],
+												'mail' => $_POST[mail]));
+		if ($user->ifMailExist() == false)
+		{
+			$user->insert();
+			$success = "true";	
+		}
+		else
+			$err .= 'mailexist';
+	}
+  echo json_encode(array('success' => $success, 'err' => $err));
 ?>

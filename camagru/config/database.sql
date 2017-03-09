@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 09 Mars 2017 à 11:54
+-- Généré le :  Jeu 09 Mars 2017 à 14:34
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.0
 
@@ -67,8 +67,8 @@ CREATE TABLE `users` (
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `password`, `mail`, `role`, `state`, `date`) VALUES
-('Alex', '953261ff975291463d48ec013334a43ad1254b8e503beac35b0a4fab77653bc38d1cc08dad623b185f3a029a80b307d3cb5f78fd2aebc6fd50e77a6ce9dc0a42', 'xSkyZie@gmail.com', 'ADMIN', 'REGISTERED', '2017-03-09 11:54:00');
+INSERT INTO `users` (`id`, `name`, `password`, `mail`, `role`, `state`, `date`) VALUES
+('e1f6b695-14df-40f6-aca3-76c18802772d', 'Alex', 'b7ff0e9e74a1a3c97b3035c18ec94c7986693e4a0e2c12ca0f97da366266cdc2306e6b57ed0ecc1c0f9b7292afc7c59d78f8b982e9ad01898e617cb2115fecac', 'xSkyZie@gmail.com', 'ADMIN', 'REGISTERED', '2017-03-09 14:33:37');
 
 --
 -- Index pour les tables exportées

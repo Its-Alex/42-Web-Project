@@ -1,5 +1,5 @@
 <?php
-	require('../models/Database.Class.php');
+	require 'Database.Class.php';
 
 	function insertUser($name, $password, $role, $state, $mail)
 	{

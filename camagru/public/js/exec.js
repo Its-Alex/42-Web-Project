@@ -23,7 +23,7 @@ function auth() {
 
 window.onkeyup = (e) => {
   if (e.keyCode === 32) {
-	  request(`POST`, `controllers/signin.php`, `username=Alex&password=Apwn789123`, (res) => {
+	  request(`POST`, `/Users/malexand/http/MyWebSite/controllers/signin.php`, `username=Alex&password=Apwn789123`, (res) => {
 	    try {
         console.log(JSON.parse(res));
     } catch(e) {

@@ -1,5 +1,5 @@
 <?php
-	require('../models/insert.php');
+	require '/Users/malexand/http/MyWebSite/models/insert.php';
 
 	$err = "";
 	$success = "false";

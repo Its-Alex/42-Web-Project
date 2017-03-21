@@ -1,8 +1,8 @@
 #!/usr/bin/php
 <?php
 function ft_split($str) {
-    while <= 10) {
-        # code...
-    }
+    $array = explode(" ", $str);
+    sort($array, SORT_NATURAL);
+    return $array;
 }
 ?>

@@ -31,15 +31,15 @@ if ($argc > 1) {
     sort($specArray);
     foreach ($alphaArray as $key => $value) {
         if (strlen($value) > 0)
-            echo "Alpha ====> " . $value . "\n";
+            echo $value . "\n";
     }
     foreach ($numArray as $key => $value) {
         if (strlen($value) > 0)
-            echo "Num ====> " . $value . "\n";
+            echo $value . "\n";
     }
     foreach ($specArray as $key => $value) {
         if (strlen($value) > 0)
-            echo "Spec ====> " . $value . "\n";
+            echo $value . "\n";
     }
 }
 ?>

@@ -20,7 +20,7 @@ if ($argc > 1) {
     foreach ($array as $key => $value) {
         if (preg_match('#^[a-zA-Z]#', $value))
             array_push($alphaArray, $value);
-        else if (preg_match('#^[0-9]#', $value))
+        else if (preg_match('#\D#', $value))
             array_push($numArray, $value);
         else {
             array_push($specArray, $value);

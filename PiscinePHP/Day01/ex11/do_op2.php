@@ -1,57 +1,64 @@
 #!/usr/bin/php
 <?php
 
-function calc($tab, $operator) {
+function calc($tab, $operator)
+{
     $return = explode($operator, $tab);
-    if (preg_match("#[^ 0-9]#", ($return[0])) === 0 && preg_match("#[^ 0-9]#", ($return[1])) === 0)
+    if (preg_match("#[^ 0-9]#", ($return[0])) === 0 && preg_match("#[^ 0-9]#", ($return[1])) === 0) {
         return $return;
-    else
+    } else {
         return false;
+    }
 }
 
 if ($argc === 2) {
     $error = 0;
     if (strpos($argv[1], "+") !== false) {
         $array = calc($argv[1], "+");
-        if ($array !== false)
+        if ($array !== false) {
             $result = intval($array[0]) + intval($array[1]);
-        else
+        } else {
             $error = 1;
+        }
     }
     if (strpos($argv[1], "-") !== false) {
         $array = calc($argv[1], "-");
-        if ($array !== false)
+        if ($array !== false) {
             $result = intval($array[0]) - intval($array[1]);
-        else
+        } else {
             $error = 1;
+        }
     }
     if (strpos($argv[1], "/") !== false) {
         $array = calc($argv[1], "/");
-        if ($array !== false)
+        if ($array !== false) {
             $result = intval($array[0]) / intval($array[1]);
-        else
+        } else {
             $error = 1;
+        }
     }
     if (strpos($argv[1], "*") !== false) {
         $array = calc($argv[1], "*");
-        if ($array !== false)
+        if ($array !== false) {
             $result = intval($array[0]) * intval($array[1]);
-        else
+        } else {
             $error = 1;
+        }
     }
     if (strpos($argv[1], "%") !== false) {
         $array = calc($argv[1], "%");
-        if ($array !== false)
+        if ($array !== false) {
             $result = intval($array[0]) % intval($array[1]);
-        else
+        } else {
             $error = 1;
+        }
     }
-    if ($result !== null && $error === 0)
+    if ($result !== null && $error === 0) {
         echo $result . "\n";
-    else
+    } else {
         echo "Syntax Error\n";
-}
-else {
+    }
+} else {
     echo "Incorrect Parameters\n";
 }
 ?>

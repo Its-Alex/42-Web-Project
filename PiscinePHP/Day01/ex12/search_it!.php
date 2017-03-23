@@ -1,4 +1,4 @@
-#!/Users/malexand/.brew/bin/php
+#!/usr/bin/php
 <?php
 
 function splitFirst($occu, $str) {

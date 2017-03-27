@@ -10,7 +10,6 @@
 		$array = unpack($format, $sub);
 		if (strcmp(trim($array['user']), $usr) == 0 && $array['type'] == 7)
 		{
-            var_dump($array);
 			$date = date("M  j H:i", $array["time1"]);
 			$support = trim($array['support']);
 			$support = $support . "  ";

@@ -3,7 +3,6 @@
 		$array = unserialize(file_get_contents("./private/passwd"));
 	else
 		mkdir("./private");
-	var_dump($array);
 	if (isset($_POST['submit']) && strcmp($_POST['submit'], "OK") === 0) {
 		if (isset($_POST['login']) && isset($_POST['passwd']) && strlen($_POST['passwd']) > 0) {
 			if (isset($array)) {

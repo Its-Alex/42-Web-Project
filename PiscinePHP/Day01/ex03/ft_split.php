@@ -4,8 +4,7 @@
 	{
 		if (is_string($str))
 		{
-			$array = explode(" ", $str);
-			$array = array_filter($array);
+			$array = array_filter(explode(" ", $str));
 			sort($array);
 			return $array;
 		}

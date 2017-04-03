@@ -1,5 +1,5 @@
 html, body{
-	background: rgb(80, 80, 80);
+	background: rgb(60, 60, 60);
 }
 .left{
 	float: left;
@@ -74,35 +74,22 @@ header #logo{
 	box-shadow: 5px 5px 20px #000;
 }
 #background{
-	width: 1025px;
-	height: 580px;
-	background: url("./resources/cluster.jpg") no-repeat;
-}
-#chair{
 	position: relative;
-	left: 300px;
-	top: 320px;
-	width: 200px;
-	height: 250px;
-}
-#mac{
-	position: relative;
-	left: 800px;
-	top: 70px;
-	width: 220px;
-	height: 180px;
+	z-index: 2;
 }
 #green_container{
+	position: relative;
 	margin-top: -90px;
 	margin-left: -60px;
 	padding: 10px;
 	width: 480px;
 	height: 160px;
-	background: rgb(136, 255, 137);
+	background: #8cfd8e	;
 	border-radius: 10px;
 	box-shadow: 5px 5px 20px #000;
 	font-size: 18px;
 	font-family: sans-serif;
+	z-index: 1;
 }
 #enter{
 	font-size: 30px;

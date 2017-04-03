@@ -8,7 +8,8 @@ if ($argc > 1)
         {
             if ($key === 1)
                 $array = explode(" ", $value);
-            else {
+            else
+            {
                 foreach (explode(" ", $value) as $keys => $val)
                     if (strlen($val) !== 0)
                         array_push($array, $val);

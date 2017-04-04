@@ -15,7 +15,8 @@ if ($argc === 4) {
         $result = intval($argv[1]) * intval($argv[3]);
     if (strpos($argv[2], "%") !== false)
         $result = intval($argv[1]) % intval($argv[3]);
-    echo $result . "\n";
+    if (isset($result))
+        echo $result."\n";
 }
 else {
     echo "Incorrect Parameters\n";

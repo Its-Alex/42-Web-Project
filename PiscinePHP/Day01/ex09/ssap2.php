@@ -23,13 +23,13 @@ if ($argc > 1) {
     {
         if (preg_match('#^[a-zA-Z]#', $value))
             array_push($alphaArray, $value);
-        else if (preg_match('#\D#', $value))
+        else if (preg_match('#\d#', $value))
             array_push($numArray, $value);
         else
             array_push($specArray, $value);
     }
     sort($alphaArray, SORT_FLAG_CASE | SORT_STRING);
-    rsort($numArray, SORT_NATURAL);
+    sort($numArray, SORT_STRING);
     sort($specArray);
     foreach ($alphaArray as $key => $value)
         if (strlen($value) > 0)

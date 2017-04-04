@@ -6,7 +6,7 @@ if ($file_handle) {
     while (($line = fgets($file_handle, 4096)) !== false) {
         if (strlen($line) > 0);
             $line = substr($line, 0, strlen($line) - 1);
-        if (preg_match("#[^0-9]#", $line) || strlen($line) === 0)
+        if (!preg_match("#^[-+]?[0-9]+$#", $line) || strlen($line) === 0)
             echo "'$line' n'est pas un chiffre\n";
         else {
             $nombre = intval($line);

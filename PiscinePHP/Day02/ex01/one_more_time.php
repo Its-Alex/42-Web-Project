@@ -29,6 +29,20 @@ if ($argc > 1)
             $month = "11";
         if (strcasecmp($array[2], "decembre") === 0)
             $month = "12";
+        $time = explode(":", $array[4]);
+        if (intval($time[0]) >= 24 || intval($time[0]) >= 60 || intval($time[0]) >= 60 || intval($array[1]) > 31)
+        {
+            echo "Wrong Format\n";
+            exit();
+        }
+        if ((strcasecmp($array[0], "lundi") != 0 && strcasecmp($array[0], "mardi") != 0
+            && strcasecmp($array[0], "mercredi") != 0 && strcasecmp($array[0], "jeudi") != 0
+            && strcasecmp($array[0], "vendredi") != 0 && strcasecmp($array[0], "samedi") != 0
+            && strcasecmp($array[0], "dimanche") != 0) || !isset($month))
+        {
+            echo "Wrong Format\n";
+            exit();
+        }
         $str = $array[1]."/".$month."/".$array[3]." ".$array[4];
         $format = "j/m/Y H:i:s";
         $timezone = new DateTimeZone('Europe/Paris');

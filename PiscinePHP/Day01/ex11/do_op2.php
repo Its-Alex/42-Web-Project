@@ -3,14 +3,10 @@
     function calc($tab, $operator)
     {
         $return = explode($operator, $tab);
-        if (preg_match("#[^ 0-9]#", ($return[0])) === 0 && preg_match("#[^ 0-9]#", ($return[1])) === 0)
-        {
+        if (preg_match("#^[0-9]+$#", $return[0]) == 1 && preg_match("#^[0-9]+$#", $return[1]) == 1)
             return $return;
-        }
         else
-        {
             return false;
-        }
     }
 
     if ($argc === 2)
@@ -56,8 +52,8 @@
             else
                 $error = 1;
         }
-        if ($result !== null && $error === 0)
-            echo $result . "\n";
+        if ($error == 0 && $result != null && isset($result))
+            echo $result."\n";
         else
             echo "Syntax Error\n";
     }

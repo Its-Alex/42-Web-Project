@@ -26,6 +26,19 @@ ul, ul ul, ul li, li, #menu {
 	position: relative;
 	display:inline-block;
 }
+#menu > li li:last-child {
+	margin-bottom: 15px;
+	margin-right: 20px;	
+}
+#menu > li li {
+	margin-left: 15px;	
+}
+#menu > li {
+	margin-left: 100px;
+	margin-right: 100px;
+	font-size: 38px;
+	text-shadow: 2px 2px 20px black;
+}
 #menu ul {
 	position: absolute;
 	top: 1.2em;
@@ -34,8 +47,7 @@ ul, ul ul, ul li, li, #menu {
 	margin: 0; padding: 0;
 	overflow: hidden;
 	transition: 0.8s max-height 0.1s;
-	border-radius: 0 0 8px 8px;
 }
 #menu > li:hover ul {
-	max-height: 8em;
+	max-height: 18em;
 }

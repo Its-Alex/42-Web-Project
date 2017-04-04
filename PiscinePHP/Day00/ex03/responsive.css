@@ -20,13 +20,13 @@ td {
 	border: none;
 }
 .num {
-	text-align: right;
+	text-align: left;
 	font-size: 1.3vmin;
 }
 .name {
 	font-size: 3vmin;
 }
 .width {
-	text-align: left;
+	text-align: right;
 	font-size: 1.3vmin;
 }

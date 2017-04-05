@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-    date_default_timezone_set('Europe/paris');
+	date_default_timezone_set('Europe/paris');
 	$usr = get_current_user();
 	$file = file_get_contents("/var/run/utmpx");
 	$sub = substr($file, 1256);

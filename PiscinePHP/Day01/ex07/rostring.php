@@ -17,5 +17,5 @@
             }
         }
     }
-    echo $save;
+    echo $save."\n";
 ?>

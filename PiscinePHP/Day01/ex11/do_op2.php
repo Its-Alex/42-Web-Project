@@ -3,6 +3,11 @@
     function calc($tab, $operator)
     {
         $return = explode($operator, $tab);
+        foreach ($return as $key => $value)
+            if (strlen(value) < 1)
+                unset($return[$key]);
+        $return[0] = trim($return[0]);
+        $return[1] = trim($return[1]);
         if (preg_match("#^[0-9]+$#", $return[0]) == 1 && preg_match("#^[0-9]+$#", $return[1]) == 1)
             return $return;
         else
@@ -12,7 +17,7 @@
     if ($argc === 2)
     {
         $error = 0;
-        if (strpos($argv[1], "+") !== false)
+        if (strpos($argv[1], "+") !== false && substr_count($argv[1], "+") == 1)
         {
             $array = calc($argv[1], "+");
             if ($array !== false)
@@ -20,7 +25,7 @@
             else
                 $error = 1;
         }
-        if (strpos($argv[1], "-") !== false)
+        if (strpos($argv[1], "-") !== false && substr_count($argv[1], "-") == 1)
         {
             $array = calc($argv[1], "-");
             if ($array !== false)
@@ -28,7 +33,7 @@
             else
                 $error = 1;
         }
-        if (strpos($argv[1], "/") !== false)
+        if (strpos($argv[1], "/") !== false && substr_count($argv[1], "/") == 1)
         {
             $array = calc($argv[1], "/");
             if ($array !== false)
@@ -36,7 +41,7 @@
             else
                 $error = 1;
         }
-        if (strpos($argv[1], "*") !== false)
+        if (strpos($argv[1], "*") !== false && substr_count($argv[1], "*") == 1)
         {
             $array = calc($argv[1], "*");
             if ($array !== false)
@@ -44,7 +49,7 @@
             else
                 $error = 1;
         }
-        if (strpos($argv[1], "%") !== false)
+        if (strpos($argv[1], "%") !== false && substr_count($argv[1], "%") == 1)
         {
             $array = calc($argv[1], "%");
             if ($array !== false)

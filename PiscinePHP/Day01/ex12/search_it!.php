@@ -29,9 +29,10 @@ if ($argc > 1)
             $array = splitFirst(":", $value);
             if (count($array) > 1)
                 if (!strcmp($argv[1], $array[0]))
-                    echo $array[1];
+                    $save = $array[1];
         }
     }
-    echo "\n";
+    if (isset($save))
+        echo $save."\n";
 }
 ?>

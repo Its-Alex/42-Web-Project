@@ -20,6 +20,7 @@ if ($file_handle) {
     if (!feof($file_handle)) {
         echo "Error: unexpected fgets() fail\n";
     }
+    echo "\n";  
     fclose($file_handle);
 }
 ?>

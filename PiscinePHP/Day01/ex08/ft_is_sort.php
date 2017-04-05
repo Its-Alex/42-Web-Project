@@ -6,7 +6,6 @@
 		$tabSort = $array;
 		sort($array);
 		foreach ($array as $key => $value)
-			echo $key." : ".$array[$key]." <===> ".$tabSort[$key]."\n";
 			if (strcmp($array[$key], $tabSort[$key]) !== 0)
 			{
 				$sort++;
@@ -14,7 +13,6 @@
 			}
 		$tabSort = array_reverse($tabSort);
 		foreach ($array as $key => $value)
-			echo $key." : ".$array[$key]." <===> ".$tabSort[$key]."\n";
 			if (strcmp($array[$key], $tabSort[$key]) !== 0)
 			{
 				$sort++;

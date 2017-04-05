@@ -18,6 +18,6 @@ if ($argc > 1)
     }
     sort($array);
     foreach ($array as $key => $value)
-        echo $value . "\n";
+        echo $value."\n";
 }
 ?>

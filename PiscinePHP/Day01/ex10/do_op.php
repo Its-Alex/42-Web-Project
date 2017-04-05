@@ -5,15 +5,15 @@ if ($argc === 4) {
     $argv[2] = trim($argv[2]);
     $argv[3] = trim($argv[3]);
 
-    if (preg_match("#^(( +)?)\+(( +)?)$#", $argv[2]))
+    if ($argv[2] == "+")
         $result = intval($argv[1]) + intval($argv[3]);
-    else if (preg_match("#^(( +)?)-(( +)?)$#", $argv[2]))
+    else if ($argv[2] == "-")
         $result = intval($argv[1]) - intval($argv[3]);
-    else if (preg_match("#^(( +)?)/(( +)?)$#", $argv[2]))
+    else if ($argv[2] == "/")
         $result = intval($argv[1]) / intval($argv[3]);
-    else if (preg_match("#^(( +)?)\*(( +)?)$#", $argv[2]))
+    else if ($argv[2] == "*")
         $result = intval($argv[1]) * intval($argv[3]);
-    else if (preg_match("#^(( +)?)%(( +)?)$#", $argv[2]))
+    else if ($argv[2] == "%")
         $result = intval($argv[1]) % intval($argv[3]);
     if (isset($result))
         echo $result."\n";

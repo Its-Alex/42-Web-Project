@@ -4,7 +4,10 @@
 	{
 		if (is_string($str))
 		{
-			$array = array_filter(explode(" ", $str));
+			$array = explode(" ", $str);
+			foreach ($array as $key => $value)
+				if (strlen($value) <= 0)
+					unset($array[$key]);
 			sort($array);
 			return $array;
 		}

@@ -7,5 +7,8 @@
 		echo "<html><body>\nBonjour Zaz<br/>\n<img src='data:image/png;base64,".$img_encode."'>\n</body></html>\n";
 	}
 	else
+	{
+		header("Connection: close");
 		echo  "<html><body>Cette zone est accessible uniquement aux membres du site</body></html>\n";
+	}
 ?>

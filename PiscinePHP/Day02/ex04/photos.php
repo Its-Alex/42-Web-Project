@@ -11,6 +11,8 @@ if ($argc == 2 && substr_count($argv[1], "http") != false)
 	$argv[1] = explode("/", $argv[1]);
 	if (file_exists("./".$argv[1][2]) == FALSE)
 		mkdir("./".$argv[1][2]);
+
+	
 	foreach ($matches as $key => $value)
 	{
 		foreach ($value as $k => $v)
@@ -30,6 +32,8 @@ if ($argc == 2 && substr_count($argv[1], "http") != false)
 			}
 		}
 	}
+
+
 	foreach ($matches as $key => $value)
 	{
 		foreach ($value as $k => $v)

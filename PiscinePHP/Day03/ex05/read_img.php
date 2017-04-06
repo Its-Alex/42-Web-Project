@@ -1,1 +1,4 @@
-Need to be done when piscine start!
+<?php
+	header('Content-Type: image/png');
+	readfile('../img/42.png');
+?>

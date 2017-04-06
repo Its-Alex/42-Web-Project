@@ -1,11 +1,8 @@
 <?php
-	if (strcmp($_GET['action'], "get") === 0)
-	{
-		if (isset($_COOKIE[$_GET['name']])) 
+	if ($_GET['action'] == "get"))
 			echo $_COOKIE[$_GET['name']]."\n"; 
-	}
-	else if (strcmp($_GET['action'], "del") === 0)
+	else if ($_GET['action'] == "del"))
 		setcookie($_GET['name'], '', time() - 3600, '/');
-	else if (strcmp($_GET['action'], "set") === 0)
+	else if ($_GET['action'] == "set"))
 		setcookie($_GET['name'], $_GET['value'], time() + 3600);
 ?>

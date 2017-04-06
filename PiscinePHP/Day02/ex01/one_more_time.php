@@ -5,29 +5,29 @@ if ($argc > 1)
     if (preg_match('#^[A-Za-z][a-z]{4,7} [0-9]{1,2} [A-Za-z][a-z]{2,8} [0-9]{4} [0-2][0-9]:[0-5][0-9]:([0-5][0-9])$#', $argv[1]) === 1)
     {
         $array = explode(" ", $argv[1]);
-        if (strcasecmp($array[2], "janvier") === 0)
+        if ($array[2] == "janvier" || $array[2] == "Janvier")
             $month = "01";
-        if (strcasecmp($array[2], "fevrier") === 0)
+        if ($array[2] == "fevrier" || $array[2] == "Fevrier")
             $month = "02";
-        if (strcasecmp($array[2], "mars") === 0)
+        if ($array[2] == "mars" || $array[2] == "Mars")
             $month = "03";
-        if (strcasecmp($array[2], "avril") === 0)
+        if ($array[2] == "avril" || $array[2] == "Avril")
             $month = "04";
-        if (strcasecmp($array[2], "mai") === 0)
+        if ($array[2] == "mai" || $array[2] == "Mai")
             $month = "05";
-        if (strcasecmp($array[2], "juin") === 0)
+        if ($array[2] == "juin" || $array[2] == "Juin")
             $month = "06";
-        if (strcasecmp($array[2], "juillet") === 0)
+        if ($array[2] == "juillet" || $array[2] == "Juillet")
             $month = "07";
-        if (strcasecmp($array[2], "aout") === 0)
+        if ($array[2] == "aout" || $array[2] == "Aout")
             $month = "08";
-        if (strcasecmp($array[2], "septembre") === 0)
+        if ($array[2] == "septembre" || $array[2] == "Septembre")
             $month = "09";
-        if (strcasecmp($array[2], "octobre") === 0)
+        if ($array[2] == "octobre" || $array[2] == "Octobre")
             $month = "10";
-        if (strcasecmp($array[2], "novembre") === 0)
+        if ($array[2] == "novembre" || $array[2] == "Novembre")
             $month = "11";
-        if (strcasecmp($array[2], "decembre") === 0)
+        if ($array[2] == "decembre" || $array[2] == "Decembre")
             $month = "12";
         $time = explode(":", $array[4]);
         if (intval($time[0]) >= 24 || intval($time[0]) >= 60 || intval($time[0]) >= 60 || intval($array[1]) > 31)
@@ -35,10 +35,13 @@ if ($argc > 1)
             echo "Wrong Format\n";
             exit();
         }
-        if ((strcasecmp($array[0], "lundi") != 0 && strcasecmp($array[0], "mardi") != 0
-            && strcasecmp($array[0], "mercredi") != 0 && strcasecmp($array[0], "jeudi") != 0
-            && strcasecmp($array[0], "vendredi") != 0 && strcasecmp($array[0], "samedi") != 0
-            && strcasecmp($array[0], "dimanche") != 0) || !isset($month))
+        if (($array[0] == "Lundi" || $array[0] == "lundi") &&
+            ($array[0] == "Mardi" || $array[0] == "mardi") &&
+            ($array[0] == "Mercredi" || $array[0] == "mercredi") &&
+            ($array[0] == "Jeudi" || $array[0] == "jeudi") &&
+            ($array[0] == "Vendredi" || $array[0] == "vendredi") &&
+            ($array[0] == "Samedi" || $array[0] == "samedi") &&
+            ($array[0] == "Dimanche" || $array[0] == "dimanche"))
         {
             echo "Wrong Format\n";
             exit();

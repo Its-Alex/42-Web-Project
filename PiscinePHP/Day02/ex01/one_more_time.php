@@ -30,7 +30,7 @@ if ($argc > 1)
         if ($array[2] == "decembre" || $array[2] == "Decembre")
             $month = "12";
         $time = explode(":", $array[4]);
-        if (intval($time[0]) >= 24 || intval($time[0]) >= 60 || intval($time[0]) >= 60 || intval($array[1]) > 31)
+        if (intval($time[0]) >= 24 || intval($time[0]) >= 60 || intval($time[0]) >= 60 || intval($array[1]) > 31 || intval($array[1]) <= 0)
         {
             echo "Wrong Format\n";
             exit();

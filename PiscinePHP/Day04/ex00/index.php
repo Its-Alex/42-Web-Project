@@ -1,4 +1,4 @@
-<?php
+	<?php
 	session_start();
 	if (isset($_GET['submit']) && strcmp($_GET['submit'], "OK") === 0) {
 		if (isset($_GET['login'])) {

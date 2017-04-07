@@ -1,12 +1,11 @@
 	<?php
 	session_start();
-	if (isset($_GET['submit']) && strcmp($_GET['submit'], "OK") === 0) {
-		if (isset($_GET['login'])) {
+	if ($_GET['submit'] == "OK")
+	{
+		if ($_GET['login'] != "")
 			$_SESSION['login'] = $_GET['login'];
-		}
-		if (isset($_GET['passwd'])) {
+		if ($_GET['passwd'] != "")
 			$_SESSION['passwd'] = $_GET['passwd'];
-		}
 	}
 ?>
 <!DOCTYPE html>

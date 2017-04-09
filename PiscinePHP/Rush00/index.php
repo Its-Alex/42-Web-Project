@@ -11,7 +11,7 @@
 
     <h1 class="super-titre">Bienvenue sur e-Shop !</h1>
     <h1 class="super-titre">Le site de e-commerce en ligne le plus performant !</h1>  
-    <img src="https://blog.paymill.com/wp-content/uploads/2016/06/How-to-Keep-Your-E-Commerce-System-Funtioning-at-Optimum-Capacity.png" height=<8></8>00px>
+    <img src="https://blog.paymill.com/wp-content/uploads/2016/06/How-to-Keep-Your-E-Commerce-System-Funtioning-at-Optimum-Capacity.png" height=800px>
     <div class= "accueil">
       <div>
         <h2>Dernière nouveautées :</h2>

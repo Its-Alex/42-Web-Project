@@ -32,18 +32,18 @@
                 foreach ($_SESSION['articles'] as $key => $value)
                 {
         ?>
-        <div id="<?php echo $value["id"]; ?>" class="product">
-            <p><?php echo $value["name"]; ?></p>
+        <div id="<?php echo htmlspecialchars($value["id"]); ?>" class="product">
+            <p><?php echo htmlspecialchars($value["name"]); ?></p>
             <img src="<?php echo $value["img"]; ?>" alt="" height="42" width="42">
-            <p><?php echo $value["price"]; ?>€</p>
+            <p><?php echo htmlspecialchars($value["price"]); ?>€</p>
             <div class="content">
-                <p><?php echo $value["description"]; ?></p>
+                <p><?php echo htmlspecialchars($value["description"]); ?></p>
                 <div class="icon">
                     <div>
-                        <a href="./controllers/add_cart.php?key=<?php echo $key; ?>"><i class="medium material-icons icon-black">add</i></a>
+                        <a href="./controllers/add_cart.php?key=<?php echo htmlspecialchars($key); ?>"><i class="medium material-icons icon-black">add</i></a>
                     </div>
                     <div>
-                        <a href="./controllers/get_articles.php?id=<?php echo $value["id"]; ?>"><i class="medium material-icons icon-black">delete</i></a>
+                        <a href="./controllers/get_articles.php?id=<?php echo htmlspecialchars($value["id"]); ?>"><i class="medium material-icons icon-black">delete</i></a>
                     </div>
                 </div>    
             </div>

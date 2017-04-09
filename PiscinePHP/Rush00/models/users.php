@@ -182,4 +182,31 @@
 			return null;
 		}
     }
+
+    function deleteCars($uuid)
+    {
+        if (isUuid($uudi))
+            return null;
+        $db = getInstance();
+        $req = mysqli_prepare($db, "UPDATE users SET cart = NULL WHERE id = ?");
+		if ($req != false)
+		{
+			mysqli_stmt_bind_param($req, "s", $uuid);
+            if (mysqli_stmt_execute($req))
+            {
+                mysqli_close($db);
+                return true;
+            }
+            else
+            {
+                mysqli_close($db);
+                return false;
+            }
+		}
+		else
+		{
+			mysqli_close($db);
+			return null;
+		}
+    }
 ?>

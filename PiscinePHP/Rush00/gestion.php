@@ -5,14 +5,14 @@
   <body>
     <?php include("./head_bar.php"); ?> 
     
-    <h2><a style="color: red;" href="./config/reset.php">RESET DATABASE</a></h2>
+    <h2><a style="color: red;" href="./config/reset.php">RESTAURER BASE DE DONNEE</a></h2>
     <div class="separation"></div>
     <h1>Supprimer un utilisateur :</h1>
     <div class="users">
         <?php
             if (isset($_SESSION['AllUser']))
                 foreach ($_SESSION['AllUser'] as $key => $value) {
-                    echo "<p><h3>Name : ".$value["name"]."</h3>Mail : ".$value["mail"]."</p>";
+                    echo "<p><h3>Name : ".htmlspecialchars($value["name"])."</h3>Mail : ".htmlspecialchars($value["mail"])."</p>";
                     if (isset($_SESSION['AllUser'][$key + 1]))
                         echo "<div class=\"miniseparation\"></div>";
                 }
@@ -47,9 +47,11 @@
         {
             foreach ($_SESSION['AllUser'] as $key => $value)
             {
+                // var_dump($value);
                 if (isset($value['cart']))
                 {
-                    echo "<p>".$value["name"]." ; ".$value["mail"]."</p>";
+                    echo "<p>".htmlspecialchars($value["name"])." ; ".htmlspecialchars($value["mail"]);
+                ?> <a href="./controllers/delete_cars.php?id=<?php echo htmlspecialchars($value["id"]); ?>"><i class="medium material-icons icon-black">delete</i></a></p> <?php
                     if (isset($_SESSION['AllUser'][$key + 1]))
                         echo "<div class=\"miniseparation\"></div>";
                 }

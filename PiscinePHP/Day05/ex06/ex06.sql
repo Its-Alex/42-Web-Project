@@ -1,1 +1,1 @@
-SELECT * FROM film WHERE LOWER(resum) LIKE LOWER('%vincent%') ORDER BY id_film ASC;
+SELECT titre, resum FROM film WHERE LOWER(resum) LIKE LOWER('%vincent%') ORDER BY id_film ASC;

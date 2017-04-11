@@ -27,59 +27,31 @@ Class Vertex {
             $this->_color = new Color(array('rgb' => 0xFFFFFF));
 
         if (self::$verbose == True)
-            echo "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w.", ".$this->_color." ) ) constructed".PHP_EOL;
+            printf('Vertex( x: %.2f, y: %.2f, z:%.2f, w:%.2f, %s ) constructed' . PHP_EOL, $this->getX(), $this->getY(), $this->getZ(), $this->getW(), $this->getColor());
     }
 
     function __destruct() {
         if (self::$verbose == True)
-            echo "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w.", ".$this->_color." ) ) destructed".PHP_EOL;
+            printf('Vertex( x: %.2f, y: %.2f, z:%.2f, w:%.2f, %s ) destructed' . PHP_EOL, $this->getX(), $this->getY(), $this->getZ(), $this->getW(), $this->getColor());
     }
 
-    public function getX() {
-        return $this->_x;
-    }
+    public function getX() : float { return $this->_x; }
+    public function getY() : float { return $this->_y; }
+    public function getZ() : float { return $this->_z; }
+    public function getW() : float { return $this->_w; }
+    public function getColor() : Color { return $this->_color; }
 
-    public function getY() {
-        return $this->_y;
-    }
-
-    public function getZ() {
-        return $this->_z;
-    }
-
-    public function getW() {
-        return $this->_w;
-    }
-
-    public function getColor() {
-        return $this->_color;
-    }
-
-    public function setX($arg) {
-        $this->_x = floatval($arg); 
-    }
-
-    public function setY($arg) {
-        $this->_y = floatval($arg);
-    }
-
-    public function setZ($arg) {
-        $this->_z = floatval($arg);
-    }
-
-    public function setW($arg) {
-        $this->_w = floatval($arg);
-    }
-
-    public function setColor(Color $newColor) {
-        $this->_color = clone $newColor;
-    }
+    public function setX($arg) { $this->_x = floatval($arg);}
+    public function setY($arg) { $this->_y = floatval($arg);}
+    public function setZ($arg) { $this->_z = floatval($arg);}
+    public function setW($arg) { $this->_w = floatval($arg);}
+    public function setColor(Color $newColor) { $this->_color = clone $newColor;}
 
     public function __toString() {
-        if (self::$verbose == True)
-            return "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w.", ".$this->_color." ) )";
-        else
-            return "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w." )";
+        if (self::$verbose == TRUE)
+			return (sprintf('Vertex( x: %.2f, y: %.2f, z:%.2f, w:%.2f, %s )', $this->getX(), $this->getY(), $this->getZ(), $this->getW(), $this->getColor()));
+		else
+			return (sprintf('Vertex( x: %.2f, y: %.2f, z:%.2f, w:%.2f )', $this->getX(), $this->getY(), $this->getZ(), $this->getW()));
     }
 
     public static function doc() {

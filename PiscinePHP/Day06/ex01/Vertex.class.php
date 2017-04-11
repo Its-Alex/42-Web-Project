@@ -35,8 +35,48 @@ Class Vertex {
             echo "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w.", ".$this->_color." ) ) destructed".PHP_EOL;
     }
 
+    public function getX() {
+        return $this->_x;
+    }
+
+    public function getY() {
+        return $this->_y;
+    }
+
+    public function getZ() {
+        return $this->_z;
+    }
+
+    public function getW() {
+        return $this->_w;
+    }
+
+    public function getColor() {
+        return $this->_color;
+    }
+
+    public function setX($arg) {
+        $this->_x = floatval($arg); 
+    }
+
+    public function setY($arg) {
+        $this->_y = floatval($arg);
+    }
+
+    public function setZ($arg) {
+        $this->_z = floatval($arg);
+    }
+
+    public function setW($arg) {
+        $this->_w = floatval($arg);
+    }
+
+    public function setColor(Color $newColor) {
+        $this->_color = clone $newColor;
+    }
+
     public function __toString() {
-        if ($this->_color->red != 0 && $this->_color->green != 0 && $this->_color->blue != 0)
+        if (self::$verbose == True)
             return "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w.", ".$this->_color." ) )";
         else
             return "Vertex( x: ".$this->_x.", y: ".$this->_y.", z:".$this->_z.", w:".$this->_w." )";
@@ -46,43 +86,4 @@ Class Vertex {
         return file_get_contents('Vertex.doc.txt').PHP_EOL;
     }
 }
-
-Color::$verbose = False;
-
-print( Vertex::doc() );
-Vertex::$verbose = True;
-
-$vtxO  = new Vertex( array( 'x' => 0.0, 'y' => 0.0, 'z' => 0.0 ) );
-print( $vtxO  . PHP_EOL );
-
-$red   = new Color( array( 'red' => 255, 'green' =>   0, 'blue' =>   0 ) );
-$green = new Color( array( 'red' =>   0, 'green' => 255, 'blue' =>   0 ) );
-$blue  = new Color( array( 'red' =>   0, 'green' =>   0, 'blue' => 255 ) );
-
-$unitX = new Vertex( array( 'x' => 1.0, 'y' => 0.0, 'z' => 0.0, 'color' => $green ) );
-$unitY = new Vertex( array( 'x' => 0.0, 'y' => 1.0, 'z' => 0.0, 'color' => $red   ) );
-$unitZ = new Vertex( array( 'x' => 0.0, 'y' => 0.0, 'z' => 1.0, 'color' => $blue  ) );
-
-print( $unitX . PHP_EOL );
-print( $unitY . PHP_EOL );
-print( $unitZ . PHP_EOL );
-
-Vertex::$verbose = False;
-
-$sqrA = new Vertex( array( 'x' => 0.0, 'y' => 0.0, 'z' => 0.0 ) );
-$sqrB = new Vertex( array( 'x' => 4.2, 'y' => 0.0, 'z' => 0.0 ) );
-$sqrC = new Vertex( array( 'x' => 4.2, 'y' => 4.2, 'z' => 0.0 ) );
-$sqrD = new Vertex( array( 'x' => 0.0, 'y' => 4.2, 'z' => 0.0 ) );
-
-print( $sqrA . PHP_EOL );
-print( $sqrB . PHP_EOL );
-print( $sqrC . PHP_EOL );
-print( $sqrD . PHP_EOL );
-
-$A = new Vertex( array( 'x' => 3.0, 'y' => 3.0, 'z' => 3.0 ) );
-print( $A . PHP_EOL );
-$equA = new Vertex( array( 'x' => 9.0, 'y' => 9.0, 'z' => 9.0, 'w' => 3.0 ) );
-print( $equA . PHP_EOL );
-
-Vertex::$verbose = True;
 ?>

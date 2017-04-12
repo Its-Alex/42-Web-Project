@@ -1,0 +1,19 @@
+
+<- Vertex ----------------------------------------------------------------------
+The Vertex class handles the representation of a vertex in space.
+
+An instance can be contructed from either a x, y and z coordinates:
+new Vertex( array('x' => 1.0, 'y' => 1.0, 'z' => 1.0, 'color' => new Color(
+array( 'rgb' => 12345 ) )) );
+
+Optinally you can specify w:
+new Vertex( array('x' => 1.0, 'y' => 1.0, 'z' => 1.0, 'w' =>, 'color' =>
+new Color(array( 'rgb' => 12345 ) )) );) );
+Any other use is undefined.
+
+x, y, y, w are converted to floats.
+
+The class provides the following methods :
+
+Getters  and Setters for each variables.
+---------------------------------------------------------------------- Vertex ->

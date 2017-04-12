@@ -29,13 +29,13 @@ Class Color {
             else
                 $this->blue = 0;
         }
-        if (self::$verbose == True)
-            print ("Color( red: "."$this->red".", green:   "."$this->green".", blue:   "."$this->blue"." ) constructed." . PHP_EOL);
+        if (self::$verbose == TRUE)
+			printf( 'Color( red: %3d, green: %3d, blue: %3d ) constructed.' . PHP_EOL, $this->red, $this->green, $this->blue);
     }
 
     function __destruct() {
-        if (self::$verbose == True)
-            print ("Color( red: "."$this->red".", green:   "."$this->green".", blue:   "."$this->blue"." ) destructed." . PHP_EOL);
+        if (self::$verbose == TRUE)
+		    printf( 'Color( red: %3d, green: %3d, blue: %3d ) destructed.' . PHP_EOL, $this->red, $this->green, $this->blue);
     }
 
     public function add(Color $rhs) {
@@ -57,7 +57,7 @@ Class Color {
     }
 
     public function __toString() {
-        return "Color( red: "."$this->red".", green:   "."$this->green".", blue:   "."$this->blue"." )";
+        return (sprintf( 'Color( red: %3d, green: %3d, blue: %3d )', $this->red, $this->green, $this->blue));
     }
 
     public static function doc() {

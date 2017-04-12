@@ -15,19 +15,19 @@ Class Vector {
 			return;
 		if ( !array_key_exists( 'orig', $kwargs ) )
 			$kwargs['orig'] = new Vertex( array('x' => 0, 'y' => 0, 'z' => 0) );
+
 		$this->_x = $kwargs['dest']->getX() - $kwargs['orig']->getX();
 		$this->_y = $kwargs['dest']->getY() - $kwargs['orig']->getY();
 		$this->_z = $kwargs['dest']->getZ() - $kwargs['orig']->getZ();
 		$this->_w = $kwargs['dest']->getW() - $kwargs['orig']->getW();
+
 		if (self::$verbose == TRUE)
 			printf('Vector( x:%.2f, y:%.2f, z:%.2f, w:%.2f ) constructed' . PHP_EOL, $this->getX(), $this->getY(), $this->getZ(), $this->getW() );
-		return;
 	}
 
 	public function __destruct() {
 		if (self::$verbose == TRUE)
 			printf('Vector( x:%.2f, y:%.2f, z:%.2f, w:%.2f ) destructed' . PHP_EOL, $this->getX(), $this->getY(), $this->getZ(), $this->getW() );
-		return;
 	}
 
     public function getX() { return $this->_x; }
@@ -75,8 +75,7 @@ Class Vector {
 	}
 
     public static function doc() {
-		print (file_get_contents("./Vector.doc.txt"));
-		return;
+		return file_get_contents("./Vector.doc.txt").PHP_EOL;
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
-	require_once '/Users/malexand/http/MyWebSite/models/User.Class.php';
-	require_once '/Users/malexand/http/MyWebSite/models/Database.Class.php';
+	require_once '../models/User.Class.php';
+	require_once '../models/Database.Class.php';
 
 	$err = "";
 	$success = "false";

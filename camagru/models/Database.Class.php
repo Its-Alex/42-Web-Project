@@ -1,5 +1,5 @@
 <?php
-	require '/Users/malexand/http/MyWebSite/config/database.php';
+	require '../config/database.php';
 
 	class Database {
 		static function getInstance() {

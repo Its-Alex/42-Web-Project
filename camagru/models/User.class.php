@@ -1,6 +1,6 @@
 <?php
-	require_once '/Users/malexand/http/MyWebSite/models/Utils.Class.php';
-	require_once '/Users/malexand/http/MyWebSite/models/Database.Class.php';
+	require_once '../models/Utils.Class.php';
+	require_once '../models/Database.Class.php';
 
 	/*
 	** Class User

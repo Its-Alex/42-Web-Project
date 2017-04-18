@@ -1,6 +1,6 @@
 <?php
-	require_once '../models/Utils.Class.php';
-	require_once '../models/Database.Class.php';
+	require_once dirname(__DIR__).'/models/Database.class.php';
+	require_once dirname(__DIR__).'/models/Utils.class.php';
 
 	/*
 	** Class User
@@ -29,7 +29,7 @@
 		public $role;
 		public $state;
 		
-		function __construct($args)
+		function __construct(array $args)
 		{
 			if ($args == null)
 				return;
@@ -67,9 +67,10 @@
 		{
 			$db = Database::getInstance();
 
-			$res = $db->query("SELECT COUNT(*) FROM USERS WHERE mail = '$this->mail'");
+			$stmt = $db->prepare("SELECT COUNT(*) FROM USERS WHERE mail = ?");
+			$result = $stmt->execute(array($this->mail));
 			$db = null;
-			return $res->fetch()[0];
+			return $result->fetch()[0];
 		}
 
 		// Get user with his id

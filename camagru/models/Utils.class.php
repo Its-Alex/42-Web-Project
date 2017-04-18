@@ -1,3 +1,4 @@
+
 <?php
 	/*
 	** Class where I put all functions I need 

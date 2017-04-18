@@ -21,7 +21,7 @@ function auth() {
 window.onkeyup = (e) => {
   if (e.keyCode === 32) {
 	  request(`POST`, `controllers/signin.php`, `mail=xkyZie@gmail.com&password=Apwn789123`, (res) => {
-	    try {
+    try {
         console.log(JSON.parse(res));
     } catch(e) {
         console.error(e);

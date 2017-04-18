@@ -56,9 +56,8 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("INSERT INTO USERS (id, name, password, mail, role, state) VALUES (?, ?, ?, ?, ?, ?)");
+			$stmt = $db->prepare("INSERT INTO users (id, name, password, mail, role, state) VALUES (?, ?, ?, ?, ?, ?)");
 			$result = $stmt->execute(array($this->id, $this->name, $this->passwd, $this->mail, $this->role, $this->state));
-			$db = null;
 			return ($result);
 		}
 
@@ -67,28 +66,40 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT COUNT(*) FROM USERS WHERE mail = ?");
-			$result = $stmt->execute(array($this->mail));
-			$db = null;
-			return $result->fetch()[0];
+			$stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE mail = ?");
+			$stmt->bindValue(1, $this->mail, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch()[0];
 		}
 
 		// Get user with his id
-		public function getUser($id)
+		public static function getUser($id)
 		{
+			if (Utils::isUuid($id) == false)
+				return null;
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM USERS WHERE id = ?");
+			$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
 			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
 
 			if ($stmt->execute(array($id))) {
-				$db = null;
 				return $stmt->fetch();
 			}
 			else {
-				$db = null;
 				return null;
 			}
+		}
+
+		public static function delUser($id) {
+			if (Utils::isUuid($id) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
+			$stmt->bindValue(1, $id, PDO::PARAM_STR);
+			$stmt->bindValue(2, self::DEL, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->rowCount();
 		}
 	}
 ?>

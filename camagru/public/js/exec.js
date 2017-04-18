@@ -37,3 +37,16 @@ function signin() {
     }
   });
 }
+
+window.onkeyup = (e) => {
+  if (e.keyCode === 8) {
+    request(`POST`, `controllers/test.php`, "", (res) => {
+      try {
+        console.log(JSON.parse(res));
+      } catch(e) {
+        console.error(e);
+        console.log(res)
+      }
+    }); 
+  }
+}

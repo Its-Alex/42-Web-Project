@@ -37,18 +37,21 @@
 			if (!array_key_exists('id', $args) && !array_key_exists('password', $args) && !array_key_exists('name', $args) && !array_key_exists('mail', $args))
 				return;
 
-				$this->id = Utils::genUuid();
-				$this->passwd = hash("whirlpool", $args['mail'] . $args['password']);
-				$this->name = $args['name'];
-				$this->mail = $args['mail'];
-				if (array_key_exists('role', $args)) {
-					if (strcmp($args['role'], self::USERS) == 0 || strcmp($args['role'], self::MODO) == 0)
-						$this->role = $args['role'];
-				}
+			$this->id = Utils::genUuid();
+			$this->passwd = hash("whirlpool", $args['mail'] . $args['password']);
+			$this->name = $args['name'];
+			$this->mail = $args['mail'];
+			if (array_key_exists('role', $args)) {
+				if (strcmp($args['role'], self::USERS) == 0 || strcmp($args['role'], self::MODO) == 0)
+					$this->role = $args['role'];
+				else
+					$this->role = self::USERS;
+			}
+			else
 				$this->role = self::USERS;
-				$this->state = self::NEED_VAL;
+			$this->state = self::NEED_VAL;
 
-				//Need to send mail for confirm user
+			User::sendMailById($this->id);
 		}
 
 		// Insert user in db
@@ -72,8 +75,13 @@
 			return $stmt->fetch()[0];
 		}
 
+		public static function sendMailById($id)
+		{
+			// Need to try at 42
+		}
+
 		// Get user with his id
-		public static function getUser($id)
+		public static function getUserById($id)
 		{
 			if (Utils::isUuid($id) == false)
 				return null;
@@ -90,16 +98,19 @@
 			}
 		}
 
-		public static function delUser($id) {
+		public static function delUserById($id) {
 			if (Utils::isUuid($id) == false)
 				return null;
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
-			$stmt->bindValue(1, $id, PDO::PARAM_STR);
-			$stmt->bindValue(2, self::DEL, PDO::PARAM_STR);
+			$stmt->bindValue(1, self::DEL, PDO::PARAM_STR);
+			$stmt->bindValue(2, $id, PDO::PARAM_STR);
 			$stmt->execute();
-			return $stmt->rowCount();
+			if ($stmt->rowCount() != 0)
+				return true;
+			else
+				return false;
 		}
 	}
 ?>

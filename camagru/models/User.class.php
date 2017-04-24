@@ -29,16 +29,16 @@
 		public $role;
 		public $state;
 		
-		function __construct(array $args)
+		function __construct($args)
 		{
 			if ($args == null)
 				return;
 
-			if (!array_key_exists('id', $args) && !array_key_exists('password', $args) && !array_key_exists('name', $args) && !array_key_exists('mail', $args))
+			if (!array_key_exists('id', $args) && !array_key_exists('passwd', $args) && !array_key_exists('name', $args) && !array_key_exists('mail', $args))
 				return;
 
 			$this->id = Utils::genUuid();
-			$this->passwd = hash("whirlpool", $args['mail'] . $args['password']);
+			$this->passwd = hash("whirlpool", $args['mail'] . $args['passwd']);
 			$this->name = $args['name'];
 			$this->mail = $args['mail'];
 			if (array_key_exists('role', $args)) {
@@ -51,7 +51,7 @@
 				$this->role = self::USERS;
 			$this->state = self::NEED_VAL;
 
-			User::sendMailById($this->id);
+			User::sendRegistMailById($this->id);
 		}
 
 		// Insert user in db
@@ -59,9 +59,23 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("INSERT INTO users (id, name, password, mail, role, state) VALUES (?, ?, ?, ?, ?, ?)");
+			$stmt = $db->prepare("INSERT INTO users (id, name, passwd, mail, role, state) VALUES (?, ?, ?, ?, ?, ?)");
 			$result = $stmt->execute(array($this->id, $this->name, $this->passwd, $this->mail, $this->role, $this->state));
 			return ($result);
+		}
+
+		public function signin()
+		{
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT * FROM users WHERE mail = ? AND passwd = ?");
+			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
+			if ($stmt->execute(array($this->mail, $this->passwd))) {
+				return $stmt->fetch();
+			}
+			else {
+				return null;
+			}
 		}
 
 		// Check if user exist with his password and mail
@@ -75,7 +89,7 @@
 			return $stmt->fetch()[0];
 		}
 
-		public static function sendMailById($id)
+		public static function sendRegistMailById($id)
 		{
 			$mail = 'xSkyZie@gmail.fr'; // Déclaration de l'adresse de destination.
 			//=====Déclaration des messages au format texte et au format HTML.

@@ -63,7 +63,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` varchar(36) NOT NULL,
   `name` varchar(32) NOT NULL,
-  `password` char(128) NOT NULL,
+  `passwd` char(128) NOT NULL,
   `mail` varchar(32) NOT NULL,
   `role` enum('USER','ADMIN','MODERATOR') NOT NULL DEFAULT 'USER',
   `state` enum('NEED_VALID','FORGET_PASSWD','REGISTERED','DELETED') NOT NULL DEFAULT 'NEED_VALID',
@@ -74,7 +74,7 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `password`, `mail`, `role`, `state`, `date`) VALUES
+INSERT INTO `users` (`id`, `name`, `passwd`, `mail`, `role`, `state`, `date`) VALUES
 ('e1f6b695-14df-40f6-aca3-76c18802772d', 'Alex', 'b7ff0e9e74a1a3c97b3035c18ec94c7986693e4a0e2c12ca0f97da366266cdc2306e6b57ed0ecc1c0f9b7292afc7c59d78f8b982e9ad01898e617cb2115fecac', 'xSkyZie@gmail.com', 'ADMIN', 'REGISTERED', '2017-03-09 13:33:37');
 
 --

@@ -63,3 +63,10 @@ function signin() {
     }
   });
 }
+
+function logout() {
+  request(`POST`, `controllers/logout.php`, "", (res) => {
+    localStorage.clear();
+    HeadBar();
+  });
+}

@@ -5,13 +5,11 @@ function HeadBar() {
     }
     var textNode = ["Accueil", "Recherche", "", "Inscription", "Connexion", "Compte", "Admin", "Déconnexion"];
     var link = ["#", "#", "#", "#", "#", "#", "#", "#"];
-    var onclick = ["#", "#", "#","#", "#", "#", "#", "#"];
 
     textNode.forEach(function(elem, index) {
         var a = document.createElement("a");
         var li = document.createElement("li");
         a.href = link[index];
-        a.onclick = onclick[index];
         li.appendChild(document.createTextNode(elem));
         a.appendChild(li);
         if (elem == "Accueil" || elem ==  "Recherche" || elem == "")
@@ -40,6 +38,9 @@ function HeadBar() {
                 icon.appendChild(document.createTextNode("power_settings_new"));
                 li.appendChild(icon);
                 header.appendChild(a);
+                a.onclick = () => {
+                    logout();
+                };
             }
             if (elem == "Admin" && localStorage.role == "ADMIN")
             {

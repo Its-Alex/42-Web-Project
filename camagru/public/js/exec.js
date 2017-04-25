@@ -1,3 +1,8 @@
+var docs = document.querySelectorAll(".hide");
+docs.forEach(function(elem) {
+  elem.hidden = true;
+}, this);
+
 function signup() {
 	var input = document.getElementsByClassName('signup');
 	var str = "";
@@ -39,7 +44,7 @@ function signin() {
 }
 
 window.onkeyup = (e) => {
-  if (e.keyCode === 8) {
+  if (e.keyCode === 46) {
     request(`POST`, `controllers/test.php`, "", (res) => {
       try {
         console.log(JSON.parse(res));

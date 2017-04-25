@@ -1,7 +1,8 @@
 var docs = document.querySelectorAll(".hide");
 docs.forEach((elem) => {
-  elem.hidden = true;
+  elem.hidden = false;
 });
+HeadBar();
 
 function signup() {
 	var input = document.getElementsByClassName('signup');

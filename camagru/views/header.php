@@ -10,12 +10,4 @@
   </head>
   <body>
 		<ul class="header">
-			<a onclick=""><li>Accueil</li></a>
-			<a onclick=""><li>Recherche</li></a>
-			<a onclick=""><li></li></a>
-			<a onclick=""><li>Connexion</li></a>
-			<a onclick="signin();"><li>Inscription</li></a>
-			<a onclick=""><li><i class="tiny material-icons">person_pin</i></li></a>
-			<a onclick=""><li><i class="tiny material-icons">supervisor_account</i></li></a>
-			<a onclick=""><li><i class="tiny material-icons">power_settings_new</i></li></a>
 		</ul>

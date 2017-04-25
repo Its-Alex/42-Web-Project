@@ -11,7 +11,7 @@ function getXMLHttpRequest() {
         xhr = new ActiveXObject("Microsoft.XMLHTTP");
       }
     } else {
-      xhr = new XMLHttpRequest(); 
+      xhr = new XMLHttpRequest();
     }
   } else {
     console.error("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
@@ -62,14 +62,14 @@ window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();
   }
-  if (e.keyCode === 49) {
-    docs.forEach((elem) => {
-        elem.hidden = true;
-    });
-  }
-  if (e.keyCode === 48) {
-    docs.forEach((elem) => {
-        elem.hidden = false;
-    });
-  }
+//   if (e.keyCode === 49) {
+//     docs.forEach((elem) => {
+//         elem.hidden = true;
+//     });
+//   }
+//   if (e.keyCode === 48) {
+//     docs.forEach((elem) => {
+//         elem.hidden = false;
+//     });
+//   }
 }

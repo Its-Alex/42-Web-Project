@@ -23,7 +23,6 @@
 		$user = new User(array('name' => $_POST['name'],
 												'passwd' => $_POST['passwd'],
 												'mail' => $_POST['mail']));
-			echo $user->id;
 		if ($user->ifMailExist() == false)
 		{
 			$user->insert();

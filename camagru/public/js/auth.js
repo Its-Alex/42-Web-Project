@@ -17,6 +17,16 @@ function signup() {
   request(`POST`, `controllers/signup.php`, str, (res) => {
     try {
       console.log(JSON.parse(res));
+      request(`POST`, `controllers/getSession.php`, "", (res) => {
+        var session = JSON.parse(res);
+        if ("id" in session)
+            localStorage.setItem('id', session.id);
+        if ("mail" in session)    
+            localStorage.setItem('mail', session.mail);
+        if ("role" in session)    
+            localStorage.setItem('role', session.role);
+        HeadBar();
+      });
   	} catch(e) {
       console.error(e);
       console.log(res)
@@ -37,6 +47,16 @@ function signin() {
   request(`POST`, `controllers/signin.php`, str, (res) => {
     try {
       console.log(JSON.parse(res));
+      request(`POST`, `controllers/getSession.php`, "", (res) => {
+        var session = JSON.parse(res);
+        if ("id" in session)
+          localStorage.setItem('id', session.id);
+        if ("mail" in session)    
+          localStorage.setItem('mail', session.mail);
+        if ("role" in session)    
+          localStorage.setItem('role', session.role);
+        HeadBar();
+      });
     } catch(e) {
       console.error(e);
       console.log(res)

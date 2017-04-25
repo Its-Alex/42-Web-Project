@@ -1,6 +1,4 @@
 function HeadBar() {
-    readSessionPhp();
-
     var header = document.querySelector(".header");
     while (header.firstChild) {
         header.removeChild(header.firstChild);

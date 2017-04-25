@@ -29,8 +29,8 @@ function request(method, url, variable, cb) {
 
     xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-        if (xhr.responseText)
-            cb(xhr.responseText);
+            if (xhr.responseText)
+                cb(xhr.responseText);
         }
     }
 
@@ -39,19 +39,6 @@ function request(method, url, variable, cb) {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }
     xhr.send(variable);
-}
-
-function readSessionPhp() {
-    request(`POST`, `controllers/getSession.php`, "", (res) => {
-        var session = JSON.parse(res);
-        localStorage.clear();
-        if ("id" in session)
-            localStorage.setItem('id', session.id);
-        if ("mail" in session)    
-            localStorage.setItem('mail', session.mail);
-        if ("role" in session)    
-            localStorage.setItem('role', session.role);
-    });
 }
 
 function writeSessionPhp(str) {

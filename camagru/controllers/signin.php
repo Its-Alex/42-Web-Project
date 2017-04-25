@@ -5,7 +5,7 @@
 	require_once dirname(__DIR__)."/models/User.class.php";
 
 	$err = "";
-	$success = "false";
+	$success = false;
 	$user = new User(null);
 
 	if (empty($_POST['mail']) || empty($_POST['passwd']))

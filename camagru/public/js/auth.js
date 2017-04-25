@@ -1,7 +1,7 @@
 var docs = document.querySelectorAll(".hide");
-docs.forEach(function(elem) {
+docs.forEach((elem) => {
   elem.hidden = true;
-}, this);
+});
 
 function signup() {
 	var input = document.getElementsByClassName('signup');
@@ -41,17 +41,4 @@ function signin() {
       console.log(res)
     }
   });
-}
-
-window.onkeyup = (e) => {
-  if (e.keyCode === 46) {
-    request(`POST`, `controllers/test.php`, "", (res) => {
-      try {
-        console.log(JSON.parse(res));
-      } catch(e) {
-        console.error(e);
-        console.log(res)
-      }
-    }); 
-  }
 }

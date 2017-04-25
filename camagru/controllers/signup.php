@@ -23,9 +23,12 @@
 		$user = new User(array('name' => $_POST['name'],
 												'passwd' => $_POST['passwd'],
 												'mail' => $_POST['mail']));
+			echo $user->id;
 		if ($user->ifMailExist() == false)
 		{
 			$user->insert();
+			if (User::sendRegistMailById($user->id) == false)
+				return false;
 			$success = "true";	
 		}
 		else

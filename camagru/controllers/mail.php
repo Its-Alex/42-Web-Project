@@ -1,14 +1,9 @@
 <?php
-	session_start();
+	header("Location: ../index.php");
+	$success = false;
 
-	require_once dirname(__DIR__)."/models/Database.class.php";
-	require_once dirname(__DIR__)."/models/User.class.php";
-
-	$err = "";
-	$success = "false";
-	$user = new User(null);
-
-	
+	if (User::userStateRegist($_GET['id']) == true)
+		$success = true;
 
 	echo json_encode(array('success' => $success, 'err' => $err));
 ?>

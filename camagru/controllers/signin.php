@@ -24,7 +24,7 @@
 			$err .= "userNotFound";
 		else
 		{
-			if (($user = $user->signin()) != null)
+			if (($user = $user->getUserByMail()) != null)
 			{
 				if ($user->state != User::REGISTER)
 					$err .= "needValid";

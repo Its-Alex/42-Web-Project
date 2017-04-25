@@ -89,12 +89,29 @@
 			return $stmt->fetch()[0];
 		}
 
+		public static function getMailById($id)
+		{
+			if (Utils::isUuid($id) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
+			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
+
+			if ($stmt->execute(array($id))) {
+				return $stmt->fetch()->mail;
+			}
+			else {
+				return null;
+			}
+		}
+
 		public static function sendRegistMailById($id)
 		{
-			$mail = 'xSkyZie@gmail.fr'; // Déclaration de l'adresse de destination.
+			$mail = 'xSkyZie@gmail.com'; // Déclaration de l'adresse de destination.
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à tous, voici un e-mail envoyé par un script PHP.";
-			$message_html = "<html><head></head><body><b>Salut à tous</b>, voici un e-mail envoyé par un <i>script PHP</i>.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien pour finaliser ton inscription : .";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"\">lien</a> pour finaliser ton inscription.</body></html>";
 			//==========
 				 
 			//=====Création de la boundary.
@@ -103,12 +120,12 @@
 			//==========
 			 
 			//=====Définition du sujet.
-			$sujet = "Hey mon ami !";
+			$sujet = "Inscription Camagru !";
 			//=========
 			 
 			//=====Création du header de l'e-mail.
-			$header = "From: \"WeaponsB\"<weaponsb@mail.fr>".PHP_EOL;
-			$header.= "Reply-to: \"WeaponsB\" <weaponsb@mail.fr>".PHP_EOL;
+			$header = "From: \"Camagru\"<camagru@gmail.com>".PHP_EOL;
+			$header.= "Reply-to: \"\" <>".PHP_EOL;
 			$header.= "MIME-Version: 1.0".PHP_EOL;
 			$header.= "Content-Type: multipart/mixed;".PHP_EOL." boundary=\"$boundary\"".PHP_EOL;
 			//==========
@@ -134,17 +151,9 @@
 			//=====On ferme la boundary alternative.
 			$message.= PHP_EOL."--".$boundary_alt."--".PHP_EOL;
 			//==========
-			 
-			 
-			 
+
 			$message.= PHP_EOL."--".$boundary.PHP_EOL;
-			 
-			//=====Ajout de la pièce jointe.
-			$message.= "Content-Type: image/jpeg; name=\"image.jpg\"".PHP_EOL;
-			$message.= "Content-Transfer-Encoding: base64".PHP_EOL;
-			$message.= "Content-Disposition: attachment; filename=\"image.jpg\"".PHP_EOL;
-			$message.= PHP_EOL."--".$boundary."--".PHP_EOL; 
-			//========== 
+
 			//=====Envoi de l'e-mail.
 			return mail($mail,$sujet,$message,$header);
 			 

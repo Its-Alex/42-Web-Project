@@ -3,7 +3,7 @@
 	require_once dirname(__DIR__)."/models/User.class.php";
 
 	$err = "";
-	$success = "false";
+	$success = false;
 
 	if (empty($_POST['name']) || empty($_POST['passwd']) ||
 			empty($_POST['confirmPasswd']) || empty($_POST['mail']))
@@ -26,9 +26,8 @@
 		if ($user->ifMailExist() == false)
 		{
 			$user->insert();
-			if (User::sendRegistMailById($user->id) == false)
-				return false;
-			$success = "true";	
+			if (User::sendRegistMailById($user->id) == true)
+				$success = true;
 		}
 		else
 			$err .= 'mailexist';

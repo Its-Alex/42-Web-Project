@@ -41,10 +41,6 @@ function request(method, url, variable, cb) {
     xhr.send(variable);
 }
 
-function writeSessionPhp(str) {
-    request(`POST`, `controllers/writeSession.php`, str, (res) => {});
-}
-
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();

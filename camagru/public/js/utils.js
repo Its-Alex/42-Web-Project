@@ -1,44 +1,45 @@
 var xhr = null;
 
-function getXMLHttpRequest() {
+function getXMLHttpRequest () {
   xhr = null;
-  
+
   if (window.XMLHttpRequest || window.ActiveXObject) {
     if (window.ActiveXObject) {
       try {
-        xhr = new ActiveXObject("Msxml2.XMLHTTP");
-      } catch(e) {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        xhr = new ActiveXObject('Msxml2.XMLHTTP');
+      } catch (e) {
+        xhr = new ActiveXObject('Microsoft.XMLHTTP');
       }
     } else {
       xhr = new XMLHttpRequest();
     }
   } else {
-    console.error("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+    console.error('Votre navigateur ne supporte pas l\'objet XMLHTTPRequest...');
     return null;
   }
   return xhr;
 }
 
-function request(method, url, variable, cb) {
-    if (xhr && xhr.readyState != 0) {
-        xhr.abort(); // On annule la requête en cours !
-    }
+function request (method, url, variable, cb) {
+  if (xhr && xhr.readyState !== 0) {
+    xhr.abort(); // On annule la requête en cours !
+  }
 
-    xhr = getXMLHttpRequest();
+  xhr = getXMLHttpRequest();
 
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
-            if (xhr.responseText)
-                cb(xhr.responseText);
-        }
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {
+      if (xhr.responseText) {
+        cb(xhr.responseText);
+      }
     }
+  };
 
-    xhr.open(method, url, true);
-    if (method === `POST`) {
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    }
-    xhr.send(variable);
+  xhr.open(method, url, true);
+  if (method === 'POST') {
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  }
+  xhr.send(variable);
 }
 
 window.onkeyup = (e) => {
@@ -55,4 +56,4 @@ window.onkeyup = (e) => {
 //         elem.hidden = false;
 //     });
 //   }
-}
+};

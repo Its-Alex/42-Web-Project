@@ -11,7 +11,7 @@ function getXMLHttpRequest () {
         xhr = new ActiveXObject('Microsoft.XMLHTTP');
       }
     } else {
-      xhr = new XMLHttpRequest();
+      xhr = new window.XMLHttpRequest();
     }
   } else {
     console.error('Votre navigateur ne supporte pas l\'objet XMLHTTPRequest...');

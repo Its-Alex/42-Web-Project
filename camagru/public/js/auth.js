@@ -1,4 +1,4 @@
-// global localStorage
+// global window.localStorage
 
 var docs = document.querySelectorAll('.hide');
 docs.forEach((elem) => {
@@ -27,7 +27,7 @@ function signup () {
   });
 }
 
-function signin() {
+function signin () {
   var input = document.getElementsByClassName('signin');
   var str = '';
 
@@ -44,13 +44,13 @@ function signin() {
       request('POST', 'controllers/getSession.php', '', (res) => {
         var session = JSON.parse(res);
         if ('id' in session) {
-          localStorage.setItem('id', session.id);
+          window.localStorage.setItem('id', session.id);
         }
         if ('mail' in session) {
-          localStorage.setItem('mail', session.mail);
+          window.localStorage.setItem('mail', session.mail);
         }
         if ('role' in session) {
-          localStorage.setItem('role', session.role);
+          window.localStorage.setItem('role', session.role);
         }
         HeadBar();
       });

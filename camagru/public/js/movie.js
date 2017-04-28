@@ -31,4 +31,4 @@ window.onkeyup = (e) => {
       v.remove();
     }
   }
-}
+};

@@ -1,4 +1,4 @@
-function HeadBar() {
+function HeadBar () {
   var header = document.querySelector('.header');
   while (header.firstChild) {
     header.removeChild(header.firstChild);
@@ -7,8 +7,8 @@ function HeadBar() {
   var link = ['#', '#', '#', '#', '#', '#', '#', '#'];
   var onclick = [() => {}, () => {}, () => {}, () => {}, () => {}, () => {}, () => {}, () => {
     request('POST', 'controllers/logout.php', null, (res) => {
-      console.log(res);
-      localStorage.clear();
+      console.log(JSON.parse(res));
+      window.localStorage.clear();
       HeadBar();
     });
   }];
@@ -23,7 +23,7 @@ function HeadBar() {
     if (elem === 'Accueil' || elem === 'Recherche' || elem === '') {
       header.appendChild(a);
     }
-    if (!('id' in localStorage)) {
+    if (!('id' in window.localStorage)) {
       if (elem === 'Inscription') header.appendChild(a);
       if (elem === 'Connexion') header.appendChild(a);
     } else {
@@ -41,7 +41,7 @@ function HeadBar() {
         li.appendChild(icon);
         header.appendChild(a);
       }
-      if (elem === 'Admin' && localStorage.role === 'ADMIN') {
+      if (elem === 'Admin' && window.localStorage.role === 'ADMIN') {
         li.removeChild(li.firstChild);
         icon.appendChild(document.createTextNode('supervisor_account'));
         li.appendChild(icon);

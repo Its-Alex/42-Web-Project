@@ -14,15 +14,17 @@ window.onkeyup = (e) => {
             width: 10,
             height: 10
           }}, (stream) => {
-            video.src = window.URL.createObjectURL(stream);
-            video.onloadedmetadata = (e) => {
-              video.play();
-            };
-          }, (err) => {
+          video.src = window.URL.createObjectURL(stream);
+          video.onloadedmetadata = (e) => {
+            video.play();
+          };
+        }, (err) => {
+          if (err) {
             console.error(`L'erreur suivante est apparu: $(err.name)`);
-          });
+          }
+        });
       } else {
-         console.error(`Votre navigateur ne supporte pas GetUserMedia`);
+        console.error(`Votre navigateur ne supporte pas GetUserMedia`);
       }
       body.append(video);
     } else {

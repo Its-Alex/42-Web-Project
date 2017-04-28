@@ -20,35 +20,28 @@ function HeadBar() {
     a.onclick = onclick[index];
     li.appendChild(document.createTextNode(elem));
     a.appendChild(li);
-    if (elem === 'Accueil' || elem === 'Recherche' || elem === '')
+    if (elem === 'Accueil' || elem === 'Recherche' || elem === '') {
       header.appendChild(a);
-    if (!('id' in localStorage))
-    {
-      if (elem === 'Inscription')
-        header.appendChild(a);
-      if (elem === 'Connexion')
-        header.appendChild(a);
     }
-    else
-    {
+    if (!('id' in localStorage)) {
+      if (elem === 'Inscription') header.appendChild(a);
+      if (elem === 'Connexion') header.appendChild(a);
+    } else {
       var icon = document.createElement('i');
       icon.classList.add('material-icons');
-      if (elem === 'Compte')
-      {
+      if (elem === 'Compte') {
         li.removeChild(li.firstChild);
         icon.appendChild(document.createTextNode('person_pin'));
         li.appendChild(icon);
         header.appendChild(a);
       }
-      if (elem === 'Déconnexion')
-      {
+      if (elem === 'Déconnexion') {
         li.removeChild(li.firstChild);
         icon.appendChild(document.createTextNode('power_settings_new'));
         li.appendChild(icon);
         header.appendChild(a);
       }
-      if (elem === 'Admin' && localStorage.role === 'ADMIN')
-      {
+      if (elem === 'Admin' && localStorage.role === 'ADMIN') {
         li.removeChild(li.firstChild);
         icon.appendChild(document.createTextNode('supervisor_account'));
         li.appendChild(icon);

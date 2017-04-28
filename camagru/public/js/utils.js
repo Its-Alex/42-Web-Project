@@ -47,9 +47,7 @@ window.onkeyup = (e) => {
     HeadBar();
   }
   if (e.keyCode === 49) {
-    showSignUpForm();
   }
   if (e.keyCode === 50) {
-    showSignInForm();
   }
 };

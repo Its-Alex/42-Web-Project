@@ -25,9 +25,10 @@
 												'mail' => $_POST['mail']));
 		if ($user->ifMailExist() == false)
 		{
-			$user->insert();
-			if (User::sendRegistMailById($user->id) == true)
+			if (User::sendRegistMailById($user->id) == true) {
+				$user->insert();
 				$success = true;
+			}
 			else
 				$err .= 'mailNotSend';
 		}

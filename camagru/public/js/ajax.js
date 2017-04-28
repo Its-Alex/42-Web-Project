@@ -1,22 +1,19 @@
-var docs = document.querySelectorAll('.hide');
-docs.forEach((elem) => {
-  elem.hidden = true;
-});
-
 HeadBar();
 
 function showSignUpForm() {
   var docs = document.querySelectorAll('.hide');
   docs.forEach((elem, index) => {
+    elem.style.visibility = 'hidden';
     elem.hidden = true;
   });
-  document.querySelector('.form-signup').hidden = false;
+  document.querySelector('.signup').style.visibility = 'visible';
+  document.querySelector('.signup').hidden = false;
 }
 
 function showSignInForm() {
   var docs = document.querySelectorAll('.hide');
   docs.forEach((elem, index) => {
-    elem.hidden = true;
+    elem.style.visibility = 'hidden';
   });
-  document.querySelector('.form-signin').hidden = false;
+  document.querySelector('.signin').style.visibility = 'visible';
 }

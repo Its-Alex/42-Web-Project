@@ -28,9 +28,11 @@
 			$user->insert();
 			if (User::sendRegistMailById($user->id) == true)
 				$success = true;
+			else
+				$err .= 'mailNotSend';
 		}
 		else
-			$err .= 'mailexist';
+			$err .= 'mailExist';
 	}
 	
 	echo json_encode(array('success' => $success, 'err' => $err));

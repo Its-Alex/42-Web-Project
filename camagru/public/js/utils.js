@@ -46,14 +46,10 @@ window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();
   }
-//   if (e.keyCode === 49) {
-//     docs.forEach((elem) => {
-//         elem.hidden = true;
-//     });
-//   }
-//   if (e.keyCode === 48) {
-//     docs.forEach((elem) => {
-//         elem.hidden = false;
-//     });
-//   }
+  if (e.keyCode === 49) {
+    showSignUpForm();
+  }
+  if (e.keyCode === 50) {
+    showSignInForm();
+  }
 };

@@ -1,11 +1,3 @@
-// global window.localStorage
-
-var docs = document.querySelectorAll('.hide');
-docs.forEach((elem) => {
-  elem.hidden = false;
-});
-HeadBar();
-
 function signup () {
   var input = document.getElementsByClassName('signup');
   var str = '';

@@ -5,7 +5,22 @@ function HeadBar () {
   }
   var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Compte', 'Admin', 'Déconnexion'];
   var link = ['#', '#', '#', '#', '#', '#', '#', '#'];
-  var onclick = [() => {}, () => {}, () => {}, () => {}, () => {}, () => {}, () => {}, () => {
+  var onclick = [() => {
+
+  }, () => {
+
+  }, () => {
+
+  }, () => {
+
+    showSignUpForm();
+  }, () => {
+    showSignInForm();
+  }, () => {
+
+  }, () => {
+
+  }, () => {
     request('POST', 'controllers/logout.php', null, (res) => {
       console.log(JSON.parse(res));
       window.localStorage.clear();

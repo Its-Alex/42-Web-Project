@@ -13,9 +13,9 @@ function HeadBar () {
 
   }, () => {
 
-    showSignUpForm();
+    SignUpForm();
   }, () => {
-    showSignInForm();
+    SignInForm();
   }, () => {
 
   }, () => {

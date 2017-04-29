@@ -1,5 +1,5 @@
 function signup () {
-  var input = document.getElementsByClassName('signup');
+  var input = document.querySelectorAll('.signup');
   var str = '';
 
   for (var i = 0; i < input.length - 1; i++) {
@@ -20,7 +20,7 @@ function signup () {
 }
 
 function signin () {
-  var input = document.getElementsByClassName('signin');
+  var input = document.querySelectorAll('.signin');
   var str = '';
 
   for (var i = 0; i < input.length - 1; i++) {

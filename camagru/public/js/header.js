@@ -32,7 +32,15 @@ function HeadBar () {
     a.onclick = onclick[index];
     li.appendChild(document.createTextNode(elem));
     a.appendChild(li);
-    if (elem === 'Accueil' || elem === 'Recherche' || elem === '') {
+    if (elem === 'Accueil' || elem === '') {
+      header.appendChild(a);
+    }
+    if (elem === 'Recherche') {
+      var searchBar = document.createElement('input');
+
+      li.removeChild(li.firstChild);
+      searchBar.className = 'searchBar';
+      li.appendChild(searchBar);
       header.appendChild(a);
     }
     if (!('id' in window.localStorage)) {

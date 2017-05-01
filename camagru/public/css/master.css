@@ -15,6 +15,8 @@ ul, li {
 a {
 	text-decoration: none;
 	cursor: pointer;
+	margin: 4px;
+	padding: 0;
 }
 
 input {

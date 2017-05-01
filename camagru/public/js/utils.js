@@ -60,7 +60,8 @@ window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();
   }
-  if (e.keyCode === 49) {
+  if (e.keyCode === 13) {
+    console.log(document.activeElement);
   }
   if (e.keyCode === 50) {
   }

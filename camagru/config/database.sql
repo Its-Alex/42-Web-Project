@@ -75,8 +75,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `passwd`, `mail`, `role`, `state`, `date`) VALUES
-('e1f6b695-14df-40f6-aca3-76c18802772d', 'Alex', 'b7ff0e9e74a1a3c97b3035c18ec94c7986693e4a0e2c12ca0f97da366266cdc2306e6b57ed0ecc1c0f9b7292afc7c59d78f8b982e9ad01898e617cb2115fecac', 'xSkyZie@gmail.com', 'ADMIN', 'REGISTERED', '2017-03-09 13:33:37');
-
+('39ccc7ad-a2f3-4d8c-a705-d2f3c21fcab1', 'Alex', 'a64ed88863e9668c448579647a1a167ee932a01a3d3fe704867408408d0c9b09c9c84d9957619db0ace2a871f91d15cc834b695d6b389e80c3bbf33f94ad3db5', 'xSkyZie@gmail.com', 'ADMIN', 'REGISTERED', '2017-05-01 19:31:46');
 --
 -- Index pour les tables déchargées
 --

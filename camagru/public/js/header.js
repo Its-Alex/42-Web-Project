@@ -40,6 +40,7 @@ function HeadBar () {
 
       li.removeChild(li.firstChild);
       searchBar.className = 'searchBar';
+      searchBar.placeholder = 'Recherche...';
       li.appendChild(searchBar);
       header.appendChild(a);
     }

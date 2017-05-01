@@ -50,6 +50,8 @@ input[type=button] {
 .error {
 	color: red;
 	font-size: 16px;
+	padding: 0;
+	margin: 2px;
 }
 
 /*
@@ -98,3 +100,17 @@ input[type=button] {
 	width: 100%;
 }
 
+/*
+**
+** Search bar :
+**
+*/
+
+.searchBar {
+	background-color: #ddd;
+	margin: 0px;
+	padding: 4px;
+	font-size: 16px;
+	width: 80%;
+	min-width: 100px;
+}

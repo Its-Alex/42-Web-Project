@@ -9,7 +9,7 @@
 
 	if (empty($_POST['name']) || empty($_POST['passwd']) ||
 			empty($_POST['confirmPasswd']) || empty($_POST['mail']))
-		ret(false, "Certains champs sont vide.");
+		ret(false, "Certains champs sont vide");
 	if (strlen($_POST['name']) < 4 || strlen($_POST['name']) > 25 ||
 			!preg_match("#[a-zA-Z0-9]#", $_POST['name']))
 		ret(false, "Nom incorrect");

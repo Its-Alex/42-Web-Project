@@ -47,10 +47,12 @@ function getElemForm (className) {
   var str = '';
 
   for (var i = 0; i < input.length - 1; i++) {
-    if (i !== input.length - 2) {
-      str += input[i].name + '=' + input[i].value + '&';
-    } else if (input[i].name) {
-      str += input[i].name + '=' + input[i].value;
+    if (input[i].value !== undefined) {
+      if (i !== input.length - 2) {
+        str += input[i].name + '=' + input[i].value + '&';
+      } else if (input[i].name) {
+        str += input[i].name + '=' + input[i].value;
+      }
     }
   }
   return str;
@@ -61,8 +63,11 @@ window.onkeyup = (e) => {
     HeadBar();
   }
   if (e.keyCode === 13) {
-    console.log(document.activeElement);
-  }
-  if (e.keyCode === 50) {
+    if (document.activeElement.className === 'searchBar') {
+      var searchBar = document.activeElement;
+      console.log(searchBar.value);
+    }
+    // window.location.replace('index.php');
   }
 };
+

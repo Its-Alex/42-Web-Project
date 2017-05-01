@@ -1,24 +1,24 @@
 HeadBar();
 
 function deleteAllElem() {
-  var body = document.querySelectorAll('.hide');
+  var body = document.querySelectorAll('.body');
   body.forEach((elem) => {
     while (elem.firstChild) elem.removeChild(elem.firstChild);
   }, this);
 }
 
-function createInput(clas, type, name, placeholder) {
+function createInput(className, type, name, placeholder) {
   var input = document.createElement('input');
-  input.className = clas;
+  input.className = className;
   input.type = type;
   input.name = name;
   input.placeholder = placeholder;
   return (input);
 }
 
-function createButton(clas, name, value, onclick) {
+function createButton(className, name, value, onclick) {
   var input = document.createElement('input');
-  input.className = clas;
+  input.className = className;
   input.type = 'button';
   input.name = name;
   input.value = value;
@@ -28,19 +28,25 @@ function createButton(clas, name, value, onclick) {
 
 function SignInForm() {
   deleteAllElem();
-  var div = document.querySelector('.signin');
-  div.appendChild(createInput('signin', 'email', 'mail', 'Mail'));
-  div.appendChild(createInput('signin', 'password', 'passwd', 'Mot de passe'));
-  div.appendChild(createButton('signin', 'submit', 'Connexion', () => { signin(); }));
+  var body = document.querySelector('.body');
+  var form = document.createElement('form');
+  form.className = 'form signin';
+  form.appendChild(createInput('signin', 'email', 'mail', 'Mail'));
+  form.appendChild(createInput('signin', 'password', 'passwd', 'Mot de passe'));
+  form.appendChild(createButton('signin', 'submit', 'Connexion', () => { signin(); }));
+  body.appendChild(form);
 }
 
 function SignUpForm() {
   deleteAllElem();
-  var div = document.querySelector('.signup');
-  div.appendChild(createInput('signup', 'name', 'name', 'Nom'));
-  div.appendChild(createInput('signup', 'email', 'mail', 'Mail'));
-  div.appendChild(createInput('signup', 'password', 'passwd', 'Mot de passe'));
-  div.appendChild(createInput('signup', 'password', 'confirmPasswd', 'Confirmation mot de passe'));
-  div.appendChild(createButton('signup', 'submit', 'Inscription', () => { signup(); }));
+  var body = document.querySelector('.body');
+  var form = document.createElement('form');
+    form.className = 'form signup';
+  form.appendChild(createInput('signup', 'name', 'name', 'Nom'));
+  form.appendChild(createInput('signup', 'email', 'mail', 'Mail'));
+  form.appendChild(createInput('signup', 'password', 'passwd', 'Mot de passe'));
+  form.appendChild(createInput('signup', 'password', 'confirmPasswd', 'Confirmation mot de passe'));
+  form.appendChild(createButton('signup', 'submit', 'Inscription', () => { signup(); }));
+  body.appendChild(form);
 }
 

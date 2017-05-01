@@ -16,6 +16,22 @@ a {
 	text-decoration: none;
 }
 
+input {
+	outline: none;
+	margin: 4px;
+	padding: 4px;
+	border: 1px solid #333;
+	border-radius: 2px;
+}
+
+input[type=button]:active {
+	border: 1px solid #eee;
+}
+
+input[type=button] {
+	background-color: #eee;
+}
+
 .body {
 	margin: 0;
 	padding: 0;	
@@ -25,6 +41,10 @@ a {
 	flex-direction: column;
 	width: 100%;
 	height: calc(100% - 50px);
+}
+
+.error {
+	color: red;
 }
 
 /*
@@ -64,10 +84,12 @@ a {
 
 .form {
 	margin: 0;
-	padding: 0;	
+	padding: 0;
+	text-align: center;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
 }
+

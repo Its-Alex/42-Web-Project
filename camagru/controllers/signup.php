@@ -2,39 +2,37 @@
 	require_once dirname(__DIR__)."/models/Database.class.php";
 	require_once dirname(__DIR__)."/models/User.class.php";
 
-	$err = "";
-	$success = false;
+	function ret($success, $err) {
+		echo json_encode(array('success' => $success, 'err' => $err));
+		exit();
+	}
 
 	if (empty($_POST['name']) || empty($_POST['passwd']) ||
 			empty($_POST['confirmPasswd']) || empty($_POST['mail']))
-		$err .= "empty";
+		ret(false, "Certains champs sont vide.");
 	if (strlen($_POST['name']) < 4 || strlen($_POST['name']) > 25 ||
 			!preg_match("#[a-zA-Z0-9]#", $_POST['name']))
-		$err .= "name";
+		ret(false, "Nom incorrect");
 	if (strlen($_POST['passwd']) < 6 || strlen($_POST['passwd']) > 25 ||
-			!preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']) ||
-			strcmp($_POST['passwd'], $_POST['confirmPasswd']) != 0)
-		$err .= "password";
+			!preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']))
+		ret(false, "Le mot de passe ne doit pas contenir de caractères spéciaux <br/>et<br/> doit être compris entre 6 et 25 caractères");
+	if (strcmp($_POST['passwd'], $_POST['confirmPasswd']) != 0)
+		ret (false, "Les mots de passe ne correspondent pas");
 	if (strlen($_POST['mail']) < 6 || strlen($_POST['mail']) > 30 ||
 			filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
-		$err .= "mail";
-	if (strcmp($err, "") == 0)
+		ret(false, "Mail incorrect");
+	$user = new User(array('name' => $_POST['name'],
+											'passwd' => $_POST['passwd'],
+											'mail' => $_POST['mail']));
+	if ($user->ifMailExist() == false)
 	{
-		$user = new User(array('name' => $_POST['name'],
-												'passwd' => $_POST['passwd'],
-												'mail' => $_POST['mail']));
-		if ($user->ifMailExist() == false)
-		{
-			if (User::sendRegistMailById($user->id) == true) {
-				$user->insert();
-				$success = true;
-			}
-			else
-				$err .= 'mailNotSend';
+		if (User::sendRegistMailById($user->id) == true) {
+			$user->insert();
+			ret(true, "");
 		}
 		else
-			$err .= 'mailExist';
+			ret(false, "Le mail n'a pas été envoyé");
 	}
-	
-	echo json_encode(array('success' => $success, 'err' => $err));
+	else
+		ret(false, "L'email existe déjà");
 ?>

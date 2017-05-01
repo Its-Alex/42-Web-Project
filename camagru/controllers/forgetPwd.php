@@ -12,12 +12,10 @@
 	if (empty($_POST['mail']) || filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
 		ret(false, "Mail incorrect");
 	$user->mail = $_POST['mail'];
-  if (($user = $user->getUserByMail()) != null) {
-    if (User::sendForgotPasswdMailById($user->id) == true)
-      ret(true, "");
-    else
-      ret(false, "Le mail n'as pas été envoyé");
-  } else {
+  if (($user = $user->getUserByMail()) != null)
     ret(false, "L'utilisateur n'existe pas");
-  }
+  if (User::sendForgotPasswdMailById($user->id) == true)
+    ret(true, "");
+  else
+    ret(false, "Le mail n'as pas été envoyé");
 ?>

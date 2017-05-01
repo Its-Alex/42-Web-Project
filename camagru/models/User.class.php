@@ -129,9 +129,9 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM users WHERE mail = ? AND passwd = ?");
+			$stmt = $db->prepare("SELECT * FROM users WHERE mail = ?");
 			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
-			if ($stmt->execute(array($this->mail, $this->passwd))) {
+			if ($stmt->execute(array($this->mail))) {
 				return $stmt->fetch();
 			}
 			else {
@@ -157,8 +157,8 @@
 		public static function sendRegistMailById($id)
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id." pour finaliser ton inscription.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."\">lien</a> pour finaliser ton inscription.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."&method=\"signin\" pour finaliser ton inscription.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."\"&method=\"signin\">lien</a> pour finaliser ton inscription.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -189,11 +189,11 @@
 			return mail(User::getMailById($id), $sujet, $message, $header);
 		}
 
-		public static function sendForgetPasswdMailById($id)
+		public static function sendForgotPasswdMailById($id)
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id." si tu as perdu ton mot de passe.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."\">lien</a> si tu as perdu ton mot de passe.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."&method=\"forgetPwd\" si tu as perdu ton mot de passe.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."\"&method=\"forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());

@@ -45,10 +45,10 @@ function signin () {
 
 function forgetPwd () {
   request('POST', 'controllers/forgetPwd.php', getElemForm('.forgetPwd'), (res) => {
-    res = JSON.parse(res);
     console.log(res);
+    res = JSON.parse(res);
     if (res.err !== '') {
-      var form = document.querySelector('.forgetPwdf');      
+      var form = document.querySelector('.forgetPwd');
       var error = document.createElement('p');
 
       if (form.firstChild.nodeName === 'P') form.removeChild(form.firstChild);

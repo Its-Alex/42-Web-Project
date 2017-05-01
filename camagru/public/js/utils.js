@@ -42,6 +42,20 @@ function request (method, url, variable, cb) {
   xhr.send(variable);
 }
 
+function getElemForm (className) {
+  var input = document.querySelectorAll(className);
+  var str = '';
+
+  for (var i = 0; i < input.length - 1; i++) {
+    if (i !== input.length - 2) {
+      str += input[i].name + '=' + input[i].value + '&';
+    } else if (input[i].name) {
+      str += input[i].name + '=' + input[i].value;
+    }
+  }
+  return str;
+}
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();

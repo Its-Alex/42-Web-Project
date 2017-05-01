@@ -4,7 +4,6 @@ function HeadBar () {
     header.removeChild(header.firstChild);
   }
   var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Compte', 'Admin', 'Déconnexion'];
-  var link = ['#', '#', '#', '#', '#', '#', '#', '#'];
   var onclick = [() => {
 
   }, () => {
@@ -30,7 +29,6 @@ function HeadBar () {
   textNode.forEach((elem, index) => {
     var a = document.createElement('a');
     var li = document.createElement('li');
-    a.href = link[index];
     a.onclick = onclick[index];
     li.appendChild(document.createTextNode(elem));
     a.appendChild(li);

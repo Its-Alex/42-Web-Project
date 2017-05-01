@@ -3,7 +3,7 @@ html, body {
 	padding: 0;
 	background-color: #fff;
 	font-family: 'Lato', sans-serif;
-	font-size: 18px;
+	font-size: 20px;
 	width: 100%;
 	height: 100%
 }
@@ -14,6 +14,7 @@ ul, li {
 
 a {
 	text-decoration: none;
+	cursor: pointer;
 }
 
 input {
@@ -30,6 +31,7 @@ input[type=button]:active {
 
 input[type=button] {
 	background-color: #eee;
+	cursor: pointer;
 }
 
 .body {
@@ -45,6 +47,7 @@ input[type=button] {
 
 .error {
 	color: red;
+	font-size: 16px;
 }
 
 /*

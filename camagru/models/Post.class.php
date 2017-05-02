@@ -42,10 +42,10 @@
 
 			$stmt = $db->prepare("SELECT posts.id AS id, posts.author AS author, posts.link AS link, posts.date AS date
                                 FROM posts INNER JOIN users on users.id = posts.author WHERE users.id = ?");
-			$stmt->setFetchMode(PDO::FETCH_INTO, new Post(null));
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 			if ($stmt->execute(array($id))) {
-				return $stmt->fetch();
+				return $stmt->fetchAll();
 			}
 			else {
 				return null;

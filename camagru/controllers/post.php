@@ -24,8 +24,10 @@
         if ($post->insert() === true)
             ret(true, null, "");
     } else if ($_POST['method'] == 'get') {
-        $post = new Post(null);
-
-        echo var_dump(Post::getPostsById('39ccc7ad-a2f3-4d8c-a705-d2f3c21fcab1'));
+        $posts = Post::getPostsById($_POST['id']);
+        if ($posts === null)
+            ret(false, "Pas de resultat", null);
+        else
+            ret(true, "", $posts);
     }
 ?>

@@ -17,10 +17,10 @@
         {
             if ($args == null)
                 return;
-            if (!array_key_exists('id', $args) && !array_key_exists('link', $args) && !array_key_exists('author', $args))
+            if (!array_key_exists('link', $args) && !array_key_exists('author', $args))
                 return;
 
-            $args->id = $this->id;
+            $args->id = Utils::genUuid();
             $args->link = $this->link;
             $args->author = $this->author;
         }

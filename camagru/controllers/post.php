@@ -13,6 +13,6 @@
 
     if ($_POST['method'] == 'insert')
     {
-        
+
     }
 ?>

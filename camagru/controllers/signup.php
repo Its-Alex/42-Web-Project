@@ -8,10 +8,10 @@
 
 	if (empty($_POST['name']) || empty($_POST['passwd']) ||
 			empty($_POST['confirmPasswd']) || empty($_POST['mail']))
-		ret(false, "Certains champs sont vide");
+		ret(false, "Champ(s) vide(s)");
 	if (strlen($_POST['name']) < 4 || strlen($_POST['name']) > 25 ||
 			!preg_match("#[a-zA-Z0-9]#", $_POST['name']))
-		ret(false, "Nom incorrect");
+		ret(false, "Nom invalide");
 	if (strlen($_POST['passwd']) < 6 || strlen($_POST['passwd']) > 25 ||
 			!preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']))
 		ret(false, "Le mot de passe ne doit pas contenir de caractères spéciaux <br/>et<br/> doit être compris entre 6 et 25 caractères");
@@ -33,5 +33,5 @@
 			ret(false, "Le mail n'a pas été envoyé");
 	}
 	else
-		ret(false, "L'email existe déjà");
+		ret(false, "Le mail existe déjà");
 ?>

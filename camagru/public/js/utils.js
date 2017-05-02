@@ -65,11 +65,19 @@ window.onkeyup = (e) => {
   if (e.keyCode === 13) {
     if (document.activeElement.className === 'searchBar') {
       var searchBar = document.activeElement;
-      
+
       searchBar.value = null;
       searchView();
     }
-    // window.location.replace('index.php');
+    request('POST', 'controllers/post.php', 'method=get', (res) => {
+      try {
+        var data = JSON.parse(res);
+      } catch (error) {
+        console.log(error);
+        console.log(res);
+      }
+      console.log(data);
+    });
   }
 };
 

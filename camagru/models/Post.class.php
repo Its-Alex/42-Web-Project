@@ -33,5 +33,23 @@
 			$result = $stmt->execute(array($this->id, $this->author, $this->link));
 			return ($result);
         }
+
+        public static function getPostsById($id)
+        {
+            if (Utils::isUuid($id) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT posts.id AS id, posts.author AS author, posts.link AS link, posts.date AS date
+                                FROM posts INNER JOIN users on users.id = posts.author WHERE users.id = ?");
+			$stmt->setFetchMode(PDO::FETCH_INTO, new Post(null));
+
+			if ($stmt->execute(array($id))) {
+				return $stmt->fetch();
+			}
+			else {
+				return null;
+			}
+        }
 	}
 ?>

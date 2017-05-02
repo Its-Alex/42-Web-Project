@@ -9,13 +9,13 @@
 	}
 
 	if (empty($_POST['mail']) || empty($_POST['passwd']))
-		ret(false, "Certains champs sont vide");
+		ret(false, "Champ(s) vide(s)");
 	if (strlen($_POST['passwd']) < 6 || strlen($_POST['passwd']) > 25 ||
 			!preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']))
 		ret(false, "Le mot de passe ne doit pas contenir de caractères spéciaux <br/>et<br/> doit être compris entre 6 et 25 caractères");
 	if (strlen($_POST['mail']) < 6 || strlen($_POST['mail']) > 30 ||
 			filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
-		ret(false, "Le mail n'est pas valide");
+		ret(false, "Mail invalide");
 	$user->mail = $_POST['mail'];
 	$user->passwd = hash("whirlpool", $_POST['mail'] . $_POST['passwd']);
 	if ($user->ifMailExist() == false)

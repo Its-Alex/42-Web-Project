@@ -65,7 +65,9 @@ window.onkeyup = (e) => {
   if (e.keyCode === 13) {
     if (document.activeElement.className === 'searchBar') {
       var searchBar = document.activeElement;
-      console.log(searchBar.value);
+      
+      searchBar.value = null;
+      searchView();
     }
     // window.location.replace('index.php');
   }

@@ -11,6 +11,7 @@ function signup () {
       error.innerHTML = res.err;
       form.insertBefore(error, form.firstChild);
     }
+    if (res.success === true) homeView();
   });
 }
 
@@ -40,6 +41,7 @@ function signin () {
       error.innerHTML = res.err;
       form.insertBefore(error, form.firstChild);
     }
+    if (res.success === true) homeView();
   });
 }
 
@@ -56,5 +58,6 @@ function forgetPwd () {
       error.innerHTML = res.err;
       form.insertBefore(error, form.firstChild);
     }
+    if (res.success === true) homeView();
   });
 }

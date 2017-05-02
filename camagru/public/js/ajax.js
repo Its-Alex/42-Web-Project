@@ -1,13 +1,13 @@
 HeadBar();
 
-function deleteAllElem() {
+function deleteAllElem () {
   var body = document.querySelectorAll('.body');
   body.forEach((elem) => {
     while (elem.firstChild) elem.removeChild(elem.firstChild);
   }, this);
 }
 
-function createInput(className, type, name, placeholder) {
+function createInput (className, type, name, placeholder) {
   var input = document.createElement('input');
   input.className = className;
   input.type = type;
@@ -16,7 +16,7 @@ function createInput(className, type, name, placeholder) {
   return (input);
 }
 
-function createButton(className, name, value, onclick) {
+function createButton (className, name, value, onclick) {
   var input = document.createElement('input');
   input.className = className;
   input.type = 'button';
@@ -26,7 +26,19 @@ function createButton(className, name, value, onclick) {
   return (input);
 }
 
-function SignInForm() {
+function homeView () {
+  deleteAllElem();
+}
+
+function createImgView () {
+
+}
+
+function searchView () {
+  deleteAllElem();
+}
+
+function SignInForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
   var form = document.createElement('form');
@@ -43,7 +55,7 @@ function SignInForm() {
   body.appendChild(form);
 }
 
-function SignUpForm() {
+function SignUpForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
   var form = document.createElement('form');
@@ -67,4 +79,3 @@ function forgetPwdForm () {
   form.appendChild(createButton('forgetPwd', 'submit', 'Envoyé un mail', () => { forgetPwd(); }));
   body.appendChild(form);
 }
-

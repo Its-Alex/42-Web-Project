@@ -1,7 +1,11 @@
 function signup () {
   request('POST', 'controllers/signup.php', getElemForm('.signup'), (res) => {
-    res = JSON.parse(res);
-    console.log(res);
+    try {
+      res = JSON.parse(res);
+      console.log(res);      
+    } catch (error) {
+      console.log(res);      
+    }
     if (res.err !== '') {
       var form = document.querySelector('.signup');      
       var error = document.createElement('p');

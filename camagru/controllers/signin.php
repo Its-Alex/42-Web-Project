@@ -27,7 +27,7 @@
 	{
 		if (($user = $user->getUserByMail()) != null)
 		{
-			if ($user->state != User::REGISTER)
+			if ($user->state != User::REGISTER && $user->state != User::DEL)
 				ret(false, "Vous n'avez pas activé votre compte");
 			else
 			{

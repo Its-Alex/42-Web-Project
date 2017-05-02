@@ -154,7 +154,7 @@
 				return false;
 		}
 
-		public static function sendRegistMailById($id)
+		public function sendRegistMailById()
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
 			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."&method=\"signin\" pour finaliser ton inscription.";
@@ -186,7 +186,7 @@
 			$message.= PHP_EOL."--".$boundary_alt."--".PHP_EOL;
 			$message.= PHP_EOL."--".$boundary.PHP_EOL;
 			//=====Envoi de l'e-mail.
-			return mail(User::getMailById($id), $sujet, $message, $header);
+			return mail($this->mail, $sujet, $message, $header);
 		}
 
 		public static function sendForgotPasswdMailById($id)

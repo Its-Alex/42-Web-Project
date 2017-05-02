@@ -1,12 +1,8 @@
 function signup () {
   request('POST', 'controllers/signup.php', getElemForm('.signup'), (res) => {
-    try {
-      res = JSON.parse(res);
-      console.log(res);      
-    } catch (error) {
-      console.log(res);      
-    }
-    if (res.err !== '') {
+    res = JSON.parse(res);
+    console.log(res);      
+    if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.signup');      
       var error = document.createElement('p');
 
@@ -35,7 +31,7 @@ function signin () {
       }
       HeadBar();
     });
-    if (res.err !== '') {
+    if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.signin');      
       var error = document.createElement('p');
 
@@ -51,7 +47,7 @@ function forgetPwd () {
   request('POST', 'controllers/forgetPwd.php', getElemForm('.forgetPwd'), (res) => {
     console.log(res);
     res = JSON.parse(res);
-    if (res.err !== '') {
+    if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.forgetPwd');
       var error = document.createElement('p');
 

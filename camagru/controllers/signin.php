@@ -1,7 +1,4 @@
 <?php
-	session_start();
-
-	require_once dirname(__DIR__)."/models/Database.class.php";
 	require_once dirname(__DIR__)."/models/User.class.php";
 
 	$user = new User(null);

@@ -21,6 +21,7 @@ function signin () {
     console.log(res);
     request('POST', 'controllers/getSession.php', '', (data) => {
       var session = JSON.parse(data);
+      console.log(session);
       if ('id' in session) {
         window.localStorage.setItem('id', session.id);
       }

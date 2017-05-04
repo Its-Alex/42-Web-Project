@@ -1,4 +1,6 @@
 <?php
+	session_start();
+
 	require_once dirname(__DIR__)."/models/User.class.php";
 
 	$user = new User(null);
@@ -17,24 +19,14 @@
 			filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
 		ret(false, "Mail invalide");
 	$user->mail = $_POST['mail'];
-	$user->passwd = hash("whirlpool", $_POST['mail'] . $_POST['passwd']);
-	if ($user->ifMailExist() == false)
+	if (($user = $user->getUserByMail()) == null)	
 		ret(false, "L'utilisateur n'existe pas");
-	else
-	{
-		if (($user = $user->getUserByMail()) != null)
-		{
-			if ($user->state != User::REGISTER && $user->state != User::DEL)
-				ret(false, "Vous n'avez pas activé votre compte");
-			else
-			{
-				$_SESSION['id'] = $user->id;
-				$_SESSION['mail'] = $user->mail;
-				$_SESSION['role'] = $user->role;
-				ret(true, '');
-			}
-		}
-		else
-			ret(false, "Mot de passe incorrect");
-	}
+	if ($user->passwd != hash("whirlpool", $_POST['mail'] . $_POST['passwd']))
+		ret(false, "Mot de passe incorrect");
+	if ($user->state != User::REGISTER)
+		ret(false, "Vous n'avez pas activé votre compte");
+	$_SESSION['id'] = $user->id;
+	$_SESSION['mail'] = $user->mail;
+	$_SESSION['role'] = $user->role;
+	ret(true, '');
 ?>

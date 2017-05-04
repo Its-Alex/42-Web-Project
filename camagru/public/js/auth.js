@@ -5,7 +5,6 @@ function signup () {
     if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.signup');      
       var error = document.createElement('p');
-
       if (form.firstChild.nodeName === 'P') form.removeChild(form.firstChild);
       error.className = 'error';
       error.innerHTML = res.err;

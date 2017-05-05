@@ -31,10 +31,10 @@
             if (strlen($_POST['mail']) < 6 || strlen($_POST['mail']) > 30 ||
                     filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
                 ret(false, "Mail invalide");
-            $user->mail = $_POST['mail'];
+            $user->mail = strtolower($_POST['mail']);
             if (($user = $user->getUserByMail()) == null)	
                 ret(false, "L'utilisateur n'existe pas");
-            if ($user->passwd != hash("whirlpool", $_POST['mail'] . $_POST['passwd']))
+            if ($user->passwd != hash("whirlpool", strtolower($_POST['mail']) . $_POST['passwd']))
                 ret(false, "Mot de passe incorrect");
             if ($user->state != User::REGISTER)
                 ret(false, "Vous n'avez pas activé votre compte");
@@ -44,10 +44,10 @@
             ret(true, '');
             break;
         case 'PUT':
-            # code...
+            
             break;
         case 'DELETE':
-            
+
             break;
         default:
             ret(false, 'API Error');

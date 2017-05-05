@@ -73,32 +73,15 @@
 			return $stmt->fetch()[0];
 		}
 
-		public static function getMailById($id)
+		public function userStateRegist()
 		{
-			if (Utils::isUuid($id) == false)
-				return null;
-			$db = Database::getInstance();
-
-			$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
-			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
-
-			if ($stmt->execute(array($id))) {
-				return $stmt->fetch()->mail;
-			}
-			else {
-				return null;
-			}
-		}
-
-		public static function userStateRegist($id)
-		{
-			if (Utils::isUuid($id) == false)
+			if (Utils::isUuid($this->id) == false)
 				return null;
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
 			$stmt->bindValue(1, self::REGISTER, PDO::PARAM_STR);
-			$stmt->bindValue(2, $id, PDO::PARAM_STR);
+			$stmt->bindValue(2, $this->id, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() != 0)
 				return true;
@@ -107,15 +90,15 @@
 		}
 
 		// Get user with his id
-		public static function getUserById()
+		public function getUserById()
 		{
-			if (Utils::isUuid($id) == false)
+			if (Utils::isUuid($this->id) == false)
 				return null;
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
 			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
-			if ($stmt->execute(array($id))) {
+			if ($stmt->execute(array($this->id))) {
 				return $stmt->fetch();
 			}
 			else {
@@ -138,14 +121,14 @@
 			}
 		}
 
-		public static function delUserById($id) {
-			if (Utils::isUuid($id) == false)
+		public function delUserById() {
+			if (Utils::isUuid($this->id) == false)
 				return null;
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
 			$stmt->bindValue(1, self::DEL, PDO::PARAM_STR);
-			$stmt->bindValue(2, $id, PDO::PARAM_STR);
+			$stmt->bindValue(2, $this->id, PDO::PARAM_STR);
 			$stmt->execute();
 			if ($stmt->rowCount() != 0)
 				return true;
@@ -156,8 +139,8 @@
 		public function sendRegistMailById()
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&method=\"signin\" pour finaliser ton inscription.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."\"&method=\"signin\">lien</a> pour finaliser ton inscription.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&action=signin pour finaliser ton inscription.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&action=signin\">lien</a> pour finaliser ton inscription.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -188,11 +171,12 @@
 			return mail($this->mail, $sujet, $message, $header);
 		}
 
-		public static function sendForgotPasswdMailById($id)
+		public function sendForgotPasswdMailById()
 		{
+			$usr = $this->getUserByMail();
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&method=\"forgetPwd\" si tu as perdu ton mot de passe.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."\"&method=\"forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$usr->id."&method=forgetPwd si tu as perdu ton mot de passe.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$usr->id."&method=forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -220,7 +204,7 @@
 			$message.= PHP_EOL."--".$boundary_alt."--".PHP_EOL;
 			$message.= PHP_EOL."--".$boundary.PHP_EOL;
 			//=====Envoi de l'e-mail.
-			return mail(User::getMailById($this->id), $sujet, $message, $header);
+			return mail(getMailById($usr->id), $sujet, $message, $header);
 		}
 	}
 ?>

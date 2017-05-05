@@ -22,7 +22,7 @@
 		ret(false, "Mail incorrect");
 	$user = new User(array('name' => $_POST['name'],
 											'passwd' => $_POST['passwd'],
-											'mail' => $_POST['mail']));
+											'mail' => strtolower($_POST['mail'])));
 	if ($user->ifMailExist() == false)
 	{
 		if ($user->sendRegistMailById() == true) {

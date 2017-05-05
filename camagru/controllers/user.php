@@ -66,10 +66,8 @@
 
             if (isset($params['name']) && !empty($params['name']) && preg_match("#[a-zA-Z0-9]#", $params['name']))
                 $usr->name = $params['name'];
-            if (isset($params['mail']) && !empty($params['mail']) && filter_var($params['mail'], FILTER_VALIDATE_EMAIL))
-                $usr->mail = $params['mail'];
             if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
-                $usr->passwd = hash('whirlpool', strtolower($usr->mail) . $params['passwd']);
+                $usr->passwd = hash('whirlpool', $usr->mail . $params['passwd']);
             if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO))
                 $usr->role = $params['role'];
             if (isset($params['state']) && !empty($params['state']) && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))

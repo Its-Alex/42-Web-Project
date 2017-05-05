@@ -69,7 +69,7 @@ window.onkeyup = (e) => {
       searchBar.value = null;
       searchView();
     }
-    request('PUT', 'controllers/user.php', 'token=b30cf420-de2b-45ed-85be-bf926c3a670a&id=2d7ec594-8b7d-4875-a9a9-2f6baf6fc665&name=hellooo', (res) => {
+    request('PUT', 'controllers/user.php', 'token=b30cf420-de2b-45ed-85be-bf926c3a670a&id=2d7ec594-8b7d-4875-a9a9-2f6baf6fc665&mail=xSkyZie@gmail.com', (res) => {
       try {
         var data = JSON.parse(res);
       } catch (error) {

@@ -44,10 +44,41 @@
             ret(true, '');
             break;
         case 'PUT':
-            
+            $usr = new User(null);
+            $usr->id = $_POST['id'];
+            $usr = $usr->getUserById();
+
+            if ($usr == null) {
+                ret(false, 'User not exist');
+                return;
+            }
+
+            if (isset($_POST['name']) && empty($_POST['name']) && preg_match("#[a-zA-Z0-9]#", $_POST['name']))
+                $usr->name = $_POST['name'];
+            if (isset($_POST['mail']) && empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL))
+                $usr->mail = $_POST['mail'];
+            if (isset($_POST['passwd']) && empty($_POST['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']))
+                $usr->passwd = hash('whirlpool', strtolower($usr->mail) . $_POST['passwd']);
+            if (isset($_POST['role']) && empty($_POST['role']) && ($_POST['role'] == User::USERS || $_POST['role'] == User::MODO))
+                $usr->role = $_POST['role'];
+            if (isset($_POST['state']) && empty($_POST['state']) && ($_POST['state'] == User::REGISTER || $_POST['state'] == User::FORGET_PWD || $_POST['state'] == User::DEL))
+                $usr->staet = $_POST['state'];
+            ret(true, '');
             break;
         case 'DELETE':
+            $client = new User(null);
+            $client->id = $_POST[token];
+            $client = $client->getUserById();
 
+            if ($client == null)
+                ret(true, 'False token');
+            if ($client->role !== User::ADMIN && $client->id !== $_POST['id'])
+                ret(true, 'Not authorized');
+
+            $usr = new User(null);
+            $usr->id = $_POST['id'];
+            $usr = $usr->delUserById();
+            ret(true, '');
             break;
         default:
             ret(false, 'API Error');

@@ -7,9 +7,18 @@
 	$user = new User(null);
 	$user->id = $_GET['id'];
 
-	if ($_GET['action'] == 'signin')
-		if ($user->userStateRegist() == true)
-			$success = true;
+	switch ($_SERVER['REQUEST_METHOD']) {
+		case 'POST':
+			if ($user->userStateRegist() == true)
+				$success = true;
+			break;
+		case 'PUT':
+			if ($user->userStateRegist() == true)
+				$success = true;
+			break;		
+		default:
+			break;
+	}
 
 	echo json_encode(array('success' => $success, 'err' => ""));
 ?>

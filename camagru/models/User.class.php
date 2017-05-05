@@ -73,6 +73,15 @@
 			return $stmt->fetch()[0];
 		}
 
+		public function updateUser() {
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("UPDATE users SET (name, passwd, mail, role, state) VALUES (?, ?, ?, ?, ?) WHERE id = ?");
+			$result = $stmt->execute(array($this->name, $this->passwd, $this->mail, $this->role, $this->state, $this->id));
+			return ($result);
+		}
+
+		// Change user state to register
 		public function userStateRegist()
 		{
 			if (Utils::isUuid($this->id) == false)

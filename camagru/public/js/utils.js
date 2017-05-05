@@ -69,7 +69,7 @@ window.onkeyup = (e) => {
       searchBar.value = null;
       searchView();
     }
-    request('POST', 'controllers/post.php', 'method=get&id=39ccc7ad-a2f3-4d8c-a705-d2f3c21fcab1', (res) => {
+    request('POST', 'controllers/test.php', 'method=get&id=39ccc7ad-a2f3-4d8c-a705-d2f3c21fcab1', (res) => {
       try {
         var data = JSON.parse(res);
       } catch (error) {

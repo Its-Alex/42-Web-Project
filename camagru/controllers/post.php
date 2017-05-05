@@ -10,24 +10,33 @@
 		exit();
 	}
 
-    if (isset($_POST['method']) == false)
-        ret(false, null, "Method Error");
-
-    if ($_POST['method'] == 'put') {
-        if (empty($_POST['link']) || empty($_POST['author']))
-            ret(false,null, "Champs vide");
-        if (filter_var($_POST['link'], FILTER_VALIDATE_URL) === false)
-            ret(false, null, "Lien invalide");
-        if (Utils::isUuid($_POST['author']) === false || User::getUserById($_POST['author']) === null)
-            ret(false, null, "Auteur invalide");
-        $post = new Post($_POST['link'], $_POST['author']);
-        if ($post->insert() === true)
-            ret(true, null, "");
-    } else if ($_POST['method'] == 'get') {
-        $posts = Post::getPostsById($_POST['id']);
-        if ($posts === null)
-            ret(false, "Pas de resultat", null);
-        else
-            ret(true, "", $posts);
+    switch ($SERVER['REQUEST_METHOD']) {
+        case 'GET':
+            $posts = Post::getPostsById($_POST['id']);
+            if ($posts === null)
+                ret(false, "Pas de resultat", null);
+            else
+                ret(true, "", $posts);
+            break;
+        case 'POST':
+            if (empty($_POST['link']) || empty($_POST['author']))
+                ret(false,null, "Champs vide");
+            if (filter_var($_POST['link'], FILTER_VALIDATE_URL) === false)
+                ret(false, null, "Lien invalide");
+            if (Utils::isUuid($_POST['author']) === false || User::getUserById($_POST['author']) === null)
+                ret(false, null, "Auteur invalide");
+            $post = new Post($_POST['link'], $_POST['author']);
+            if ($post->insert() === true)
+                ret(true, null, "");
+            break;
+        case 'PUT':
+            # code...
+            break;
+        case 'DELETE':
+            # code...
+            break;        
+        default:
+            # code...
+            break;
     }
 ?>

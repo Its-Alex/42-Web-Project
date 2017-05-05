@@ -15,12 +15,12 @@ function signup () {
 }
 
 function signin () {
-  request('POST', 'controllers/signin.php', getElemForm('.signin'), (res) => {
+  request('POST', 'controllers/user.php', getElemForm('.signin'), (res) => {
     res = JSON.parse(res);
     console.log(res);
-    request('POST', 'controllers/getSession.php', '', (data) => {
+    request('GET', 'controllers/user.php', '', (data) => {
       var session = JSON.parse(data);
-      console.log(session);
+
       if ('id' in session) {
         window.localStorage.setItem('id', session.id);
       }

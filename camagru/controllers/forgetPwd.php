@@ -14,7 +14,7 @@
 	$user->mail = $_POST['mail'];
   if (($user = $user->getUserByMail()) != null)
     ret(false, "L'utilisateur n'existe pas");
-  if (User::sendForgotPasswdMailById($user->id) == true)
+  if (User::sendForgotPasswdMailById() == true)
     ret(true, "");
   else
     ret(false, "Le mail n'as pas été envoyé");

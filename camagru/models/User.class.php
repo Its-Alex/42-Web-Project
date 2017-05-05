@@ -107,7 +107,7 @@
 		}
 
 		// Get user with his id
-		public static function getUserById($id)
+		public static function getUserById()
 		{
 			if (Utils::isUuid($id) == false)
 				return null;
@@ -115,7 +115,6 @@
 
 			$stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
 			$stmt->setFetchMode(PDO::FETCH_INTO, new User(null));
-
 			if ($stmt->execute(array($id))) {
 				return $stmt->fetch();
 			}
@@ -192,8 +191,8 @@
 		public static function sendForgotPasswdMailById($id)
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."&method=\"forgetPwd\" si tu as perdu ton mot de passe.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$id."\"&method=\"forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&method=\"forgetPwd\" si tu as perdu ton mot de passe.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."\"&method=\"forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -221,7 +220,7 @@
 			$message.= PHP_EOL."--".$boundary_alt."--".PHP_EOL;
 			$message.= PHP_EOL."--".$boundary.PHP_EOL;
 			//=====Envoi de l'e-mail.
-			return mail(User::getMailById($id), $sujet, $message, $header);
+			return mail(User::getMailById($this->id), $sujet, $message, $header);
 		}
 	}
 ?>

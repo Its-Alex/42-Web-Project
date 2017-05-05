@@ -11,7 +11,7 @@
 		** Role constants
 		*/
 		const USERS = "USER";
-		const MODO = "MODERATEUR";
+		const MODO = "MODERATOR";
 		const ADMIN = "ADMIN";
 
 		/*
@@ -76,9 +76,9 @@
 		public function updateUser() {
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("UPDATE users SET (name, passwd, mail, role, state) VALUES (?, ?, ?, ?, ?) WHERE id = ?");
-			$result = $stmt->execute(array($this->name, $this->passwd, $this->mail, $this->role, $this->state, $this->id));
-			return ($result);
+			$stmt = $db->prepare("UPDATE users SET name = ?, passwd = ?, mail = ?, role = ?, state = ? WHERE id = ?");
+			$stmt->execute(array($this->name, $this->passwd, $this->mail, $this->role, $this->state, $this->id));
+			return ($stmt->rowCount());
 		}
 
 		// Change user state to register
@@ -136,9 +136,7 @@
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
-			$stmt->bindValue(1, self::DEL, PDO::PARAM_STR);
-			$stmt->bindValue(2, $this->id, PDO::PARAM_STR);
-			$stmt->execute();
+			$stmt->execute(array(self::DEL, $this->id));
 			if ($stmt->rowCount() != 0)
 				return true;
 			else

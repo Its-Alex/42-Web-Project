@@ -20,5 +20,17 @@
 			else
 				return (true);
 		}
+
+		public static function parseArgs($content)
+		{
+			$array = array();
+
+			$content = explode("&", $content);
+			foreach ($content as $key => $value) {
+				$split = explode("=", $value);
+				$array[$split[0]] = $split[1];
+			}
+			return $array;
+		}
 	}
 ?>

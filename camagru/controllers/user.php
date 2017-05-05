@@ -44,8 +44,19 @@
             ret(true, '');
             break;
         case 'PUT':
+            $params = Utils::parseArgs(file_get_contents("php://input"));
+
+            $client = new User(null);
+            $client->id = $params['token'];
+            $client = $client->getUserById();
+
+            if ($client == null)
+                ret(false, 'False token');
+            if ($client->role !== User::ADMIN && $client->id !== $params['id'])
+                ret(true, 'Not authorized');
+
             $usr = new User(null);
-            $usr->id = $_POST['id'];
+            $usr->id = $params['id'];
             $usr = $usr->getUserById();
 
             if ($usr == null) {
@@ -53,32 +64,35 @@
                 return;
             }
 
-            if (isset($_POST['name']) && empty($_POST['name']) && preg_match("#[a-zA-Z0-9]#", $_POST['name']))
-                $usr->name = $_POST['name'];
-            if (isset($_POST['mail']) && empty($_POST['mail']) && filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL))
-                $usr->mail = $_POST['mail'];
-            if (isset($_POST['passwd']) && empty($_POST['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $_POST['passwd']))
-                $usr->passwd = hash('whirlpool', strtolower($usr->mail) . $_POST['passwd']);
-            if (isset($_POST['role']) && empty($_POST['role']) && ($_POST['role'] == User::USERS || $_POST['role'] == User::MODO))
-                $usr->role = $_POST['role'];
-            if (isset($_POST['state']) && empty($_POST['state']) && ($_POST['state'] == User::REGISTER || $_POST['state'] == User::FORGET_PWD || $_POST['state'] == User::DEL))
-                $usr->staet = $_POST['state'];
+            if (isset($params['name']) && !empty($params['name']) && preg_match("#[a-zA-Z0-9]#", $params['name']))
+                $usr->name = $params['name'];
+            if (isset($params['mail']) && !empty($params['mail']) && filter_var($params['mail'], FILTER_VALIDATE_EMAIL))
+                $usr->mail = $params['mail'];
+            if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
+                $usr->passwd = hash('whirlpool', strtolower($usr->mail) . $params['passwd']);
+            if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO))
+                $usr->role = $params['role'];
+            if (isset($params['state']) && !empty($params['state']) && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
+                $usr->state = $params['state'];
+            if ($usr->updateUser() == 0)
+                ret(false, 'Nothing happend');
             ret(true, '');
             break;
         case 'DELETE':
+            $params = Utils::parseArgs(file_get_contents("php://input"));
+
             $client = new User(null);
-            $client->id = $_POST[token];
+            $client->id = $params['token'];
             $client = $client->getUserById();
 
             if ($client == null)
-                ret(true, 'False token');
-            if ($client->role !== User::ADMIN && $client->id !== $_POST['id'])
+                ret(false, 'False token');
+            if ($client->role !== User::ADMIN && $client->id !== $params['id'])
                 ret(true, 'Not authorized');
 
             $usr = new User(null);
-            $usr->id = $_POST['id'];
-            $usr = $usr->delUserById();
-            ret(true, '');
+            $usr->id = $params['id'];
+            ret($usr->delUserById(), '');
             break;
         default:
             ret(false, 'API Error');

@@ -36,7 +36,7 @@ function request (method, url, variable, cb) {
   };
 
   xhr.open(method, url, true);
-  if (method === 'POST') {
+  if (method === 'POST' || method === 'DELETE') {
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
   }
   xhr.send(variable);
@@ -69,7 +69,7 @@ window.onkeyup = (e) => {
       searchBar.value = null;
       searchView();
     }
-    request('POST', 'controllers/test.php', 'method=get&id=39ccc7ad-a2f3-4d8c-a705-d2f3c21fcab1', (res) => {
+    request('PUT', 'controllers/user.php', 'token=b30cf420-de2b-45ed-85be-bf926c3a670a&id=2d7ec594-8b7d-4875-a9a9-2f6baf6fc665&name=hellooo', (res) => {
       try {
         var data = JSON.parse(res);
       } catch (error) {

@@ -94,5 +94,10 @@
 			else
 				return false;
         }
+
+        public function getAuthor()
+        {
+            
+        }
 	}
 ?>

@@ -34,9 +34,9 @@
 			return ($result);
         }
 
-        public static function getPostsById($id)
+        public function getPostsById()
         {
-            if (Utils::isUuid($id) == false)
+            if (Utils::isUuid($this->id) == false)
 				return null;
 			$db = Database::getInstance();
 
@@ -44,12 +44,55 @@
                                 FROM posts INNER JOIN users on users.id = posts.author WHERE users.id = ?");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-			if ($stmt->execute(array($id))) {
+			if ($stmt->execute(array($this->id))) {
 				return $stmt->fetchAll();
 			}
 			else {
 				return null;
 			}
+        }
+
+        public function getPostsByAuthor()
+        {
+            if (Utils::isUuid($this->author) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT posts.id AS id, posts.author AS author, posts.link AS link, posts.date AS date
+                                FROM posts INNER JOIN users on users.id = posts.author WHERE posts.author = ?");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			if ($stmt->execute(array($this->author))) {
+				return $stmt->fetchAll();
+			}
+			else {
+				return null;
+			}
+        }
+
+        public function updatePostById()
+        {
+            if (Utils::isUuid($this->id) == false)
+				return null;
+            $db = Database::getInstance();
+
+            $stmt = $db->prepare("UPDATE posts SET id = ?, author = ?, link = ? WHERE id = ?");
+			$result = $stmt->execute($this->author, $this->link, $this->id);
+			return ($stmt->rowCount());
+        }
+
+        public function deletePostById()
+        {
+			if (Utils::isUuid($this->id) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
+			$stmt->execute(array(self::DEL, $this->id));
+			if ($stmt->rowCount() != 0)
+				return true;
+			else
+				return false;
         }
 	}
 ?>

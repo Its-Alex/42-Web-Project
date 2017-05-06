@@ -62,42 +62,6 @@
 			return ($result);
 		}
 
-		// Check if user exist with his password and mail
-		public function ifMailExist()
-		{
-			$db = Database::getInstance();
-
-			$stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE mail = ?");
-			$stmt->bindValue(1, $this->mail, PDO::PARAM_STR);
-			$stmt->execute();
-			return $stmt->fetch()[0];
-		}
-
-		public function updateUser() {
-			$db = Database::getInstance();
-
-			$stmt = $db->prepare("UPDATE users SET name = ?, passwd = ?, mail = ?, role = ?, state = ? WHERE id = ?");
-			$stmt->execute(array($this->name, $this->passwd, $this->mail, $this->role, $this->state, $this->id));
-			return ($stmt->rowCount());
-		}
-
-		// Change user state to register
-		public function userStateRegist()
-		{
-			if (Utils::isUuid($this->id) == false)
-				return null;
-			$db = Database::getInstance();
-
-			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
-			$stmt->bindValue(1, self::REGISTER, PDO::PARAM_STR);
-			$stmt->bindValue(2, $this->id, PDO::PARAM_STR);
-			$stmt->execute();
-			if ($stmt->rowCount() != 0)
-				return true;
-			else
-				return false;
-		}
-
 		// Get user with his id
 		public function getUserById()
 		{
@@ -130,6 +94,14 @@
 			}
 		}
 
+		public function updateUser() {
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("UPDATE users SET name = ?, passwd = ?, mail = ?, role = ?, state = ? WHERE id = ?");
+			$stmt->execute(array($this->name, $this->passwd, $this->mail, $this->role, $this->state, $this->id));
+			return ($stmt->rowCount());
+		}
+
 		public function delUserById() {
 			if (Utils::isUuid($this->id) == false)
 				return null;
@@ -137,6 +109,34 @@
 
 			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
 			$stmt->execute(array(self::DEL, $this->id));
+			if ($stmt->rowCount() != 0)
+				return true;
+			else
+				return false;
+		}
+
+		// Check if user exist with his password and mail
+		public function ifMailExist()
+		{
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT COUNT(*) FROM users WHERE mail = ?");
+			$stmt->bindValue(1, $this->mail, PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->fetch()[0];
+		}
+
+		// Change user state to register
+		public function userStateRegist()
+		{
+			if (Utils::isUuid($this->id) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
+			$stmt->bindValue(1, self::REGISTER, PDO::PARAM_STR);
+			$stmt->bindValue(2, $this->id, PDO::PARAM_STR);
+			$stmt->execute();
 			if ($stmt->rowCount() != 0)
 				return true;
 			else

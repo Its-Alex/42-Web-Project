@@ -54,11 +54,10 @@
                 ret(false, 'False token');
             if ($client->role !== User::ADMIN && $client->id !== $params['id'])
                 ret(true, 'Not authorized');
-
+ 
             $usr = new User(null);
             $usr->id = $params['id'];
             $usr = $usr->getUserById();
-
             if ($usr == null) {
                 ret(false, 'User not exist');
                 return;
@@ -68,9 +67,9 @@
                 $usr->name = $params['name'];
             if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
                 $usr->passwd = hash('whirlpool', $usr->mail . $params['passwd']);
-            if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO))
+            if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO) && $client->role == User::ADMIN)
                 $usr->role = $params['role'];
-            if (isset($params['state']) && !empty($params['state']) && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
+            if (isset($params['state']) && !empty($params['state']) && $client->role !== User::ADMIN && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
                 $usr->state = $params['state'];
             if ($usr->updateUser() == 0)
                 ret(false, 'Nothing happend');

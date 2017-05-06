@@ -143,6 +143,20 @@
 				return false;
 		}
 
+		public static function getAll()
+		{
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT * FROM users");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			if ($stmt->execute(array($this->id))) {
+				return $stmt->fetchAll();
+			}
+			else {
+				return null;
+			}
+		}
+
 		public function sendRegistMailById()
 		{
 			//=====Déclaration des messages au format texte et au format HTML.

@@ -57,6 +57,14 @@
                 return;
             }
 
+            if ($client == null || $author == null)
+                ret(false, 'False token', null);
+            if ($client->role !== User::ADMIN && $author->id !== $client->id)
+                ret(false, 'Not authorized', null);
+
+            $author = new User();
+            $author = $post->getAuthor();
+
             if (isset($params['link']) && !empty($params['link']) && preg_match("#[a-zA-Z0-9\/]+#", $params['link']))
                 $post->link = $params['link'];
             if (isset($params['author']) && !empty($params['author']))
@@ -75,6 +83,10 @@
             $post = new Post(null);
             $post->id = $params['id'];
             $post = $post->getPostById();
+            if ($post == null) {
+                ret(false, 'Post not exist', null);
+                return;
+            }
 
             $author = new User();
             $author = $post->getAuthor();

@@ -1,5 +1,6 @@
 <?php
 	require_once dirname(__DIR__).'/models/Database.class.php';
+	require_once dirname(__DIR__).'/models/User.class.php';
 	require_once dirname(__DIR__).'/models/Utils.class.php';
 
     /**
@@ -45,7 +46,7 @@
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 			if ($stmt->execute(array($this->id))) {
-				return $stmt->fetchAll();
+				return $stmt->fetch();
 			}
 			else {
 				return null;
@@ -98,6 +99,21 @@
         public function getAuthor()
         {
             
+        }
+
+        public static function getAll()
+        {
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT * FROM posts");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			if ($stmt->execute(array($this->author))) {
+				return $stmt->fetchAll();
+			}
+			else {
+				return null;
+			}
         }
 	}
 ?>

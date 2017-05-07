@@ -10,9 +10,10 @@
 
 	if (empty($_POST['mail']) || filter_var($_POST['mail'], FILTER_VALIDATE_EMAIL) == false)
 		ret(false, "Mail incorrect");
-	$user->id = strtolower($_POST['mail']);
-  if (($user = $user->getUserById()) == null)
+	$user->mail = strtolower($_POST['mail']);
+  if (($user = $user->getUserByMail()) == null) {
     ret(false, "L'utilisateur n'existe pas");
+	}
   if ($user->sendForgotPasswdMailById() == true)
     ret(true, "");
   else

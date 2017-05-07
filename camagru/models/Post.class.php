@@ -98,14 +98,14 @@
 
         public function getAuthor()
         {
-            
+
         }
 
         public static function getAll()
         {
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM posts");
+			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date ASC");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 			if ($stmt->execute(array($this->author))) {

@@ -194,10 +194,9 @@
 
 		public function sendForgotPasswdMailById()
 		{
-			$usr = $this->getUserByMail();
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$usr->id."&method=forgetPwd si tu as perdu ton mot de passe.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$usr->id."&method=forgetPwd\">lien</a> si tu as perdu ton mot de passe.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/forgetPwd.php?id=".$this->id." si tu as perdu ton mot de passe.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/forgetPwd.php?id=".$this->id."\">lien</a> si tu as perdu ton mot de passe.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -225,7 +224,7 @@
 			$message.= PHP_EOL."--".$boundary_alt."--".PHP_EOL;
 			$message.= PHP_EOL."--".$boundary.PHP_EOL;
 			//=====Envoi de l'e-mail.
-			return mail(getMailById($usr->id), $sujet, $message, $header);
+			return mail($this->mail, $sujet, $message, $header);
 		}
 	}
 ?>

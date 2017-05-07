@@ -31,7 +31,30 @@ function homeView () {
 }
 
 function createImgView () {
+  deleteAllElem();
+}
 
+function adminView () {
+  deleteAllElem();
+
+  request('GET', 'controllers/users.php', '', (res) => {
+    res = JSON.parse(res);
+
+    var body = document.querySelector('.body');
+    res.data.forEach((elem) => {
+      var div = document.createElement('div');
+
+      div.className = 'admin-user';
+      for (index in elem) {
+        var p = document.createElement('p');
+        p.innerHTML = index + ' : ' + elem[index];
+        console.log(res.data[index]);     
+        div.appendChild(p);
+        // div.appendChild(document.createElement('br'));
+      }
+      body.appendChild(div);
+    });
+  });
 }
 
 function searchView () {

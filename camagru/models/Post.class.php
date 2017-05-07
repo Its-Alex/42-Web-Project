@@ -101,6 +101,21 @@
 
         }
 
+        public function getAllOfAuthor()
+        {
+            $db = Database::getInstance();
+
+			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date ASC");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+			if ($stmt->execute(array($this->author))) {
+				return $stmt->fetchAll();
+			}
+			else {
+				return null;
+			}
+        }
+
         public static function getAll()
         {
 			$db = Database::getInstance();
@@ -108,7 +123,7 @@
 			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date ASC");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
-			if ($stmt->execute(array($this->author))) {
+			if ($stmt->execute()) {
 				return $stmt->fetchAll();
 			}
 			else {

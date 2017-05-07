@@ -149,8 +149,15 @@
 
 			$stmt = $db->prepare("SELECT * FROM users");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
-			if ($stmt->execute(array($this->id))) {
-				return $stmt->fetchAll();
+			if ($stmt->execute()) {
+				$user = $stmt->fetchAll();
+				foreach ($user as $key => $value) {
+					foreach ($value as $k => $v) {
+						if ($k === "passwd")
+							unset($user[$key][$k]);
+					}
+				}
+				return $user;
 			}
 			else {
 				return null;

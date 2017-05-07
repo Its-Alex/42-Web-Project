@@ -5,19 +5,17 @@ function HeadBar () {
   }
   var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Compte', 'Admin', 'Déconnexion'];
   var onclick = [() => {
-
+    homeView();
   }, () => {
-
   }, () => {
-
   }, () => {
     SignUpForm();
   }, () => {
     SignInForm();
   }, () => {
-
+    createImgView();
   }, () => {
-
+    adminView();
   }, () => {
     request('POST', 'controllers/logout.php', null, (res) => {
       console.log(JSON.parse(res));

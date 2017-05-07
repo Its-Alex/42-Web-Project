@@ -5,25 +5,25 @@
 	require_once dirname(__DIR__)."/models/User.class.php";
 	require_once dirname(__DIR__)."/models/Utils.class.php";
 
-    function ret($success, $err, $data) {
+  function ret($success, $err, $data) {
 		echo json_encode(array('success' => $success, 'data' => $data,'err' => $err));
 		exit();
 	}
 
-    switch ($SERVER['REQUEST_METHOD']) {
-        case 'GET':
-            $users = Post::getAll();
+  switch ($_SERVER['REQUEST_METHOD']) {
+    case 'GET':
+      $users = User::getAll();
 
-            if ($post === null)
-                ret(false, "Pas de users", null);
-            else
-                ret(true, "", $users);
-            break;
-        case 'POST':
-            ret(false, 'API ERROR', null);
-            break;
-        default:
-            ret(false, 'API ERROR', null);
-            break;
-    }
+      if ($users === null)
+          ret(false, "Pas de users", null);
+      else
+          ret(true, "", $users);
+      break;
+    case 'POST':
+      ret(false, 'API ERROR', null);
+      break;
+    default:
+      ret(false, 'API ERROR', null);
+      break;
+  }
 ?>

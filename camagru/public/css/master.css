@@ -114,3 +114,21 @@ input[type=button] {
 	width: 80%;
 	min-width: 100px;
 }
+
+/*
+**
+** Admin user display CSS :
+**
+*/
+
+.admin-user {
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+}
+
+.admin-user > p {
+	margin: 0;
+	padding: 0;
+}

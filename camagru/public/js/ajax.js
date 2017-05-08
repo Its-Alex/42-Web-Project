@@ -45,7 +45,8 @@ function adminView () {
       var div = document.createElement('div');
 
       div.className = 'admin-user';
-      for (index in elem) {
+      var keyNames = Object.keys(elem);
+      for (index in keyNames) {
         var p = document.createElement('p');
         p.innerHTML = index + ' : ' + elem[index];
         console.log(res.data[index]);     

@@ -123,12 +123,63 @@ input[type=button] {
 
 .admin-user {
 	display: flex;
-	flex-direction: column;
-	margin: 0;
+	flex-direction: row;
+	margin: 2px;
 	padding: 0;
+	width: 70%;
+	border: 2px solid #333;
 }
 
-.admin-user > p {
-	margin: 0;
-	padding: 0;
+.admin-user > div {
+	text-align: center;
+	font-size: 16px;
+}
+
+.admin-user > div:nth-child(1) {
+	width: 12%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(2) {
+	width: 25%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(3) {
+	width: 25%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(4) {
+	width: 10%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(5) {
+	width: 10%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(6) {
+	width: 15%;
+	border-right: 2px solid #333;
+}
+
+.admin-user > div:nth-child(7) {
+	width: 3%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.admin-user > div:nth-child(7) > a {
+	margin: 0px;
+	padding: 0px;
+}
+
+#svg-update, #svg-remove {
+	margin: 2px;
+	width: 20px;
+	height: 20px;
 }

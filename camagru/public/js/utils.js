@@ -58,6 +58,20 @@ function getElemForm (className) {
   return str;
 }
 
+function deleteUser(id) {
+  var params = 'token=' + localStorage.getItem('id');
+  params += '&id=' + id;
+
+  request('DELETE', 'controllers/user.php', params, (res) => {
+    console.log(res);
+    adminView ();
+  });
+}
+
+function updateUser(className) {
+  console.log(1);
+}
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();

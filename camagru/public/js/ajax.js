@@ -40,20 +40,47 @@ function adminView () {
   request('GET', 'controllers/users.php', '', (res) => {
     res = JSON.parse(res);
 
-    var body = document.querySelector('.body');
-    res.data.forEach((elem) => {
-      var div = document.createElement('div');
+    request('GET', 'public/assets/remove.svg', '', (remove) => {
+      request('GET', 'public/assets/update.svg', '', (update) => {
+        var body = document.querySelector('.body');
+        res.data.forEach((elem, index) => {
+          var className = 'user' + index;
+          var div = document.createElement('div');
 
-      div.className = 'admin-user';
-      var keyNames = Object.keys(elem);
-      for (index in keyNames) {
-        var p = document.createElement('p');
-        p.innerHTML = index + ' : ' + elem[index];
-        console.log(res.data[index]);     
-        div.appendChild(p);
-        // div.appendChild(document.createElement('br'));
-      }
-      body.appendChild(div);
+          div.className = 'admin-user' + ' ' + className;
+          var name = document.createElement('div');
+          name.innerHTML = elem.name;
+          div.appendChild(name);
+          var mail = document.createElement('div');
+          mail.innerHTML = elem.mail;
+          div.appendChild(mail);
+          var id = document.createElement('div');
+          id.innerHTML = elem.id;
+          div.appendChild(id);
+          var role = document.createElement('div');
+          role.innerHTML = elem.role;
+          div.appendChild(role);
+          var state = document.createElement('div');
+          state.innerHTML = elem.state;
+          div.appendChild(state);
+          var date = document.createElement('div');
+          date.innerHTML = elem.date;
+          div.appendChild(date);
+          var img = document.createElement('div');
+          var aIconRemove = document.createElement('a');
+          var aIconUpdate = document.createElement('a');
+          if (elem.role !== 'ADMIN') {
+            aIconRemove.onclick = () => { deleteUser(elem.id); };
+          }
+          aIconUpdate.onclick = () => { updateUserView(className, elem); };
+          aIconUpdate.innerHTML = update;
+          aIconRemove.innerHTML += remove;
+          img.appendChild(aIconUpdate);
+          img.appendChild(aIconRemove);
+          div.appendChild(img);
+          body.appendChild(div);
+        });
+      });
     });
   });
 }
@@ -102,4 +129,23 @@ function forgetPwdForm () {
   form.appendChild(createInput('forgetPwd', 'email', 'mail', 'Mail'));
   form.appendChild(createButton('forgetPwd', 'submit', 'Envoyé un mail', () => { forgetPwd(); }));
   body.appendChild(form);
+}
+
+function updateUserView (className, user) {
+  var body = document.querySelector('.body');
+
+  var div = document.createElement('div');
+  var name = document.createElement('input');
+  var id = document.createElement('input');
+  var mail = document.createElement('input');
+  var role = document.createElement('input');
+  var state = document.createElement('input');
+  div.appendChild(name);
+  div.appendChild(id);
+  div.appendChild(mail);
+  div.appendChild(role);
+  div.appendChild(state);
+  div.appendChild(createButton('update-user', 'submit', 'Modifier', () => {}));
+  body.appendChild(div);
+  // updateUser(user);
 }

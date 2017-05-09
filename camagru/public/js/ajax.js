@@ -32,6 +32,48 @@ function homeView () {
 
 function createImgView () {
   deleteAllElem();
+
+  var body = document.querySelector('.body');
+  var oldError = document.querySelector('.error');
+  if (oldError != null) {
+    body.removeChild(oldError);
+  }
+
+  var div = document.createElement('div');
+  div.className = 'inputUpdateUser';
+  div.innerHTML = 'Modifier : ';
+  div.appendChild(createInput('updateUserInput', 'text', 'name', 'Name'));
+  div.appendChild(createInput('updateUserInput', 'text', 'passwd', 'Mot de passe'));
+  div.appendChild(createButton('updateUserInput', 'submit', 'Modifier', () => { updateSelfUser(); }));
+  body.insertBefore(div, body.firstChild);
+
+  var video = document.createElement('video');
+  video.id = 'video';
+  function errCallBack (err) {
+    console.log(err);
+  }
+
+  if (navigator.getUserMedia) {
+        navigator.getUserMedia({
+          audio: false,
+          video: {
+            width: 10,
+            height: 10
+          }}, (stream) => {
+          video.src = window.URL.createObjectURL(stream);
+          video.onloadedmetadata = (e) => {
+            video.play();
+          };
+        }, (err) => {
+          if (err) {
+            console.error('L\'erreur suivante est apparu: ' + err);
+          }
+        });
+      } else {
+        console.error('Votre navigateur ne supporte pas GetUserMedia');
+      }
+      body.append(video);
+  body.appendChild(video);
 }
 
 function adminView () {
@@ -133,19 +175,19 @@ function forgetPwdForm () {
 
 function updateUserView (className, user) {
   var body = document.querySelector('.body');
+  var oldUpdate = document.querySelector('.inputUpdateUser');
+  if (oldUpdate != null) {
+    body.removeChild(oldUpdate);
+  }
+  var divBefore = document.querySelector('.user' + className[4]);
 
   var div = document.createElement('div');
-  var name = document.createElement('input');
-  var id = document.createElement('input');
-  var mail = document.createElement('input');
-  var role = document.createElement('input');
-  var state = document.createElement('input');
-  div.appendChild(name);
-  div.appendChild(id);
-  div.appendChild(mail);
-  div.appendChild(role);
-  div.appendChild(state);
-  div.appendChild(createButton('update-user', 'submit', 'Modifier', () => {}));
-  body.appendChild(div);
-  // updateUser(user);
+  div.className = 'inputUpdateUser';
+  div.innerHTML = user.mail + ' : ';
+  div.appendChild(createInput('updateUserInput', 'text', 'name', 'Name'));
+  div.appendChild(createInput('updateUserInput', 'text', 'role', 'Role'));
+  div.appendChild(createInput('updateUserInput', 'text', 'state', 'State'));
+  div.appendChild(createInput('updateUserInput', 'text', 'passwd', 'Mot de passe'));
+  div.appendChild(createButton('updateUserInput', 'submit', 'Modifier', () => { updateUser(user); }));
+  body.insertBefore(div, divBefore);
 }

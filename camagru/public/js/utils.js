@@ -68,8 +68,45 @@ function deleteUser(id) {
   });
 }
 
-function updateUser(className) {
-  console.log(1);
+function updateUser(user) {
+  var params = 'token=' + localStorage.getItem('id') + '&id=' + user.id + '&' + getElemForm('.updateUserInput');
+  request('PUT', 'controllers/user.php', params, (res) => {
+    res = JSON.parse(res);
+    if (res.err != '') {
+      var body = document.querySelector('.body');
+      var p = document.createElement('p');
+      var oldP = document.querySelector('.error');
+      if (oldP != null) {
+        body.removeChild(oldP);
+      }
+      p.className = 'error';
+      p.innerHTML = res.err;
+      body.insertBefore(p, body.firstChild);
+    } else {
+      adminView();
+    }
+  });
+}
+
+function updateSelfUser(user) {
+  var params = 'token=' + localStorage.getItem('id') + '&id=' + localStorage.getItem('id') + '&' + getElemForm('.updateUserInput');
+  request('PUT', 'controllers/user.php', params, (res) => {
+    res = JSON.parse(res);
+    console.log(res);
+    if (res.err != '') {
+      var body = document.querySelector('.body');
+      var p = document.createElement('p');
+      var oldP = document.querySelector('.error');
+      if (oldP != null) {
+        body.removeChild(oldP);
+      }
+      p.className = 'error';
+      p.innerHTML = res.err;
+      body.insertBefore(p, body.firstChild);
+    } else {
+      createImgView();
+    }
+  });
 }
 
 window.onkeyup = (e) => {
@@ -83,15 +120,6 @@ window.onkeyup = (e) => {
       searchBar.value = null;
       searchView();
     }
-    request('PUT', 'controllers/user.php', 'token=b30cf420-de2b-45ed-85be-bf926c3a670a&id=2d7ec594-8b7d-4875-a9a9-2f6baf6fc665&mail=xSkyZie@gmail.com', (res) => {
-      try {
-        var data = JSON.parse(res);
-      } catch (error) {
-        console.log(error);
-        console.log(res);
-      }
-      console.log(data);
-    });
   }
 };
 

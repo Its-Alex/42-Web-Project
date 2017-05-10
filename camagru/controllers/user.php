@@ -46,13 +46,9 @@
         case 'PUT':
             $params = Utils::parseArgs(file_get_contents("php://input"));
 
-            $client = new User(null);
-            $client->id = $params['token'];
-            $client = $client->getUserById();
-
-            if ($client == null)
+            if ($_SESSION['id'] == null || $_SESSION['id'] == undefined)
                 ret(false, 'False token');
-            if ($client->role !== User::ADMIN && $client->id !== $params['id'])
+            if ($_SESSION['role'] !== User::ADMIN && $_SESSION['id'] !== $params['id'])
                 ret(true, 'Not authorized');
  
             $usr = new User(null);
@@ -67,9 +63,9 @@
                 $usr->name = $params['name'];
             if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
                 $usr->passwd = hash('whirlpool', $usr->mail . $params['passwd']);
-            if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO || $params['role'] == User::ADMIN) && $client->role == User::ADMIN)
+            if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO || $params['role'] == User::ADMIN) && $_SESSION['role'] == User::ADMIN)
                 $usr->role = $params['role'];
-            if (isset($params['state']) && !empty($params['state']) && $client->role === User::ADMIN && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
+            if (isset($params['state']) && !empty($params['state']) && $_SESSION['role'] === User::ADMIN && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
                 $usr->state = $params['state'];
             if ($usr->updateUser() == 0)
                 ret(false, 'Aucune modification');
@@ -78,13 +74,9 @@
         case 'DELETE':
             $params = Utils::parseArgs(file_get_contents("php://input"));
 
-            $client = new User(null);
-            $client->id = $params['token'];
-            $client = $client->getUserById();
-
-            if ($client == null)
+            if ($_SESSION['id'] == null || $_SESSION['id'] == undefined)
                 ret(false, 'False token');
-            if ($client->role !== User::ADMIN && $client->id !== $params['id'])
+            if ($_SESSION['role'] !== User::ADMIN && $_SESSION['id'] !== $params['id'])
                 ret(true, 'Not authorized');
 
             $usr = new User(null);

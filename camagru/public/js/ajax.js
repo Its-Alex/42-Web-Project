@@ -28,12 +28,17 @@ function createButton (className, name, value, onclick) {
 
 function homeView () {
   deleteAllElem();
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'flex-start';
+  body.style.marginTop = '20px';
 }
 
 function createImgView () {
   deleteAllElem();
 
   var body = document.querySelector('.body');
+  body.style.justifyContent = 'flex-start';
+  body.style.marginTop = '20px';
   var oldError = document.querySelector('.error');
   if (oldError != null) {
     body.removeChild(oldError);
@@ -85,6 +90,8 @@ function adminView () {
     request('GET', 'public/assets/remove.svg', '', (remove) => {
       request('GET', 'public/assets/update.svg', '', (update) => {
         var body = document.querySelector('.body');
+        body.style.justifyContent = 'flex-start';
+        body.style.marginTop = '20px';
         res.data.forEach((elem, index) => {
           var className = 'user' + index;
           var div = document.createElement('div');
@@ -129,11 +136,16 @@ function adminView () {
 
 function searchView () {
   deleteAllElem();
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'flex-start';
+  body.style.marginTop = '20px';
 }
 
 function SignInForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
+  body.style.marginTop = '0px';
   var form = document.createElement('form');
   var a = document.createElement('a');
 
@@ -151,6 +163,8 @@ function SignInForm () {
 function SignUpForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
+  body.style.marginTop = '0px';
   var form = document.createElement('form');
 
   form.className = 'form signup';
@@ -165,6 +179,8 @@ function SignUpForm () {
 function forgetPwdForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
+  body.style.marginTop = '0px';
   var form = document.createElement('form');
 
   form.className = 'form forgetPwd';

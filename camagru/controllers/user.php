@@ -46,7 +46,7 @@
         case 'PUT':
             $params = Utils::parseArgs(file_get_contents("php://input"));
 
-            if ($_SESSION['id'] == null || $_SESSION['id'] == undefined)
+            if (!isset($_SESSION['id']))
                 ret(false, 'False token');
             if ($_SESSION['role'] !== User::ADMIN && $_SESSION['id'] !== $params['id'])
                 ret(true, 'Not authorized');
@@ -74,7 +74,7 @@
         case 'DELETE':
             $params = Utils::parseArgs(file_get_contents("php://input"));
 
-            if ($_SESSION['id'] == null || $_SESSION['id'] == undefined)
+            if (!isset($_SESSION['id']))
                 ret(false, 'False token');
             if ($_SESSION['role'] !== User::ADMIN && $_SESSION['id'] !== $params['id'])
                 ret(true, 'Not authorized');

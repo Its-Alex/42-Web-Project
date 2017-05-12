@@ -3,7 +3,7 @@ function HeadBar () {
   while (header.firstChild) {
     header.removeChild(header.firstChild);
   }
-  var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Compte', 'Admin', 'Déconnexion'];
+  var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Galerie', 'Webcam', 'Compte', 'Admin', 'Déconnexion'];
   var onclick = [() => {
     homeView();
   }, () => {
@@ -13,7 +13,11 @@ function HeadBar () {
   }, () => {
     SignInForm();
   }, () => {
-    createImgView();
+    galerieView();
+  }, () => {
+    webcamView();
+  }, () => {
+    userView();
   }, () => {
     adminView();
   }, () => {
@@ -21,6 +25,7 @@ function HeadBar () {
       console.log(JSON.parse(res));
       window.localStorage.clear();
       HeadBar();
+      homeView();
     });
   }];
 
@@ -48,6 +53,18 @@ function HeadBar () {
     } else {
       var icon = document.createElement('i');
       icon.classList.add('material-icons');
+      if (elem === 'Galerie') {
+        li.removeChild(li.firstChild);
+        icon.appendChild(document.createTextNode('contacts'));
+        li.appendChild(icon);
+        header.appendChild(a);
+      }
+      if (elem === 'Webcam') {
+        li.removeChild(li.firstChild);
+        icon.appendChild(document.createTextNode('picture_in_picture'));
+        li.appendChild(icon);
+        header.appendChild(a);
+      }
       if (elem === 'Compte') {
         li.removeChild(li.firstChild);
         icon.appendChild(document.createTextNode('person_pin'));

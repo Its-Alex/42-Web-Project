@@ -34,13 +34,69 @@ function homeView () {
   body.style.height = 'calc(100% - 70px)';
 }
 
-function createImgView () {
+function galerieView () {
   deleteAllElem();
-
   var body = document.querySelector('.body');
   body.style.justifyContent = 'flex-start';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
+}
+
+function webcamView () {
+  deleteAllElem();
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'flex-start';
+  body.style.marginTop = '20px';
+  body.style.height = 'calc(100% - 70px)';
+
+  var video = document.createElement('video');
+  video.id = 'video';
+  function errCallBack (err) {
+    console.log(err);
+  }
+
+  if (navigator.getUserMedia) {
+    navigator.getUserMedia({
+      audio: false,
+      video: {
+        width: 10,
+        height: 10
+      }}, (stream) => {
+      video.src = window.URL.createObjectURL(stream);
+      video.onloadedmetadata = (e) => {
+        video.play();
+      };
+    }, (err) => {
+      if (err) {
+        console.error('L\'erreur suivante est apparu: ' + err);
+      }
+    });
+  } else {
+    console.error('Votre navigateur ne supporte pas GetUserMedia');
+  }
+
+  body.appendChild(video);
+  body.appendChild(createButton('', 'screenshot', 'Screenshot', () => {
+    var body = document.querySelector('.body');
+    var canvas = document.createElement('canvas');
+    var video = document.querySelector('#video');
+
+    canvas.style.width = '512px';
+    canvas.style.height = '512px';
+    var ctx = canvas.getContext('2d');
+    body.appendChild(canvas);
+    ctx.drawImage(video, 0, 0, video.style.width, video.style.width);
+  }));
+  body.appendChild(video);
+}
+
+function userView () {
+  deleteAllElem();
+
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
+  body.style.marginTop = '0px';
+  body.style.height = 'calc(100% - 50px)';
   var oldError = document.querySelector('.error');
   if (oldError != null) {
     body.removeChild(oldError);
@@ -53,34 +109,6 @@ function createImgView () {
   div.appendChild(createInput('updateUserInput', 'text', 'passwd', 'Mot de passe'));
   div.appendChild(createButton('updateUserInput', 'submit', 'Modifier', () => { updateSelfUser(); }));
   body.insertBefore(div, body.firstChild);
-
-  var video = document.createElement('video');
-  video.id = 'video';
-  function errCallBack (err) {
-    console.log(err);
-  }
-
-  if (navigator.getUserMedia) {
-        navigator.getUserMedia({
-          audio: false,
-          video: {
-            width: 10,
-            height: 10
-          }}, (stream) => {
-          video.src = window.URL.createObjectURL(stream);
-          video.onloadedmetadata = (e) => {
-            video.play();
-          };
-        }, (err) => {
-          if (err) {
-            console.error('L\'erreur suivante est apparu: ' + err);
-          }
-        });
-      } else {
-        console.error('Votre navigateur ne supporte pas GetUserMedia');
-      }
-      body.append(video);
-  body.appendChild(video);
 }
 
 function adminView () {

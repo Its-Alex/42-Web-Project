@@ -147,7 +147,7 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM users");
+			$stmt = $db->prepare("SELECT * FROM users ORDER BY date ASC");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 			if ($stmt->execute()) {
 				$user = $stmt->fetchAll();

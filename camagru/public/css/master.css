@@ -132,7 +132,7 @@ input[type=button] {
 
 .admin-user > div {
 	text-align: center;
-	font-size: 1.2vw;
+	font-size: 1vw;
 }
 
 .admin-user > div:nth-child(1) {

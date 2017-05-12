@@ -78,16 +78,24 @@ function webcamView () {
   body.appendChild(video);
   body.appendChild(createButton('', 'screenshot', 'Screenshot', () => {
     var body = document.querySelector('.body');
-    var canvas = document.createElement('canvas');
     var video = document.querySelector('#video');
-
-    canvas.style.width = '512px';
-    canvas.style.height = '512px';
+    var canvas = document.createElement('canvas');
+    canvas.className = 'screenCanvas';
     var ctx = canvas.getContext('2d');
-    body.appendChild(canvas);
-    ctx.drawImage(video, 0, 0, video.style.width, video.style.width);
+    var div = document.querySelector('.screenshot')
+    if (div == null) {
+      div = document.createElement('div');
+      div.className = 'screenshot';
+    }
+
+    canvas.width = video.videoWidth / 2;
+    canvas.height = video.videoHeight / 2;
+    canvas.style.width = video.videoWidth / 2;
+    canvas.style.height = video.videoHeight / 2;
+    div.appendChild(canvas);
+    body.appendChild(div);
+    ctx.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
   }));
-  body.appendChild(video);
 }
 
 function userView () {

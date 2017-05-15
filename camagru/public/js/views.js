@@ -55,6 +55,17 @@ function webcamView () {
     console.log(err);
   }
 
+  var camDiv = document.createElement('div');
+  camDiv.className = 'camDiv';
+
+  var filter = document.createElement('div');
+  filter.className = 'filter';
+
+  var filter1 = document.createElement('img');
+  filter1.src = 'public/assets/filter/dog.png';
+
+  filter.appendChild(filter1);
+
   if (navigator.getUserMedia) {
     navigator.getUserMedia({
       audio: false,
@@ -75,7 +86,9 @@ function webcamView () {
     console.error('Votre navigateur ne supporte pas GetUserMedia');
   }
 
-  body.appendChild(video);
+  camDiv.appendChild(filter);
+  camDiv.appendChild(video);
+  body.appendChild(camDiv);
   body.appendChild(createButton('', 'screenshot', 'Screenshot', () => {
     var body = document.querySelector('.body');
     var video = document.querySelector('#video');
@@ -110,21 +123,17 @@ function userView () {
     body.removeChild(oldError);
   }
 
-  var div = document.createElement('div');
-  div.className = 'inputUpdateUser';
-  div.innerHTML = 'Modifier : ';
-  div.appendChild(createInput('updateUserInput', 'text', 'name', 'Name'));
-  div.appendChild(createInput('updateUserInput', 'text', 'passwd', 'Mot de passe'));
-  div.appendChild(createButton('updateUserInput', 'submit', 'Modifier', () => { updateSelfUser(); }));
-  body.insertBefore(div, body.firstChild);
+  body.appendChild(createInput('updateUserInput', 'text', 'name', 'Name'));
+  body.appendChild(createInput('updateUserInput', 'text', 'passwd', 'Mot de passe'));
+  body.appendChild(createButton('updateUserInput', 'submit', 'Modifier', () => { updateSelfUser(); }));
 }
 
 function adminView () {
   deleteAllElem();
 
   request('GET', 'controllers/users.php', '', (res) => {
+    console.log(res);
     res = JSON.parse(res);
-
     request('GET', 'public/assets/remove.svg', '', (remove) => {
       request('GET', 'public/assets/update.svg', '', (update) => {
         var body = document.querySelector('.body');

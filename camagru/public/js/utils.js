@@ -109,6 +109,10 @@ function updateSelfUser(user) {
   });
 }
 
+function putFilter(filter) {
+  console.log(filter);
+}
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();
@@ -122,4 +126,3 @@ window.onkeyup = (e) => {
     }
   }
 };
-

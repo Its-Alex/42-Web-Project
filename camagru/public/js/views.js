@@ -57,14 +57,28 @@ function webcamView () {
 
   var camDiv = document.createElement('div');
   camDiv.className = 'camDiv';
+  var mountingDiv = document.createElement('div');
+  mountingDiv.className = 'mountingDiv';
 
   var filter = document.createElement('div');
-  filter.className = 'filter';
+  filter.className = 'filterDiv';
+  var filterDog = document.createElement('img');
+  filterDog.src = 'public/assets/filter/dog.png';
+  filterDog.onclick = () => {
+    putFilter('dog');
+  };
+  var filterDog1 = document.createElement('img');
+  filterDog1.src = 'public/assets/filter/dog.png';
+  filterDog1.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/dog.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+  };
 
-  var filter1 = document.createElement('img');
-  filter1.src = 'public/assets/filter/dog.png';
-
-  filter.appendChild(filter1);
 
   if (navigator.getUserMedia) {
     navigator.getUserMedia({
@@ -86,9 +100,16 @@ function webcamView () {
     console.error('Votre navigateur ne supporte pas GetUserMedia');
   }
 
+  filter.appendChild(filterDog);
+  filter.appendChild(filterDog1);
+  mountingDiv.appendChild(video);
+  camDiv.appendChild(mountingDiv);
   camDiv.appendChild(filter);
-  camDiv.appendChild(video);
   body.appendChild(camDiv);
+
+
+
+/*  
   body.appendChild(createButton('', 'screenshot', 'Screenshot', () => {
     var body = document.querySelector('.body');
     var video = document.querySelector('#video');
@@ -109,7 +130,7 @@ function webcamView () {
     body.appendChild(div);
     ctx.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
   }));
-}
+*/}
 
 function userView () {
   deleteAllElem();

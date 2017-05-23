@@ -121,28 +121,36 @@ function putButton() {
     body.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
       var body = document.querySelector('.body');
       var video = document.querySelector('#video');
-      var canvas = document.createElement('canvas');
-      canvas.className = 'screenCanvas';
-      var ctx = canvas.getContext('2d');
+      var filter = document.querySelector('.filterOn');
       var div = document.querySelector('.screenshot')
       if (div == null) {
         div = document.createElement('div');
         div.className = 'screenshot';
       }
 
-      canvas.width = video.videoWidth / 2;
-      canvas.height = video.videoHeight / 2;
-      canvas.style.width = video.videoWidth / 2;
-      canvas.style.height = video.videoHeight / 2;
-      div.appendChild(canvas);
-      body.appendChild(div);
-      ctx.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      request('POST', 'controllers/mounting.php', 'data=' + canvas.toDataURL() + '&path=test', (res) => {
-        console.log(res);
+      var canvas_screen = document.createElement('canvas');
+      canvas_screen.className = 'screenCanvas';
+      var ctx_screen = canvas_screen.getContext('2d');
+      canvas_screen.width = video.videoWidth / 2;
+      canvas_screen.height = video.videoHeight / 2;
+      ctx_screen.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      var canvas_filter = document.createElement('canvas');
+      canvas_filter.className = 'screenCanvas';
+      var ctx_filter = canvas_filter.getContext('2d');
+      canvas_filter.width = video.videoWidth / 2;
+      canvas_filter.height = video.videoHeight / 2;
+      ctx_filter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      request('POST', 'controllers/mounting.php', 'data=' + canvas_screen.toDataURL() + '&filter=' + canvas_filter.toDataURL() + '&path=test', (res) => {
         res = JSON.parse(res);
         console.log(res);
         if (res.err == '') {
-          
+          var img = document.createElement('img');
+          img.src = './public/assets/pictures/test.png';
+          img.className = 'screenCanvas';
+          img.style.width = video.videoWidth / 2;
+          img.style.height = video.videoHeight / 2;
+          div.appendChild(img);
+          body.appendChild(div);
         }
       })
     }));
@@ -155,6 +163,7 @@ function showFilter(mountingDiv) {
 
   var filterChap1 = document.createElement('img');
   filterChap1.src = 'public/assets/filter/chap1.png';
+  filterChap1.className = 'filterChoose';
   filterChap1.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -167,6 +176,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap2 = document.createElement('img');
   filterChap2.src = 'public/assets/filter/chap2.png';
+  filterChap2.className = 'filterChoose';
   filterChap2.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -179,6 +189,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap3 = document.createElement('img');
   filterChap3.src = 'public/assets/filter/chap3.png';
+  filterChap3.className = 'filterChoose';
   filterChap3.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -191,6 +202,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap4 = document.createElement('img');
   filterChap4.src = 'public/assets/filter/chap4.png';
+  filterChap4.className = 'filterChoose';
   filterChap4.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -203,6 +215,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap5 = document.createElement('img');
   filterChap5.src = 'public/assets/filter/chap5.png';
+  filterChap5.className = 'filterChoose';
   filterChap5.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -215,6 +228,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap6 = document.createElement('img');
   filterChap6.src = 'public/assets/filter/chap6.png';
+  filterChap6.className = 'filterChoose';
   filterChap6.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -227,6 +241,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap7 = document.createElement('img');
   filterChap7.src = 'public/assets/filter/chap7.png';
+  filterChap7.className = 'filterChoose';
   filterChap7.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -239,6 +254,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap8 = document.createElement('img');
   filterChap8.src = 'public/assets/filter/chap8.png';
+  filterChap8.className = 'filterChoose';
   filterChap8.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -251,6 +267,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap9 = document.createElement('img');
   filterChap9.src = 'public/assets/filter/chap9.png';
+  filterChap9.className = 'filterChoose';
   filterChap9.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {
@@ -263,6 +280,7 @@ function showFilter(mountingDiv) {
   };
   var filterChap10 = document.createElement('img');
   filterChap10.src = 'public/assets/filter/chap10.png';
+  filterChap10.className = 'filterChoose';
   filterChap10.onclick = () => {
     var filterOn  = document.querySelector('.filterOn');
     if (filterOn == null) {

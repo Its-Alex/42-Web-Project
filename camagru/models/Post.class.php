@@ -88,7 +88,7 @@
 				return null;
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("UPDATE users SET state = ? WHERE id = ?");
+			$stmt = $db->prepare("DELETE from posts WHERE id = ?");
 			$stmt->execute(array(self::DEL, $this->id));
 			if ($stmt->rowCount() != 0)
 				return true;

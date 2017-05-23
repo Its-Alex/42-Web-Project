@@ -25,17 +25,10 @@
         return $newImg;
     }
 
-    function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct){ 
-        // creating a cut resource
+    function imagecopymerge_alpha($dst_im, $src_im, $dst_x, $dst_y, $src_x, $src_y, $src_w, $src_h, $pct) { 
         $cut = imagecreatetruecolor($src_w, $src_h); 
-
-        // copying relevant section from background to the cut resource
         imagecopy($cut, $dst_im, 0, 0, $dst_x, $dst_y, $src_w, $src_h); 
-
-        // copying relevant section from watermark to the cut resource
         imagecopy($cut, $src_im, 0, 0, $src_x, $src_y, $src_w, $src_h); 
-
-        // insert cut resource to destination image
         imagecopymerge($dst_im, $cut, $dst_x, $dst_y, 0, 0, $src_w, $src_h, $pct); 
     } 
 
@@ -44,9 +37,10 @@
             
             break;
         case 'POST':
-            if (!isset($_POST['data'])  || empty($_POST['data']) || !isset($_POST['path'])  || empty($_POST['path']) || !isset($_POST['filter'])  || empty($_POST['filter']))
+            if (!isset($_POST['data'])  || empty($_POST['data']) || !isset($_POST['filter'])  || empty($_POST['filter']))
                 ret(false, 'Empty field', '');
 
+            $uuid = Utils::genUuid();
             $path_filter = '../public/tmp/img.png';
             $path_img = '../public/tmp/filter.png';
 
@@ -69,16 +63,10 @@
             $src = imagecreatefrompng($path_filter);
             imagecopy($dest, $src, 0, 0, 0, 0, $width, $height);
 
-            imagepng($dest, '../public/assets/pictures/test.png');
+            imagepng($dest, '../public/assets/pictures/'.$uuid.'.png');
 
-            ret(true, '', '');
+            ret(true, '', array('uuid' => $uuid));
             break;
-        case 'PUT':
-            
-            break;
-        case 'DELETE':
-            
-            break;        
         default:
             ret(false, 'API ERROR', null);
             break;

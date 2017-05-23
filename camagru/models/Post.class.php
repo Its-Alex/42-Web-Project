@@ -21,9 +21,9 @@
             if (!array_key_exists('link', $args) && !array_key_exists('author', $args))
                 return;
 
-            $args->id = Utils::genUuid();
-            $args->link = $this->link;
-            $args->author = $this->author;
+            $this->id = Utils::genUuid();
+            $this->link = $args['link'];
+            $this->author = $args['author'];
         }
 
         function insert()

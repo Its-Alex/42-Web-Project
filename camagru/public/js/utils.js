@@ -140,19 +140,22 @@ function putButton() {
       canvas_filter.width = video.videoWidth / 2;
       canvas_filter.height = video.videoHeight / 2;
       ctx_filter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      request('POST', 'controllers/mounting.php', 'data=' + canvas_screen.toDataURL() + '&filter=' + canvas_filter.toDataURL() + '&path=test', (res) => {
+      request('POST', 'controllers/mounting.php', 'data=' + canvas_screen.toDataURL() + '&filter=' + canvas_filter.toDataURL() + '&author=' + localStorage.getItem('id'), (res) => {
         res = JSON.parse(res);
-        console.log(res);
-        if (res.err == '') {
+        if (res.err === '') {
           var img = document.createElement('img');
-          img.src = './public/assets/pictures/test.png';
+          img.src = './public/assets/pictures/' + res.data.uuid + '.png';
           img.className = 'screenCanvas';
           img.style.width = video.videoWidth / 2;
           img.style.height = video.videoHeight / 2;
           div.appendChild(img);
           body.appendChild(div);
+          div.scrollTop = div.scrollHeight;
+          var params = 'author=' + localStorage.getItem('id') + '&link=./public/assets/pictures/' + res.data.uuid + '.png';
+          request('POST', 'controllers/post.php', params, (ret) => {
+          });
         }
-      })
+      });
     }));
   }
 }

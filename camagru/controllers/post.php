@@ -30,12 +30,12 @@
             $user = $user->getUserById();
 
             if (empty($_POST['link']) || empty($_POST['author']))
-                ret(false, null, "Champs vide");
-            if (preg_match("#[a-zA-Z0-9\/]+#", $_POST['link']))
-                ret(false, null, "Lien invalide");
+                ret(false, "Champs vide", null);
+            if (!preg_match("#[a-zA-Z0-9.\-\/]+#", $_POST['link']))
+                ret(false, "Lien invalide", null);
             if (Utils::isUuid($_POST['author']) === false || $user === null)
-                ret(false, null, "Auteur invalide");
-            $post = new Post($_POST['link'], $_POST['author']);
+                ret(false, "Auteur invalide", null);
+            $post = new Post(array('link' => $_POST['link'], 'author' => $_POST['author']));
             if ($post->insert() === true)
                 ret(true, null, "");
             break;

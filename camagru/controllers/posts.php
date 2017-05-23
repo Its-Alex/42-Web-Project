@@ -10,7 +10,7 @@
 		exit();
 	}
 
-    switch ($SERVER['REQUEST_METHOD']) {
+    switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
             $posts = Post::getAll();
 

@@ -60,26 +60,6 @@ function webcamView () {
   var mountingDiv = document.createElement('div');
   mountingDiv.className = 'mountingDiv';
 
-  var filter = document.createElement('div');
-  filter.className = 'filterDiv';
-  var filterDog = document.createElement('img');
-  filterDog.src = 'public/assets/filter/dog.png';
-  filterDog.onclick = () => {
-    putFilter('dog');
-  };
-  var filterDog1 = document.createElement('img');
-  filterDog1.src = 'public/assets/filter/dog.png';
-  filterDog1.onclick = () => {
-    var filterOn  = document.querySelector('.filterOn');
-    if (filterOn == null) {
-      filterOn = document.createElement('img');
-    }
-    filterOn.src = 'public/assets/filter/dog.png';
-    filterOn.className = 'filterOn';
-    mountingDiv.appendChild(filterOn);
-  };
-
-
   if (navigator.getUserMedia) {
     navigator.getUserMedia({
       audio: false,
@@ -100,37 +80,11 @@ function webcamView () {
     console.error('Votre navigateur ne supporte pas GetUserMedia');
   }
 
-  filter.appendChild(filterDog);
-  filter.appendChild(filterDog1);
   mountingDiv.appendChild(video);
   camDiv.appendChild(mountingDiv);
-  camDiv.appendChild(filter);
+  camDiv.appendChild(showFilter(mountingDiv));
   body.appendChild(camDiv);
-
-
-
-/*  
-  body.appendChild(createButton('', 'screenshot', 'Screenshot', () => {
-    var body = document.querySelector('.body');
-    var video = document.querySelector('#video');
-    var canvas = document.createElement('canvas');
-    canvas.className = 'screenCanvas';
-    var ctx = canvas.getContext('2d');
-    var div = document.querySelector('.screenshot')
-    if (div == null) {
-      div = document.createElement('div');
-      div.className = 'screenshot';
-    }
-
-    canvas.width = video.videoWidth / 2;
-    canvas.height = video.videoHeight / 2;
-    canvas.style.width = video.videoWidth / 2;
-    canvas.style.height = video.videoHeight / 2;
-    div.appendChild(canvas);
-    body.appendChild(div);
-    ctx.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-  }));
-*/}
+}
 
 function userView () {
   deleteAllElem();
@@ -153,7 +107,6 @@ function adminView () {
   deleteAllElem();
 
   request('GET', 'controllers/users.php', '', (res) => {
-    console.log(res);
     res = JSON.parse(res);
     request('GET', 'public/assets/remove.svg', '', (remove) => {
       request('GET', 'public/assets/update.svg', '', (update) => {

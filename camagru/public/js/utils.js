@@ -113,6 +113,180 @@ function putFilter(filter) {
   console.log(filter);
 }
 
+function putButton() {
+  var body = document.querySelector('.body');
+  var button = document.querySelector('.buttonScreen');
+
+  if (button == null) {
+    body.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
+      var body = document.querySelector('.body');
+      var video = document.querySelector('#video');
+      var canvas = document.createElement('canvas');
+      canvas.className = 'screenCanvas';
+      var ctx = canvas.getContext('2d');
+      var div = document.querySelector('.screenshot')
+      if (div == null) {
+        div = document.createElement('div');
+        div.className = 'screenshot';
+      }
+
+      canvas.width = video.videoWidth / 2;
+      canvas.height = video.videoHeight / 2;
+      canvas.style.width = video.videoWidth / 2;
+      canvas.style.height = video.videoHeight / 2;
+      div.appendChild(canvas);
+      body.appendChild(div);
+      ctx.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      request('POST', 'controllers/mounting.php', 'data=' + canvas.toDataURL() + '&path=test', (res) => {
+        console.log(res);
+        res = JSON.parse(res);
+        console.log(res);
+        if (res.err == '') {
+          
+        }
+      })
+    }));
+  }
+}
+
+function showFilter(mountingDiv) {
+  var filter = document.createElement('div');
+  filter.className = 'filterDiv';
+
+  var filterChap1 = document.createElement('img');
+  filterChap1.src = 'public/assets/filter/chap1.png';
+  filterChap1.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap1.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap2 = document.createElement('img');
+  filterChap2.src = 'public/assets/filter/chap2.png';
+  filterChap2.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap2.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap3 = document.createElement('img');
+  filterChap3.src = 'public/assets/filter/chap3.png';
+  filterChap3.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap3.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap4 = document.createElement('img');
+  filterChap4.src = 'public/assets/filter/chap4.png';
+  filterChap4.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap4.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap5 = document.createElement('img');
+  filterChap5.src = 'public/assets/filter/chap5.png';
+  filterChap5.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap5.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap6 = document.createElement('img');
+  filterChap6.src = 'public/assets/filter/chap6.png';
+  filterChap6.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap6.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap7 = document.createElement('img');
+  filterChap7.src = 'public/assets/filter/chap7.png';
+  filterChap7.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap7.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap8 = document.createElement('img');
+  filterChap8.src = 'public/assets/filter/chap8.png';
+  filterChap8.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap8.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap9 = document.createElement('img');
+  filterChap9.src = 'public/assets/filter/chap9.png';
+  filterChap9.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap9.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+  var filterChap10 = document.createElement('img');
+  filterChap10.src = 'public/assets/filter/chap10.png';
+  filterChap10.onclick = () => {
+    var filterOn  = document.querySelector('.filterOn');
+    if (filterOn == null) {
+      filterOn = document.createElement('img');
+    }
+    filterOn.src = 'public/assets/filter/chap10.png';
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
+    putButton();
+  };
+
+  filter.appendChild(filterChap1);
+  filter.appendChild(filterChap2);
+  filter.appendChild(filterChap3);
+  filter.appendChild(filterChap4);
+  filter.appendChild(filterChap5);
+  filter.appendChild(filterChap6);
+  filter.appendChild(filterChap7);
+  filter.appendChild(filterChap8);
+  filter.appendChild(filterChap9);
+  filter.appendChild(filterChap10);
+  return filter;
+}
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();

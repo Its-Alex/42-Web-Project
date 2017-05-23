@@ -70,7 +70,6 @@ input[type=button] {
 	align-items: center;
 	flex-direction: column;
 	width: 100%;
-	height: calc(100% - 50px);
 }
 
 .error {
@@ -93,6 +92,7 @@ input[type=button] {
 	height: 50px;
 	background-color: #333;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
 }
@@ -218,14 +218,20 @@ input[type=button] {
 */
 
 #video {
-	height: 100%;
-	max-width: 100%;
+	height: auto;
+	width: 100%;
 	margin: 0;
 	padding: 0;
+	max-height: 100%;
 	position: absolute;
 }
 
 .filterOn {
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto;
+	max-height: 100%;
 	height: auto;
 	width: 100%;
 	margin: 0;
@@ -239,6 +245,10 @@ input[type=button] {
 	margin: 0;
 	padding: 0;
 	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }
 
 .camDiv {

@@ -109,10 +109,6 @@ function updateSelfUser(user) {
   });
 }
 
-function putFilter(filter) {
-  console.log(filter);
-}
-
 function putButton() {
   var body = document.querySelector('.body');
   var button = document.querySelector('.buttonScreen');

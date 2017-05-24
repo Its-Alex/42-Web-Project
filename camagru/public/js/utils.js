@@ -124,19 +124,19 @@ function putButton() {
         div.className = 'screenshot';
       }
 
-      var canvas_screen = document.createElement('canvas');
-      canvas_screen.className = 'screenCanvas';
-      var ctx_screen = canvas_screen.getContext('2d');
-      canvas_screen.width = video.videoWidth / 2;
-      canvas_screen.height = video.videoHeight / 2;
-      ctx_screen.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      var canvas_filter = document.createElement('canvas');
-      canvas_filter.className = 'screenCanvas';
-      var ctx_filter = canvas_filter.getContext('2d');
-      canvas_filter.width = video.videoWidth / 2;
-      canvas_filter.height = video.videoHeight / 2;
-      ctx_filter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      request('POST', 'controllers/mounting.php', 'data=' + canvas_screen.toDataURL() + '&filter=' + canvas_filter.toDataURL() + '&author=' + localStorage.getItem('id'), (res) => {
+      var canvasScreen = document.createElement('canvas');
+      canvasScreen.className = 'screenCanvas';
+      var ctxScreen = canvasScreen.getContext('2d');
+      canvasScreen.width = video.videoWidth / 2;
+      canvasScreen.height = video.videoHeight / 2;
+      ctxScreen.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      var canvasFilter = document.createElement('canvas');
+      canvasFilter.className = 'screenCanvas';
+      var ctxFilter = canvasFilter.getContext('2d');
+      canvasFilter.width = video.videoWidth / 2;
+      canvasFilter.height = video.videoHeight / 2;
+      ctxFilter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      request('POST', 'controllers/mounting.php', 'data=' + canvasScreen.toDataURL() + '&filter=' + canvasFilter.toDataURL() + '&author=' + localStorage.getItem('id'), (res) => {
         res = JSON.parse(res);
         if (res.err === '') {
           var img = document.createElement('img');

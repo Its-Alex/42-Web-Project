@@ -22,7 +22,6 @@ function HeadBar () {
     adminView();
   }, () => {
     request('POST', 'controllers/logout.php', null, (res) => {
-      console.log(JSON.parse(res));
       window.localStorage.clear();
       HeadBar();
       homeView();

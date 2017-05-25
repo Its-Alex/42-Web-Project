@@ -1,4 +1,4 @@
-<?php
+ <?php
     session_start();
 
 	require_once dirname(__DIR__)."/models/Post.class.php";
@@ -26,18 +26,50 @@
             break;
         case 'POST':
             $user = new User(null);
-            $user->id = $_POST['author'];
+            $user->id = $_POST['token'];
             $user = $user->getUserById();
+            $uuid = Utils::genUuid();
 
-            if (empty($_POST['link']) || empty($_POST['author']))
+
+            if ($user == null)
+                ret(false, 'False token', null);
+            if ($user->role !== User::ADMIN && $user->role !== User::USERS)
+                ret(false, 'Not tokenized', null);
+
+            if (empty($_POST['token']) || !isset($_POST['data'])  || empty($_POST['data']) || !isset($_POST['filter'])  || empty($_POST['filter']))
                 ret(false, "Champs vide", null);
-            if (!preg_match("#[a-zA-Z0-9.\-\/]+#", $_POST['link']))
-                ret(false, "Lien invalide", null);
-            if (Utils::isUuid($_POST['author']) === false || $user === null)
+            if (Utils::isUuid($_POST['token']) === false || $user === null)
                 ret(false, "Auteur invalide", null);
-            $post = new Post(array('link' => $_POST['link'], 'author' => $_POST['author']));
-            if ($post->insert() === true)
-                ret(true, null, "");
+
+            $post = new Post(array('link' => './public/assets/pictures/'.$uuid.'.png', 'author' => $_POST['token']));
+            if ($post->insert() === false)
+                ret(false, "Insert Failed", "");
+
+            $path_filter = '../public/tmp/img.png';
+            $path_img = '../public/tmp/filter.png';
+
+            $data = $_POST['data'];
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+            $data = base64_decode($data);
+            $filter = $_POST['filter'];
+            $filter = str_replace('data:image/png;base64,', '', $filter);
+            $filter = str_replace(' ', '+', $filter);
+            $filter = base64_decode($filter);
+
+            file_put_contents($path_img, $data);
+            file_put_contents($path_filter, $filter);
+            $size = getimagesize($path_img);
+            $width = $size[0];
+            $height = $size[1];
+
+            $dest = imagecreatefrompng($path_img);
+            $src = imagecreatefrompng($path_filter);
+            imagecopy($dest, $src, 0, 0, 0, 0, $width, $height);
+
+            imagepng($dest, '../public/assets/pictures/'.$uuid.'.png');
+
+            ret(true, '', array('uuidDb' => $post->id, 'uuidFile' => $uuid));
             break;
         case 'PUT':
             $params = Utils::parseArgs(file_get_contents("php://input"));
@@ -83,18 +115,12 @@
             $post = new Post(null);
             $post->id = $params['id'];
             $post = $post->getPostById();
-            if ($post == null) {
+            if ($post == null)
                 ret(false, 'Post not exist', null);
-                return;
-            }
-
-            $author = new User();
-            $author = $post->getAuthor();
-
-            if ($client == null || $author == null)
+            if ($client == null)
                 ret(false, 'False token', null);
-            if ($client->role !== User::ADMIN && $author->id !== $client->id)
-                ret(false, 'Not authorized', null);
+
+            unlink('..'.substr($post->link, 1));
 
             ret(true, $post->delPostById(), '');
             break;        

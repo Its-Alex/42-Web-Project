@@ -109,7 +109,7 @@ function updateSelfUser(user) {
   });
 }
 
-function putButton() {
+function putButton () {
   var body = document.querySelector('.body');
   var button = document.querySelector('.buttonScreen');
 
@@ -136,20 +136,27 @@ function putButton() {
       canvasFilter.width = video.videoWidth / 2;
       canvasFilter.height = video.videoHeight / 2;
       ctxFilter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      request('POST', 'controllers/mounting.php', 'data=' + canvasScreen.toDataURL() + '&filter=' + canvasFilter.toDataURL() + '&author=' + localStorage.getItem('id'), (res) => {
+      var params = 'token=' + localStorage.getItem('id') + '&data=' + canvasScreen.toDataURL() + '&filter=' + canvasFilter.toDataURL();
+      request('POST', 'controllers/post.php', params, (res) => {
+        console.log(res);
         res = JSON.parse(res);
         if (res.err === '') {
           var img = document.createElement('img');
-          img.src = './public/assets/pictures/' + res.data.uuid + '.png';
+          var containerImg = document.createElement('div');
+
+          containerImg.className = 'containerImg';
+          img.src = './public/assets/pictures/' + res.data.uuidFile + '.png';
           img.className = 'screenCanvas';
           img.style.width = video.videoWidth / 2;
           img.style.height = video.videoHeight / 2;
-          div.appendChild(img);
+          containerImg.appendChild(img);
+          containerImg.appendChild(createButton('delImg', 'delImg', 'Delete', () => { 
+            div.removeChild(containerImg);
+            request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + res.data.uuidDb, (r) => {});
+          }));
+          div.appendChild(containerImg);
           body.appendChild(div);
           div.scrollTop = div.scrollHeight;
-          var params = 'author=' + localStorage.getItem('id') + '&link=./public/assets/pictures/' + res.data.uuid + '.png';
-          request('POST', 'controllers/post.php', params, (ret) => {
-          });
         }
       });
     }));

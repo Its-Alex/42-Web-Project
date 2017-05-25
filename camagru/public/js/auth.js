@@ -1,7 +1,6 @@
 function signup () {
   request('POST', 'controllers/signup.php', getElemForm('.signup'), (res) => {
     res = JSON.parse(res);
-    console.log(res);      
     if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.signup');      
       var error = document.createElement('p');
@@ -17,7 +16,6 @@ function signup () {
 function signin () {
   request('POST', 'controllers/user.php', getElemForm('.signin'), (res) => {
     res = JSON.parse(res);
-    console.log(res);
     request('GET', 'controllers/user.php', '', (data) => {
       var session = JSON.parse(data);
 
@@ -47,7 +45,6 @@ function signin () {
 
 function forgetPwd () {
   request('POST', 'controllers/forgetPwd.php', getElemForm('.forgetPwd'), (res) => {
-    console.log(res);
     res = JSON.parse(res);
     if (res.err !== '' && res.err !== undefined && res.err !== null) {
       var form = document.querySelector('.forgetPwd');

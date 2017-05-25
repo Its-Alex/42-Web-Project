@@ -167,8 +167,8 @@
 		public function sendRegistMailById()
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&action=signin pour finaliser ton inscription.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/controllers/mail.php?id=".$this->id."&action=signin\">lien</a> pour finaliser ton inscription.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien ".$_SERVER['HTTP_ORIGIN']."/controllers/mail.php?id=".$this->id."&action=signin pour finaliser ton inscription.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"".$_SERVER['HTTP_ORIGIN']."/controllers/mail.php?id=".$this->id."&action=signin\">lien</a> pour finaliser ton inscription.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
@@ -202,8 +202,8 @@
 		public function sendForgotPasswdMailById()
 		{
 			//=====Déclaration des messages au format texte et au format HTML.
-			$message_txt = "Salut à toi, suis ce lien http://localhost:8080/42/camagru/forgetPwd.php?id=".$this->id." si tu as perdu ton mot de passe.";
-			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"http://localhost:8080/42/camagru/forgetPwd.php?id=".$this->id."\">lien</a> si tu as perdu ton mot de passe.</body></html>";
+			$message_txt = "Salut à toi, suis ce lien ".$_SERVER['HTTP_ORIGIN'].'/forgetPwd.php?id='.$this->id." si tu as perdu ton mot de passe.";
+			$message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"".$_SERVER['HTTP_ORIGIN'].'/forgetPwd.php?id='.$this->id."\">lien</a> si tu as perdu ton mot de passe.</body></html>";
 			//=====Création de la boundary.
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());

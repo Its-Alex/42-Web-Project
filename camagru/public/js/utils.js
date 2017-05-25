@@ -63,7 +63,6 @@ function deleteUser(id) {
   params += '&id=' + id;
 
   request('DELETE', 'controllers/user.php', params, (res) => {
-    console.log(res);
     adminView ();
   });
 }
@@ -92,7 +91,6 @@ function updateSelfUser(user) {
   var params = 'token=' + localStorage.getItem('id') + '&id=' + localStorage.getItem('id') + '&' + getElemForm('.updateUserInput');
   request('PUT', 'controllers/user.php', params, (res) => {
     res = JSON.parse(res);
-    console.log(res);
     if (res.err != '') {
       var body = document.querySelector('.body');
       var p = document.createElement('p');
@@ -115,30 +113,24 @@ function putButton () {
 
   if (button == null) {
     body.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
-      var body = document.querySelector('.body');
       var video = document.querySelector('#video');
       var filter = document.querySelector('.filterOn');
-      var div = document.querySelector('.screenshot')
+      var div = document.querySelector('.screenshot');
       if (div == null) {
         div = document.createElement('div');
         div.className = 'screenshot';
       }
 
       var canvasScreen = document.createElement('canvas');
-      canvasScreen.className = 'screenCanvas';
       var ctxScreen = canvasScreen.getContext('2d');
       canvasScreen.width = video.videoWidth / 2;
       canvasScreen.height = video.videoHeight / 2;
       ctxScreen.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      var canvasFilter = document.createElement('canvas');
-      canvasFilter.className = 'screenCanvas';
-      var ctxFilter = canvasFilter.getContext('2d');
-      canvasFilter.width = video.videoWidth / 2;
-      canvasFilter.height = video.videoHeight / 2;
-      ctxFilter.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
-      var params = 'token=' + localStorage.getItem('id') + '&data=' + canvasScreen.toDataURL() + '&filter=' + canvasFilter.toDataURL();
+      var imgData = canvasScreen.toDataURL();
+      ctxScreen.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      var filterData = canvasScreen.toDataURL();
+      var params = 'token=' + localStorage.getItem('id') + '&data=' + imgData + '&filter=' + filterData;
       request('POST', 'controllers/post.php', params, (res) => {
-        console.log(res);
         res = JSON.parse(res);
         if (res.err === '') {
           var img = document.createElement('img');

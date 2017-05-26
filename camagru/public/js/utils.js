@@ -116,6 +116,7 @@ function putButton () {
     div.className = 'buttonScreenView';
     var uploadButton = createInput('upload', 'file', 'Upload', '');
     uploadButton.addEventListener('change', handleFileSelect, false);
+    uploadButton.style.minHeight = 25;
 
     div.appendChild(uploadButton);
     div.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
@@ -186,9 +187,9 @@ function showFilter(mountingDiv) {
   var filterOn = document.querySelector('.filterOn');
   if (filterOn == null) {
     filterOn = document.createElement('img');
+    filterOn.className = 'filterOn';
+    mountingDiv.appendChild(filterOn);
   }
-  filterOn.className = 'filterOn';
-  mountingDiv.appendChild(filterOn);
 
   filter.className = 'filterDiv';
   for (var count = 1; count < 12; ++count) {
@@ -207,6 +208,54 @@ function onClickFilter (count) {
   putButton();
 }
 
+function viewPicture(id) {
+  deleteAllElem();
+  
+  var body = document.querySelector('.body');
+  var modal = document.getElementsByClassName('modal');
+  var imgView = document.createElement('div');
+  var commentDiv = document.createElement('div');
+  var likeDiv = document.createElement('div');
+  var img = document.createElement('img');
+
+  body.style.justifyContent = 'flex-start';
+  body.style.marginTop = '20px';
+  body.style.height = 'calc(100% - 70px)';
+  imgView.className = 'imgView';
+  img.className = 'picture';
+  likeDiv.className = 'likeDiv';
+  commentDiv.className = 'commentDiv';
+
+  request('GET', 'controllers/post.php?id=' + id, '', (res) => {
+    console.log(res);
+    res = JSON.parse(res);
+    console.log(res);
+
+    // Like view
+    var likeLogo = document.createElement('img');
+    var likeText = document.createElement('p');
+    likeLogo.className = 'likeLogo';
+    likeLogo.src = './public/assets//like.svg';
+
+    likeText.className = 'likeText';
+    likeText.innerHTML = 'malexand, vcrozet... 50 Likes';
+
+    likeDiv.appendChild(likeLogo);
+    likeDiv.appendChild(likeText);
+
+    // Comment view
+    var 
+
+
+
+    img.src = res.data.link;
+  });
+  imgView.appendChild(img);
+  imgView.appendChild(likeDiv);
+  imgView.appendChild(commentDiv);
+  modal[0].appendChild(imgView);
+}
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();
@@ -220,3 +269,11 @@ window.onkeyup = (e) => {
     }
   }
 };
+
+window.onclick = function(event) {
+    var modal = document.getElementsByClassName('modal');
+
+    if (event.target == modal[0]) {
+        modal[0].style.display = "none";
+    }
+}

@@ -2,23 +2,20 @@
  *  Scrollbar
  */
 
-.screenshot::-webkit-scrollbar-track ,.filter::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+.screenshot::-webkit-scrollbar-track ,.filterDiv::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 4.5px rgba(0,0,0,0.3);
 	border-radius: 5px;
 	background-color: #F5F5F5;
 }
 
-.screenshot::-webkit-scrollbar, .filter::-webkit-scrollbar
-{
-	width: 6px;
+.screenshot::-webkit-scrollbar, .filterDiv::-webkit-scrollbar {
+	width: 9px;
 	background-color: #F5F5F5;
 }
 
-.screenshot::-webkit-scrollbar-thumb, .filter::-webkit-scrollbar-thumb
-{
+.screenshot::-webkit-scrollbar-thumb, .filterDiv::-webkit-scrollbar-thumb {
 	border-radius: 5px;
-	-webkit-box-shadow: inset 0 0 3px rgba(0,0,0,.3);
+	-webkit-box-shadow: inset 0 0 4.5px rgba(0,0,0,.3);
 	background-color: #555;
 }
 
@@ -314,3 +311,77 @@ input[type=button] {
 	align-items: center;
 	width: 40%;
 }
+
+/*
+**
+** Modal Image view
+**
+*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /*overflow: auto;*/
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.imgView {
+    background-color: white;
+    margin: 50vh auto;
+    transform: translateY(-50%);
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.picture {
+	max-width: 25vw;
+	width: 90%;
+	height: auto;
+}
+
+.likeDiv {
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	width: 90%;
+	max-width: 25vw;
+}
+
+.likeText {
+	margin: 5px;
+	padding: 0;
+}
+
+.likeLogo {
+	margin-left: 5px;
+	height: 100%
+	width: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

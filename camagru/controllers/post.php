@@ -14,11 +14,11 @@
         case 'GET':
             $post = new Post(null);
 
-            if (Utils::isUuid($_POST['author']) === false)
-                ret(false, "Author not found", null);
+            if (Utils::isUuid($_GET['id']) === false)
+                ret(false, "Wrong Data", null);
 
-            $post->author = $_POST['author'];
-            $post = $post->getPostsById($_POST['id']);
+            $post->id = $_GET['id'];
+            $post = $post->getPostById();
             if ($post === null)
                 ret(false, "Pas de resultat", null);
             else

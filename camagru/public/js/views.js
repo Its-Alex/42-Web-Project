@@ -1,8 +1,14 @@
 HeadBar();
+homeView();
 
 function deleteAllElem () {
   var body = document.querySelectorAll('.body');
   body.forEach((elem) => {
+    while (elem.firstChild) elem.removeChild(elem.firstChild);
+  }, this);
+
+  var modal = document.querySelectorAll('.modal');
+  modal.forEach((elem) => {
     while (elem.firstChild) elem.removeChild(elem.firstChild);
   }, this);
 }
@@ -32,6 +38,10 @@ function homeView () {
   body.style.justifyContent = 'flex-start';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
+
+  var modal = document.getElementsByClassName('modal');
+  modal[0].style.display = "block";
+  viewPicture('d7282bb8-2fe8-4a65-b161-9c01a24844f9');
 }
 
 function galerieView () {

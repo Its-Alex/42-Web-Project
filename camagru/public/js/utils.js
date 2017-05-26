@@ -112,7 +112,13 @@ function putButton () {
   var button = document.querySelector('.buttonScreen');
 
   if (button == null) {
-    body.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
+    var div = document.createElement('div');
+    div.className = 'buttonScreenView';
+    var uploadButton = createInput('upload', 'file', 'Upload', '');
+    uploadButton.addEventListener('change', handleFileSelect, false);
+
+    div.appendChild(uploadButton);
+    div.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
       var video = document.querySelector('#video');
       var filter = document.querySelector('.filterOn');
       var div = document.querySelector('.screenshot');
@@ -123,11 +129,11 @@ function putButton () {
 
       var canvasScreen = document.createElement('canvas');
       var ctxScreen = canvasScreen.getContext('2d');
-      canvasScreen.width = video.videoWidth / 2;
-      canvasScreen.height = video.videoHeight / 2;
-      ctxScreen.drawImage(video, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      canvasScreen.width = 640;
+      canvasScreen.height = 480;
+      ctxScreen.drawImage(video, 0, 0, 640, 480);
       var imgData = canvasScreen.toDataURL();
-      ctxScreen.drawImage(filter, 0, 0, video.videoWidth / 2, video.videoHeight / 2);
+      ctxScreen.drawImage(filter, 0, 0, 640, 480);
       var filterData = canvasScreen.toDataURL();
       var params = 'token=' + localStorage.getItem('id') + '&data=' + imgData + '&filter=' + filterData;
       request('POST', 'controllers/post.php', params, (res) => {
@@ -139,8 +145,8 @@ function putButton () {
           containerImg.className = 'containerImg';
           img.src = './public/assets/pictures/' + res.data.uuidFile + '.png';
           img.className = 'screenCanvas';
-          img.style.width = video.videoWidth / 2;
-          img.style.height = video.videoHeight / 2;
+          img.style.width = 640;
+          img.style.height = 480;
           containerImg.appendChild(img);
           containerImg.appendChild(createButton('delImg', 'delImg', 'Delete', () => { 
             div.removeChild(containerImg);
@@ -152,7 +158,27 @@ function putButton () {
         }
       });
     }));
+    body.appendChild(div);
   }
+}
+
+function handleFileSelect (evt) {
+  var files = evt.target.files;
+  var reader = new FileReader();
+
+  f = files[0];
+  reader.onload = ((theFile) => {
+      return (e) => {
+        var video = document.getElementById('video');
+        var parent = video.parentElement;
+        var img = document.createElement('img');
+        img.id = 'video';
+        img.src = e.target.result;
+        parent.removeChild(video);
+        parent.insertBefore(img, document.getElementsByClassName('filterOn')[0]);
+      };
+    })(f);
+  reader.readAsDataURL(f);
 }
 
 function showFilter(mountingDiv) {
@@ -165,7 +191,7 @@ function showFilter(mountingDiv) {
   mountingDiv.appendChild(filterOn);
 
   filter.className = 'filterDiv';
-  for (var count = 1; count < 11; ++count) {
+  for (var count = 1; count < 12; ++count) {
     var filterImg = document.createElement('img');
     filterImg.src = 'public/assets/filter/chap' + count + '.png';
     filterImg.className = 'filterChoose';

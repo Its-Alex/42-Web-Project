@@ -244,10 +244,9 @@ function viewPicture(id) {
     likeDiv.appendChild(likeText);
 
     // Comment view
-    var 
+    
 
-
-
+    
     img.src = res.data.link;
   });
   imgView.appendChild(img);

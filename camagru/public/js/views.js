@@ -40,8 +40,8 @@ function homeView () {
   body.style.height = 'calc(100% - 70px)';
 
   var modal = document.getElementsByClassName('modal');
-  modal[0].style.display = "block";
-  viewPicture('d7282bb8-2fe8-4a65-b161-9c01a24844f9');
+  modal[0].style.display = 'block';
+  viewPicture('593acd94-69fd-473d-86e7-5354972e8c80');
 }
 
 function galerieView () {

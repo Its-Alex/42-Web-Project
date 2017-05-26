@@ -12,25 +12,35 @@
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
-            if (empty($_POST['token']) || !isset($_POST['token'])  || empty($_POST['id']) || !isset($_POST['id']))
-                ret(false, "Champs vide", null);
-            if (Utils::isUuid($_POST['id']) === false || Utils::isUuid($_POST['token']) === false)
-                ret(false, "Invalid params", null);
+            if (empty($_GET['id']) || !isset($_GET['id']))
+                ret(false, "Empty field", null);
+            if (Utils::isUuid($_GET['id']) === false)
+                ret(false, "Wrong id", null);
 
-            
+            $like = new Like(null);
+            $like->post = $_GET['id'];
+            $likes = $like->getLikesByPost();
+
+            ret(true, '', array('likes' => $likes, 'count' => count($likes)));
             break;
         case 'POST':
             break;
         case 'PUT':
             $params = Utils::parseArgs(file_get_contents("php://input"));
+            if (empty($params['token']) || !isset($params['token']) || empty($params['id']) || !isset($params['id']))
+                ret(false, "Empty field", null);
 
+            $like = new Like(null);
+            $like->user = $params['token'];
+            $like->post = $params['id'];
 
+            ret(true, '', $like->getUserLikePost());
             break;
         case 'DELETE':
             $params = Utils::parseArgs(file_get_contents("php://input"));
 
             
-            break;        
+            break; 
         default:
             ret(false, 'API ERROR', null);
             break;

@@ -334,18 +334,27 @@ input[type=button] {
     background-color: white;
     margin: 50vh auto;
     transform: translateY(-50%);
-    padding: 20px;
     border: 1px solid #888;
     width: 30vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+		border-radius: 5px;
+		border: 1px solid #333;
+}
+
+.pictureAuthor {
+	margin: 0;
+	margin-top: 10px;
+	margin-left: 10px;
+	padding: 0;
+	width: 100%;
 }
 
 .picture {
-	max-width: 25vw;
-	width: 90%;
+	margin-top: 10px;
+	width: 100%;
 	height: auto;
 }
 
@@ -354,19 +363,20 @@ input[type=button] {
 	padding: 0;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	flex-wrap: nowrap;
-	width: 90%;
-	max-width: 25vw;
+	width: 100%;
+	margin-top: 10px;
 }
 
 .likeText {
-	margin: 5px;
+	margin: 0 0 0 8px;
 	padding: 0;
 }
 
 .likeLogo {
 	margin-left: 5px;
-	height: 100%
+	height: 100%;
 	width: auto;
 }
 

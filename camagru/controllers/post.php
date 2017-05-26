@@ -19,10 +19,13 @@
 
             $post->id = $_GET['id'];
             $post = $post->getPostById();
-            if ($post === null)
+            $user = new User(null);
+            $user->id = $post->author;
+            $user = $user->getUserById();
+            if ($post === null || $user === null)
                 ret(false, "Pas de resultat", null);
             else
-                ret(true, "", $post);
+                ret(true, "", array('post' => $post, 'author' => $user->name));
             break;
         case 'POST':
             $user = new User(null);

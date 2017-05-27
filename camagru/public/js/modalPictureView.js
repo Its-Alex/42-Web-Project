@@ -33,9 +33,9 @@ function viewPicture (id) {
     imgView.appendChild(commentDiv);
 
     img.src = res.data.post.link;
+    modal[0].appendChild(imgView);
+    modal[0].style.display = 'block';
   });
-  modal[0].appendChild(imgView);
-  modal[0].style.display = 'block';
 }
 
 /*

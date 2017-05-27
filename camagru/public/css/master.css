@@ -358,6 +358,12 @@ input[type=button] {
 	height: auto;
 }
 
+/*
+**
+** Like Image view
+**
+*/
+
 .likeDiv {
 	margin: 0;
 	padding: 0;
@@ -380,16 +386,42 @@ input[type=button] {
 	width: auto;
 }
 
+/*
+**
+** Comment Image view
+**
+*/
+
 .commentDiv {
-	margin: 0;
+	width: 100%;
+	margin-top: 10px;
 	padding: 0;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
 	flex-wrap: nowrap;
-	width: 90%;
-	max-width: 25vw;
 }
 
+.addComment {
+	width: 100%;
+	margin-top: 10px;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: nowrap;
+}
+
+.commentText {
+	width: 80%;
+	height: 4em;
+	outline: none;
+	resize: none;
+	border: 1px solid #333;
+	border-radius: 5px;
+}
 
 
 

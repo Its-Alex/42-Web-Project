@@ -13,25 +13,6 @@ function deleteAllElem () {
   }, this);
 }
 
-function createInput (className, type, name, placeholder) {
-  var input = document.createElement('input');
-  input.className = className;
-  input.type = type;
-  input.name = name;
-  input.placeholder = placeholder;
-  return (input);
-}
-
-function createButton (className, name, value, onclick) {
-  var input = document.createElement('input');
-  input.className = className;
-  input.type = 'button';
-  input.name = name;
-  input.value = value;
-  input.onclick = onclick;
-  return (input);
-}
-
 function homeView () {
   deleteAllElem();
   var body = document.querySelector('.body');
@@ -39,7 +20,7 @@ function homeView () {
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
 
-  viewPicture('593acd94-69fd-473d-86e7-5354972e8c80');
+  viewPicture('a16bd319-ef47-4b62-a7ea-32816e47dd1e');
 }
 
 function galerieView () {

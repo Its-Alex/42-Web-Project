@@ -58,6 +58,25 @@ function getElemForm (className) {
   return str;
 }
 
+function createInput (className, type, name, placeholder) {
+  var input = document.createElement('input');
+  input.className = className;
+  input.type = type;
+  input.name = name;
+  input.placeholder = placeholder;
+  return (input);
+}
+
+function createButton (className, name, value, onclick) {
+  var input = document.createElement('input');
+  input.className = className;
+  input.type = 'button';
+  input.name = name;
+  input.value = value;
+  input.onclick = onclick;
+  return (input);
+}
+
 function deleteUser(id) {
   var params = 'token=' + localStorage.getItem('id');
   params += '&id=' + id;

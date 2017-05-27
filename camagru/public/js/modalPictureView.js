@@ -3,11 +3,11 @@ function viewPicture (id) {
 
   var body = document.querySelector('.body');
   var modal = document.getElementsByClassName('modal');
-  var name = document.createElement('p');
   var imgView = document.createElement('div');
-  var likeDiv;
-  var commentDiv = document.createElement('div');
+  var name = document.createElement('p');
   var img = document.createElement('img');
+  var likeDiv;
+  var commentDiv;
 
   body.style.justifyContent = 'flex-start';
   body.style.marginTop = '20px';
@@ -15,7 +15,6 @@ function viewPicture (id) {
   imgView.className = 'imgView';
   name.className = 'pictureAuthor';
   img.className = 'picture';
-  commentDiv.className = 'commentDiv';
 
   imgView.appendChild(name);
   imgView.appendChild(img);
@@ -30,6 +29,7 @@ function viewPicture (id) {
     imgView.appendChild(likeDiv);
 
     // Comment view
+    commentDiv = comment(res);
     imgView.appendChild(commentDiv);
 
     img.src = res.data.post.link;
@@ -47,7 +47,6 @@ function viewPicture (id) {
 function like(res) {
   var likeDiv = document.createElement('div');
   likeDiv.className = 'likeDiv';
-
 
   request('GET', 'controllers/like.php?id=' + res.data.post.id, '', (resLike) => {
     resLike = JSON.parse(resLike);
@@ -112,4 +111,34 @@ function likeTextShow (likeText, res) {
   } else if (res.data.count > 3) {
     likeText.innerHTML = res.data.likes[0].username + ', ' + res.data.likes[1].username + ', ' + res.data.likes[2].username + '... ' + res.data.count + ' Likes';
   }
+}
+
+/*
+**
+** Comment View :
+**
+*/
+
+function comment(res) {
+  var commentDiv = document.createElement('div');
+  var addComment = document.createElement('div');
+  var commentText = document.createElement('textarea');
+  var putComment = createButton('sendComment', 'sendComment', 'Comment', () => {
+    console.log('test');
+  });
+
+  commentDiv.className = 'commentDiv';
+  addComment.className = 'addComment';
+  commentText.className = 'commentText';
+  putComment.className = 'putComment';
+
+  commentText.placeholder = 'Votre commentaire ici'
+
+  addComment.appendChild(commentText);
+  addComment.appendChild(putComment);
+  commentDiv.appendChild(addComment);
+  return commentDiv;
+
+
+  return (commentDiv);
 }

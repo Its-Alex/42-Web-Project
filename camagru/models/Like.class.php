@@ -3,7 +3,7 @@
 	require_once dirname(__DIR__).'/models/Utils.class.php';
 
 	/*
-	** Class User
+	** Class Like
 	*/
 	class Like
 	{

@@ -28,12 +28,12 @@ function viewPicture (id) {
     imgView.appendChild(likeDiv);
 
     // Comment view
+    imgView.appendChild(commentDiv);
 
     img.src = res.data.post.link;
   });
   imgView.appendChild(name);
   imgView.appendChild(img);
-  imgView.appendChild(commentDiv);
   modal[0].appendChild(imgView);
   modal[0].style.display = 'block';
 }

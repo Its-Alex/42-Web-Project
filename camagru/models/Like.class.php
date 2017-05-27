@@ -28,8 +28,8 @@
 		{
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("INSERT INTO likes (user, post) VALUES (?, ?)");
-			$result = $stmt->execute(array($this->user, $this->post));
+			$stmt = $db->prepare("INSERT INTO likes (user, username, post) VALUES (?, ?, ?)");
+			$result = $stmt->execute(array($this->user, $this->username, $this->post));
 			return ($result);
 		}
 
@@ -55,6 +55,20 @@
 			$db = Database::getInstance();
 
 			$stmt = $db->prepare("SELECT * FROM likes WHERE user = ? AND post = ?");
+			$stmt->execute(array($this->user, $this->post));
+			if ($stmt->rowCount() != 0)
+				return true;
+			else
+				return false;
+		}
+
+		public function removeLike()
+		{
+			if (Utils::isUuid($this->user) == false || Utils::isUuid($this->post) == false)
+				return null;
+			$db = Database::getInstance();
+
+			$stmt = $db->prepare("DELETE FROM likes WHERE user = ? AND post = ?");
 			$stmt->execute(array($this->user, $this->post));
 			if ($stmt->rowCount() != 0)
 				return true;

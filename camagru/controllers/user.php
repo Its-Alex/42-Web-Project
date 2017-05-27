@@ -40,6 +40,7 @@
                 ret(false, "Vous n'avez pas activé votre compte");
             $_SESSION['id'] = $user->id;
             $_SESSION['mail'] = $user->mail;
+            $_SESSION['username'] = $user->name;
             $_SESSION['role'] = $user->role;
             ret(true, '');
             break;

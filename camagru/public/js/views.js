@@ -39,8 +39,6 @@ function homeView () {
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
 
-  var modal = document.getElementsByClassName('modal');
-  modal[0].style.display = 'block';
   viewPicture('593acd94-69fd-473d-86e7-5354972e8c80');
 }
 

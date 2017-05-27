@@ -29,9 +29,10 @@ function signin () {
         window.localStorage.setItem('role', session.role);
       }
       HeadBar();
+      if (res.success === true) homeView();
     });
     if (res.err !== '' && res.err !== undefined && res.err !== null) {
-      var form = document.querySelector('.signin');      
+      var form = document.querySelector('.signin');
       var error = document.createElement('p');
 
       if (form.firstChild.nodeName === 'P') form.removeChild(form.firstChild);
@@ -39,7 +40,6 @@ function signin () {
       error.innerHTML = res.err;
       form.insertBefore(error, form.firstChild);
     }
-    if (res.success === true) homeView();
   });
 }
 

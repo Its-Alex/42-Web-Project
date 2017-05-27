@@ -17,6 +17,8 @@ function viewPicture (id) {
   img.className = 'picture';
   commentDiv.className = 'commentDiv';
 
+  imgView.appendChild(name);
+  imgView.appendChild(img);
   request('GET', 'controllers/post.php?id=' + id, '', (res) => {
     res = JSON.parse(res);
 
@@ -32,8 +34,6 @@ function viewPicture (id) {
 
     img.src = res.data.post.link;
   });
-  imgView.appendChild(name);
-  imgView.appendChild(img);
   modal[0].appendChild(imgView);
   modal[0].style.display = 'block';
 }

@@ -1,7 +1,5 @@
-var xhr = null;
-
 function getXMLHttpRequest () {
-  xhr = null;
+  var xhr = null;
 
   if (window.XMLHttpRequest || window.ActiveXObject) {
     if (window.ActiveXObject) {
@@ -21,11 +19,7 @@ function getXMLHttpRequest () {
 }
 
 function request (method, url, variable, cb) {
-  if (xhr && xhr.readyState !== 0) {
-    xhr.abort(); // On annule la requête en cours !
-  }
-
-  xhr = getXMLHttpRequest();
+  var xhr = getXMLHttpRequest();
 
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4 && (xhr.status === 200 || xhr.status === 0)) {

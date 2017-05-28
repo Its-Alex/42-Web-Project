@@ -1,8 +1,8 @@
  <?php
     session_start();
 
-	require_once dirname(__DIR__)."/models/Post.class.php";
-	require_once dirname(__DIR__)."/models/Like.class.php";
+	require_once dirname(__DIR__)."/models/User.class.php";
+	require_once dirname(__DIR__)."/models/Comment.class.php";
 	require_once dirname(__DIR__)."/models/Utils.class.php";
 
     function ret($success, $err, $data) {
@@ -19,16 +19,24 @@
 
             $comment = new Comment(null);
             $comment->post = $_GET['id'];
+            $comments = $comment->getCommentsByPost();
 
-            ret(true, '', array($comment->getCommentsByPost());
+            foreach ($comments as $key => $value) {
+                $user = new User(null);
+                $user->id = $value['author'];
+                $user = $user->getUserById();
+                $comments[$key]['author'] = $user->name;
+            }
+
+            ret(true, '', $comments);
             break;
         case 'POST':
-            if (empty($_SESSION['id']) || !isset($_SESSION['id']) || empty($_POST['id']) || !isset($_POST['id']) || empty($_POST['comment']) || !isset($_POST['comment']))
+            if (empty($_SESSION['id']) || !isset($_SESSION['id']) || empty($_POST['id']) || !isset($_POST['id']) || empty($_POST['content']) || !isset($_POST['content']))
                 ret(false, "Empty field", null);
 
-            $comment = new Comment(array('post' => $_POST['id'] , 'author' => $_SESSION['id'], 'comment' => $_POST['comment']));
+            $comment = new Comment(array('post' => $_POST['id'] , 'author' => $_SESSION['id'], 'content' => $_POST['content']));
 
-            if ($comment->insert() === true)
+            if ($comment->insert())
                 ret(true, null, null);
             else
                 ret(false, null, null);

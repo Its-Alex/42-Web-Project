@@ -39,7 +39,7 @@
         {
             $db = Database::getInstance();
 
-            $stmt = $db->prepare("SELECT * FROM comments WHERE post = ? ORDER BY date ASC");
+            $stmt = $db->prepare("SELECT * FROM comments WHERE post = ? ORDER BY date DESC");
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
             if ($stmt->execute(array($this->post))) {

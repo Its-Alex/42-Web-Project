@@ -44,7 +44,7 @@ function viewPicture (id) {
 **
 */
 
-function like(res) {
+function like (res) {
   var likeDiv = document.createElement('div');
   likeDiv.className = 'likeDiv';
 
@@ -89,7 +89,6 @@ function like(res) {
         });
       };
     });
-
     likeText.className = 'likeText';
     likeTextShow(likeText, resLike);
 
@@ -121,6 +120,8 @@ function likeTextShow (likeText, res) {
 
 function comment(res) {
   var commentDiv = document.createElement('div');
+
+  // Add comment
   var addComment = document.createElement('div');
   var commentText = document.createElement('textarea');
   var putComment = createButton('sendComment', 'sendComment', 'Comment', () => {
@@ -132,13 +133,49 @@ function comment(res) {
   commentText.className = 'commentText';
   putComment.className = 'putComment';
 
-  commentText.placeholder = 'Votre commentaire ici'
+  commentText.placeholder = 'Votre commentaire ici';
+  putComment.onclick = () => {
+    var content = commentText.value;
+
+    request('POST', 'controllers/comment.php', 'id=' + res.data.post.id + '&content=' + content, (r) => {
+      commentText.value = '';
+      commentText.focus();
+      viewPicture(res.data.post.id);
+    });
+  };
+
+  // Show comments
+  var comments = document.createElement('div');
+  comments.className = 'comments';
+
+  request('GET', 'controllers/comment.php?id=' + res.data.post.id, '', (r) => {
+    r = JSON.parse(r);
+
+    r.data.forEach((elem) => {
+      var comment = document.createElement('div');
+      var author = document.createElement('p');
+      var text = document.createElement('p');
+      var date = document.createElement('p');
+
+      comment.className = 'commentContainer';
+      author.className = 'author';
+      text.className = 'content';
+      date.className = 'date';
+
+      author.innerHTML = elem.author;
+      text.innerHTML = elem.content;
+      date.innerHTML = elem.date;
+
+      comment.appendChild(author);
+      comment.appendChild(text);
+      comment.appendChild(date);
+      comments.appendChild(comment);
+    }, this);
+  });
 
   addComment.appendChild(commentText);
   addComment.appendChild(putComment);
   commentDiv.appendChild(addComment);
-  return commentDiv;
-
-
+  commentDiv.appendChild(comments);
   return (commentDiv);
 }

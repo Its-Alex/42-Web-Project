@@ -124,5 +124,24 @@
 				return null;
 			}
     }
+
+    public static function getAllLimited($limit, $offset)
+    {
+			$db = Database::getInstance();
+			$limit = intval($limit);
+			$offset = intval($offset);
+
+			$stmt = $db->prepare("SELECT * FROM `posts` ORDER BY date DESC LIMIT :lim OFFSET :off");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$stmt->bindParam(':lim', $limit, PDO::PARAM_INT);
+			$stmt->bindParam(':off', $offset, PDO::PARAM_INT);
+
+			if ($stmt->execute()) {
+				return $stmt->fetchAll();
+			}
+			else {
+				return null;
+			}
+    }
 	}
 ?>

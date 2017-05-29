@@ -221,6 +221,10 @@ function onClickFilter (count) {
   putButton();
 }
 
+document.addEventListener("scroll", function (event) {
+  console.log('SCROLLING');
+});
+
 window.onkeyup = (e) => {
   if (e.keyCode === 46) {
     HeadBar();

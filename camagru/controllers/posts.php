@@ -12,9 +12,20 @@
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
-            $posts = Post::getAll();
+            if (!isset($_GET['limit']) || !isset($_GET['offset']))
+                ret(false, 'Empty fields', null);
 
-            if ($post === null)
+            $posts = Post::getAllLimited($_GET['limit'], $_GET['offset']);
+
+            foreach ($posts as $key => $value) {
+                $user = new User(null);
+                $user->id = $value['author'];
+                $user = $user->getUserById();
+                $posts[$key]['author'] = $user->name;
+            }
+
+            ret(true, '', $posts);
+            if ($posts === null)
                 ret(false, "Pas de posts", null);
             else
                 ret(true, "", $posts);

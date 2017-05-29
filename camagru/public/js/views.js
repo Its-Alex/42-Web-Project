@@ -6,21 +6,47 @@ function deleteAllElem () {
   body.forEach((elem) => {
     while (elem.firstChild) elem.removeChild(elem.firstChild);
   }, this);
-
-  var modal = document.querySelectorAll('.modal');
-  modal.forEach((elem) => {
-    while (elem.firstChild) elem.removeChild(elem.firstChild);
-  }, this);
 }
 
 function homeView () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'flex-start';
+  body.style.justifyContent = 'space-between';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
 
-  viewPicture('a16bd319-ef47-4b62-a7ea-32816e47dd1e');
+  request('GET', 'controllers/posts.php?limit=6&offset=0', '', (res) => {
+    res = JSON.parse(res);
+    console.log(res);
+
+    for (var count = 0; count <= res.data.length - 1; ++count) {
+      var containerImg = document.createElement('div');
+      var likeDiv = document.createElement('div');
+      var name = document.createElement('p');
+      var img = document.createElement('img');
+
+      containerImg.className = 'ImgAcceuil';
+      likeDiv.className = 'likeDiv';
+      name.className = 'nameAcceuil';
+      img.className = 'imgAcceuil';
+
+      img.src = res.data[count].link;
+      img.alt = res.data[count].id;
+
+      img.onclick = (img) => { viewPicture(img.toElement.alt); };
+
+      // Name of author
+      name.innerHTML = res.data[count].author;
+
+      // Like view
+      likeDiv = like(res.data[count].id);
+
+      containerImg.appendChild(name);
+      containerImg.appendChild(img);
+      containerImg.appendChild(likeDiv);
+      body.appendChild(containerImg);
+    }
+  });
 }
 
 function galerieView () {
@@ -34,7 +60,7 @@ function galerieView () {
 function webcamView () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'flex-start';
+  body.style.justifyContent = 'space-between';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
 
@@ -85,6 +111,9 @@ function userView () {
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'center';
+  body.style.alignItems = 'center';
+  body.style.flexDirection = 'column';
+  body.style.flexWrap = 'nowrap';
   body.style.marginTop = '0px';
   body.style.height = 'calc(100% - 50px)';
   var oldError = document.querySelector('.error');

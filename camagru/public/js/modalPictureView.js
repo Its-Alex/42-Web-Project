@@ -1,5 +1,8 @@
 function viewPicture (id) {
-  deleteAllElem();
+  var modal = document.querySelectorAll('.modal');
+  modal.forEach((elem) => {
+    while (elem.firstChild) elem.removeChild(elem.firstChild);
+  }, this);
 
   var body = document.querySelector('.body');
   var modal = document.getElementsByClassName('modal');
@@ -25,7 +28,7 @@ function viewPicture (id) {
     name.innerHTML = res.data.author;
 
     // Like view
-    likeDiv = like(res);
+    likeDiv = like(res.data.post.id);
     imgView.appendChild(likeDiv);
 
     // Comment view
@@ -44,18 +47,18 @@ function viewPicture (id) {
 **
 */
 
-function like (res) {
+function like (postId) {
   var likeDiv = document.createElement('div');
   likeDiv.className = 'likeDiv';
 
-  request('GET', 'controllers/like.php?id=' + res.data.post.id, '', (resLike) => {
+  request('GET', 'controllers/like.php?id=' + postId, '', (resLike) => {
     resLike = JSON.parse(resLike);
 
     var likeLogo = document.createElement('img');
     var likeText = document.createElement('p');
 
     likeLogo.className = 'likeLogo';
-    request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + res.data.post.id, (resLogo) => {
+    request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + postId, (resLogo) => {
       resLogo = JSON.parse(resLogo);
       if (resLogo.data === true) {
         likeLogo.src = './public/assets/liked.svg';
@@ -63,13 +66,13 @@ function like (res) {
         likeLogo.src = './public/assets/like.svg';
       }
       likeLogo.onclick = () => {
-        request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + res.data.post.id, (resLikeLogo) => {
+        request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + postId, (resLikeLogo) => {
           resLikeLogo = JSON.parse(resLikeLogo);
           var likeLogo = document.getElementsByClassName('likeLogo');
 
           if (resLikeLogo.data === false) {
-            request('POST', 'controllers/like.php', 'id=' + res.data.post.id, (resIfLike) => {
-              request('GET', 'controllers/like.php?id=' + res.data.post.id, '', (resLike1) => {
+            request('POST', 'controllers/like.php', 'id=' + postId, (resIfLike) => {
+              request('GET', 'controllers/like.php?id=' + postId, '', (resLike1) => {
                 resLike1 = JSON.parse(resLike1);
 
                 likeTextShow(likeText, resLike1);
@@ -77,8 +80,8 @@ function like (res) {
             });
             likeLogo[0].src = './public/assets/liked.svg';
           } else {
-            request('DELETE', 'controllers/like.php', 'id=' + res.data.post.id, (resIfLike) => {
-              request('GET', 'controllers/like.php?id=' + res.data.post.id, '', (resLike1) => {
+            request('DELETE', 'controllers/like.php', 'id=' + postId, (resIfLike) => {
+              request('GET', 'controllers/like.php?id=' + postId, '', (resLike1) => {
                 resLike1 = JSON.parse(resLike1);
 
                 likeTextShow(likeText, resLike1);

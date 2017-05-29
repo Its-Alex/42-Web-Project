@@ -15,7 +15,7 @@
 		case 'PUT':
 			if ($user->userStateRegist() == true)
 				$success = true;
-			break;		
+			break;
 		default:
 			break;
 	}

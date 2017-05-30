@@ -24,7 +24,6 @@ function homeView () {
 
   request('GET', 'controllers/posts.php?limit=6&offset=0', '', (res) => {
     res = JSON.parse(res);
-    console.log(res);
 
     for (var count = 0; count <= res.data.length - 1; ++count) {
       var containerImg = document.createElement('div');
@@ -72,7 +71,6 @@ function galerieView () {
 
   request('GET', 'controllers/posts.php?author=1', '', (res) => {
     res = JSON.parse(res);
-    console.log(res);
 
     for (var count = 0; count <= res.data.length - 1; ++count) {
       var containerImg = document.createElement('div');

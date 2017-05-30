@@ -124,7 +124,13 @@ function comment(res) {
   var addComment = document.createElement('div');
   var commentText = document.createElement('textarea');
   var putComment = createButton('sendComment', 'sendComment', 'Comment', () => {
-    console.log('test');
+    var content = commentText.value;
+
+    request('POST', 'controllers/comment.php', 'id=' + res.data.post.id + '&content=' + content, (r) => {
+      commentText.value = '';
+      commentText.focus();
+      viewPicture(res.data.post.id);
+    });
   });
 
   commentDiv.className = 'commentDiv';
@@ -133,15 +139,6 @@ function comment(res) {
   putComment.className = 'putComment';
 
   commentText.placeholder = 'Votre commentaire ici';
-  putComment.onclick = () => {
-    var content = commentText.value;
-
-    request('POST', 'controllers/comment.php', 'id=' + res.data.post.id + '&content=' + content, (r) => {
-      commentText.value = '';
-      commentText.focus();
-      viewPicture(res.data.post.id);
-    });
-  };
 
   // Show comments
   var comments = document.createElement('div');

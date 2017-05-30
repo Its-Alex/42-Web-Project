@@ -223,9 +223,9 @@ function onClickFilter (count) {
   putButton();
 }
 
-document.addEventListener("scroll", function (event) {
+document.addEventListener('scroll', function (event) {
   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-    var save = window.scrollY;
+    var save = (window.scrollY - window.innerHeight);
     var containerAcceuil = document.getElementsByClassName('ImgAcceuil');
 
     if (containerAcceuil.length !== 0) {
@@ -261,8 +261,8 @@ document.addEventListener("scroll", function (event) {
           containerImg.appendChild(likeDiv);
           containerAcceuil[0].appendChild(containerImg);
         }
-        containerAcceuil.scrollTop = save;
       });
+      window.scrollTo(0, save);
     }
   }
 });
@@ -281,10 +281,10 @@ window.onkeyup = (e) => {
   }
 };
 
-window.onclick = function(event) {
-    var modal = document.getElementsByClassName('modal');
+window.onclick = function (event) {
+  var modal = document.getElementsByClassName('modal');
 
-    if (event.target == modal[0]) {
-        modal[0].style.display = "none";
-    }
-}
+  if (event.target === modal[0]) {
+    modal[0].style.display = 'none';
+  }
+};

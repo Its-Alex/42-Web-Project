@@ -99,7 +99,7 @@
     {
       $db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date ASC");
+			$stmt = $db->prepare("SELECT * FROM posts WHERE author = ? ORDER BY date DESC");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 			if ($stmt->execute(array($this->author))) {
@@ -114,7 +114,7 @@
     {
 			$db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date ASC");
+			$stmt = $db->prepare("SELECT * FROM posts ORDER BY date DESC");
 			$stmt->setFetchMode(PDO::FETCH_ASSOC);
 
 			if ($stmt->execute()) {

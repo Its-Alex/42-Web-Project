@@ -222,7 +222,47 @@ function onClickFilter (count) {
 }
 
 document.addEventListener("scroll", function (event) {
-  console.log('SCROLLING');
+  if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+    var save = window.scrollY;
+    var containerAcceuil = document.getElementsByClassName('ImgAcceuil');
+
+    if (containerAcceuil.length !== 0) {
+      var number = document.getElementsByClassName('imgAcceuil').length;
+
+      request('GET', 'controllers/posts.php?limit=6&offset=' + number, '', (res) => {
+        res = JSON.parse(res);
+
+        for (var count = 0; count <= res.data.length - 1; ++count) {
+          var containerImg = document.createElement('div');
+          var likeDiv = document.createElement('div');
+          var name = document.createElement('p');
+          var img = document.createElement('img');
+
+          containerImg.className = 'ImgAcceuil';
+          likeDiv.className = 'likeDiv';
+          name.className = 'nameAcceuil';
+          img.className = 'imgAcceuil';
+
+          img.src = res.data[count].link;
+          img.alt = res.data[count].id;
+
+          img.onclick = (elem) => { viewPicture(elem.target.alt); };
+
+          // Name of author
+          name.innerHTML = res.data[count].author;
+
+          // Like view
+          likeDiv = like(res.data[count].id);
+
+          containerImg.appendChild(name);
+          containerImg.appendChild(img);
+          containerImg.appendChild(likeDiv);
+          containerAcceuil[0].appendChild(containerImg);
+        }
+        containerAcceuil.scrollTop = save;
+      });
+    }
+  }
 });
 
 window.onkeyup = (e) => {

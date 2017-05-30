@@ -10,10 +10,17 @@ function deleteAllElem () {
 
 function homeView () {
   deleteAllElem();
+
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
+
+  var containerAcceuil = document.getElementsByClassName('containerAcceuil');
+  if (containerAcceuil.length === 0) {
+    containerAcceuil = document.createElement('div');
+    containerAcceuil.className = 'containerAcceuil';
+  }
 
   request('GET', 'controllers/posts.php?limit=6&offset=0', '', (res) => {
     res = JSON.parse(res);
@@ -33,7 +40,7 @@ function homeView () {
       img.src = res.data[count].link;
       img.alt = res.data[count].id;
 
-      img.onclick = (img) => { viewPicture(img.toElement.alt); };
+      img.onclick = (elem) => { viewPicture(elem.target.alt); };
 
       // Name of author
       name.innerHTML = res.data[count].author;
@@ -44,23 +51,72 @@ function homeView () {
       containerImg.appendChild(name);
       containerImg.appendChild(img);
       containerImg.appendChild(likeDiv);
-      body.appendChild(containerImg);
+      containerAcceuil.appendChild(containerImg);
     }
   });
+  body.appendChild(containerAcceuil);
 }
 
 function galerieView () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'flex-start';
+  body.style.justifyContent = 'space-between';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
+
+  var containerAcceuil = document.getElementsByClassName('containerAcceuil');
+  if (containerAcceuil.length === 0) {
+    containerAcceuil = document.createElement('div');
+    containerAcceuil.className = 'containerAcceuil';
+  }
+
+  request('GET', 'controllers/posts.php?author=1', '', (res) => {
+    res = JSON.parse(res);
+    console.log(res);
+
+    for (var count = 0; count <= res.data.length - 1; ++count) {
+      var containerImg = document.createElement('div');
+      var likeDiv = document.createElement('div');
+      var name = document.createElement('p');
+      var img = document.createElement('img');
+      var del = createButton('delGal', 'delGal', 'Supprimer', (event) => {
+        request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + event.target.alt, (r) => {
+          containerAcceuil.removeChild(event.target.previousSibling);
+          containerAcceuil.removeChild(event.target);
+        });
+      });
+      del.alt = res.data[count].id;
+
+      containerImg.className = 'ImgAcceuil';
+      likeDiv.className = 'likeDiv';
+      name.className = 'nameAcceuil';
+      img.className = 'imgAcceuil';
+
+      img.src = res.data[count].link;
+      img.alt = res.data[count].id;
+
+      img.onclick = (elem) => { viewPicture(elem.target.alt); };
+
+      // Name of author
+      name.innerHTML = res.data[count].author;
+
+      // Like view
+      likeDiv = like(res.data[count].id);
+
+      containerImg.appendChild(name);
+      containerImg.appendChild(img);
+      containerImg.appendChild(likeDiv);
+      containerAcceuil.appendChild(containerImg);
+      containerAcceuil.appendChild(del);
+    }
+  });
+  body.appendChild(containerAcceuil);
 }
 
 function webcamView () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'space-between';
+  body.style.justifyContent = 'flex-start';
   body.style.marginTop = '20px';
   body.style.height = 'calc(100% - 70px)';
 

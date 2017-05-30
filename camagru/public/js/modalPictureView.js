@@ -27,10 +27,6 @@ function viewPicture (id) {
     // Name of author
     name.innerHTML = res.data.author;
 
-    // Like view
-    likeDiv = like(res.data.post.id);
-    imgView.appendChild(likeDiv);
-
     // Comment view
     commentDiv = comment(res);
     imgView.appendChild(commentDiv);
@@ -60,15 +56,15 @@ function like (postId) {
     likeLogo.className = 'likeLogo';
     request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + postId, (resLogo) => {
       resLogo = JSON.parse(resLogo);
+
       if (resLogo.data === true) {
         likeLogo.src = './public/assets/liked.svg';
       } else {
         likeLogo.src = './public/assets/like.svg';
       }
-      likeLogo.onclick = () => {
+      likeLogo.onclick = (event) => {
         request('PUT', 'controllers/like.php', 'token=' + localStorage.getItem('id') + '&id=' + postId, (resLikeLogo) => {
           resLikeLogo = JSON.parse(resLikeLogo);
-          var likeLogo = document.getElementsByClassName('likeLogo');
 
           if (resLikeLogo.data === false) {
             request('POST', 'controllers/like.php', 'id=' + postId, (resIfLike) => {
@@ -76,18 +72,18 @@ function like (postId) {
                 resLike1 = JSON.parse(resLike1);
 
                 likeTextShow(likeText, resLike1);
+                event.target.src = './public/assets/liked.svg';
               });
             });
-            likeLogo[0].src = './public/assets/liked.svg';
           } else {
             request('DELETE', 'controllers/like.php', 'id=' + postId, (resIfLike) => {
               request('GET', 'controllers/like.php?id=' + postId, '', (resLike1) => {
                 resLike1 = JSON.parse(resLike1);
 
                 likeTextShow(likeText, resLike1);
+                event.target.src = './public/assets/like.svg';
               });
             });
-            likeLogo[0].src = './public/assets/like.svg';
           }
         });
       };

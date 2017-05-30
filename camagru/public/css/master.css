@@ -335,7 +335,7 @@ input[type=button] {
     margin: 50vh auto;
     transform: translateY(-50%);
     border: 1px solid #888;
-    width: 30vw;
+    width: 45vw;
     display: flex;
     flex-direction: column;
     justify-content: center;

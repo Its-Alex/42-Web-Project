@@ -32,8 +32,8 @@
             $like->username = $_SESSION['username']; 
             $like->post = $_POST['id'];
 
-            $isLiked = $like->getLikesByPost();
-            if (count($isLiked) === 0)
+            $isLiked = $like->getUserLikePost();
+            if ($isLiked === false)
             {
                 $like->insert();
                 ret(true, null, null);

@@ -353,6 +353,10 @@ input[type=button] {
     background-color: rgba(0,0,0,0.4);
 }
 
+.ImgAcceuil {
+	margin: 5px 0 5px 0;
+}
+
 .imgView {
     background-color: white;
     margin: 50vh auto;

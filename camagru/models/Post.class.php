@@ -125,6 +125,7 @@
 			}
     }
 
+
     public static function getAllLimited($limit, $offset)
     {
 			$db = Database::getInstance();

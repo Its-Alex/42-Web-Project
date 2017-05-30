@@ -181,6 +181,8 @@ function handleFileSelect (evt) {
   var reader = new FileReader();
 
   f = files[0];
+  if (f.name.substr(-3) !== "png" || f.type !== "image/png" || f.size > 10000000)
+    return;
   reader.onload = ((theFile) => {
       return (e) => {
         var video = document.getElementById('video');

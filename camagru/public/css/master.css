@@ -152,6 +152,8 @@ input[type=button] {
 	padding: 0;
 	width: 70%;
 	border: 2px solid #333;
+	overflow-x: auto;
+	overflow-y: none;
 }
 
 .admin-user > div {
@@ -161,31 +163,37 @@ input[type=button] {
 
 .admin-user > div:nth-child(1) {
 	width: 12%;
+	min-width: 70px;
 	border-right: 2px solid #333;
 }
 
 .admin-user > div:nth-child(2) {
 	width: 20%;
+	min-width: 150px;
 	border-right: 2px solid #333;
 }
 
 .admin-user > div:nth-child(3) {
 	width: 25%;
+	min-width: 192px;
 	border-right: 2px solid #333;
 }
 
 .admin-user > div:nth-child(4) {
 	width: 14%;
+	min-width: 80px;
 	border-right: 2px solid #333;
 }
 
 .admin-user > div:nth-child(5) {
 	width: 11%;
+	min-width: 100px;
 	border-right: 2px solid #333;
 }
 
 .admin-user > div:nth-child(6) {
 	width: 15%;
+	min-width: 90px;
 	border-right: 2px solid #333;
 }
 
@@ -195,11 +203,20 @@ input[type=button] {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	min-width: 50px;
 }
 
 .admin-user > div:nth-child(7) > a {
 	margin: 0px;
 	padding: 0px;
+}
+
+.inputUpdateUser {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
 }
 
 #svg-update, #svg-remove {

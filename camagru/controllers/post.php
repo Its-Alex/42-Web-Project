@@ -2,7 +2,9 @@
     session_start();
 
 	require_once dirname(__DIR__)."/models/Post.class.php";
-	require_once dirname(__DIR__)."/models/User.class.php";
+    require_once dirname(__DIR__)."/models/User.class.php";
+    require_once dirname(__DIR__)."/models/Like.class.php";
+	require_once dirname(__DIR__)."/models/Comment.class.php";
 	require_once dirname(__DIR__)."/models/Utils.class.php";
 
     function ret($success, $err, $data) {
@@ -122,6 +124,14 @@
                 ret(false, 'Post not exist', null);
             if ($client == null)
                 ret(false, 'False token', null);
+
+            $like = new Like(null);
+            $like->post = $params['id'];
+            echo $like->removeAllLike();
+
+            $comment = new Comment(null);
+            $comment->post = $params['id'];
+            echo $comment->removeAllComments();
 
             unlink('..'.substr($post->link, 1));
 

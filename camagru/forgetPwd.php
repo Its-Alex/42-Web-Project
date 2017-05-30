@@ -25,6 +25,7 @@
         if (getElemForm('.forgetPwd').split("=")[1].split("&")[0] !== getElemForm('.forgetPwd').split("=")[2]) {
           console.log('diff');
         } else {
+          console.log(req);
           request('PUT', 'controllers/user.php', req, (res) => {
             console.log(res);
           });

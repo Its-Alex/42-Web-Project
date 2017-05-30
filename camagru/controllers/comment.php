@@ -36,8 +36,15 @@
 
             $comment = new Comment(array('post' => $_POST['id'] , 'author' => $_SESSION['id'], 'content' => $_POST['content']));
 
+            $user = new User(null);
+            $user->id = $_SESSION['id'];
+            $user = $user->getUserById();
+
             if ($comment->insert())
+            {
+                $comment->sendNotif($user->mail);
                 ret(true, null, null);
+            }
             else
                 ret(false, null, null);
             break;

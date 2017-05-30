@@ -32,10 +32,15 @@
             $like->username = $_SESSION['username']; 
             $like->post = $_POST['id'];
 
+            $user = new User(null);
+            $user->id = $_SESSION['id'];
+            $user = $user->getUserById();
+
             $isLiked = $like->getUserLikePost();
             if ($isLiked === false)
             {
                 $like->insert();
+                $like->sendNotif($user->mail);
                 ret(true, null, null);
             }
             else

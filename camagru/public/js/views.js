@@ -16,9 +16,6 @@ function homeView () {
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
-  body.style.marginTop = '20px';
-  body.style.height = 'calc(100% - 70px)';
-
   var containerAcceuil = document.getElementsByClassName('containerAcceuil');
   if (containerAcceuil.length === 0) {
     containerAcceuil = document.createElement('div');
@@ -65,8 +62,6 @@ function galerieView () {
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
-  body.style.marginTop = '20px';
-  body.style.height = 'calc(100% - 70px)';
 
   var containerAcceuil = document.getElementsByClassName('containerAcceuil');
   if (containerAcceuil.length === 0) {
@@ -117,10 +112,9 @@ function galerieView () {
 
 function webcamView () {
   deleteAllElem();
+
   var body = document.querySelector('.body');
   body.style.justifyContent = 'flex-start';
-  body.style.marginTop = '20px';
-  body.style.height = 'calc(100% - 70px)';
 
   var video = document.createElement('video');
   video.id = 'video';
@@ -169,11 +163,7 @@ function userView () {
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'center';
-  body.style.alignItems = 'center';
-  body.style.flexDirection = 'column';
-  body.style.flexWrap = 'nowrap';
-  body.style.marginTop = '0px';
-  body.style.height = 'calc(100% - 50px)';
+
   var oldError = document.querySelector('.error');
   if (oldError != null) {
     body.removeChild(oldError);
@@ -186,6 +176,9 @@ function userView () {
 
 function adminView () {
   deleteAllElem();
+
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'flex-start';
 
   request('GET', 'controllers/users.php', '', (res) => {
     res = JSON.parse(res);
@@ -237,22 +230,14 @@ function adminView () {
   });
 }
 
-function searchView () {
-  deleteAllElem();
-  var body = document.querySelector('.body');
-  body.style.justifyContent = 'flex-start';
-  body.style.marginTop = '20px';
-  body.style.height = 'calc(100% - 70px)';
-}
-
 function SignInForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'center';
-  body.style.marginTop = '0px';
-  body.style.height = 'calc(100% - 50px)';
   var form = document.createElement('form');
   var a = document.createElement('a');
+
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
 
   form.className = 'form signin';
   a.innerHTML = 'Mot de passe oublié ?';
@@ -268,10 +253,10 @@ function SignInForm () {
 function SignUpForm () {
   deleteAllElem();
   var body = document.querySelector('.body');
-  body.style.justifyContent = 'center';
-  body.style.marginTop = '0px';
-  body.style.height = 'calc(100% - 50px)';
   var form = document.createElement('form');
+
+  var body = document.querySelector('.body');
+  body.style.justifyContent = 'center';
 
   form.className = 'form signup';
   form.appendChild(createInput('signup', 'name', 'name', 'Nom'));
@@ -284,10 +269,10 @@ function SignUpForm () {
 
 function forgetPwdForm () {
   deleteAllElem();
+
   var body = document.querySelector('.body');
   body.style.justifyContent = 'center';
-  body.style.marginTop = '0px';
-  body.style.height = 'calc(100% - 50px)';
+
   var form = document.createElement('form');
 
   form.className = 'form forgetPwd';

@@ -3,10 +3,9 @@ function HeadBar () {
   while (header.firstChild) {
     header.removeChild(header.firstChild);
   }
-  var textNode = ['Accueil', 'Recherche', '', 'Inscription', 'Connexion', 'Galerie', 'Webcam', 'Compte', 'Admin', 'Déconnexion'];
+  var textNode = ['Accueil', '', 'Inscription', 'Connexion', 'Galerie', 'Webcam', 'Compte', 'Admin', 'Déconnexion'];
   var onclick = [() => {
     homeView();
-  }, () => {
   }, () => {
   }, () => {
     SignUpForm();
@@ -35,15 +34,6 @@ function HeadBar () {
     li.appendChild(document.createTextNode(elem));
     a.appendChild(li);
     if (elem === 'Accueil' || elem === '') {
-      header.appendChild(a);
-    }
-    if (elem === 'Recherche') {
-      var searchBar = document.createElement('input');
-
-      li.removeChild(li.firstChild);
-      searchBar.className = 'searchBar';
-      searchBar.placeholder = 'Recherche...';
-      li.appendChild(searchBar);
       header.appendChild(a);
     }
     if (!('id' in window.localStorage)) {

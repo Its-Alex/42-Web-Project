@@ -1,6 +1,8 @@
 HeadBar();
 homeView();
 
+var scroll;
+
 function deleteAllElem () {
   var body = document.querySelectorAll('.body');
   body.forEach((elem) => {
@@ -10,6 +12,7 @@ function deleteAllElem () {
 
 function homeView () {
   deleteAllElem();
+  scroll = 0;
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
@@ -58,6 +61,8 @@ function homeView () {
 
 function galerieView () {
   deleteAllElem();
+  scroll = 1;
+
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
   body.style.marginTop = '20px';
@@ -78,10 +83,9 @@ function galerieView () {
       var name = document.createElement('p');
       var img = document.createElement('img');
       var del = createButton('delGal', 'delGal', 'Supprimer', (event) => {
-        request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + event.target.alt, (r) => {
-          containerAcceuil.removeChild(event.target.previousSibling);
-          containerAcceuil.removeChild(event.target);
-        });
+        request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + event.target.alt, (r) => {});
+        containerAcceuil.removeChild(event.target.previousSibling);
+        containerAcceuil.removeChild(event.target);
       });
       del.alt = res.data[count].id;
 

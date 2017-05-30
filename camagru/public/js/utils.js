@@ -139,6 +139,7 @@ function putButton () {
       if (div == null) {
         div = document.createElement('div');
         div.className = 'screenshot';
+        body.appendChild(div);
       }
 
       var canvasScreen = document.createElement('canvas');
@@ -167,7 +168,6 @@ function putButton () {
             request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + res.data.uuidDb, (r) => {});
           }));
           div.appendChild(containerImg);
-          body.appendChild(div);
           div.scrollTop = div.scrollHeight;
         }
       });
@@ -228,11 +228,15 @@ document.addEventListener('scroll', function (event) {
     var save = (window.scrollY - window.innerHeight);
     var containerAcceuil = document.getElementsByClassName('ImgAcceuil');
 
-    if (containerAcceuil.length !== 0) {
+    if (containerAcceuil.length !== 0 && scroll === 0) {
       var number = document.getElementsByClassName('imgAcceuil').length;
 
       request('GET', 'controllers/posts.php?limit=6&offset=' + number, '', (res) => {
         res = JSON.parse(res);
+
+        if (res.data.length === 0) {
+          scroll = 1;
+        }
 
         for (var count = 0; count <= res.data.length - 1; ++count) {
           var containerImg = document.createElement('div');

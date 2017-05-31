@@ -60,17 +60,31 @@
                 return;
             }
 
-            if (isset($params['name']) && !empty($params['name']) && preg_match("#[a-zA-Z0-9]#", $params['name']))
-                $usr->name = $params['name'];
-            if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
-                $usr->passwd = hash('whirlpool', $usr->mail . $params['passwd']);
+            if (isset($params['name']) && !empty($params['name']))
+            {
+                if (preg_match("#[a-zA-Z0-9]#", $params['name']))
+                    $usr->name = $params['name'];
+                else
+                    ret(false, "Nom invalide.");
+            }
+            if (isset($params['passwd']) && !empty($params['passwd']))
+            {
+                if (preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
+                    $usr->passwd = hash('whirlpool', $usr->mail . $params['passwd']);
+                else
+                    ret(false, "Mot de passe invalide");
+            }
             if (isset($params['role']) && !empty($params['role']) && ($params['role'] == User::USERS || $params['role'] == User::MODO || $params['role'] == User::ADMIN) && $_SESSION['role'] == User::ADMIN)
+            {
                 $usr->role = $params['role'];
+            }
             if (isset($params['state']) && !empty($params['state']) && $_SESSION['role'] === User::ADMIN && ($params['state'] == User::REGISTER || $params['state'] == User::FORGET_PWD || $params['state'] == User::DEL))
+            {
                 $usr->state = $params['state'];
+            }
             if ($usr->updateUser() == 0)
                 ret(false, 'Aucune modification');
-            ret(true, '');
+            ret(true, 'Modification(s) effectuée(s)');
             break;
         case 'DELETE':
             $params = Utils::parseArgs(file_get_contents("php://input"));

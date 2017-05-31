@@ -101,16 +101,13 @@ input[type=button] {
 	flex-wrap: wrap;
 }
 
-.header > a {
-	color: #eee;
-}
-
 .header > a:nth-child(2) {
 	flex-grow: 1;
 }
 
 .header > a {
-	margin: 4px;
+	color: #eee;
+	margin: 6px;
 	padding: 4px;
 }
 
@@ -301,8 +298,9 @@ input[type=button] {
 .filterChoose {
 	margin: 0;
 	padding: 0;
-	width: 50%;
+	width: calc(50% - 2px);
 	height: auto;
+	border: 1px solid #eee;
 }
 
 .screenshot {
@@ -356,6 +354,10 @@ input[type=button] {
 
 .ImgAcceuil { 
 	margin: 5px 0 5px 0;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	padding-bottom: 10px;
+	width: 45vh;
 }
 
 .imgView {
@@ -503,16 +505,14 @@ input[type=button] {
 	font-size: 0.8em;
 }
 
-
-.ImgAcceuil {
-	border: 1px solid #eee;
-	border-radius: 5px;
-	width: 45vh;
-}
-
 .imgAcceuil {
 	width: 100%;
 	max-height: 40vh;
+}
+
+.nameAcceuil {
+	margin: 4px;
+	font-size: 1.3em;
 }
 
 

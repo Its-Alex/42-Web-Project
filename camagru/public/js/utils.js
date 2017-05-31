@@ -128,11 +128,12 @@ function putButton () {
     var div = document.createElement('div');
     div.className = 'buttonScreenView';
     var uploadButton = createInput('upload', 'file', 'Upload', '');
+    console.log(uploadButton);
     uploadButton.addEventListener('change', handleFileSelect, false);
     uploadButton.style.minHeight = 25;
 
     div.appendChild(uploadButton);
-    div.appendChild(createButton('buttonScreen', 'screenshot', 'Screenshot', () => {
+    div.appendChild(createButton('buttonScreen', 'screenshot', 'Capture', () => {
       var video = document.querySelector('#video');
       var filter = document.querySelector('.filterOn');
       var div = document.querySelector('.screenshot');
@@ -207,7 +208,7 @@ function showFilter(mountingDiv) {
   }
 
   filter.className = 'filterDiv';
-  for (var count = 1; count < 11; ++count) {
+  for (var count = 1; count < 12; ++count) {
     var filterImg = document.createElement('img');
     filterImg.src = 'public/assets/filter/chap' + count + '.png';
     filterImg.className = 'filterChoose';
@@ -226,7 +227,7 @@ function onClickFilter (count) {
 document.addEventListener('scroll', function (event) {
   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
     var save = (window.scrollY - window.innerHeight);
-    var containerAcceuil = document.getElementsByClassName('ImgAcceuil');
+    var containerAcceuil = document.getElementsByClassName('containerAcceuil');
 
     if (scroll == 0 && end == 0) {
       if (containerAcceuil.length !== 0 && scroll === 0) {
@@ -315,6 +316,7 @@ document.addEventListener('scroll', function (event) {
             containerAcceuil[0].appendChild(del);
           }
         });
+        window.scrollTo(0, save);
       }
     }
   }

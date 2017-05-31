@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
   res.json({
     success: true,
     version: 0.1,
-    message: "Matcha API"
+    message: 'Matcha API'
   });
 });
 

@@ -6,11 +6,11 @@ var db;
 module.exports = {
   connect: () => {
     db = mysql.createConnection({
-      host     : 'sql.itsalex.fr',
-      user     : 'matcha',
-      password : '123456',
-      database : 'matcha',
-      debug    : true
+      host: 'sql.itsalex.fr',
+      user: 'matcha',
+      password: '123456',
+      database: 'matcha',
+      debug: true
     });
     db.connect((err) => {
       if (err) {
@@ -21,10 +21,12 @@ module.exports = {
     });
   },
   get: () => {
-  return new Promise((resolve, reject) => {
-    if (error === undefined)
-      return resolve(db);
-    else
-      return reject(error);
-  })}
-}
+    return new Promise((resolve, reject) => {
+      if (error === undefined) {
+        return resolve(db);
+      } else {
+        return reject(error);
+      }
+    });
+  }
+};

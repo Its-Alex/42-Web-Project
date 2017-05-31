@@ -7,9 +7,9 @@ router.post('/', (req, res) => {
   signin(req.body, req.headers['x-forwarded-for']).then(() => {
     res.json({
       success: true
-    })
+    });
   }).catch((err) => {
-    console.log(err)
+    console.log(err);
     res.json({
       success: false,
       message: err

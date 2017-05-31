@@ -1,4 +1,5 @@
 <?php
+	header("Location: ../index.php");
 	require dirname(__DIR__).'/config/database.php';
   $sql = file_get_contents("./database.sql");
 

@@ -40,7 +40,7 @@
             $user->id = $_SESSION['id'];
             $user = $user->getUserById();
 
-            if ($comment->insert())
+            if ($comment->insert() != 0)
             {
                 $comment->sendNotif($user->mail);
                 ret(true, null, null);

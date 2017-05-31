@@ -207,7 +207,7 @@ function showFilter(mountingDiv) {
   }
 
   filter.className = 'filterDiv';
-  for (var count = 1; count < 12; ++count) {
+  for (var count = 1; count < 11; ++count) {
     var filterImg = document.createElement('img');
     filterImg.src = 'public/assets/filter/chap' + count + '.png';
     filterImg.className = 'filterChoose';

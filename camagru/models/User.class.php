@@ -208,7 +208,7 @@
 			$boundary = "-----=".md5(rand());
 			$boundary_alt = "-----=".md5(rand());
 			//=====Définition du sujet.
-			$sujet = "Inscription Camagru !";
+			$sujet = "Camagru : Mot de passe oublié";
 			//=====Création du header de l'e-mail.
 			$header = "From: \"Camagru\"<camagru@gmail.com>".PHP_EOL;
 			$header.= "Reply-to: \"\" <>".PHP_EOL;

@@ -81,13 +81,14 @@
         public function sendNotif($mail)
         {
             //=====Déclaration des messages au format texte et au format HTML.
-            $message_txt = "Salut à toi, suis ce lien ".$_SERVER['HTTP_ORIGIN']."/controllers/mail.php?id=".$this->id."&action=signin pour finaliser ton inscription.";
-            $message_html = "<html><head></head><body><b>Salut à toi</b>, suis ce <a href=\"".$_SERVER['HTTP_ORIGIN']."/controllers/mail.php?id=".$this->id."&action=signin\">lien</a> pour finaliser ton inscription.</body></html>";
+            $message_txt = "Un utilisateur vient de mettre un commentaire sur une de tes photos !";
+            $message_html = "<html><head></head><body>Un utilisateur vient de mettre un <b>commentaire</b> sur une de tes photos !</body></html>";
+
             //=====Création de la boundary.
             $boundary = "-----=".md5(rand());
             $boundary_alt = "-----=".md5(rand());
             //=====Définition du sujet.
-            $sujet = "Inscription Camagru !";
+            $sujet = "Camagru : Nouveau commentaire !";
             //=====Création du header de l'e-mail.
             $header = "From: \"Camagru\"<camagru@gmail.com>".PHP_EOL;
             $header.= "Reply-to: \"\" <>".PHP_EOL;

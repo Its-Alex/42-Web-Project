@@ -37,7 +37,10 @@
 				$user = $user->getUserById();
 				if ($user == null)
 					ret(false, "User not found");
-				$user->passwd = $params['passwd'];
+				if (isset($params['passwd']) && !empty($params['passwd']) && preg_match("#[a-zA-Z0-9!^$()[\]{}?+*.\\\-]#", $params['passwd']))
+          $user->passwd = hash('whirlpool', $user->mail . $params['passwd']);
+        else
+        	ret(false, "Password invalid");
 				if ($user->updateUser() == 0)
 						ret(false, 'Aucune modification');
 				ret(true, '');

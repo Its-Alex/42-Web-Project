@@ -127,6 +127,7 @@ function comment(res) {
     var content = commentText.value;
 
     request('POST', 'controllers/comment.php', 'id=' + res.data.post.id + '&content=' + content, (r) => {
+      console.log(r);
       commentText.value = '';
       commentText.focus();
       viewPicture(res.data.post.id);

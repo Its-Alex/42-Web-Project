@@ -186,8 +186,6 @@ function adminView () {
       request('GET', 'public/assets/update.svg', '', (update) => {
         var body = document.querySelector('.body');
         body.style.justifyContent = 'flex-start';
-        body.style.marginTop = '20px';
-        body.style.height = 'calc(100% - 70px)';
         res.data.forEach((elem, index) => {
           var className = 'user' + index;
           var div = document.createElement('div');

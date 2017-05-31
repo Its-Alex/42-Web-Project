@@ -19,6 +19,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "mysql": "^2.13.0",
     "validator": "^7.0.0"
   }
 }

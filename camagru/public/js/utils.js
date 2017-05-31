@@ -228,45 +228,94 @@ document.addEventListener('scroll', function (event) {
     var save = (window.scrollY - window.innerHeight);
     var containerAcceuil = document.getElementsByClassName('ImgAcceuil');
 
-    if (containerAcceuil.length !== 0 && scroll === 0) {
-      var number = document.getElementsByClassName('imgAcceuil').length;
+    if (scroll == 0 && end == 0) {
+      if (containerAcceuil.length !== 0 && scroll === 0) {
+        var number = document.getElementsByClassName('imgAcceuil').length;
 
-      request('GET', 'controllers/posts.php?limit=6&offset=' + number, '', (res) => {
-        res = JSON.parse(res);
+        request('GET', 'controllers/posts.php?limit=6&offset=' + number, '', (res) => {
+          res = JSON.parse(res);
 
-        if (res.data.length === 0) {
-          scroll = 1;
-        }
+          if (res.data.length === 0) {
+            end = 1;
+          }
 
-        for (var count = 0; count <= res.data.length - 1; ++count) {
-          var containerImg = document.createElement('div');
-          var likeDiv = document.createElement('div');
-          var name = document.createElement('p');
-          var img = document.createElement('img');
+          for (var count = 0; count <= res.data.length - 1; ++count) {
+            var containerImg = document.createElement('div');
+            var likeDiv = document.createElement('div');
+            var name = document.createElement('p');
+            var img = document.createElement('img');
 
-          containerImg.className = 'ImgAcceuil';
-          likeDiv.className = 'likeDiv';
-          name.className = 'nameAcceuil';
-          img.className = 'imgAcceuil';
+            containerImg.className = 'ImgAcceuil';
+            likeDiv.className = 'likeDiv';
+            name.className = 'nameAcceuil';
+            img.className = 'imgAcceuil';
 
-          img.src = res.data[count].link;
-          img.alt = res.data[count].id;
+            img.src = res.data[count].link;
+            img.alt = res.data[count].id;
 
-          img.onclick = (elem) => { viewPicture(elem.target.alt); };
+            img.onclick = (elem) => { viewPicture(elem.target.alt); };
 
-          // Name of author
-          name.innerHTML = res.data[count].author;
+            // Name of author
+            name.innerHTML = res.data[count].author;
 
-          // Like view
-          likeDiv = like(res.data[count].id);
+            // Like view
+            likeDiv = like(res.data[count].id);
 
-          containerImg.appendChild(name);
-          containerImg.appendChild(img);
-          containerImg.appendChild(likeDiv);
-          containerAcceuil[0].appendChild(containerImg);
-        }
-      });
-      window.scrollTo(0, save);
+            containerImg.appendChild(name);
+            containerImg.appendChild(img);
+            containerImg.appendChild(likeDiv);
+            containerAcceuil[0].appendChild(containerImg);
+          }
+        });
+        window.scrollTo(0, save);
+      }
+    } else if (scroll == 1 && end == 0) {
+      if (containerAcceuil.length !== 0 && scroll === 1) {
+        var number = document.getElementsByClassName('imgAcceuil').length;
+
+        request('GET', 'controllers/posts.php?author=1&limit=6&offset=' + number, '', (res) => {
+          res = JSON.parse(res);
+
+          if (res.data.length === 0) {
+            end = 1;
+          }
+
+          for (var count = 0; count <= res.data.length - 1; ++count) {
+            var containerImg = document.createElement('div');
+            var likeDiv = document.createElement('div');
+            var name = document.createElement('p');
+            var img = document.createElement('img');
+            var del = createButton('delGal', 'delGal', 'Supprimer', (event) => {
+              request('DELETE', 'controllers/post.php', 'token=' + localStorage.getItem('id') + '&id=' + event.target.alt, (r) => {});
+              containerAcceuil.removeChild(event.target.previousSibling);
+              containerAcceuil.removeChild(event.target);
+            });
+            del.alt = res.data[count].id;
+
+            containerImg.className = 'ImgAcceuil';
+            likeDiv.className = 'likeDiv';
+            name.className = 'nameAcceuil';
+            img.className = 'imgAcceuil';
+
+            img.src = res.data[count].link;
+            img.alt = res.data[count].id;
+
+            img.onclick = (elem) => { viewPicture(elem.target.alt); };
+
+            // Name of author
+            name.innerHTML = res.data[count].author;
+
+            // Like view
+            likeDiv = like(res.data[count].id);
+
+            containerImg.appendChild(name);
+            containerImg.appendChild(img);
+            containerImg.appendChild(likeDiv);
+            containerAcceuil[0].appendChild(containerImg);
+            containerAcceuil[0].appendChild(del);
+          }
+        });
+      }
     }
   }
 });

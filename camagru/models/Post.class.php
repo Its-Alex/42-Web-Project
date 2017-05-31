@@ -95,14 +95,20 @@
 				return false;
     }
 
-    public function getAllOfAuthor()
+    public function getAllOfAuthor($limit, $offset)
     {
       $db = Database::getInstance();
 
-			$stmt = $db->prepare("SELECT * FROM posts WHERE author = ? ORDER BY date DESC");
-			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+      $limit = intval($limit);
+			$offset = intval($offset);
 
-			if ($stmt->execute(array($this->author))) {
+			$stmt = $db->prepare("SELECT * FROM posts WHERE author = :author ORDER BY date DESC LIMIT :lim OFFSET :off");
+			$stmt->setFetchMode(PDO::FETCH_ASSOC);
+			$stmt->bindParam(':author', $this->author, PDO::PARAM_STR);
+			$stmt->bindParam(':lim', $limit, PDO::PARAM_INT);
+			$stmt->bindParam(':off', $offset, PDO::PARAM_INT);
+
+			if ($stmt->execute()) {
 				return $stmt->fetchAll();
 			}
 			else {

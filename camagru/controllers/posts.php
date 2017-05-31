@@ -12,17 +12,17 @@
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'GET':
+            if (!isset($_GET['limit']) || !isset($_GET['offset']))
+                ret(false, 'Empty fields', null);
+
             if (isset($_GET['author']))
             {
                 $post = new Post(null);
                 $post->author = $_SESSION['id'];
-                $posts = $post->getAllOfAuthor();
+                $posts = $post->getAllOfAuthor($_GET['limit'], $_GET['offset']);
             }
             else
             {            
-                if (!isset($_GET['limit']) || !isset($_GET['offset']))
-                    ret(false, 'Empty fields', null);
-
                 $posts = Post::getAllLimited($_GET['limit'], $_GET['offset']);
             }
 

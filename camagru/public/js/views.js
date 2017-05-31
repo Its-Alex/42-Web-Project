@@ -2,6 +2,7 @@ HeadBar();
 homeView();
 
 var scroll;
+var end;
 
 function deleteAllElem () {
   var body = document.querySelectorAll('.body');
@@ -13,6 +14,7 @@ function deleteAllElem () {
 function homeView () {
   deleteAllElem();
   scroll = 0;
+  end = 0;
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
@@ -59,6 +61,7 @@ function homeView () {
 function galerieView () {
   deleteAllElem();
   scroll = 1;
+  end = 0;
 
   var body = document.querySelector('.body');
   body.style.justifyContent = 'space-between';
@@ -69,7 +72,7 @@ function galerieView () {
     containerAcceuil.className = 'containerAcceuil';
   }
 
-  request('GET', 'controllers/posts.php?author=1', '', (res) => {
+  request('GET', 'controllers/posts.php?author=1&limit=6&offset=0', '', (res) => {
     res = JSON.parse(res);
 
     for (var count = 0; count <= res.data.length - 1; ++count) {

@@ -1,4 +1,4 @@
-var mysql      = require('mysql');
+var mysql = require('mysql');
 
 var error;
 var db;
@@ -10,7 +10,7 @@ module.exports = {
       user: 'matcha',
       password: '123456',
       database: 'matcha',
-      debug: true
+      debug: false
     });
     db.connect((err) => {
       if (err) {

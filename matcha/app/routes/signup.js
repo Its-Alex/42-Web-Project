@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-const signin = require('../controllers/signin.js');
+const signup = require('../controllers/signup.js');
 
 router.post('/', (req, res) => {
-  signin().then(() => {
+  console.log(req.body);
+  signup().then(() => {
     res.json({
       success: true
     });
   }).catch((err) => {
-    console.log(err);
+    console.error(err);
     res.json({
       success: false,
       message: err

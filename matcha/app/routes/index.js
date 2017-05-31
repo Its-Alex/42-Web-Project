@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const user = express.Router();
 
 // const middle = require('../middlewares.js');
 
@@ -11,8 +12,10 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/signin', require('./signin.js'));
-// router.use('/signup', require('./signup.js'))
-// router.use('/tokens', require('./tokens.js'))
+// User Subroot
+user.use('/signin', require('./signin.js'));
+user.use('/signup', require('./signup.js'));
+
+router.use('/user', user);
 
 module.exports = router;

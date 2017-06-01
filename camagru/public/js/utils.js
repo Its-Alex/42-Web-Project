@@ -227,7 +227,7 @@ function onClickFilter (count) {
 document.addEventListener('scroll', function (event) {
   if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
     var save = (window.scrollY - window.innerHeight);
-    var containerAcceuil = document.getElementsByClassName('containerAcceuil');
+    var containerAcceuil = document.getElementsByClassName('flexContainer');
 
     if (scroll == 0 && end == 0) {
       if (containerAcceuil.length !== 0 && scroll === 0) {

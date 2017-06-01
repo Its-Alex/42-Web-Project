@@ -526,6 +526,8 @@ input[type=button] {
 @media all and (max-width: 768px) {
 	.flexContainer {
 		flex-direction: column;
+		padding-left: 22px;
+		padding-right: 22px;
 	}
 
 	.ImgAcceuil {

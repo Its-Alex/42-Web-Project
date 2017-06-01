@@ -20,5 +20,22 @@ module.exports = {
         }
       });
     });
+  },
+  insertUser: (body) => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('INSERT INTO users (id, name, mail, password, date) VALUES (?, ?, ?, ?, ?)', [
+          body.id,
+          body.name,
+          body.mail,
+          body.password,
+          new Date().getTime()], (err, results) => {
+            if (err) {
+              return reject(err);
+            }
+            return resolve();
+          })
+      })
+    });
   }
 };

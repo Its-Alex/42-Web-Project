@@ -12,32 +12,48 @@ function genToken () {
   return (token);
 }
 
-module.exports = (body) => {
-  return new Promise((resolve, reject) => {
-    if (!valid.isEmail(body.mail)) {
-      return reject(new Error('Invalid mail'));
-    } else {
-      body.mail = body.mail.toLowerCase();
-    }
-    if (!body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/)) {
-      return reject(new Error('Invalid password'));
-    }
+function error (res, data, err) {
+  res.status(err);
+  res.json({
+    success: false,
+    msg: data
+  });
+}
 
-    model.getUser(body.mail).then((user) => {
-      if (user[0] === undefined) {
-        return reject(new Error('User not found'));
-      }
-      if (!bcrypt.compareSync(body.password, user[0].password)) {
-        return reject(new Error('Invalid password'));
-      }
-      var token = genToken();
-      model.insertToken(user[0].id, token).then(() => {
-        return resolve(token);
-      }).catch((err) => {
-        return reject(err);
+module.exports = (req, res) => {
+  if (!valid.isEmail(req.body.mail)) {
+    error(res, 'Invalid mail', 400);
+    return;
+  } else {
+    req.body.mail = req.body.mail.toLowerCase();
+  }
+  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length < 6) {
+    error(res, 'Invalid password', 400);
+    return;
+  }
+
+  model.getUser(req.body.mail).then((user) => {
+    if (user[0] === undefined) {
+      error(res, 'User not found', 404);
+      return;
+    }
+    if (!bcrypt.compareSync(req.body.password, user[0].password)) {
+      error(res, 'Invalid password', 400);
+      return;
+    }
+    var token = genToken();
+    model.insertToken(user[0].id, token).then(() => {
+      res.status(200);
+      res.json({
+        success: true,
+        token
       });
     }).catch((err) => {
-      return reject(err);
+      console.log(err);
+      error(res, 'Server error', 500);
     });
+  }).catch((err) => {
+    console.log(err);
+    error(res, 'Server error', 500);
   });
 };

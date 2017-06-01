@@ -22,7 +22,7 @@ module.exports = (body) => {
     } else {
       body.mail = body.mail.toLowerCase();
     }
-    if (!body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/)) {
+    if (!body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || body.password.length < 6) {
       return reject(new Error('Invalid password'));
     } else {
       body.password = bcrypt.hashSync(body.password, 10);

@@ -21,7 +21,9 @@ function homeView () {
   var containerAcceuil = document.getElementsByClassName('containerAcceuil');
   if (containerAcceuil.length === 0) {
     containerAcceuil = document.createElement('div');
+    flexContainer = document.createElement('div');
     containerAcceuil.className = 'containerAcceuil';
+    flexContainer.className = 'flexContainer';
   }
 
   request('GET', 'controllers/posts.php?limit=6&offset=0', '', (res) => {
@@ -52,7 +54,8 @@ function homeView () {
       containerImg.appendChild(name);
       containerImg.appendChild(img);
       containerImg.appendChild(likeDiv);
-      containerAcceuil.appendChild(containerImg);
+	  flexContainer.appendChild(containerImg);
+      containerAcceuil.appendChild(flexContainer);
     }
   });
   body.appendChild(containerAcceuil);

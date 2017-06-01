@@ -1,4 +1,4 @@
-const model = require('../../models/user/signup.js');
+const model = require('../../models/user.js');
 const valid = require('validator');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');

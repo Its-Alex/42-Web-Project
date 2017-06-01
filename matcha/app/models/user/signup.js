@@ -34,8 +34,8 @@ module.exports = {
               return reject(err);
             }
             return resolve();
-          })
-      })
+          });
+      });
     });
   }
 };

@@ -6,18 +6,6 @@ const signup = require('../controllers/user/signup.js');
 
 // User root
 router.post('/signin', require('../controllers/user/signin.js'));
-router.post('/signup', (req, res) => {
-  signup(req.body).then(() => {
-    res.json({
-      success: true
-    });
-  }).catch((err) => {
-    console.error(err);
-    res.json({
-      success: false,
-      message: err.message
-    });
-  });
-});
+router.post('/signup', require('../controllers/user/signup.js'));
 
 module.exports = router;

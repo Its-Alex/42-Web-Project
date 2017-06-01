@@ -3,45 +3,61 @@ const valid = require('validator');
 const uuid = require('uuid');
 const bcrypt = require('bcryptjs');
 
-module.exports = (body) => {
-  return new Promise((resolve, reject) => {
-    if (body.name === undefined || body.mail === undefined || body.password === undefined || body.validPwd === undefined) {
-      return reject(new Error('Invalid body'));
-    }
-    if (valid.isEmpty(body.name) || valid.isEmpty(body.mail) || valid.isEmpty(body.password) || valid.isEmpty(body.validPwd)) {
-      return reject(new Error('Empty field(s)'));
-    }
-    if (body.password !== body.validPwd) {
-      return reject(new Error('Password does not match'));
-    }
-    if (body.name.length > 36 || !body.name.match(/^([a-zA-Z0-9]+)$/)) {
-      return reject(new Error('Invalid name'));
-    }
-    if (!valid.isEmail(body.mail)) {
-      return reject(new Error('Invalid mail'));
-    } else {
-      body.mail = body.mail.toLowerCase();
-    }
-    if (!body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || body.password.length < 6) {
-      return reject(new Error('Invalid password'));
-    } else {
-      body.password = bcrypt.hashSync(body.password, 10);
-    }
+function error (res, data, err) {
+  res.status(err);
+  res.json({
+    success: false,
+    msg: data
+  });
+}
 
-    body.id = uuid();
-    model.checkIfUserExist('alex').then((results) => {
-      if (!results) {
-        model.insertUser(body).then(() => {
-          return resolve();
-        }).catch((err) => {
-          return reject(err);
+module.exports = (req, res) => {
+  if (req.body.name === undefined || req.body.mail === undefined || req.body.password === undefined || req.body.validPwd === undefined) {
+    error(res, 'Body error', 400);
+    return;
+  }
+  if (valid.isEmpty(req.body.name) || valid.isEmpty(req.body.mail) || valid.isEmpty(req.body.password) || valid.isEmpty(req.body.validPwd)) {
+    error(res, 'Empty field(s)', 400);
+    return;
+  }
+  if (req.body.password !== req.body.validPwd) {
+    error(res, 'Password does not match', 400);
+    return;
+  }
+  if (req.body.name.length > 36 || !req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
+    error(res, 'Invalid name', 400);
+    return;
+  }
+  if (!valid.isEmail(req.body.mail)) {
+    error(res, 'Invalid mail', 400);
+    return;
+  } else {
+    req.body.mail = req.body.mail.toLowerCase();
+  }
+  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length < 6) {
+    error(res, 'Invalid password', 400);
+    return;
+  } else {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
+  }
+
+  req.body.id = uuid();
+  model.checkIfUserExist('alex').then((results) => {
+    if (!results) {
+      model.insertUser(req.body).then(() => {
+        res.status(201);
+        res.json({
+          success: true
         });
-      } else {
-        return reject(new Error('Mail is already taken'));
-      }
-      return resolve();
-    }).catch((err) => {
-      return reject(err);
-    });
+      }).catch((err) => {
+        console.log(err);
+        error(res, 'Server error', 500);
+      });
+    } else {
+      error(res, 'Mail already taken', 403);
+    }
+  }).catch((err) => {
+    console.log(err);
+    error(res, 'Server error', 500);
   });
 };

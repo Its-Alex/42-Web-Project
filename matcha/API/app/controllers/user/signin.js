@@ -21,6 +21,14 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
+  if (req.body.mail === undefined || req.body.password === undefined) {
+    error(res, 'Body error', 400);
+    return;
+  }
+  if (valid.isEmpty(req.body.mail) || valid.isEmpty(req.body.password)) {
+    error(res, 'Empty field(s)', 400);
+    return;
+  }
   if (!valid.isEmail(req.body.mail)) {
     error(res, 'Invalid mail', 400);
     return;

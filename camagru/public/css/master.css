@@ -356,7 +356,7 @@ input[type=button] {
 .flexContainer { 
 	display: flex;
 	flex-wrap: wrap;
-	justify-content = space-arround;
+	justify-content: space-around;
 }
 
 .ImgAcceuil { 
@@ -523,11 +523,12 @@ input[type=button] {
 }
 
 
+@media all and (max-width: 768px) {
+	.flexContainer {
+		flex-direction: column;
+	}
 
-
-
-
-
-
-
-
+	.ImgAcceuil {
+		width: 100%;
+	}
+}

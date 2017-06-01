@@ -1,14 +1,14 @@
-const db = require('../db.js');
+const db = require('../../db.js');
 
 module.exports = {
-  checkIfUserExist: () => {
+  getUser: (mail) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('SELECT * FROM users', {}, (err, results) => {
+        db.query('SELECT * FROM users WHERE mail = ?', [mail], (err, results) => {
           if (err) {
             return reject(err);
           }
-          return resolve();
+          return resolve(results);
         });
       }).catch((err) => {
         if (err) {
@@ -17,17 +17,17 @@ module.exports = {
       });
     });
   },
-  insertUser: (user) => {
+  insertToken: (userId, token) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('INSERT INTO users (id, name, mail, password, date) VALUES (?, ?, ?, ?, ?)', user, (err, results) => {
-          console.log(results);
+        db.query('INSERT INTO tokens (userId, token, date) VALUES (?, ?, ?)', [userId, token, new Date().getTime()], (err, results) => {
+          if (err) {
+            return reject(err);
+          }
           return resolve();
         });
       }).catch((err) => {
-        if (err) {
-          return reject (err);
-        }
+        return reject(err);
       });
     });
   }

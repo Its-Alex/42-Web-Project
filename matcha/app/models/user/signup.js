@@ -1,4 +1,4 @@
-const db = require('../db.js');
+const db = require('../../db.js');
 
 module.exports = {
   checkIfUserExist: (mail) => {
@@ -9,7 +9,7 @@ module.exports = {
             return reject(err);
           }
           if (results.length > 0) {
-            return resolve(true);
+            return resolve(results);
           } else {
             return resolve(false);
           }

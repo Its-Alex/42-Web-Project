@@ -13,8 +13,8 @@ router.get('/', (req, res) => {
 });
 
 // User Subroot
-user.use('/signin', require('./signin.js'));
-user.use('/signup', require('./signup.js'));
+user.use('/signin', require('./user/signin.js'));
+user.use('/signup', require('./user/signup.js'));
 
 router.use('/user', user);
 

@@ -5,7 +5,6 @@ const router = express.Router();
 const signin = require('../controllers/user/signin.js');
 const signup = require('../controllers/user/signup.js');
 
-
 // User root
 router.post('/signin', (req, res) => {
   signin(req.body).then((token) => {

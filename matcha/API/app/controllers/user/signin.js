@@ -7,7 +7,7 @@ function genToken () {
   var token = '';
 
   for (var count = 0; count < 128; count++) {
-    token += str[Math.floor((Math.random() * 63))];
+    token += str[Math.floor((Math.random() * str.length))];
   }
   return (token);
 }

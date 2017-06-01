@@ -29,3 +29,9 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log('Start at ' + port);
 });
+
+process.on('SIGINT', function() {
+  console.log("Stop sever");
+  db.end();
+  process.exit();
+});

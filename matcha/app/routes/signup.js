@@ -4,8 +4,7 @@ const router = express.Router();
 const signup = require('../controllers/signup.js');
 
 router.post('/', (req, res) => {
-  console.log(req.body);
-  signup().then(() => {
+  signup(req.body).then(() => {
     res.json({
       success: true
     });

@@ -5,11 +5,14 @@ module.exports = {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
         db.query('SELECT * FROM users WHERE mail = ?', {mail}, (err, results) => {
-          db.end();
           if (err) {
             return reject(err);
           }
-          return resolve(results);
+          if (results.length > 0) {
+            return resolve(true);
+          } else {
+            return resolve(false);
+          }
         });
       }).catch((err) => {
         if (err) {

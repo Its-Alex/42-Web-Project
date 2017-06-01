@@ -28,5 +28,12 @@ module.exports = {
         return reject(error);
       }
     });
+  },
+  end: () => {
+    db.end((err) => {
+      if (err) {
+        console.log('Database end error : ' + err);
+      }
+    });
   }
 };

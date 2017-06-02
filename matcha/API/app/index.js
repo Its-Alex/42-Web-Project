@@ -42,13 +42,8 @@ app.listen(port, () => {
   console.log('Start at ' + port);
 });
 
-<<<<<<< HEAD:matcha/app/index.js
-process.on('SIGINT', function() {
-=======
-// End cnnection to database when exit
+// End connecton with database
 process.on('SIGINT', () => {
-  console.log('Stop sever');
->>>>>>> refs/remotes/origin/master:matcha/API/app/index.js
   db.end();
   process.exit();
 });

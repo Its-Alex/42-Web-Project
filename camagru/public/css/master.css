@@ -351,12 +351,20 @@ input[type=button] {
     background-color: rgba(0,0,0,0.4);
 }
 
+.containerAccueil { width: 100%; }
+
+.flexContainer { 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
 .ImgAcceuil { 
 	margin: 5px 0 5px 0;
 	border: 1px solid #eee;
 	border-radius: 5px;
 	padding-bottom: 10px;
-	width: 45vh;
+	width: 30%;
 }
 
 .imgView {
@@ -506,7 +514,7 @@ input[type=button] {
 
 .imgAcceuil {
 	width: 100%;
-	max-height: 40vh;
+	height: auto;
 }
 
 .nameAcceuil {
@@ -515,11 +523,14 @@ input[type=button] {
 }
 
 
+@media all and (max-width: 768px) {
+	.flexContainer {
+		flex-direction: column;
+		padding-left: 22px;
+		padding-right: 22px;
+	}
 
-
-
-
-
-
-
-
+	.ImgAcceuil {
+		width: 100%;
+	}
+}

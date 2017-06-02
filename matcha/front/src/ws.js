@@ -4,6 +4,10 @@ ws.onopen = (event) => {
   ws.send('Salut');
 };
 
-ws.on('message', (message) => {
-  console.log(message);
-})
+ws.onmessage = (msg) => {
+  ws.send('Receive msg');
+};
+
+ws.onclose = (event) => {
+  ws.send('Close connection');
+};

@@ -31,7 +31,6 @@ app.listen(port, () => {
 });
 
 process.on('SIGINT', function() {
-  console.log("Stop sever");
   db.end();
   process.exit();
 });

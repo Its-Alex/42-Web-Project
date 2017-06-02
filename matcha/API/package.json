@@ -13,7 +13,8 @@
   "author": "malexand",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "semistandard": "^11.0.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

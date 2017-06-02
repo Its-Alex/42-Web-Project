@@ -1,6 +1,22 @@
 const db = require('../db.js');
 
 module.exports = {
+  getUsers: () => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('SELECT * FROM users', (err, results) => {
+          if (err) {
+            return reject(err);
+          }
+          return resolve(results);
+        })
+      }).catch((err) => {
+        if (err){
+          reject(err);
+        }
+      });
+    });
+  },
   getUser: (mail) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
@@ -28,26 +44,6 @@ module.exports = {
         });
       }).catch((err) => {
         return reject(err);
-      });
-    });
-  },
-  checkIfUserExist: (mail) => {
-    return new Promise((resolve, reject) => {
-      db.get().then((db) => {
-        db.query('SELECT * FROM users WHERE mail = ?', {mail}, (err, results) => {
-          if (err) {
-            return reject(err);
-          }
-          if (results.length > 0) {
-            return resolve(results);
-          } else {
-            return resolve(false);
-          }
-        });
-      }).catch((err) => {
-        if (err) {
-          return reject(err);
-        }
       });
     });
   },

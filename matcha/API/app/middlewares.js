@@ -31,6 +31,15 @@ module.exports = (role) => {
             message: 'Server error'
           });
         }
+        if (results[0].role === role || results[0].role === 'ADMIN') {
+          next();
+        } else {
+          res.status(404);
+          res.json({
+            success: false,
+            message: 'Unauthorized'
+          });
+        }
       });
     });
     next();

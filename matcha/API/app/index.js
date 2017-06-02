@@ -8,8 +8,6 @@ const port = 3001;
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 3002 });
 
-const middleware = require('./middlewares.js');
-
 app.disable('x-powered-by');
 app.use(bodyParser.json());
 db.connect();
@@ -32,7 +30,7 @@ app.use((req, res, next) => {
 });
 
 // Global api route
-app.use('/', middleware('USER'), require('./routes/index.js'));
+app.use('/', require('./routes/index.js'));
 
 // 404 not found api response
 app.use((req, res) => {

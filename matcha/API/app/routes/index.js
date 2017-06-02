@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// const middle = require('../middlewares.js');
+const middle = require('../middlewares.js');
 
 router.get('/', (req, res) => {
   res.json({
@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 });
 
 // All roots
-router.use('/user', require('./user.js'));
+router.get('/users', require('../controllers/getUsers.js'));
+router.use('/user', middle('USER'), require('./user.js'));
 
 module.exports = router;

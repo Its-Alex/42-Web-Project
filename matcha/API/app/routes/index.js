@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 });
 
 // All roots
-router.get('/users', require('../controllers/getUsers.js'));
+router.get('/users', require('../controllers/users.js'));
 router.use('/user', middle('USER'), require('./user.js'));
 
 module.exports = router;

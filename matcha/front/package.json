@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "iconv-lite": "^0.4.17",
+    "path-is-absolute": "^1.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },

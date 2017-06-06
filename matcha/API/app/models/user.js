@@ -17,7 +17,7 @@ module.exports = {
       })
     })
   },
-  getUser: (mail) => {
+  getUserByMail: (mail) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
         db.query('SELECT * FROM users WHERE mail = ?', [mail], (err, results) => {
@@ -61,6 +61,19 @@ module.exports = {
             }
             return resolve()
           })
+      })
+    })
+  },
+  updateuser: (body) => {
+    db.get().then((db) => {
+      db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? where id = ?', [
+        body.name,
+        body.mail,
+        body.password,
+        body.role,
+        body.id
+      ], (err, results) => {
+        console.log(results)
       })
     })
   }

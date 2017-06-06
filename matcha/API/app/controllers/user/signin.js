@@ -40,7 +40,7 @@ module.exports = (req, res) => {
     return
   }
 
-  model.getUser(req.body.mail).then((user) => {
+  model.getUserByMail(req.body.mail).then((user) => {
     if (user[0] === undefined) {
       error(res, 'User not found', 404)
       return

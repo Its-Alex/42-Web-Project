@@ -32,6 +32,8 @@ module.exports = (role) => {
           })
         }
         if (results[0].role === role || results[0].role === 'ADMIN') {
+          req.token = auth[1]
+          req.role = results[0].role
           next()
         } else {
           res.status(404)

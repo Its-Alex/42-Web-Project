@@ -1,20 +1,41 @@
 const model = require('../../models/user.js')
 
-module.exports = (req, res) => {
-  // model.getUserById(req.params.id).then((results) => {
-  //   delete results[0].id
-  //   delete results[0].password
-  //   res.status(200)
-  //   res.json({
-  //     success: true,
-  //     message: results[0]
-  //   })
-  // }).catch((err) => {
-  //   console.log(err)
-  //   res.status(404)
-  //   res.json({
-  //     success: false,
-  //     message: 'No users'
-  //   })
-  // })
+function error (res, data, err) {
+  res.status(err)
+  res.json({
+    success: false,
+    msg: data
+  })
+}
+
+module.exports = {
+  user: (req, res) => {
+    model.getUserByToken(req.user.token).then((results) => {
+      if (results.length === 0) return error(res, 'No user', 404)
+      res.status(200)
+      res.json({
+        success: true,
+        user: results[0]
+      })
+    }).catch((err) => {
+      console.log(new Error(err))
+      if (err) error(res, 'Internal server error', 500)
+    })
+  },
+  admin: (req, res) => {
+    if (req.params.id === undefined || req.params.id === null ||
+    req.params.id === '' || req.params.id.length !== 36) error(res, 'Id not well formated', 400)
+
+    model.getUserById(req.params.id).then((results) => {
+      if (results.length === 0) return error(res, 'No user', 404)
+      res.status(200)
+      res.json({
+        success: true,
+        user: results[0]
+      })
+    }).catch((err) => {
+      console.log(new Error(err))
+      if (err) error(res, 'Internal server error', 500)
+    })
+  }
 }

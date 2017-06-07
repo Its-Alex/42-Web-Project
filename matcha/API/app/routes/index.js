@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-
 const middle = require('../middlewares.js')
 
 router.get('/', (req, res) => {
@@ -11,8 +10,8 @@ router.get('/', (req, res) => {
   })
 })
 
-// All roots
-router.get('/users', require('../controllers/users.js'))
-router.use('/user', middle('USER'), require('./user.js'))
+// All paths
+router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
+router.use('/user', require('./user.js'))
 
 module.exports = router

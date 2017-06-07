@@ -58,8 +58,6 @@ module.exports = (req, res) => {
       })
     }).catch((err) => {
       console.log(err)
-      error(res, 'Server error', 500)
-      return
     })
   }).catch((err) => {
     console.log(err)

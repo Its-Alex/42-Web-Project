@@ -33,6 +33,38 @@ module.exports = {
       })
     })
   },
+  getUserById: (id) => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
+          if (err) {
+            return reject(err)
+          }
+          return resolve(results)
+        })
+      }).catch((err) => {
+        if (err) {
+          return reject(err)
+        }
+      })
+    })
+  },
+  getUserByToken: (token) => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('SELECT * FROM users INNER JOIN tokens ON users.id = tokens.userId WHERE tokens.token = ?', [token], (err, results) => {
+          if (err) {
+            return reject(err)
+          }
+          return resolve(results)
+        })
+      }).catch((err) => {
+        if (err) {
+          return reject(err)
+        }
+      })
+    })
+  },
   insertToken: (userId, token) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
@@ -64,7 +96,7 @@ module.exports = {
       })
     })
   },
-  updateuser: (body) => {
+  updateUser: (body) => {
     db.get().then((db) => {
       db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? where id = ?', [
         body.name,

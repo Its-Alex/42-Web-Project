@@ -42,7 +42,7 @@ module.exports = (req, res) => {
   }
 
   req.body.id = uuid()
-  model.getUser(req.body.mail).then((results) => {
+  model.getUserByMail(req.body.mail).then((results) => {
     if (results.length === 0) {
       model.insertUser(req.body).then(() => {
         res.status(201)

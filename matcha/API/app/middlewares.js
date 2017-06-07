@@ -22,7 +22,7 @@ module.exports = (role) => {
       return
     }
     db.get().then((db) => {
-      db.query('SELECT users.role FROM users INNER JOIN tokens ON users.id = tokens.userId WHERE tokens.token = ?', [auth[1]], (err, results) => {
+      db.query('SELECT * FROM users INNER JOIN tokens ON users.id = tokens.userId WHERE tokens.token = ?', [auth[1]], (err, results) => {
         if (err) {
           console.log(err)
           res.status(500)
@@ -32,8 +32,12 @@ module.exports = (role) => {
           })
         }
         if (results[0].role === role || results[0].role === 'ADMIN') {
-          req.token = auth[1]
-          req.role = results[0].role
+          req.user = {
+            token: auth[1],
+            id: results[0].userId,
+            mail: results[0].mail,
+            role: results[0].role
+          }
           next()
         } else {
           res.status(404)

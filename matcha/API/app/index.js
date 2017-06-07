@@ -1,15 +1,12 @@
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const express = require('express')
 const app = express()
-
+const WebSocket = require('ws')
+const wss = new WebSocket.Server({ port: 3002 })
 const db = require('./db.js')
 const port = 3001
 
-const WebSocket = require('ws')
-const wss = new WebSocket.Server({ port: 3002 })
-
-app.disable('x-powered-by')
-app.use(bodyParser.json())
 db.connect()
 
 wss.on('connection', function connection (ws) {
@@ -22,12 +19,9 @@ wss.on('connection', function connection (ws) {
   ws.send('Salut')
 })
 
-// Allow Access Control Origin for CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  next()
-})
+app.disable('x-powered-by')
+app.use(cors())
+app.use(bodyParser.json())
 
 // Global api route
 app.use('/', require('./routes/index.js'))

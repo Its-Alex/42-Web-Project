@@ -35,6 +35,8 @@ module.exports = (role) => {
           req.user = {
             token: auth[1],
             id: results[0].userId,
+            name: results[0].name,
+            password: results[0].password,
             mail: results[0].mail,
             role: results[0].role
           }

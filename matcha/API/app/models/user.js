@@ -97,15 +97,23 @@ module.exports = {
     })
   },
   updateUser: (body) => {
-    db.get().then((db) => {
-      db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? where id = ?', [
-        body.name,
-        body.mail,
-        body.password,
-        body.role,
-        body.id
-      ], (err, results) => {
-        console.log(results)
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? where id = ?', [
+          body.name,
+          body.mail,
+          body.password,
+          body.role,
+          body.id
+        ], (err, results) => {
+          console.log('XX')
+          console.log(err)
+          console.log('XX')
+          if (err) return reject(err)
+          resolve(results)
+        })
+      }).catch((err) => {
+        return reject(err)
       })
     })
   }

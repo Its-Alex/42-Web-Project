@@ -30,7 +30,7 @@ app.use('/', require('./routes/index.js'))
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: 'Not found'
+    message: 'URL not found'
   })
 })
 

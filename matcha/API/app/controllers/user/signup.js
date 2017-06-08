@@ -34,7 +34,7 @@ module.exports = (req, res) => {
   } else {
     req.body.mail = req.body.mail.toLowerCase()
   }
-  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length < 6) {
+  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length < 8) {
     error(res, 'Invalid password', 400)
     return
   } else {

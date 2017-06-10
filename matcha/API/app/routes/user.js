@@ -6,10 +6,11 @@ const middle = require('../middlewares.js')
 router.post('/signin', require('../controllers/user/signin.js'))
 router.post('/signup', require('../controllers/user/signup.js'))
 
+router.use(middle('USER'))
+
 // Path who need auth admin
-router.get('/:id', middle('USER'), require('../controllers/user/get.js'))
-router.put('/:id', middle('USER'), () => {})
-router.patch('/:id', middle('USER'), require('../controllers/user/update.js'))
-router.delete('/:id', middle('USER'), require('../controllers/user/get.js'))
+router.get('/:id', require('../controllers/user/get.js'))
+router.patch('/:id', require('../controllers/user/update.js'))
+router.delete('/:id', require('../controllers/user/get.js'))
 
 module.exports = router

@@ -11,7 +11,7 @@ function error (res, data, err) {
 module.exports = (req, res) => {
   if (req.params.id === 'me') {
     model.getUserByToken(req.user.token).then((results) => {
-      if (results.length === 0) return error(res, 'No user', 404)
+      if (results.length === 0) return error(res, 'User not found', 400)
       res.status(200)
       res.json({
         success: true,
@@ -25,7 +25,7 @@ module.exports = (req, res) => {
     if (req.params.id || req.params.id.length !== 36) return error(res, 'Id not well formated', 400)
 
     model.getUserById(req.params.id).then((results) => {
-      if (results.length === 0) return error(res, 'No user', 404)
+      if (results.length === 0) return error(res, 'User not found', 400)
       res.status(200)
       res.json({
         success: true,

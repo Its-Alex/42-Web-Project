@@ -13,7 +13,7 @@ module.exports = (role) => {
       return
     }
     auth = auth.split(' ')
-    if (auth[0] !== 'Bearer' || auth[1].length !== 128) {
+    if (auth[0] !== 'Bearer' || auth[1].length !== 128 || auth.length !== 2) {
       res.status(400)
       res.json({
         success: false,
@@ -29,6 +29,13 @@ module.exports = (role) => {
           res.json({
             success: false,
             message: 'Server error'
+          })
+        }
+        if (results.length !== 1) {
+          res.status(400)
+          res.json({
+            success: false,
+            message: 'False token'
           })
         }
         if (results[0].role === role || results[0].role === 'ADMIN') {

@@ -93,6 +93,8 @@ module.exports = {
             }
             return resolve()
           })
+      }).catch((err) => {
+        return reject(err)
       })
     })
   },
@@ -106,9 +108,6 @@ module.exports = {
           body.role,
           body.id
         ], (err, results) => {
-          console.log('XX')
-          console.log(err)
-          console.log('XX')
           if (err) return reject(err)
           resolve(results)
         })

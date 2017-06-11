@@ -3,7 +3,7 @@ const valid = require('validator')
 const bcrypt = require('bcryptjs')
 
 function genToken () {
-  var str = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&|`
+  var str = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`
   var token = ''
 
   for (var count = 0; count < 128; count++) {

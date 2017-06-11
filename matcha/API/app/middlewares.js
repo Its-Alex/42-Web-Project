@@ -37,6 +37,7 @@ module.exports = (role) => {
             success: false,
             message: 'False token'
           })
+          return
         }
         if (results[0].role === role || results[0].role === 'ADMIN') {
           req.user = {

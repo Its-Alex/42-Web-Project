@@ -19,7 +19,7 @@ module.exports = (req, res) => {
     role: req.user.role
   }
 
-  if (req.params.id.length === 128 && req.user.role !== 'ADMIN') {
+  if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
     model.getUserByToken(req.params.id).then((res) => {
       user.id = res[0].id
       user.name = res[0].name
@@ -34,30 +34,66 @@ module.exports = (req, res) => {
     return error(res, 'Not authorized', 401)
   }
 
-  if (req.body.name.length <= 36 || req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
-    user.name = req.body.name
+  if (typeof req.body.name !== 'undefined') {
+    if (req.body.name.length <= 36 || req.body.name.match(/^([a-zA-Z0-9]+)$/)) user.name = req.body.name
   }
-  if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {
-    user.password = bcrypt.hashSync(req.body.password, 10)
+  if (typeof req.body.password !== 'undefined') {
+    if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {
+      user.password = bcrypt.hashSync(req.body.password, 10)
+    }
   }
-  if (valid.isEmail(req.body.mail)) {
-    user.mail = req.body.mail.toLowerCase()
+  if (typeof req.body.mail !== 'undefined') {
+    if (valid.isEmail(req.body.mail)) {
+      model.getUserByMail(req.body.mail).then((results) => {
+        if (results.length === 0) {
+          user.mail = req.body.mail.toLowerCase()
+        } else {
+          return error(res, 'Mail already taken', 400)
+        }
+      }).catch((err) => {
+        console.log(new Error(err))
+        return error(res, 'Internal error', 500)
+      })
+    }
   }
 
   if (req.params.id === 'me') {
-    model.updateUser(user).then((res) => {
-      console.log(res)
-      return res.json({
-        success: 'InNeed'
-      })
+    model.updateUser(user).then((results) => {
+      if (results.message.split(' ')[5] === '0') {
+        res.status(400)
+        res.json({
+          success: false,
+          message: 'Nothing has change'
+        })
+      } else {
+        res.status(200)
+        res.json({
+          success: true
+        })
+      }
     }).catch((err) => {
       console.log(new Error(err))
-      return error(res, 'Internal server error', 500)
+      return error(res, 'Internal error', 500)
     })
-  } else if (req.params.id.length !== 36 && req.user.role === 'ADMIN') {
-    return console.log('admin')
+  } else if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
+    model.updateUser(user).then((results) => {
+      if (results.message.split(' ')[5] === '0') {
+        res.status(400)
+        res.json({
+          success: false,
+          message: 'Nothing has change'
+        })
+      } else {
+        res.status(200)
+        res.json({
+          success: true
+        })
+      }
+    }).catch((err) => {
+      console.log(new Error(err))
+      return error(res, 'Internal error', 500)
+    })
   } else {
     return error(res, 'Internal error', 500)
   }
-  error(res, 'Internal eror', 500)
 }

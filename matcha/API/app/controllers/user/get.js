@@ -21,8 +21,8 @@ module.exports = (req, res) => {
       console.log(new Error(err))
       if (err) return error(res, 'Internal server error', 500)
     })
-  } else if (req.params.id.length !== 36 && req.user.role === 'ADMIN') {
-    if (req.params.id || req.params.id.length !== 36) return error(res, 'Id not well formated', 400)
+  } else if (req.user.role === 'ADMIN') {
+    if (req.params.id !== 128) return error(res, 'Id not well formated', 400)
 
     model.getUserById(req.params.id).then((results) => {
       if (results.length === 0) return error(res, 'User not found', 400)

@@ -13,5 +13,6 @@ router.get('/', (req, res) => {
 // All paths
 router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
 router.use('/user', require('./user.js'))
+router.use('/profil', require('./profil.js'))
 
 module.exports = router

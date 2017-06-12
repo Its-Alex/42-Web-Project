@@ -115,5 +115,21 @@ module.exports = {
         return reject(err)
       })
     })
+  },
+  deleteUser: (id) => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('DELETE users, tokens, profils FROM users INNER JOIN profils ON users.id = profils.userId INNER JOIN tokens ON users.id = tokens.userId WHERE users.id = ?', [id], (err, results) => {
+          if (err) return reject(err)
+          db.query('DELETE FROM users WHERE id = ?', [id], (err, res) => {
+            if (err) return reject(err)
+            if (res.affectedRows !== 0) return resolve(res)
+            return resolve(results)
+          })
+        })
+      }).catch((err) => {
+        return reject(err)
+      })
+    })
   }
 }

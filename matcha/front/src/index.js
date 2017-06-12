@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import App from './routes/app.js'
-import Login from './routes/login.js'
+import Auth from './routes/auth/index.js'
 import notFound from './routes/notFound.js'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
@@ -25,7 +25,7 @@ class Index extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/auth' component={Auth} />
           <Route path='/' component={App} />
           <Route component={notFound} />
         </Switch>

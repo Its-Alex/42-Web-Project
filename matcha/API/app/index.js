@@ -5,7 +5,7 @@ const app = express()
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 3002 })
 const db = require('./db.js')
-const port = 3001
+const port = 3005
 
 db.connect()
 

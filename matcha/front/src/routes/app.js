@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 class App extends Component {
   componentWillMount () {
     if (!global.localStorage.getItem('token')) {
-      this.props.history.push('/login')
+      this.props.history.push('/auth/login')
     }
   }
   render () {

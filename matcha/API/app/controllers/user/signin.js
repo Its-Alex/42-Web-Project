@@ -42,7 +42,7 @@ module.exports = (req, res) => {
 
   model.getUserByMail(req.body.mail).then((user) => {
     if (user[0] === undefined) {
-      error(res, 'User not found', 404)
+      error(res, 'User not found', 400)
       return
     }
     if (!bcrypt.compareSync(req.body.password, user[0].password)) {

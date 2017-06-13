@@ -10,20 +10,21 @@ input {
     font-size: 1em;
     margin: 5px;
     outline: none;
-    border-radius: 3px;
+    width: 60%;
+    border-radius: 30px;
+    height: 1.5em;
     border: 1px solid #333;
     text-align: center;
     color: #fff;
-    background: #F6336E;
 }
 
 input::placeholder {
-    color: #fff;
+    color: #333;
 }
 
 input[type=submit] {
     color: #fff;
-    background: #F6336E;
+    width: 40%;
 }
 
 input:focus {
@@ -33,25 +34,22 @@ input:focus {
 a {
     text-decoration: none;
     cursor: pointer;
-    color: #fff;
+    color: #333;
 }
 
 a:hover {
-    color: #F6336E;
+    color: #FFF;
 }
 
 .login {
-    padding-right: 10vw;
-    padding-left: 10vw;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    width: 20vw;
+    height: 30vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border: 1px solid #786BFF;
-    border-radius: 3px;
-    background-color: #5197ED;
+    border-radius: 15px;
 }
 
 .error {

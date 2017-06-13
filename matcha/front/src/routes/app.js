@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Route, Switch } from 'react-router-dom'
+import Navbar from '../navbar.js'
+import NotFound from './notFound.js'
 // import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 class App extends Component {
@@ -14,8 +17,11 @@ class App extends Component {
       //   </Switch>
       // </Router>
     return (
-      <div>
-        {}
+      <div className='router'>
+        <Navbar />
+        <Switch>
+          <Route component={NotFound} />
+        </Switch>
       </div>
     )
   }

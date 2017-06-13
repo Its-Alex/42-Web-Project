@@ -25,7 +25,7 @@ class Index extends Component {
     return (
       <Router>
         <Switch>
-          <Route exact path='/auth' component={Auth} />
+          <Route path='/auth' component={Auth} />
           <Route path='/' component={App} />
           <Route component={notFound} />
         </Switch>

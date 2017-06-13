@@ -16,6 +16,7 @@ module.exports = (req, res) => {
     name: req.user.name,
     mail: req.user.mail,
     password: req.user.password,
+    state: req.user.state,
     role: req.user.role
   }
 
@@ -25,6 +26,7 @@ module.exports = (req, res) => {
       user.name = res[0].name
       user.mail = res[0].mail
       user.password = res[0].password
+      user.state = res[0].state
       user.role = res[0].role
     }).catch((err) => {
       console.log(new Error(err))
@@ -40,6 +42,11 @@ module.exports = (req, res) => {
   if (typeof req.body.password !== 'undefined') {
     if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {
       user.password = bcrypt.hashSync(req.body.password, 10)
+    }
+  }
+  if (typeof req.body.state !== 'undefined') {
+    if (req.body.state === 'NEED_VALID' || req.body.state === 'REGISTERED') {
+      user.state = req.body.state
     }
   }
   if (typeof req.body.mail !== 'undefined') {

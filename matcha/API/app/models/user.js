@@ -101,11 +101,12 @@ module.exports = {
   updateUser: (body) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? where id = ?', [
+        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ?, state = ? where id = ?', [
           body.name,
           body.mail,
           body.password,
           body.role,
+          body.state,
           body.id
         ], (err, results) => {
           if (err) return reject(err)

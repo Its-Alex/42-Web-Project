@@ -52,8 +52,8 @@ class Login extends Component {
         <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
         <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
         <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
-        <Link to='/'>Sign up</Link>
-        <Link to='/'>Forgot your password ?</Link>
+        <Link to='/auth/signup'>Sign up</Link>
+        <Link to='/auth/forgot'>Forgot your password ?</Link>
       </div>
     )
   }

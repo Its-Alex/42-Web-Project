@@ -42,12 +42,13 @@ module.exports = (req, res) => {
 
   model.getUserByMail(req.body.mail).then((user) => {
     if (user[0] === undefined) {
-      error(res, 'User not found', 400)
-      return
+      return error(res, 'User not found', 400)
+    }
+    if (user[0].state === 'NEED_VALID') {
+      return error(res, 'User must complete his registration', 400)
     }
     if (!bcrypt.compareSync(req.body.password, user[0].password)) {
-      error(res, 'Invalid password', 400)
-      return
+      return error(res, 'Invalid password', 400)
     }
     var token = genToken()
     model.insertToken(user[0].id, token).then(() => {

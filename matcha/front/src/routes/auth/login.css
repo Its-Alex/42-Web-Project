@@ -13,25 +13,45 @@ input {
     border-radius: 3px;
     border: 1px solid #333;
     text-align: center;
+    color: #fff;
+    background: #F6336E;
+}
+
+input::placeholder {
+    color: #fff;
 }
 
 input[type=submit] {
-    background: var(--grey);
+    color: #fff;
+    background: #F6336E;
 }
 
 input:focus {
     border: 1px solid #aaa;
 }
 
-.link:hover {
+a {
+    text-decoration: none;
     cursor: pointer;
+    color: #fff;
+}
+
+a:hover {
+    color: #F6336E;
 }
 
 .login {
+    padding-right: 10vw;
+    padding-left: 10vw;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid #786BFF;
+    border-radius: 3px;
+    background-color: #5197ED;
 }
 
 .error {

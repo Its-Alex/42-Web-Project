@@ -1,7 +1,10 @@
-#root {
+.router {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
@@ -13,18 +16,19 @@ input {
     width: 60%;
     border-radius: 30px;
     height: 1.5em;
-    border: 1px solid #333;
+    border: 1px solid var(--black);
     text-align: center;
-    color: #fff;
 }
 
 input::placeholder {
-    color: #333;
+    color: #aaa;
 }
 
 input[type=submit] {
-    color: #fff;
-    width: 40%;
+    margin: 15px;
+    background-color: var(--brown);
+    border-radius: 10px;
+    width: initial;
 }
 
 input:focus {
@@ -34,7 +38,6 @@ input:focus {
 a {
     text-decoration: none;
     cursor: pointer;
-    color: #333;
 }
 
 a:hover {
@@ -42,14 +45,15 @@ a:hover {
 }
 
 .login {
-    width: 20vw;
-    height: 30vh;
+    min-width: 20vw;
+    min-height: 40vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid #786BFF;
-    border-radius: 15px;
+    border: 1px solid var(--black);
+    border-radius: 3px;
+    box-shadow: 0px 0px 25px #000;
 }
 
 .error {

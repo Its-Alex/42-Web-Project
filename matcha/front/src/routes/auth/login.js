@@ -32,6 +32,9 @@ class Login extends Component {
           global.localStorage.setItem('token', res.data.token)
         } else {
           this.setState({error: res.data.msg})
+          if (res.data.message === 'User must complete his registration') {
+            this.props.history.push('/auth/profil')
+          }
         }
       }).catch((err) => {
         if (err.response) {
@@ -49,11 +52,15 @@ class Login extends Component {
     return (
       <div className='login'>
         <span className='error'>{this.state.error}</span>
-        <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-        <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-        <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
-        <Link to='/auth/signup'>Sign up</Link>
-        <Link to='/auth/forgot'>Forgot your password ?</Link>
+        <div className='divForm'>
+          <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
+        </div>
+        <div className='divLink'>
+          <Link to='/auth/signup'>Sign up</Link>
+          <Link to='/auth/forgot'>Forgot your password ?</Link>
+        </div>
       </div>
     )
   }

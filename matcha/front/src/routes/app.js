@@ -10,6 +10,7 @@ class App extends Component {
       this.props.history.push('/auth/login')
     }
   }
+
   render () {
       // <Router history={history}>
       //   <Switch>

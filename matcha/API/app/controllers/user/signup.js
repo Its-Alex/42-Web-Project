@@ -12,11 +12,13 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
-  if (req.body.name === undefined || req.body.mail === undefined || req.body.password === undefined || req.body.validPwd === undefined) {
+  if (req.body.name === undefined || req.body.mail === undefined ||
+  req.body.password === undefined || req.body.validPwd === undefined) {
     error(res, 'Body error', 400)
     return
   }
-  if (valid.isEmpty(req.body.name) || valid.isEmpty(req.body.mail) || valid.isEmpty(req.body.password) || valid.isEmpty(req.body.validPwd)) {
+  if (valid.isEmpty(req.body.name) || valid.isEmpty(req.body.mail) ||
+  valid.isEmpty(req.body.password) || valid.isEmpty(req.body.validPwd)) {
     error(res, 'Empty field(s)', 400)
     return
   }
@@ -34,7 +36,8 @@ module.exports = (req, res) => {
   } else {
     req.body.mail = req.body.mail.toLowerCase()
   }
-  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length < 8) {
+  if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
+  req.body.password.length < 8) {
     error(res, 'Invalid password', 400)
     return
   } else {

@@ -16,6 +16,12 @@ class Login extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+  componentWillMount () {
+    if (!global.localStorage.getItem('token')) {
+      this.props.history.push('/auth/login')
+    }
+  }
+
   handleChange (event) {
     if (event.target.className === 'email') this.setState({email: event.target.value})
     if (event.target.className === 'password') this.setState({password: event.target.value})
@@ -32,6 +38,9 @@ class Login extends Component {
           global.localStorage.setItem('token', res.data.token)
         } else {
           this.setState({error: res.data.msg})
+          if (res.data.message === 'User must complete his registration') {
+            this.props.history.push('/auth/profil')
+          }
         }
       }).catch((err) => {
         if (err.response) {
@@ -51,11 +60,12 @@ class Login extends Component {
         <span className='error'>{this.state.error}</span>
         <div className='divForm'>
           <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
         </div>
         <div className='divLink'>
           <Link to='/auth/signup'>Sign up</Link>
-          <Link to='/auth/login'>Log in</Link>
+          <Link to='/auth/forgot'>Forgot your password ?</Link>
         </div>
       </div>
     )

@@ -22,7 +22,9 @@ module.exports = (req, res) => {
       if (err) return error(res, 'Internal server error', 500)
     })
   } else if (req.user.role === 'ADMIN') {
-    if (req.params.id.length !== 128) return error(res, 'Id not well formated', 400)
+    if (req.params.id.length !== 128) {
+      return error(res, 'Id not well formated', 400)
+    }
 
     model.getUserByToken(req.params.id).then((results) => {
       if (results.length === 0) return error(res, 'User not found', 400)

@@ -19,10 +19,7 @@ class Login extends Component {
   }
 
   handleChange (event) {
-    if (event.target.className === 'name') this.setState({name: event.target.value})
-    if (event.target.className === 'email') this.setState({email: event.target.value})
-    if (event.target.className === 'password') this.setState({password: event.target.value})
-    if (event.target.className === 'validPwd') this.setState({validPwd: event.target.value})
+    this.setState({[event.target.className]: event.target.value})
   }
 
   handleKeyPress (event) {

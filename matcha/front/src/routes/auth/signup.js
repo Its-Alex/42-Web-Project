@@ -57,7 +57,7 @@ class Login extends Component {
           <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='password' className='validPwd' value={this.state.validPwd} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
+          <input type='submit' className='submit' value='Next' onClick={this.handleKeyPress} />
         </div>
         <div className='divLink'>
           <Link to='/auth/Login'>Login</Link>

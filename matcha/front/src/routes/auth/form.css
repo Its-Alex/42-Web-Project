@@ -30,18 +30,13 @@ input::placeholder, textarea::placeholder {
 
 input[type=submit] {
     margin: 15px;
-    padding: 2px 8px 2px 8px;
+    padding: 2px 0px 2px 0px;
     background-color: var(--green);
     border: 2px solid var(--green);
     color: #F6FbFD;
     border-radius: 4px;
-    width: initial;
+    /*width: initial;*/
     box-sizing: content-box;
-}
-
-input[type=submit]:hover, input[type=submit]:focus {
-    color: #666;
-    box-shadow: 0px 0px 5px #333;
 }
 
 input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
@@ -49,6 +44,10 @@ input[type=date]:focus, textarea:focus {
     border: 2px solid var(--green);
     border-radius: 4px;
     background-color: #fff;
+}
+
+input[type=submit]:hover {
+    cursor: pointer;
 }
 
 textarea {
@@ -71,11 +70,6 @@ a {
     box-sizing: content-box;
 }
 
-a:hover {
-    color: #666;
-    box-shadow: 0px 0px 5px #333;
-}
-
 .error {
     margin: 10px;
     color: red;
@@ -90,7 +84,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     border-radius: 3px;
-    box-shadow: 0px 0px 25px #eee;
+    box-shadow: 0px 0px 25px #ddd;
 }
 
 .divForm {

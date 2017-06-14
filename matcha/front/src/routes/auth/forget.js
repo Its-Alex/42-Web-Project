@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import './login.css'
+import './form.css'
 
 class Login extends Component {
   constructor (props) {

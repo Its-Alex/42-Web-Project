@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import './login.css'
+import './form.css'
 
 class Login extends Component {
   constructor (props) {
@@ -34,7 +34,8 @@ class Login extends Component {
         validPwd: this.state.validPwd
       }).then((res) => {
         if (res.data.success === true && res.status === 201) {
-          this.props.history.push('/auth/login')
+          global.localStorage.setItem('signToken', res.data.token)
+          this.props.history.push('/auth/profil')
         } else {
           this.setState({error: res.data.msg})
         }

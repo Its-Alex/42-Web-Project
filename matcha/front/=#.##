@@ -1,0 +1,15 @@
+
+> fsevents@1.0.17 install /Users/malexand/Documents/Dev/42-Web-Project/matcha/front/node_modules/fsevents
+> node-pre-gyp install --fallback-to-build
+
+  SOLINK_MODULE(target) Release/.node
+  CXX(target) Release/obj.target/fse/fsevents.o
+  SOLINK_MODULE(target) Release/fse.node
+  COPY /Users/malexand/Documents/Dev/42-Web-Project/matcha/front/node_modules/fsevents/lib/binding/Release/node-v57-darwin-x64/fse.node
+  TOUCH Release/obj.target/action_after_build.stamp
++ react@15.6.0
++ react-dom@15.6.0
++ moment@2.18.1
++ react-addons-shallow-compare@15.6.0
++ react-dates@12.1.2
+added 93 packages, removed 238 packages and updated 767 packages in 108.774s

@@ -3,6 +3,16 @@ const valid = require('validator')
 const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
 
+function genToken () {
+  var str = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`
+  var token = ''
+
+  for (var count = 0; count < 128; count++) {
+    token += str[Math.floor((Math.random() * str.length))]
+  }
+  return (token)
+}
+
 function error (res, data, err) {
   res.status(err)
   res.json({
@@ -48,9 +58,21 @@ module.exports = (req, res) => {
   model.getUserByMail(req.body.mail).then((results) => {
     if (results.length === 0) {
       model.insertUser(req.body).then(() => {
-        res.status(201)
-        res.json({
-          success: true
+        model.getUserByMail(req.body.mail).then((results) => {
+          let token = genToken()
+          model.insertToken(results[0].id, token).then(() => {
+            res.status(201)
+            res.json({
+              success: true,
+              token
+            })
+          }).catch((err) => {
+            console.log(new Error(err))
+            error(res, 'Server error', 500)
+          })
+        }).catch((err) => {
+          console.log(err)
+          error(res, 'Server error', 500)
         })
       }).catch((err) => {
         console.log(err)

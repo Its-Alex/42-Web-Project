@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
-import './login.css'
+import './form.css'
 
 class Login extends Component {
   constructor (props) {
@@ -9,48 +8,38 @@ class Login extends Component {
 
     this.state = {
       error: null,
-      email: '',
-      password: ''
+      age: '',
+      birthday: '',
+      bio: '',
+      genre: '',
+      type: '',
+      tags: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentWillMount () {
-    if (!global.localStorage.getItem('token')) {
+    if (!global.localStorage.getItem('signToken')) {
       this.props.history.push('/auth/login')
     }
   }
 
   handleChange (event) {
-    if (event.target.className === 'email') this.setState({email: event.target.value})
-    if (event.target.className === 'password') this.setState({password: event.target.value})
+    let target = event.target
+    // let value = target.type === 'checkbox' ? target.checked : target.value
+    if (target.value === 'Submit') {
+      return
+    }
+    this.setState({
+      [target.name]: target.value
+    })
   }
 
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.className === 'submit') {
-      axios.post('http://localhost:3005/user/signin', {
-        mail: this.state.email,
-        password: this.state.password
-      }).then((res) => {
-        console.log(res)
-        if (res.data.success === true) {
-          global.localStorage.setItem('token', res.data.token)
-        } else {
-          this.setState({error: res.data.msg})
-          if (res.data.message === 'User must complete his registration') {
-            this.props.history.push('/auth/profil')
-          }
-        }
-      }).catch((err) => {
-        if (err.response) {
-          this.setState({error: err.response.data.msg})
-        } else if (err.request) {
-          console.log(err.request)
-        } else {
-          console.log(new Error(err.message))
-        }
-      })
+    if (event.key === 'Enter' || event.target.value === 'Submit') {
+      if (event.target.name === 'bio') return
+      console.log(this.state.birthday)
     }
   }
 
@@ -59,13 +48,41 @@ class Login extends Component {
       <div className='login'>
         <span className='error'>{this.state.error}</span>
         <div className='divForm'>
-          <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
-        </div>
-        <div className='divLink'>
-          <Link to='/auth/signup'>Sign up</Link>
-          <Link to='/auth/forgot'>Forgot your password ?</Link>
+          <input type='text' name='age' value={this.state.email} placeholder='Age' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='date' name='birthday' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <textarea type='text' name='bio' value={this.state.email} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Genre:
+          <div className='radioContainer'>
+            <label htmlFor='genreMen'>
+              <input type='radio' name='genre' id='genreMen' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>Men</p>
+            </label>
+            <label htmlFor='genreWomen'>
+              <input type='radio' name='genre' id='genreWomen' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>Women</p>
+            </label>
+            <label htmlFor='genreAll'>
+              <input type='radio' name='genre' id='genreAll' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>All</p>
+            </label>
+          </div>
+          Type:
+          <div className='radioContainer'>
+            <label htmlFor='typeMen'>
+              <input type='radio' name='type' id='typeMen' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>Men</p>
+            </label>
+            <label htmlFor='typeWomen'>
+              <input type='radio' name='type' id='typeWomen' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>Women</p>
+            </label>
+            <label htmlFor='typeAll'>
+              <input type='radio' name='type' id='typeAll' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+              <p>All</p>
+            </label>
+          </div>
+          <input type='text' name='tags' value={this.state.email} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='submit' value='Submit' onClick={this.handleKeyPress} />
         </div>
       </div>
     )

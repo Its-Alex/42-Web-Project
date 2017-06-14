@@ -10,7 +10,7 @@
     background-color: #fff;
 }
 
-input {
+input, textarea {
     font-size: 1em;
     margin: 6px;
     outline: none;
@@ -24,7 +24,7 @@ input {
     border: 2px solid var(--whiteInput);
 }
 
-input::placeholder {
+input::placeholder, textarea::placeholder {
     color: #B7B7BA;
 }
 
@@ -44,22 +44,17 @@ input[type=submit]:hover, input[type=submit]:focus {
     box-shadow: 0px 0px 5px #333;
 }
 
-input[type=email]:focus {
+input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
+input[type=date]:focus, textarea:focus {
     border: 2px solid var(--green);
     border-radius: 4px;
     background-color: #fff;
 }
 
-input[type=text]:focus {
-    border: 2px solid var(--green);
-    border-radius: 4px;
-    background-color: #fff;
-}
-
-input[type=password]:focus {
-    border: 2px solid var(--green);
-    border-radius: 4px;
-    background-color: #fff;
+textarea {
+    resize: none;
+    height: 4em;
+    width: 30%;
 }
 
 a {
@@ -116,4 +111,28 @@ a:hover {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+}
+
+.radioContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type=radio] {
+    height: 14px;
+    width: 14px;
+}
+
+label {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+label > input, label > p {
+    margin: 10px;
 }

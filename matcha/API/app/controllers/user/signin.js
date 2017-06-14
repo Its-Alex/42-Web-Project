@@ -51,7 +51,7 @@ module.exports = (req, res) => {
     if (!bcrypt.compareSync(req.body.password, user[0].password)) {
       return error(res, 'Invalid password', 400)
     }
-    var token = genToken()
+    let token = genToken()
     model.insertToken(user[0].id, token).then(() => {
       res.status(200)
       res.json({

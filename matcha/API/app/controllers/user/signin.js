@@ -45,9 +45,6 @@ module.exports = (req, res) => {
     if (user[0] === undefined) {
       return error(res, 'User not found', 400)
     }
-    if (user[0].state === 'NEED_VALID') {
-      return error(res, 'User must complete his registration', 400)
-    }
     if (!bcrypt.compareSync(req.body.password, user[0].password)) {
       return error(res, 'Invalid password', 400)
     }

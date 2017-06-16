@@ -18,6 +18,15 @@ class Login extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+  componentWillMount () {
+    if (global.localStorage.getItem('Token')) {
+      this.props.history.push('/')
+    }
+    if (global.localStorage.getItem('signToken')) {
+      this.props.history.push('/profil')
+    }
+  }
+
   handleChange (event) {
     this.setState({[event.target.className]: event.target.value})
   }

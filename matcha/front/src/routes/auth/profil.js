@@ -10,17 +10,25 @@ class Login extends Component {
       error: null,
       birthday: '',
       bio: '',
-      genre: '',
-      type: '',
-      tags: ''
+      genre: 'M',
+      type: 'M',
+      tags: '',
+      axios: axios.create({
+        baseURL: 'http://localhost:3005/',
+        timeout: 1000,
+        headers: {'Authorization': `Bearer ${global.localStorage.getItem('signToken')}`}
+      })
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentWillMount () {
+    if (global.localStorage.getItem('Token')) {
+      this.props.history.push('/')
+    }
     if (!global.localStorage.getItem('signToken')) {
-      this.props.history.push('/auth/login')
+      this.props.history.push('/login')
     }
   }
 
@@ -53,16 +61,26 @@ class Login extends Component {
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Next') {
       if (event.target.name === 'bio') return
-      axios.post('http://localhost:3005/profil', {
+      this.state.axios.post('profil', {
         birthday: this.state.birthday,
         bio: this.state.bio,
         genre: this.state.genre,
         type: this.state.type,
         tags: this.state.tags
-      }).then((results) => {
-        console.log(results)
+      }).then((res) => {
+        if (res.status === 201) {
+          global.localStorage.removeItem('signToken')
+          this.props.history.push('auth/login')
+        }
       }).catch((err) => {
-        console.log(new Error(err))
+        if (err.response) {
+          console.log(err.response)
+          this.setState({error: err.response.data.msg})
+        } else if (err.request) {
+          console.log(err.request)
+        } else {
+          console.log(new Error(err.message))
+        }
       })
     }
   }
@@ -75,14 +93,13 @@ class Login extends Component {
           <input type='date' name='birthday' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <textarea type='text' name='bio' value={this.state.email} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           Genre :
-          <select className='genre' name='genre' >
-            <option value='M' selected>Men</option>
+          <select name='genre' onChange={this.handleChange} >
+            <option value='M' defaultValue>Men</option>
             <option value='F'>Woman</option>
-            <option value='B'>All</option>
           </select>
           Type :
-          <select className='type' name='type' >
-            <option value='M' selected>Men</option>
+          <select name='type' onChange={this.handleChange} >
+            <option value='M' defaultValue>Men</option>
             <option value='F'>Woman</option>
             <option value='B'>All</option>
           </select>

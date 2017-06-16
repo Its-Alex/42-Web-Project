@@ -29,27 +29,22 @@ module.exports = (req, res) => {
   }
   if (valid.isEmpty(req.body.name) || valid.isEmpty(req.body.mail) ||
   valid.isEmpty(req.body.password) || valid.isEmpty(req.body.validPwd)) {
-    error(res, 'Empty field(s)', 400)
-    return
+    return error(res, 'Empty field(s)', 400)
   }
   if (req.body.password !== req.body.validPwd) {
-    error(res, 'Password does not match', 400)
-    return
+    return error(res, 'Password does not match', 400)
   }
   if (req.body.name.length > 36 || !req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
-    error(res, 'Invalid name', 400)
-    return
+    return error(res, 'Invalid name', 400)
   }
   if (!valid.isEmail(req.body.mail)) {
-    error(res, 'Invalid mail', 400)
-    return
+    return error(res, 'Invalid mail', 400)
   } else {
     req.body.mail = req.body.mail.toLowerCase()
   }
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
   req.body.password.length < 8) {
-    error(res, 'Invalid password', 400)
-    return
+    return error(res, 'Invalid password', 400)
   } else {
     req.body.password = bcrypt.hashSync(req.body.password, 10)
   }

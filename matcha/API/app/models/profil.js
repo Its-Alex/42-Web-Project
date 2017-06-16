@@ -40,15 +40,14 @@ module.exports = {
   createProfil: profil => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('INSERT INTO profils (userId, birthday, bio, genre, type, popularity, tags, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+        db.query('INSERT INTO profils (userId, birthday, bio, genre, type, popularity, tags) VALUES (?, ?, ?, ?, ?, ?, ?)', [
           profil.id,
-          profil.birhtday,
+          profil.birthday,
           profil.bio,
           profil.genre,
           profil.type,
           profil.popularity,
-          profil.tags,
-          profil.location], (err, results) => {
+          profil.tags], (err, results) => {
             if (err) {
               return reject(err)
             }

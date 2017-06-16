@@ -1,4 +1,4 @@
-const model = require('../../models/user.js')
+const model = require('../../models/profil.js')
 
 function error (res, data, err) {
   res.status(err)
@@ -10,7 +10,7 @@ function error (res, data, err) {
 
 module.exports = (req, res) => {
   if (req.params.id === 'me') {
-    model.getUserById(req.user.id).then((results) => {
+    model.getProfilById(req.user.id).then((results) => {
       if (results.length === 0) return error(res, 'User not found', 400)
       res.status(200)
       res.json({

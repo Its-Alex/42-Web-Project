@@ -44,7 +44,7 @@ input[type=submit]:active, a:active {
 }
 
 input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
-input[type=date]:focus, textarea:focus {
+input[type=date]:focus, textarea:focus, select:focus {
     border: 2px solid var(--green);
     border-radius: 4px;
     background-color: #fff;
@@ -133,4 +133,8 @@ label {
 
 label > input, label > p {
     margin: 10px;
+}
+
+a:focus {
+    outline: none;
 }

@@ -26,7 +26,6 @@ class Login extends Component {
         mail: this.state.email,
         password: this.state.password
       }).then((res) => {
-        console.log(res)
         if (res.data.success === true) {
           global.localStorage.setItem('token', res.data.token)
         } else {

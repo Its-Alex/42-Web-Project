@@ -8,7 +8,7 @@ module.exports = (role) => {
       res.status(400)
       res.json({
         success: false,
-        message: 'Need Authorization in header'
+        msg: 'Need Authorization in header'
       })
       return
     }
@@ -17,7 +17,7 @@ module.exports = (role) => {
       res.status(400)
       res.json({
         success: false,
-        message: 'Wrong authorization header'
+        msg: 'Wrong authorization header'
       })
       return
     }
@@ -28,14 +28,14 @@ module.exports = (role) => {
           res.status(500)
           res.json({
             success: false,
-            message: 'Server error'
+            msg: 'Server error'
           })
         }
         if (results.length !== 1) {
           res.status(400)
           res.json({
             success: false,
-            message: 'False token'
+            msg: 'False token'
           })
           return
         }
@@ -54,7 +54,7 @@ module.exports = (role) => {
           res.status(404)
           res.json({
             success: false,
-            message: 'Unauthorized'
+            msg: 'Unauthorized'
           })
         }
       })

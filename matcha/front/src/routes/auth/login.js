@@ -17,8 +17,11 @@ class Login extends Component {
   }
 
   componentWillMount () {
-    if (!global.localStorage.getItem('Token')) {
+    if (global.localStorage.getItem('Token')) {
       this.props.history.push('/')
+    }
+    if (global.localStorage.getItem('signToken')) {
+      this.props.history.push('/auth/profil')
     }
   }
 
@@ -32,14 +35,9 @@ class Login extends Component {
         mail: this.state.email,
         password: this.state.password
       }).then((res) => {
-        console.log(res)
         if (res.data.success === true) {
-          global.localStorage.setItem('token', res.data.token)
-        } else {
-          this.setState({error: res.data.msg})
-          if (res.data.message === 'User must complete his registration') {
-            this.props.history.push('/auth/profil')
-          }
+          global.localStorage.setItem('Token', res.data.token)
+          this.props.history.push('/')
         }
       }).catch((err) => {
         if (err.response) {

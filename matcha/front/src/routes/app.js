@@ -38,7 +38,7 @@ class App extends Component {
       navigator.geolocation.getCurrentPosition((pos) => {
         axios.post(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&sensor=true`)
         .then((res) => {
-          console.log(res)
+          console.log(res.data.results[0].formatted_address)
         }).catch((err) => {
           console.log(err)
         })

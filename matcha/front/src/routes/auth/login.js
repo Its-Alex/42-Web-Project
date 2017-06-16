@@ -16,6 +16,12 @@ class Login extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+  componentWillMount () {
+    if (!global.localStorage.getItem('Token')) {
+      this.props.history.push('/')
+    }
+  }
+
   handleChange (event) {
     this.setState({[event.target.className]: event.target.value})
   }
@@ -54,7 +60,7 @@ class Login extends Component {
         <div className='divForm'>
           <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' className='submit' value='Submit' onClick={this.handleKeyPress} />
+          <input type='submit' className='submit' value='Next' onClick={this.handleKeyPress} />
         </div>
         <div className='divLink'>
           <Link to='/auth/signup'>Sign up</Link>

@@ -51,7 +51,7 @@ class Login extends Component {
   }
 
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.value === 'Submit') {
+    if (event.key === 'Enter' || event.target.value === 'Next') {
       if (event.target.name === 'bio') return
       axios.post('http://localhost:3005/profil', {
         birthday: this.state.birthday,
@@ -74,18 +74,20 @@ class Login extends Component {
         <div className='divForm'>
           <input type='date' name='birthday' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <textarea type='text' name='bio' value={this.state.email} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Genre :
           <select className='genre' name='genre' >
             <option value='M' selected>Men</option>
             <option value='F'>Woman</option>
             <option value='B'>All</option>
           </select>
+          Type :
           <select className='type' name='type' >
             <option value='M' selected>Men</option>
             <option value='F'>Woman</option>
             <option value='B'>All</option>
           </select>
           <input type='text' name='tags' value={this.state.email} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' value='Submit' onClick={this.handleKeyPress} />
+          <input type='submit' value='Next' onClick={this.handleKeyPress} />
         </div>
       </div>
     )

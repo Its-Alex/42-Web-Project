@@ -12,5 +12,51 @@ module.exports = {
         reject(err)
       })
     })
+  },
+  getProfilById: id => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('SELECT * FROM profils WHERE userId = ?', [id], (err, results) => {
+          if (err) return reject(err)
+          resolve(results)
+        })
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+  },
+  getProfilByToken: token => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('', [token], (err, results) => {
+          if (err) return reject(err)
+          resolve(results)
+        })
+      }).catch((err) => {
+        reject(err)
+      })
+    })
+  },
+  createProfil: profil => {
+    return new Promise((resolve, reject) => {
+      db.get().then((db) => {
+        db.query('INSERT INTO profils (userId, birthday, bio, genre, type, popularity, tags, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [
+          profil.id,
+          profil.birhtday,
+          profil.bio,
+          profil.genre,
+          profil.type,
+          profil.popularity,
+          profil.tags,
+          profil.location], (err, results) => {
+            if (err) {
+              return reject(err)
+            }
+            return resolve()
+          })
+      }).catch((err) => {
+        return reject(err)
+      })
+    })
   }
 }

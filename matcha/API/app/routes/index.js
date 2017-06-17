@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const geoip = require('geoip-lite')
 const middle = require('../middlewares.js')
 
 router.get('/', (req, res) => {
@@ -8,6 +9,13 @@ router.get('/', (req, res) => {
     version: 0.1,
     message: 'Matcha API'
   })
+})
+
+router.get('/geoloc', middle('USER'), (req, res) => {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  console.log(ip)
+  res.status(200)
+  res.send()
 })
 
 // All paths

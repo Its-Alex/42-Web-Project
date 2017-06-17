@@ -23,6 +23,7 @@
     "core-util-is": "^1.0.2",
     "cors": "^2.8.3",
     "express": "^4.15.3",
+    "geoip-lite": "^1.2.1",
     "minimatch": "^3.0.4",
     "mysql": "^2.13.0",
     "uuid": "^3.0.1",

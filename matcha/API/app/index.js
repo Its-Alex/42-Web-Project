@@ -22,6 +22,7 @@ wss.on('connection', function connection (ws) {
 app.disable('x-powered-by')
 app.use(cors())
 app.use(bodyParser.json())
+app.enable('trust proxy')
 
 // Global api route
 app.use('/', require('./routes/index.js'))

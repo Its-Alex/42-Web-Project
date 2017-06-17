@@ -21,9 +21,7 @@ class App extends Component {
     if (!global.localStorage.getItem('Token')) {
       this.props.history.push('/auth/login')
     } else {
-      this.state.axios.get('profil/me').then((res) => {
-
-      }).catch((err) => {
+      this.state.axios.get('profil/me').catch((err) => {
         if (err) {
           let token = global.localStorage.getItem('Token')
           console.log(token)
@@ -34,16 +32,7 @@ class App extends Component {
       })
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((pos) => {
-        axios.post(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${pos.coords.latitude},${pos.coords.longitude}&sensor=true`)
-        .then((res) => {
-          console.log(res.data.results[0].formatted_address)
-        }).catch((err) => {
-          console.log(err)
-        })
-      })
-    }
+    this.state.axios.get('geoloc')
   }
 
   render () {

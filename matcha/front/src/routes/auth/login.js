@@ -61,8 +61,8 @@ class Login extends Component {
           <input type='submit' className='submit' value='Next' onClick={this.handleKeyPress} />
         </div>
         <div className='divLink'>
-          <Link to='/auth/signup'>Sign up</Link>
-          <Link to='/auth/forgot'>Forgot your password ?</Link>
+          <Link to='/auth/signup' className='link'>Sign up</Link>
+          <Link to='/auth/forgot' className='link'>Forgot your password ?</Link>
         </div>
       </div>
     )

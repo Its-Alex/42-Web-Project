@@ -8,6 +8,8 @@ class Navbar extends Component {
       <div className='navbar'>
         <ul>
           <li><Link to='/home'>Home</Link></li>
+          <li><Link to='/Profil'>Profil</Link></li>
+          <li><Link to='/Profil'>Home</Link></li>
           <li><Link to='/home'>Search</Link></li>
         </ul>
       </div>

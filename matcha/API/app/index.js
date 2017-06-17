@@ -10,11 +10,18 @@ const port = 3005
 db.connect()
 
 wss.on('connection', function connection (ws) {
+
+  console.log(ws)
+
   ws.on('message', function incoming (message) {
     console.log('received: %s', message)
   })
   ws.on('close', (event) => {
-    console.log('Websocket closed')
+    db.get().then((db) => {
+      db.query('UPDATE profils JOIN users on profils.userId = users.id SET profils.lastConnect = ? where users.id = ?')
+    }).catch((err) => {
+      console.log(new Error(err))
+    })
   })
   ws.send('Salut')
 })

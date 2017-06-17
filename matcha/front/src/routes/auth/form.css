@@ -60,7 +60,24 @@ textarea {
     width: 30%;
 }
 
-a {
+input[type=radio] {
+    height: 14px;
+    width: 14px;
+}
+
+label {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+label > input, label > p {
+    margin: 10px;
+}
+
+.link {
     text-decoration: none;
     cursor: pointer;
     color: #ACACB0;
@@ -72,6 +89,10 @@ a {
     border-radius: 4px;
     width: initial;
     box-sizing: content-box;
+}
+
+.link:focus {
+    outline: none;
 }
 
 .error {
@@ -116,25 +137,4 @@ a {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-}
-
-input[type=radio] {
-    height: 14px;
-    width: 14px;
-}
-
-label {
-    display: block;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-label > input, label > p {
-    margin: 10px;
-}
-
-a:focus {
-    outline: none;
 }

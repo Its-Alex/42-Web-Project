@@ -1,16 +1,9 @@
-.router {
-    margin: 0;
-    padding: 0;
+.resize {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
 }
 
-input, textarea, select {
+.divForm > input, .divForm > textarea, .divForm > select {
     font-size: 1em;
     margin: 6px;
     outline: none;
@@ -19,53 +12,48 @@ input, textarea, select {
     height: 1.8em;
     border: none;
     text-align: center;
-    color: #ACACB0;
+    color: var(--textInput);
     background-color: var(--whiteInput);
     border: 2px solid var(--whiteInput);
 }
 
-input::placeholder, textarea::placeholder {
-    color: #B7B7BA;
+.divForm > input::placeholder, .divForm > textarea::placeholder {
+    color: var(--placeHolder);
 }
 
-input[type=submit] {
+.divForm > input[type=submit] {
     margin: 15px;
     padding: 2px 0px 2px 0px;
-    background-color: var(--green);
-    border: 2px solid var(--green);
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
     color: #F6FbFD;
     border-radius: 4px;
-    /*width: initial;*/
     box-sizing: content-box;
 }
 
-input[type=submit]:active, a:active {
-    box-shadow: 0px 0px 5px #333;
-}
-
-input[type=email]:focus, input[type=text]:focus, input[type=password]:focus,
-input[type=date]:focus, textarea:focus, select:focus {
-    border: 2px solid var(--green);
+.divForm > input[type=email]:focus, .divForm > input[type=text]:focus, .divForm > input[type=password]:focus,
+.divForm > input[type=date]:focus, .divForm > textarea:focus, .divForm > select:focus {
+    border: 2px solid var(--blue);
     border-radius: 4px;
     background-color: #fff;
 }
 
-input[type=submit]:hover {
+.divForm > input[type=submit]:hover {
     cursor: pointer;
 }
 
-textarea {
+.divForm > textarea {
     resize: none;
     height: 4em;
     width: 30%;
 }
 
-input[type=radio] {
+.divForm > input[type=radio] {
     height: 14px;
     width: 14px;
 }
 
-label {
+.divForm > label {
     display: block;
     display: flex;
     flex-direction: row;
@@ -73,7 +61,7 @@ label {
     align-items: center;
 }
 
-label > input, label > p {
+.divForm > label > input, label > p {
     margin: 10px;
 }
 
@@ -83,8 +71,8 @@ label > input, label > p {
     color: #ACACB0;
     margin: 10px;
     padding: 2px 8px 2px 8px;
-    background-color: var(--green);
-    border: 2px solid var(--green);
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
     color: #F6FbFD;
     border-radius: 4px;
     width: initial;

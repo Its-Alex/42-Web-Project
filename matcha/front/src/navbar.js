@@ -7,10 +7,11 @@ class Navbar extends Component {
     return (
       <div className='navbar'>
         <ul>
+          <li><input className='searchInput' type='text' placeholder='Search' /></li>
+          <li><Link to='/notification'>Notification</Link></li>
           <li><Link to='/home'>Home</Link></li>
           <li><Link to='/Profil'>Profil</Link></li>
-          <li><Link to='/Profil'>Home</Link></li>
-          <li><Link to='/home'>Search</Link></li>
+          <li><Link to='/settings'>Settings</Link></li>
         </ul>
       </div>
     )

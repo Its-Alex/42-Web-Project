@@ -1,7 +1,11 @@
+//  API KEY GOOGLE MAPS GEOLOC : AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk
+//  API KEY GOOGLE MAPS GEOLOC : AIzaSyA0RO-FTbhyy6pDzm3EX04YImmfqjmATKI
+
+const axios = require('axios')
 const express = require('express')
 const router = express.Router()
-const geoip = require('geoip-lite')
 const middle = require('../middlewares.js')
+const db = require('../db.js')
 
 router.get('/', (req, res) => {
   res.json({
@@ -11,9 +15,20 @@ router.get('/', (req, res) => {
   })
 })
 
-router.get('/geoloc', middle('USER'), (req, res) => {
-  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  console.log(ip)
+router.post('/geoloc', middle('USER'), (req, res) => {
+  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.body.lat},${req.body.lng}&key=AIzaSyA0RO-FTbhyy6pDzm3EX04YImmfqjmATKI&language=fr&region=FR`).then((res) => {
+    db.get().then((db) => {
+      db.query('UPDATE profils JOIN users ON profils.userId = users.id set profils.location = ? WHERE users.id = ?', [res.data.results[2].formatted_address, req.user.id], (err, results) => {
+        if (err) {
+          console.log(new Error(err))
+        }
+      })
+    }).catch((err) => {
+      console.log(new Error(err))
+    })
+  }).catch((err) => {
+    console.log(new Error(err))
+  })
   res.status(200)
   res.send()
 })

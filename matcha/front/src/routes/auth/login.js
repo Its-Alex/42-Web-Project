@@ -53,16 +53,18 @@ class Login extends Component {
 
   render () {
     return (
-      <div className='login'>
-        <span className='error'>{this.state.error}</span>
-        <div className='divForm'>
-          <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' className='submit' value='Next' onClick={this.handleKeyPress} />
-        </div>
-        <div className='divLink'>
-          <Link to='/auth/signup' className='link'>Sign up</Link>
-          <Link to='/auth/forgot' className='link'>Forgot your password ?</Link>
+      <div className='resize'>
+        <div className='login'>
+          <span className='error'>{this.state.error}</span>
+          <div className='divForm'>
+            <input type='email' className='email' value={this.state.email} placeholder='Mail' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='password' className='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='submit' className='submit' value='Next' onClick={this.handleKeyPress} />
+          </div>
+          <div className='divLink'>
+            <Link to='/auth/signup' className='link'>Sign up</Link>
+            <Link to='/auth/forgot' className='link'>Forgot your password ?</Link>
+          </div>
         </div>
       </div>
     )

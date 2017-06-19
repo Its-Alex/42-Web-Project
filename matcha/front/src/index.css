@@ -1,6 +1,8 @@
 :root {
-  --green: #3C9AFB;
+  --blue: #3C9AFB;
   --whiteInput: #F0F0F0;
+  --placeHolder: #B7B7BA;
+  --textInput: #b6b6ba;
 }
 
 html, body, #root {
@@ -16,7 +18,14 @@ input {
   font-family: 'Lato', monospace;
 }
 
+a {
+  text-decoration: none;
+  color: var(--textInput);
+}
+
 .router {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -29,4 +38,5 @@ input {
   justify-content: center;
   align-items: center;
   font-size: 4em;
+  width: 100%;
 }

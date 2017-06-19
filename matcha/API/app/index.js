@@ -10,7 +10,6 @@ const port = 3005
 db.connect()
 
 wss.on('connection', function connection (ws) {
-
   console.log(ws)
 
   ws.on('message', function incoming (message) {

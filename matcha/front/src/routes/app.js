@@ -4,6 +4,8 @@ import Navbar from '../navbar.js'
 import NotFound from './notFound.js'
 import axios from 'axios'
 
+// https://developers.google.com/maps/documentation/static-maps/?hl=fr
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -21,7 +23,18 @@ class App extends Component {
     if (!global.localStorage.getItem('Token')) {
       this.props.history.push('/auth/login')
     } else {
-      this.state.axios.get('profil/me').catch((err) => {
+      this.state.axios.get('profil/me').then((res) => {
+        axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
+          this.state.axios.post('geoloc', {
+            lat: res.data.location.lat,
+            lng: res.data.location.lng
+          }).catch((err) => {
+            console.log(new Error(err))
+          })
+        }).catch((err) => {
+          console.log(new Error(err))
+        })
+      }).catch((err) => {
         if (err) {
           let token = global.localStorage.getItem('Token')
           console.log(token)
@@ -31,8 +44,6 @@ class App extends Component {
         }
       })
     }
-
-    this.state.axios.get('geoloc')
   }
 
   render () {

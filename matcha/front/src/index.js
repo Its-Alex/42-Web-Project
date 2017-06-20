@@ -6,6 +6,7 @@ import Auth from './routes/auth/index.js'
 import notFound from './routes/notFound.js'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
+
 // const ws = new global.WebSocket('ws://localhost:3002')
 
 // ws.onopen = (event) => {

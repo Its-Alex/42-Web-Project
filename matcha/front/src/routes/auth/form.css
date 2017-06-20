@@ -12,9 +12,10 @@
     height: 1.8em;
     border: none;
     text-align: center;
-    color: var(--textInput);
+    color: var(--textInputForm);
     background-color: var(--whiteInput);
     border: 2px solid var(--whiteInput);
+    background-image: 
 }
 
 .divForm > input::placeholder, .divForm > textarea::placeholder {

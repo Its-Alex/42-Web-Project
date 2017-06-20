@@ -2,7 +2,29 @@
   --blue: #3C9AFB;
   --whiteInput: #F0F0F0;
   --placeHolder: #B7B7BA;
-  --textInput: #b6b6ba;
+  --textInputForm: #b6b6ba;
+  --textColor: #76767a;
+}
+
+@-webkit-keyframes backgroundAnimate {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+@-moz-keyframes backgroundAnimate {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+@-o-keyframes backgroundAnimate {
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
+}
+@keyframes backgroundAnimate { 
+    0%{background-position:0% 99%}
+    50%{background-position:100% 2%}
+    100%{background-position:0% 99%}
 }
 
 html, body, #root {
@@ -20,7 +42,7 @@ input {
 
 a {
   text-decoration: none;
-  color: var(--textInput);
+  color: var(--textColor);
 }
 
 .router {
@@ -39,4 +61,11 @@ a {
   align-items: center;
   font-size: 4em;
   width: 100%;
+  background: linear-gradient(224deg, #a7a6a6, #c3c3c3, #fbfbfb);
+  background-size: 600% 600%;
+
+  -webkit-animation: backgroundAnimate 90s ease infinite;
+  -moz-animation: backgroundAnimate 90s ease infinite;
+  -o-animation: backgroundAnimate 90s ease infinite;
+  animation: backgroundAnimate 90s ease infinite;
 }

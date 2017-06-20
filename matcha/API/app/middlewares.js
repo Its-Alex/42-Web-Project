@@ -40,7 +40,6 @@ module.exports = (role) => {
           return
         }
         if (results[0].role === role || results[0].role === 'ADMIN') {
-          console.log(results)
           req.user = {
             token: auth[1],
             id: results[0].id,

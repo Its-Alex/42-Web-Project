@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Navbar from '../navbar.js'
+import Search from './search.js'
+import Notifications from './notifications.js'
+import Settings from './settings.js'
+import Profil from './profil.js'
 import NotFound from './notFound.js'
 import axios from 'axios'
 
@@ -51,6 +55,18 @@ class App extends Component {
       <div className='router'>
         <Navbar />
         <Switch>
+          <Route exact path='/search'>
+            <Search axios={this.state.axios} />
+          </Route>
+          <Route exact path='/profil'>
+            <Profil axios={this.state.axios} />
+          </Route>
+          <Route exact path='/notifications'>
+            <Notifications axios={this.state.axios} />
+          </Route>
+          <Route exact path='/settings'>
+            <Settings axios={this.state.axios} />
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </div>

@@ -19,6 +19,9 @@ class Profil extends Component {
   }
 
   componentWillMount () {
+    /**
+     * Get all data from user and put it into state
+     */
     this.state.axios.get('/user/me').then((result) => {
       this.state.axios.get('/profil/me').then((res) => {
         this.setState({

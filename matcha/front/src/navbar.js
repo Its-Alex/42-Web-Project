@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import './navbar.css'
 
 class Navbar extends Component {
-        // <input className='searchInput' type='text' placeholder='Search' />
   render () {
     return (
       <div id='navbar'>

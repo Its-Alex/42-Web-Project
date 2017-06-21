@@ -51,15 +51,7 @@ class Search extends Component {
   render () {
     return (
       <div className='body'>
-        <p>{this.state.name}</p>
-        <p>{this.state.birthday}</p>
-        <p>{this.state.bio}</p>
-        <p>{this.state.popularity}</p>
-        <p>{this.state.gender}</p>
-        <p>{this.state.type}</p>
-        <p>{this.state.tags}</p>
-        <p>{this.state.location}</p>
-        <input type='button' onClick={this.onKeyPress} />
+        <input className='searchInput' type='text' placeholder='Search' />
       </div>
     )
   }

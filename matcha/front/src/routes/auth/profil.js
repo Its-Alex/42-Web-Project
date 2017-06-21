@@ -33,29 +33,8 @@ class Login extends Component {
   }
 
   handleChange (event) {
-    let target = event.target
-    let value
-
-    if (target.value === 'Submit') {
-      return
-    }
-    if (target.type === 'radio') {
-      if (target.id.search('Men') !== -1) {
-        value = 'M'
-      }
-      if (target.id.search('Women') !== -1) {
-        value = 'F'
-      }
-      if (target.id.search('All') !== -1) {
-        value = 'B'
-      }
-    } else {
-      value = target.value
-    }
-
-    this.setState({
-      [target.name]: value
-    })
+    console.log()
+    this.setState({[event.target.name]: event.target.value})
   }
 
   handleKeyPress (event) {

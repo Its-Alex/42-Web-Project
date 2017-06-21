@@ -57,14 +57,23 @@ wss.on('connection', (ws) => {
     }
   })
 
+  /**
+   * Function to know if socket is not broken
+   */
   ws.on('pong', (event) => {
     ws.isAlive = true
   })
 
+  /**
+   * Handle WebSocket errors
+   */
   ws.on('error', (error) => {
     console.log(new Error(error))
   })
 
+  /**
+   * Update last time connected in database
+   */
   ws.on('close', (event) => {
     db.get().then((db) => {
       db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [new Date().getTime(), ws.id], (err, res) => {
@@ -76,6 +85,9 @@ wss.on('connection', (ws) => {
   })
 })
 
+/**
+ * Update all connections and close those that are broken
+ */
 setInterval(() => {
   wss.clients.forEach(function (ws) {
     if (ws.isAlive === false) return ws.terminate()

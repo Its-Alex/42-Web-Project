@@ -25,13 +25,21 @@ class App extends Component {
   }
 
   componentWillMount () {
+    /**
+     * Redirect user if his path = '/'
+     */
     if (this.props.location.pathname === '/') {
       this.props.history.push('/profil')
     } else {
+      /**
+       * Check if user is connected adn exist
+       */
       if (!global.localStorage.getItem('Token')) {
         this.props.history.push('/auth/login')
       } else {
-        // Send position in the current database
+        /**
+         * Send position in database
+         */
         this.state.axios.get('profil/me').then((res) => {
           axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
             this.state.axios.post('geoloc', {
@@ -53,7 +61,9 @@ class App extends Component {
         })
       }
 
-      // Init WebSocket
+      /**
+       * Init WebSocket
+       */
       let ws = new global.WebSocket('ws://localhost:3002/')
       ws.onopen = (event) => {
         ws.send(JSON.stringify({
@@ -64,6 +74,10 @@ class App extends Component {
       ws.onmessage = (msg) => {
         console.log(msg.data)
       }
+
+      /**
+       * Set WebSocket in state
+       */
       this.setState({
         ws: ws
       })

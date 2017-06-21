@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './css/profil.css'
 
-class notFound extends Component {
+class Search extends Component {
   constructor (props) {
     super(props)
 
@@ -55,4 +55,4 @@ class notFound extends Component {
   }
 }
 
-export default notFound
+export default Search

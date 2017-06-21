@@ -7,12 +7,16 @@ class Navbar extends Component {
   render () {
     return (
       <div id='navbar'>
-        <img className='pictureProfil' src='//:0' alt='Profil' />
+        <div id='imgContainer'>
+          <div className='pictureProfil' src='//:0' alt='Profil' />
+          <div id='imgButtonContainer'>
+            <Link to='/notifications'><div id='notifications' className='imgButton' src='//:0' alt='Notifications' /></Link>
+            <Link to='/settings'><div id='settings' src='//:0' className='imgButton' alt='Settings' /></Link>
+          </div>
+        </div>
         <ul>
           <li><Link to='/search'>Search</Link></li>
           <li><Link to='/profil'>Profil</Link></li>
-          <li><Link to='/notifications'>Notifications</Link></li>
-          <li><Link to='/settings'>Settings</Link></li>
         </ul>
       </div>
     )

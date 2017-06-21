@@ -91,7 +91,7 @@ class Login extends Component {
         <div className='login'>
           <span className='error'>{this.state.error}</span>
           <div className='divForm'>
-            <input type='date' name='birthday' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='date' name='birthday' placeholder='yyyy-dd-mm' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <textarea type='text' name='bio' value={this.state.email} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Genre :
             <select name='genre' onChange={this.handleChange} >

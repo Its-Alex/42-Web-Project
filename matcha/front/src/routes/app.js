@@ -10,6 +10,7 @@ import axios from 'axios'
 
 // https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -19,33 +20,56 @@ class App extends Component {
         baseURL: 'http://localhost:3005/',
         timeout: 1000,
         headers: {'Authorization': `Bearer ${global.localStorage.getItem('Token')}`}
-      })
+      }),
+      ws: null
     }
   }
 
   componentWillMount () {
-    if (!global.localStorage.getItem('Token')) {
-      this.props.history.push('/auth/login')
+    if (this.props.location.pathname === '/') {
+      this.props.history.push('/profil')
     } else {
-      this.state.axios.get('profil/me').then((res) => {
-        axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
-          this.state.axios.post('geoloc', {
-            lat: res.data.location.lat,
-            lng: res.data.location.lng
+      if (!global.localStorage.getItem('Token')) {
+        this.props.history.push('/auth/login')
+      } else {
+        this.state.axios.get('profil/me').then((res) => {
+          axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
+            this.state.axios.post('geoloc', {
+              lat: res.data.location.lat,
+              lng: res.data.location.lng
+            }).catch((err) => {
+              console.log(new Error(err))
+            })
           }).catch((err) => {
             console.log(new Error(err))
           })
-        }).catch((err) => {
-          console.log(new Error(err))
+        }).catch((error) => {
+          if (error.response) {
+            let token = global.localStorage.getItem('Token')
+            global.localStorage.removeItem('Token')
+            global.localStorage.setItem('signToken', token)
+            this.props.history.push('/auth/profil')
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request)
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message)
+          }
+          console.log(error.config)
         })
-      }).catch((err) => {
-        if (err) {
-          let token = global.localStorage.getItem('Token')
-          console.log(token)
-          global.localStorage.removeItem('Token')
-          global.localStorage.setItem('signToken', token)
-          this.props.history.push('/auth/profil')
-        }
+      }
+      let ws = new global.WebSocket('ws://localhost:3002/')
+      ws.onopen = (event) => {
+        ws.send(JSON.stringify({
+          method: 'connect',
+          token: global.localStorage.getItem('Token')
+        }))
+      }
+      this.setState({
+        ws: ws
       })
     }
   }

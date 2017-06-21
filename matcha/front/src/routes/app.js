@@ -10,7 +10,6 @@ import axios from 'axios'
 
 // https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
-
 class App extends Component {
   constructor (props) {
     super(props)
@@ -32,6 +31,7 @@ class App extends Component {
       if (!global.localStorage.getItem('Token')) {
         this.props.history.push('/auth/login')
       } else {
+        // Send position in the current database
         this.state.axios.get('profil/me').then((res) => {
           axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
             this.state.axios.post('geoloc', {
@@ -61,12 +61,17 @@ class App extends Component {
           console.log(error.config)
         })
       }
+
+      // Init WebSocket
       let ws = new global.WebSocket('ws://localhost:3002/')
       ws.onopen = (event) => {
         ws.send(JSON.stringify({
           method: 'connect',
           token: global.localStorage.getItem('Token')
         }))
+      }
+      ws.onmessage = (msg) => {
+        console.log(msg.data)
       }
       this.setState({
         ws: ws
@@ -80,7 +85,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path='/search'>
-            <Search axios={this.state.axios} />
+            <Search axios={this.state.axios} ws={this.state.ws} />
           </Route>
           <Route exact path='/profil'>
             <Profil axios={this.state.axios} />

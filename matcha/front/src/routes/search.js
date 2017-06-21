@@ -16,6 +16,7 @@ class Search extends Component {
       location: '',
       axios: this.props.axios
     }
+    this.onKeyPress = this.onKeyPress.bind(this)
   }
 
   componentWillMount () {
@@ -39,6 +40,14 @@ class Search extends Component {
     })
   }
 
+  onKeyPress () {
+    this.props.ws.send(JSON.stringify({
+      method: 'send',
+      to: 'eb48d994-5dcf-41b4-93e4-e70c76b15cdd',
+      msg: 'Salut !'
+    }))
+  }
+
   render () {
     return (
       <div className='body'>
@@ -50,6 +59,7 @@ class Search extends Component {
         <p>{this.state.type}</p>
         <p>{this.state.tags}</p>
         <p>{this.state.location}</p>
+        <input type='button' onClick={this.onKeyPress} />
       </div>
     )
   }

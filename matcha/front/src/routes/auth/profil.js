@@ -33,7 +33,6 @@ class Login extends Component {
   }
 
   handleChange (event) {
-    console.log()
     this.setState({[event.target.name]: event.target.value})
   }
 

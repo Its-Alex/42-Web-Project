@@ -22,6 +22,7 @@ wss.on('connection', (ws) => {
           db.get().then((db) => {
             db.query('SELECT users.id FROM users JOIN tokens ON users.id = tokens.user WHERE tokens.token = ?', [data.token], (err, res) => {
               if (err) return console.log(new Error(err))
+              if (res.length === 0) return console.log(new Error('User not found'))
               wss.clients.forEach((elem) => {
                 if (ws === elem) elem.id = res[0].id
               })
@@ -76,10 +77,8 @@ wss.on('connection', (ws) => {
 })
 
 setInterval(() => {
-  console.log(wss.clients)
   wss.clients.forEach(function (ws) {
     if (ws.isAlive === false) return ws.terminate()
-
     ws.isAlive = false
     ws.ping('', false, true)
   })

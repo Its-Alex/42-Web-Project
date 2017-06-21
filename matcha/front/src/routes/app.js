@@ -26,7 +26,7 @@ class App extends Component {
 
   componentWillMount () {
     /**
-     * Redirect user if his path = '/'
+     * Redirect user if his path is equal to '/'
      */
     if (this.props.location.pathname === '/') {
       this.props.history.push('/profil')
@@ -38,9 +38,12 @@ class App extends Component {
         this.props.history.push('/auth/login')
       } else {
         /**
-         * Send position in database
+         * Check if user has a profil if not he will be redirect
          */
         this.state.axios.get('profil/me').then((res) => {
+          /**
+           * Get latitude and longitude of user and send it to API to get his current position
+           */
           axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
             this.state.axios.post('geoloc', {
               lat: res.data.location.lat,
@@ -64,7 +67,7 @@ class App extends Component {
       /**
        * Init WebSocket
        */
-      let ws = new global.WebSocket('ws://localhost:3002/')
+      let ws = new global.WebSocket('ws://localhost:3004/')
       ws.onopen = (event) => {
         ws.send(JSON.stringify({
           method: 'connect',

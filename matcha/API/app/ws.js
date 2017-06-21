@@ -1,6 +1,6 @@
 const db = require('./db.js')
 const WebSocket = require('ws')
-const wss = new WebSocket.Server({ port: 3002 })
+const wss = new WebSocket.Server({ port: 3004 })
 
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
@@ -37,7 +37,7 @@ wss.on('connection', (ws) => {
           if (data.msg && typeof data.msg === 'string') {
             wss.clients.forEach(function (client) {
               if (client.id === undefined) return
-              if (client.id === data.to) {
+              if (client.id === data.to && client.id !== ws.id) {
                 client.send(data.msg)
                 db.get().then((db) => {
                   db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [ws.id, client.id, data.msg, new Date().getTime()], (err, res) => {

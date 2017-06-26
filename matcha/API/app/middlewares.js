@@ -31,7 +31,7 @@ module.exports = (role) => {
             msg: 'Server error'
           })
         }
-        if (results.length !== 1) {
+        if (results === undefined || results.length !== 1) {
           res.status(400)
           res.json({
             success: false,

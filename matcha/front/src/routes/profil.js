@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
+import avatar from '../img/avatar.svg'
 import './css/profil.css'
 
 class Profil extends Component {
@@ -16,18 +17,14 @@ class Profil extends Component {
       tags: '',
       location: '',
       password: '',
+      img1: avatar,
+      img2: avatar,
+      img3: avatar,
+      img4: avatar,
+      img5: avatar,
       axios: this.props.axios
     }
     this.handleChange = this.handleChange.bind(this)
-  }
-
-  handleChange (event) {
-    this.setState({[event.target.name]: event.target.value})
-  }
-
-  onDrop (accepted, rejected) {
-    console.log(accepted)
-    console.log(rejected)
   }
 
   componentWillMount () {
@@ -54,12 +51,112 @@ class Profil extends Component {
     })
   }
 
+  handleChange (event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+  onDrop1 (acceptedFiles) {
+    let self = this
+    acceptedFiles.forEach(file => {
+      var reader = new global.FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        self.setState({
+          img1: reader.result
+        })
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    })
+  }
+
+  onDrop2 (acceptedFiles) {
+    let self = this
+    acceptedFiles.forEach(file => {
+      var reader = new global.FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        self.setState({
+          img2: reader.result
+        })
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    })
+  }
+
+  onDrop3 (acceptedFiles) {
+    let self = this
+    acceptedFiles.forEach(file => {
+      var reader = new global.FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        self.setState({
+          img3: reader.result
+        })
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    })
+  }
+
+  onDrop4 (acceptedFiles) {
+    let self = this
+    acceptedFiles.forEach(file => {
+      var reader = new global.FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        self.setState({
+          img4: reader.result
+        })
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    })
+  }
+
+  onDrop5 (acceptedFiles) {
+    let self = this
+    acceptedFiles.forEach(file => {
+      var reader = new global.FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        self.setState({
+          img5: reader.result
+        })
+      }
+      reader.onerror = function (error) {
+        console.log('Error: ', error)
+      }
+    })
+  }
+
   render () {
     return (
       <div className='body'>
         <span className='error'>{this.state.error}</span>
         <div id='profilForm'>
-          <Dropzone className='dropzone' onDrop={this.onDrop.bind(this)} />
+          <div className='dropzoneView'>
+            <Dropzone className='dropzone' name='1' disablePreview accept='image/jpeg, image/png' maxSize={3000000} onDrop={this.onDrop1.bind(this)}>
+              <img className='pictureView' src={this.state.img1} alt='Profil 1' />
+            </Dropzone>
+            <Dropzone className='dropzone' name='2' disablePreview accept='image/jpeg, image/png' maxSize={3000000} onDrop={this.onDrop2.bind(this)}>
+              <img className='pictureView' src={this.state.img2} alt='Profil 2' />
+            </Dropzone>
+            <Dropzone className='dropzone' name='3' disablePreview accept='image/jpeg, image/png' maxSize={3000000} onDrop={this.onDrop3.bind(this)}>
+              <img className='pictureView' src={this.state.img3} alt='Profil 3' />
+            </Dropzone>
+            <Dropzone className='dropzone' name='4' disablePreview accept='image/jpeg, image/png' maxSize={3000000} onDrop={this.onDrop4.bind(this)}>
+              <img className='pictureView' src={this.state.img4} alt='Profil 4' />
+            </Dropzone>
+            <Dropzone className='dropzone' name='5' disablePreview accept='image/jpeg, image/png' maxSize={3000000} onDrop={this.onDrop5.bind(this)}>
+              <img className='pictureView' src={this.state.img5} alt='Profil 5' />
+            </Dropzone>
+          </div>
           <p>Popularity : {this.state.popularity}</p>
           Birthday :
           <input type='date' name='birthday' placeholder='yyyy-dd-mm' value={this.state.birthday} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />

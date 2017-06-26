@@ -1,11 +1,13 @@
 #profilForm {
-    padding: 50px 0 50px 0;
-    width: 80%;
+    padding: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    overflow: auto;
 }
 
 #profilForm > input, #profilForm > textarea, #profilForm > select {
@@ -68,4 +70,27 @@
 
 #profilForm > label > input, label > p {
     margin: 10px;
+}
+
+.dropzone {
+    margin: 5px;
+    width: 5em;
+    height: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #000;
+    border-radius: 50%;
+    overflow: hidden
+}
+
+.dropzoneView {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.pictureView {
+    width: auto;
+    height: 100%;
 }

@@ -1,3 +1,71 @@
-.searchInput {
-    z-index: 2;
+#profilForm {
+    padding: 50px 0 50px 0;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#profilForm > input, #profilForm > textarea, #profilForm > select {
+    font-size: 1em;
+    margin: 6px;
+    outline: none;
+    width: 20%;
+    border-radius: 6px;
+    height: 1.8em;
+    border: none;
+    text-align: center;
+    color: var(--textInputForm);
+    background-color: var(--whiteInput);
+    border: 2px solid var(--whiteInput);
+}
+
+#profilForm > input::placeholder, #profilForm > textarea::placeholder {
+    color: var(--placeHolder);
+}
+
+#profilForm > input[type=submit] {
+    margin: 15px;
+    padding: 2px 0px 2px 0px;
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    color: #F6FbFD;
+    border-radius: 4px;
+    box-sizing: content-box;
+}
+
+#profilForm > input[type=email]:focus, #profilForm > input[type=text]:focus, #profilForm > input[type=password]:focus,
+#profilForm > input[type=date]:focus, #profilForm > textarea:focus, #profilForm > select:focus {
+    border: 2px solid var(--blue);
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+#profilForm > input[type=submit]:hover {
+    cursor: pointer;
+}
+
+#profilForm > textarea {
+    resize: none;
+    height: 4em;
+    width: 30%;
+}
+
+#profilForm > input[type=radio] {
+    height: 14px;
+    width: 14px;
+}
+
+#profilForm > label {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#profilForm > label > input, label > p {
+    margin: 10px;
 }

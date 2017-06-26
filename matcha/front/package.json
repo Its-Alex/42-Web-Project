@@ -9,6 +9,7 @@
     "path-is-absolute": "^1.0.1",
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
+    "react-dropzone": "^3.13.3",
     "react-moment": "^0.2.4",
     "react-router-dom": "^4.1.1"
   },

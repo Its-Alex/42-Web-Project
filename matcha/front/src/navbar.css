@@ -9,9 +9,9 @@
   justify-content: space-around;
   align-items: center;
   border-right: 1px solid var(--whiteInput);
-  box-shadow: 2px 0px 50px 10px #E6E7EA;
+  /*box-shadow: 2px 0px 50px 10px #E6E7EA;*/
   background-color: #FFF;
-  z-index: 1;
+  z-index:3;
 }
 
 #navbar > ul {

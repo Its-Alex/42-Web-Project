@@ -70,7 +70,7 @@ class Login extends Component {
           <span className='error'>{this.state.error}</span>
           <div className='divForm'>
             <input type='date' name='birthday' placeholder='yyyy-dd-mm' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            <textarea type='text' name='bio' value={this.state.email} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <textarea type='text' name='bio' value={this.state.bio} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Genre :
             <select name='genre' onChange={this.handleChange} >
               <option value='M' defaultValue>Men</option>
@@ -82,7 +82,7 @@ class Login extends Component {
               <option value='F'>Woman</option>
               <option value='B'>All</option>
             </select>
-            <input type='text' name='tags' value={this.state.email} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Next' onClick={this.handleKeyPress} />
           </div>
         </div>

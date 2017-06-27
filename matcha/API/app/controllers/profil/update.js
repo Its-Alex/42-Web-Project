@@ -1,7 +1,5 @@
-// https://maps.googleapis.com/maps/api/geocode/json?address=73+rue+Truffaut&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk
-// Get full adress
 const model = require('../../models/profil.js')
-const axios = require('axios')
+const bcrypt = require('bcryptjs')
 
 function error (res, data, err) {
   res.status(err)
@@ -12,6 +10,14 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
+  if (!bcrypt.compareSync(req.body.password, req.user.password)) {
+    res.status(400)
+    return res.json({
+      success: false,
+      error: 'Wrong password'
+    })
+  }
+
   var profil = {id: req.user.id}
 
   if (req.body.birthday !== undefined && req.body.birthday.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {
@@ -46,13 +52,7 @@ module.exports = (req, res) => {
     profil.tags = req.body.tags
   }
 
-  if (req.body.location !== undefined) {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${req.body.location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
-      console.log(res)
-    }).catch((err) => {
-      console.log(new Error(err))
-    })
+  if (req.body.location !== undefined && req.body.location.match(/[a-zA-Z0-9,]/)) {
+    profil.location = req.body.location
   }
-
-  console.log(profil)
 }

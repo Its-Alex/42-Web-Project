@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import avatar from '../img/avatar.svg'
+import axios from 'axios'
 import './css/profil.css'
 
 class Profil extends Component {
@@ -137,22 +138,32 @@ class Profil extends Component {
 
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.className === 'submit') {
-      this.props.axios.post('/profil/me', {
-        name: this.state.name,
-        birthday: this.state.birthday,
-        bio: this.state.bio,
-        genre: this.state.genre,
-        type: this.state.type,
-        tags: this.state.tags,
-        location: this.state.location,
-        password: this.state.password,
-        img1: this.state.img1,
-        img2: this.state.img2,
-        img3: this.state.img3,
-        img4: this.state.img4,
-        img5: this.state.img5
-      }).then((res) => {
-        console.log(res)
+      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
+        this.props.axios.patch('/profil', {
+          name: this.state.name,
+          birthday: this.state.birthday,
+          bio: this.state.bio,
+          genre: (this.state.genre === 'Men') ? 'M' : 'F',
+          type: (this.state.type === 'M') ? 'Men' : (this.state.type === 'Women') ? 'F' : 'B',
+          tags: this.state.tags,
+          location: res.data.results[0].formatted_address,
+          password: this.state.password,
+          img1: this.state.img1,
+          img2: this.state.img2,
+          img3: this.state.img3,
+          img4: this.state.img4,
+          img5: this.state.img5
+        }).then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          if (err.response) {
+            this.setState({error: err.response.data.msg})
+          } else if (err.request) {
+            console.log(err.request)
+          } else {
+            console.log(new Error(err.message))
+          }
+        })
       }).catch((err) => {
         if (err.response) {
           this.setState({error: err.response.data.msg})

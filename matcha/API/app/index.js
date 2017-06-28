@@ -10,6 +10,7 @@ const port = 3005
 app.disable('x-powered-by')
 app.use(cors())
 app.use(bodyParser.json())
+app.use(express.limit('8mb'))
 
 // Global api route
 app.use('/', require('./routes/index.js'))

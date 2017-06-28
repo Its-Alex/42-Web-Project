@@ -55,4 +55,6 @@ module.exports = (req, res) => {
   if (req.body.location !== undefined && req.body.location.match(/[a-zA-Z0-9,]/)) {
     profil.location = req.body.location
   }
+
+  res.send()
 }

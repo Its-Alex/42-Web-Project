@@ -45,6 +45,9 @@ class App extends Component {
            * Get latitude and longitude of user and send it to API to get his current position
            */
           axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
+            /**
+             * Send latitude and longitude to server
+             */
             this.state.axios.post('geoloc', {
               lat: res.data.location.lat,
               lng: res.data.location.lng

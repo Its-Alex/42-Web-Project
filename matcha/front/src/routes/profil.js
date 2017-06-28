@@ -18,12 +18,18 @@ class Profil extends Component {
       tags: '',
       location: '',
       password: '',
-      img1: avatar,
-      img2: avatar,
-      img3: avatar,
-      img4: avatar,
-      img5: avatar
+      img: [
+        avatar,
+        avatar,
+        avatar,
+        avatar,
+        avatar
+      ]
     }
+
+    /**
+     * Bind this for funcs
+     */
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
@@ -33,6 +39,9 @@ class Profil extends Component {
      * Get all data from user and put it into state
      */
     this.props.axios.get('/user/me').then((result) => {
+      /**
+       * Get data from profil
+       */
       this.props.axios.get('/profil/me').then((res) => {
         this.setState({
           name: result.data.user.name,
@@ -52,6 +61,10 @@ class Profil extends Component {
     })
   }
 
+  /**
+   * Update state from Handled event
+   * @param {object} event
+   */
   handleChange (event) {
     this.setState({[event.target.name]: event.target.value})
   }
@@ -62,8 +75,10 @@ class Profil extends Component {
       var reader = new global.FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
+        let img = self.state.img
+        img[0] = reader.result
         self.setState({
-          img1: reader.result
+          img: img
         })
       }
       reader.onerror = function (error) {
@@ -78,8 +93,10 @@ class Profil extends Component {
       var reader = new global.FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
+        let img = self.state.img
+        img[1] = reader.result
         self.setState({
-          img2: reader.result
+          img: img
         })
       }
       reader.onerror = function (error) {
@@ -94,8 +111,10 @@ class Profil extends Component {
       var reader = new global.FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
+        let img = self.state.img
+        img[2] = reader.result
         self.setState({
-          img3: reader.result
+          img: img
         })
       }
       reader.onerror = function (error) {
@@ -110,8 +129,10 @@ class Profil extends Component {
       var reader = new global.FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
+        let img = self.state.img
+        img[3] = reader.result
         self.setState({
-          img4: reader.result
+          img: img
         })
       }
       reader.onerror = function (error) {
@@ -126,8 +147,10 @@ class Profil extends Component {
       var reader = new global.FileReader()
       reader.readAsDataURL(file)
       reader.onload = function () {
+        let img = self.state.img
+        img[4] = reader.result
         self.setState({
-          img5: reader.result
+          img: img
         })
       }
       reader.onerror = function (error) {
@@ -137,8 +160,14 @@ class Profil extends Component {
   }
 
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.className === 'submit') {
+    if (event.key === 'Enter' || event.target.value === 'Next') {
+      /**
+       * Get adress data from google geocode API
+       */
       axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
+        /**
+         * Update profil from data input
+         */
         this.props.axios.patch('/profil', {
           name: this.state.name,
           birthday: this.state.birthday,
@@ -147,17 +176,12 @@ class Profil extends Component {
           type: (this.state.type === 'M') ? 'Men' : (this.state.type === 'Women') ? 'F' : 'B',
           tags: this.state.tags,
           location: res.data.results[0].formatted_address,
-          password: this.state.password,
-          img1: this.state.img1,
-          img2: this.state.img2,
-          img3: this.state.img3,
-          img4: this.state.img4,
-          img5: this.state.img5
+          password: this.state.password
         }).then((res) => {
           console.log(res)
         }).catch((err) => {
           if (err.response) {
-            this.setState({error: err.response.data.msg})
+            this.setState({error: err.response.data.error})
           } else if (err.request) {
             console.log(err.request)
           } else {
@@ -166,7 +190,7 @@ class Profil extends Component {
         })
       }).catch((err) => {
         if (err.response) {
-          this.setState({error: err.response.data.msg})
+          this.setState({error: 'Google API Error'})
         } else if (err.request) {
           console.log(err.request)
         } else {
@@ -183,19 +207,19 @@ class Profil extends Component {
         <div id='profilForm'>
           <div className='dropzoneView'>
             <Dropzone className='dropzone' name='1' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop1.bind(this)}>
-              <img className='pictureView' src={this.state.img1} alt='Profil 1' />
+              <img className='pictureView' src={this.state.img[0]} alt='Profil 1' />
             </Dropzone>
             <Dropzone className='dropzone' name='2' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop2.bind(this)}>
-              <img className='pictureView' src={this.state.img2} alt='Profil 2' />
+              <img className='pictureView' src={this.state.img[1]} alt='Profil 2' />
             </Dropzone>
             <Dropzone className='dropzone' name='3' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop3.bind(this)}>
-              <img className='pictureView' src={this.state.img3} alt='Profil 3' />
+              <img className='pictureView' src={this.state.img[2]} alt='Profil 3' />
             </Dropzone>
             <Dropzone className='dropzone' name='4' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop4.bind(this)}>
-              <img className='pictureView' src={this.state.img4} alt='Profil 4' />
+              <img className='pictureView' src={this.state.img[3]} alt='Profil 4' />
             </Dropzone>
             <Dropzone className='dropzone' name='5' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop5.bind(this)}>
-              <img className='pictureView' src={this.state.img5} alt='Profil 5' />
+              <img className='pictureView' src={this.state.img[4]} alt='Profil 5' />
             </Dropzone>
           </div>
           <p>Popularity : {this.state.popularity}</p>

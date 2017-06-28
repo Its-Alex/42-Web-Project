@@ -206,19 +206,19 @@ class Profil extends Component {
         <span className='error'>{this.state.error}</span>
         <div id='profilForm'>
           <div className='dropzoneView'>
-            <Dropzone className='dropzone' name='1' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop1.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={8000000} onDrop={this.onDrop1.bind(this)}>
               <img className='pictureView' src={this.state.img[0]} alt='Profil 1' />
             </Dropzone>
-            <Dropzone className='dropzone' name='2' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop2.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={8000000} onDrop={this.onDrop2.bind(this)}>
               <img className='pictureView' src={this.state.img[1]} alt='Profil 2' />
             </Dropzone>
-            <Dropzone className='dropzone' name='3' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop3.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={8000000} onDrop={this.onDrop3.bind(this)}>
               <img className='pictureView' src={this.state.img[2]} alt='Profil 3' />
             </Dropzone>
-            <Dropzone className='dropzone' name='4' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop4.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={8000000} onDrop={this.onDrop4.bind(this)}>
               <img className='pictureView' src={this.state.img[3]} alt='Profil 4' />
             </Dropzone>
-            <Dropzone className='dropzone' name='5' disablePreview accept='image/jpeg, image/png' maxSize={16000000} onDrop={this.onDrop5.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={8000000} onDrop={this.onDrop5.bind(this)}>
               <img className='pictureView' src={this.state.img[4]} alt='Profil 5' />
             </Dropzone>
           </div>

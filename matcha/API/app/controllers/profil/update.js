@@ -56,5 +56,17 @@ module.exports = (req, res) => {
     profil.location = req.body.location
   }
 
-  res.send()
+  model.updateProfil(profil).then(() => {
+    res.status(200)
+    res.json({
+      success: true
+    })
+  }).catch((err) => {
+    console.log(new Error(err))
+    res.status(500)
+    res.json({
+      success: false,
+      err: 'Internal server error'
+    })
+  })
 }

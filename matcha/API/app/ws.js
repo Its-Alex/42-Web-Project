@@ -77,7 +77,7 @@ wss.on('connection', (ws) => {
   ws.on('close', (event) => {
     db.get().then((db) => {
       db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [new Date().getTime(), ws.id], (err, res) => {
-        if (err) return console.log(new Error(err))
+        if (err) return console.log(err)
       })
     }).catch((err) => {
       console.log(new Error(err))

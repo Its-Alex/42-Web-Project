@@ -53,9 +53,25 @@ module.exports = {
             }
             return resolve()
           })
-      }).catch((err) => {
-        return reject(err)
-      })
+      }).catch((err) => reject(err))
+    })
+  },
+  updateProfil: profil => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('UPDATE profils SET birthday = ?, bio = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
+          profil.birthday,
+          profil.bio,
+          profil.genre,
+          profil.type,
+          profil.tags,
+          profil.location,
+          profil.id
+        ], (err, results) => {
+          if (err) return reject(err)
+          return resolve()
+        })
+      }).catch(err => reject(err))
     })
   }
 }

@@ -54,10 +54,10 @@ class Profil extends Component {
           location: res.data.user.location
         })
       }).catch((err) => {
-        console.log(new Error(err))
+        console.log(err)
       })
     }).catch((err) => {
-      console.log(new Error(err))
+      console.log(err)
     })
   }
 
@@ -159,6 +159,10 @@ class Profil extends Component {
     })
   }
 
+  /**
+   * Handle when a key is pressed
+   * @param {object} event
+   */
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Next') {
       /**

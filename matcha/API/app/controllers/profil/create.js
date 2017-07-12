@@ -54,13 +54,20 @@ module.exports = (req, res) => {
     return error(res, 'Bad type', 400)
   }
 
-  let tags = req.body.tags.split(' ')
-  tags.forEach((element) => {
-    if (element[0] !== '#' || element.length > 20) {
-      return error(res, 'Tags must be formatted as follows: #word', 400)
-    }
-  }, this)
-  profil.tags = req.body.tags
+  if (req.body.tags !== undefined) {
+    let tags = req.body.tags.split(' ')
+    tags.forEach((element, elemKey) => {
+      if (element[0] !== '#' || element.length > 20) {
+        return error(res, 'Tags must be formatted as follows: #word', 400)
+      }
+      tags.forEach((elemCheck, index) => {
+        if (element === elemCheck && index !== elemKey) delete tags[index]
+      }, this)
+    }, this)
+    profil.tags = tags.join(' ')
+  } else {
+    profil.tags = ''
+  }
 
   profil.popularity = 0
   model.createProfil(profil).then(() => {

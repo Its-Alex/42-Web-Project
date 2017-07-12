@@ -25,16 +25,19 @@ module.exports = (req, res) => {
     error(res, 'Body error', 400)
     return
   }
+
   if (valid.isEmpty(req.body.mail) || valid.isEmpty(req.body.password)) {
     error(res, 'Empty field(s)', 400)
     return
   }
+
   if (!valid.isEmail(req.body.mail)) {
     error(res, 'Invalid mail', 400)
     return
   } else {
     req.body.mail = req.body.mail.toLowerCase()
   }
+
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
   req.body.password.length < 6) {
     error(res, 'Invalid password', 400)

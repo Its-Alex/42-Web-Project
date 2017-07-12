@@ -17,7 +17,7 @@ class App extends Component {
     this.state = {
       axios: axios.create({
         baseURL: 'http://localhost:3005/',
-        timeout: 1000,
+        timeout: 2000,
         headers: {'Authorization': `Bearer ${global.localStorage.getItem('Token')}`}
       }),
       ws: null
@@ -52,10 +52,10 @@ class App extends Component {
               lat: res.data.location.lat,
               lng: res.data.location.lng
             }).catch((err) => {
-              console.log(new Error(err))
+              console.log(err)
             })
           }).catch((err) => {
-            console.log(new Error(err))
+            console.log(err)
           })
         }).catch((error) => {
           if (error.response) {

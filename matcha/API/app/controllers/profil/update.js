@@ -44,12 +44,15 @@ module.exports = (req, res) => {
 
   if (req.body.tags !== undefined) {
     let tags = req.body.tags.split(' ')
-    tags.forEach((element) => {
+    tags.forEach((element, elemKey) => {
       if (element[0] !== '#' || element.length > 20) {
         return error(res, 'Tags must be formatted as follows: #word', 400)
       }
+      tags.forEach((elemCheck, index) => {
+        if (element === elemCheck && index !== elemKey) delete tags[index]
+      }, this)
     }, this)
-    profil.tags = req.body.tags
+    profil.tags = tags.join(' ')
   }
 
   if (req.body.location !== undefined && req.body.location.match(/[a-zA-Z0-9,]/)) {

@@ -20,14 +20,14 @@ router.post('/geoloc', middle('USER'), (req, res) => {
     db.get().then((db) => {
       db.query('UPDATE profils JOIN users ON profils.userId = users.id set profils.location = ? WHERE users.id = ?', [res.data.results[2].formatted_address, req.user.id], (err, results) => {
         if (err) {
-          console.log(new Error(err))
+          console.log(err)
         }
       })
     }).catch((err) => {
-      console.log(new Error(err))
+      console.log(err)
     })
   }).catch((err) => {
-    console.log(new Error(err))
+    console.log(err)
   })
   res.status(200)
   res.send()

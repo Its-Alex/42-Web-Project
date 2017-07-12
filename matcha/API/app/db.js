@@ -17,7 +17,12 @@ module.exports = {
         console.error('Error connecting: ' + err.stack)
         error = err.stack
       }
-      console.log('Connected as id ' + db.threadId)
+      if (db.threadId !== null) {
+        console.log('Connected as id ' + db.threadId)
+      } else {
+        console.log('Need to connect to databse!')
+        process.exit(1)
+      }
     })
   },
   get: () => {

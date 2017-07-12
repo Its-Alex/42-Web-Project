@@ -37,5 +37,6 @@ router.post('/geoloc', middle('USER'), (req, res) => {
 router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
 router.use('/user', require('./user.js'))
 router.use('/profil', require('./profil.js'))
+router.use('/picture', require('./picture.js'))
 
 module.exports = router

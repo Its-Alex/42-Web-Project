@@ -195,7 +195,11 @@ class Profil extends Component {
       /**
        * Get adress data from google geocode API
        */
-      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
+      let location = this.state.location
+      if (location === '') {
+        location = 'Paris, France'
+      }
+      axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
         /**
          * Update profil from data input
          */

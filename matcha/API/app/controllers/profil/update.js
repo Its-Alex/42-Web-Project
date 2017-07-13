@@ -14,8 +14,6 @@ module.exports = (req, res) => {
     return error(res, 'Wrong password', 400)
   }
 
-  console.log(req.body)
-
   var profil = {id: req.user.id}
 
   if (req.body.birthday !== undefined && req.body.birthday !== '' && req.body.birthday.match(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/)) {

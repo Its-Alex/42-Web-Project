@@ -48,3 +48,15 @@ a {
   background-color: var(--backgroundColor);
   z-index: 0;
 }
+
+.error {
+    margin: 10px;
+    color: red;
+    font-size: 1.5em;
+}
+
+.status {
+    margin: 10px;
+    color: green;
+    font-size: 1.5em;
+}

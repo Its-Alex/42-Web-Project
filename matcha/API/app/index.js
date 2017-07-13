@@ -11,6 +11,7 @@ require('./ws.js')
 app.disable('x-powered-by')
 
 app.use(cors())
+app.use(bodyParser.urlencoded({extended: true, limit: '512kb'}))
 app.use(bodyParser.json({limit: '5mb'}))
 
 // Global api route

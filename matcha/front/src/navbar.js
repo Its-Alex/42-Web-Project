@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import './navbar.css'
+import axios from './axios.js'
 
 class Navbar extends Component {
   render () {
     return (
       <div id='navbar'>
         <div id='imgContainer'>
-          <div className='pictureProfil' src='//:0' alt='Profil' />
+          <img className='pictureProfil' src='http://localhost:3005/picture/0' alt='Profil' />
           <div id='imgButtonContainer'>
-            <Link to='/notifications'><div id='notifications' className='imgButton' src='//:0' alt='Notifications' /></Link>
-            <Link to='/settings'><div id='settings' src='//:0' className='imgButton' alt='Settings' /></Link>
+            <Link to='/notifications'><div id='notifications' className='imgButton' alt='Notifications' /></Link>
+            <Link to='/settings'><div id='settings' className='imgButton' alt='Settings' /></Link>
           </div>
         </div>
         <ul>

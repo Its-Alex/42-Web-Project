@@ -20,7 +20,7 @@ module.exports = {
       if (db.threadId !== null) {
         console.log('Connected as id ' + db.threadId)
       } else {
-        console.log('Need to connect to databse!')
+        console.log('Connection to database failed!')
         process.exit(1)
       }
     })

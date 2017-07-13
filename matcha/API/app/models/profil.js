@@ -71,7 +71,9 @@ module.exports = {
           if (err) return reject(err)
           return resolve()
         })
-      }).catch(err => reject(err))
+      }).catch(err => {
+        reject(err)
+      })
     })
   }
 }

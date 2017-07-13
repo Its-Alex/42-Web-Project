@@ -5,7 +5,7 @@ function error (res, data, err) {
   res.status(err)
   res.json({
     success: false,
-    msg: data
+    error: data
   })
 }
 
@@ -17,6 +17,8 @@ module.exports = (req, res) => {
       error: 'Wrong password'
     })
   }
+
+  console.log(req.body)
 
   var profil = {id: req.user.id}
 
@@ -43,15 +45,18 @@ module.exports = (req, res) => {
   }
 
   if (req.body.tags !== undefined) {
+    let err = 'no'
     let tags = req.body.tags.split(' ')
     tags.forEach((element, elemKey) => {
       if (element[0] !== '#' || element.length > 20) {
-        return error(res, 'Tags must be formatted as follows: #word', 400)
+        error(res, 'Tags must be formatted as follows: #word', 400)
+        err = 'yes'
       }
       tags.forEach((elemCheck, index) => {
         if (element === elemCheck && index !== elemKey) delete tags[index]
       }, this)
     }, this)
+    if (err === 'yes') return
     profil.tags = tags.join(' ')
   }
 
@@ -62,10 +67,11 @@ module.exports = (req, res) => {
   model.updateProfil(profil).then(() => {
     res.status(200)
     res.json({
-      success: true
+      success: true,
+      profil: profil
     })
   }).catch((err) => {
-    console.log(new Error(err))
+    console.log(err)
     res.status(500)
     res.json({
       success: false,

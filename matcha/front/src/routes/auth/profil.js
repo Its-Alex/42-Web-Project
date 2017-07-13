@@ -73,14 +73,14 @@ class Login extends Component {
             <textarea type='text' name='bio' value={this.state.bio} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Genre :
             <select name='genre' onChange={this.handleChange} >
-              <option value='M' defaultValue>Men</option>
+              <option value='M' defaultValue>Man</option>
               <option value='F'>Woman</option>
             </select>
             Type :
             <select name='type' onChange={this.handleChange} >
               <option value='M' defaultValue>Men</option>
-              <option value='F'>Woman</option>
-              <option value='B'>All</option>
+              <option value='F'>Women</option>
+              <option value='B'>Bisexual</option>
             </select>
             <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Next' onClick={this.handleKeyPress} />

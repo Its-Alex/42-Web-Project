@@ -9,8 +9,8 @@ class Profil extends Component {
     super(props)
 
     this.state = {
-      error: undefined,
-      status: undefined,
+      error: '',
+      status: '',
       name: '',
       birthday: '',
       bio: '',

@@ -13,13 +13,11 @@ class Navbar extends Component {
     }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     if (global.localStorage.getItem('Token') !== undefined) {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`
-      axios.get(url).then((res) => {        
-        this.setState({
-          profilPic: <img className='pictureProfil' src={url} alt='Profil' />
-        })
+      axios.get(url).then((res) => {
+        document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
       }).catch((err) => {
         if (err) console.log(err)
       })
@@ -30,7 +28,7 @@ class Navbar extends Component {
     return (
       <div id='navbar'>
         <div id='imgContainer'>
-          {this.state.profilPic}
+          <div className='pictureProfil' id='pictureProfil' alt='Profil' />
           <div id='imgButtonContainer'>
             <Link to='/notifications'><div id='notifications' className='imgButton' alt='Notifications' /></Link>
             <Link to='/settings'><div id='settings' className='imgButton' alt='Settings' /></Link>

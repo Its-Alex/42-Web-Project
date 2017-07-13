@@ -104,6 +104,10 @@ class Profil extends Component {
         console.log('Error: ', error)
       }
     })
+    setTimeout(() => {
+      let url = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0?${new Date().getTime()}`
+      document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
+    }, 90)
   }
 
   onDrop2 (acceptedFiles) {

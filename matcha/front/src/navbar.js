@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import avatar from './img/avatar.svg'
-import axios from 'axios'
 import './navbar.css'
 
 class Navbar extends Component {
@@ -9,18 +7,14 @@ class Navbar extends Component {
     super(props)
 
     this.state = {
-      profilPic: <img className='pictureProfil' src={avatar} alt='Profil' />
+      profilPic: <img className='pictureProfil' alt='Profil' />
     }
   }
 
   componentDidMount () {
     if (global.localStorage.getItem('Token') !== undefined) {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`
-      axios.get(url).then((res) => {
-        document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
-      }).catch((err) => {
-        if (err) console.log(err)
-      })
+      document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
     }
   }
 

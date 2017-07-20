@@ -7,6 +7,7 @@ import Settings from './settings.js'
 import Profil from './profil.js'
 import NotFound from './notFound.js'
 import axios from 'axios'
+import axiosInst from '../axios.js'
 
 // https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
@@ -15,11 +16,6 @@ class App extends Component {
     super(props)
 
     this.state = {
-      axios: axios.create({
-        baseURL: 'http://localhost:3005/',
-        timeout: 2000,
-        headers: {'Authorization': `Bearer ${global.localStorage.getItem('Token')}`}
-      }),
       ws: null
     }
   }
@@ -40,7 +36,7 @@ class App extends Component {
         /**
          * Check if user has a profil if not he will be redirect
          */
-        this.state.axios.get('profil/me').then((res) => {
+        axiosInst.get('profil/me').then((res) => {
           /**
            * Get latitude and longitude of user and send it to API to get his current position
            */
@@ -48,7 +44,7 @@ class App extends Component {
             /**
              * Send latitude and longitude to server
              */
-            this.state.axios.post('geoloc', {
+            axiosInst.post('geoloc', {
               lat: res.data.location.lat,
               lng: res.data.location.lng
             }).catch((err) => {
@@ -96,16 +92,16 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path='/search'>
-            <Search axios={this.state.axios} ws={this.state.ws} />
+            <Search ws={this.state.ws} />
           </Route>
           <Route exact path='/profil'>
-            <Profil axios={this.state.axios} />
+            <Profil />
           </Route>
           <Route exact path='/notifications'>
-            <Notifications axios={this.state.axios} />
+            <Notifications />
           </Route>
           <Route exact path='/settings'>
-            <Settings axios={this.state.axios} />
+            <Settings history={this.props.history} />
           </Route>
           <Route component={NotFound} />
         </Switch>

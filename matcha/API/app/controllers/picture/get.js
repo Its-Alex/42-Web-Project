@@ -14,7 +14,7 @@ function error (res, data, err) {
 
 module.exports = (req, res) => {
   if (req.params.token === undefined || !req.params.token.match(/[a-zA-Z0-9]{128}/)) {
-    res.sendStatus(200)
+    res.status(200)
     return res.json({
       success: false,
       error: 'Bad token'
@@ -30,7 +30,7 @@ module.exports = (req, res) => {
     }
   }).catch((err) => {
     if (err) console.log(err)
-    res.sendStatus(500)
+    res.status(500)
     res.json({
       success: false,
       error: 'Internal server error'

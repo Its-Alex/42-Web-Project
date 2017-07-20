@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axiosInst from '../axios.js'
 import './css/profil.css'
 
 class Settings extends Component {
@@ -7,49 +8,53 @@ class Settings extends Component {
 
     this.state = {
       name: '',
-      birthday: '',
-      bio: '',
-      popularity: '',
-      gender: '',
-      type: '',
-      tags: '',
-      location: '',
-      axios: this.props.axios
+      mail: '',
+      password: '',
+      confirmPwd: ''
     }
+    this.handleChange = this.handleChange.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   componentWillMount () {
-    this.state.axios.get('/user/me').then((result) => {
-      this.state.axios.get('/profil/me').then((res) => {
-        this.setState({
-          name: result.data.user.name,
-          birthday: res.data.user.birthday,
-          bio: res.data.user.bio,
-          popularity: res.data.user.popularity,
-          gender: (res.data.user.genre === 'M') ? 'Men' : (res.data.user.genre === 'F') ? 'Women' : 'All',
-          type: (res.data.user.type === 'M') ? 'Men' : (res.data.user.type === 'F') ? 'Women' : 'All',
-          tags: res.data.user.tags,
-          location: res.data.user.location
-        })
-      }).catch((err) => {
-        console.log(new Error(err))
+    axiosInst.get('/user/me').then((res) => {
+      this.setState({
+        name: res.data.user.name,
+        mail: res.data.user.mail
       })
-    }).catch((err) => {
-      console.log(new Error(err))
-    })
+    }).catch(() => {})
+  }
+
+  handleChange (event) {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
+    /**
+   * Handle when a key is pressed
+   * @param {object} event
+   */
+  handleKeyPress (event) {
+    
   }
 
   render () {
     return (
       <div className='body'>
-        <p>{this.state.name}</p>
-        <p>{this.state.birthday}</p>
-        <p>{this.state.bio}</p>
-        <p>{this.state.popularity}</p>
-        <p>{this.state.gender}</p>
-        <p>{this.state.type}</p>
-        <p>{this.state.tags}</p>
-        <p>{this.state.location}</p>
+        <div id='profilForm'>
+          <input type='submit' value='Logout' onClick={() => {
+            global.localStorage.removeItem('Token')
+            this.props.history.push('/auth/login')
+          }} />
+          Name :
+          <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Mail :
+          <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Password :
+          <input type='password' name='password' value={this.state.password} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Confirm password :
+          <input type='password' name='confirmPwd' value={this.state.confirmPwd} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='submit' value='Next' onClick={this.handleKeyPress} />
+        </div>
       </div>
     )
   }

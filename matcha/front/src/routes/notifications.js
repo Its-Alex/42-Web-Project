@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axiosInst from '../axios.js'
 import './css/profil.css'
 
 class notFound extends Component {
@@ -13,14 +14,13 @@ class notFound extends Component {
       gender: '',
       type: '',
       tags: '',
-      location: '',
-      axios: this.props.axios
+      location: ''
     }
   }
 
   componentWillMount () {
-    this.state.axios.get('/user/me').then((result) => {
-      this.state.axios.get('/profil/me').then((res) => {
+    axiosInst.get('/user/me').then((result) => {
+      axiosInst.get('/profil/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,

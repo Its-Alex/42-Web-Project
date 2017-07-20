@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import avatar from '../img/avatar.svg'
 import axios from 'axios'
+import axiosInst from '../axios.js'
 import './css/profil.css'
-
 class Profil extends Component {
   constructor (props) {
     super(props)
@@ -35,17 +35,18 @@ class Profil extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
     this.sendPicture = this.sendPicture.bind(this)
+    this.onDropReject = this.onDropReject.bind(this)
   }
 
   componentWillMount () {
     /**
      * Get all data from user and put it into state
      */
-    this.props.axios.get('/user/me').then((result) => {
+    axiosInst.get('/user/me').then((result) => {
       /**
        * Get data from profil
        */
-      this.props.axios.get('/profil/me').then((res) => {
+      axiosInst.get('/profil/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,
@@ -56,6 +57,27 @@ class Profil extends Component {
           tags: res.data.user.tags,
           location: res.data.user.location
         })
+        let img = this.state.img
+        axios.get(`http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`).then(() => {
+          img[0] = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`
+          this.setState({ img: img })
+        }).catch(() => {})
+        axios.get(`http://localhost:3005/picture/${global.localStorage.getItem('Token')}/1`).then(() => {
+          img[1] = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/1`
+          this.setState({ img: img })
+        }).catch(() => {})
+        axios.get(`http://localhost:3005/picture/${global.localStorage.getItem('Token')}/2`).then(() => {
+          img[2] = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/2`
+          this.setState({ img: img })
+        }).catch(() => {})
+        axios.get(`http://localhost:3005/picture/${global.localStorage.getItem('Token')}/3`).then(() => {
+          img[3] = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/3`
+          this.setState({ img: img })
+        }).catch(() => {})
+        axios.get(`http://localhost:3005/picture/${global.localStorage.getItem('Token')}/4`).then(() => {
+          img[4] = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/4`
+          this.setState({ img: img })
+        }).catch(() => {})
       }).catch((err) => {
         console.log(err)
       })
@@ -73,7 +95,7 @@ class Profil extends Component {
   }
 
   sendPicture (pic, index) {
-    this.props.axios.put('/picture/' + index, {pic: pic}).then((res) => {
+    axiosInst.put('/picture/' + index, {pic: pic}).then((res) => {
       this.setState({
         error: '',
         status: 'Picture uploded'
@@ -84,6 +106,13 @@ class Profil extends Component {
         error: 'Failed upload picture',
         status: ''
       })
+    })
+  }
+
+  onDropReject () {
+    this.setState({
+      error: 'Invalid image',
+      status: ''
     })
   }
 
@@ -203,7 +232,7 @@ class Profil extends Component {
         /**
          * Update profil from data input
          */
-        this.props.axios.patch('/profil', {
+        axiosInst.patch('/profil', {
           name: this.state.name,
           birthday: this.state.birthday,
           bio: this.state.bio,
@@ -263,19 +292,19 @@ class Profil extends Component {
         }
         <div id='profilForm'>
           <div className='dropzoneView'>
-            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[0]} alt='Profil 1' />
             </Dropzone>
-            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={512000} onDrop={this.onDrop2.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop2.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[1]} alt='Profil 2' />
             </Dropzone>
-            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={512000} onDrop={this.onDrop3.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop3.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[2]} alt='Profil 3' />
             </Dropzone>
-            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={512000} onDrop={this.onDrop4.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop4.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[3]} alt='Profil 4' />
             </Dropzone>
-            <Dropzone className='dropzone' disablePreview accept='image/jpeg, image/png' maxSize={512000} onDrop={this.onDrop5.bind(this)}>
+            <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop5.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[4]} alt='Profil 5' />
             </Dropzone>
           </div>

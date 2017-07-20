@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axiosInst from '../axios.js'
 import './css/search.css'
 
 class Search extends Component {
@@ -13,15 +14,14 @@ class Search extends Component {
       gender: '',
       type: '',
       tags: '',
-      location: '',
-      axios: this.props.axios
+      location: ''
     }
     this.onKeyPress = this.onKeyPress.bind(this)
   }
 
   componentWillMount () {
-    this.state.axios.get('/user/me').then((result) => {
-      this.state.axios.get('/profil/me').then((res) => {
+    axiosInst.get('/user/me').then((result) => {
+      axiosInst.get('/profil/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,

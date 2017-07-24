@@ -19,6 +19,8 @@ class Settings extends Component {
   componentWillMount () {
     axiosInst.get('/user/me').then((res) => {
       this.setState({
+        error: false,
+        status: '',
         name: res.data.user.name,
         mail: res.data.user.mail
       })
@@ -35,7 +37,23 @@ class Settings extends Component {
    */
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Save') {
-      console.log('tets')
+      axiosInst.patch('user/me', {
+        name: this.state.name,
+        mail: this.state.mail
+      }).then((res) => {
+        this.setState({
+          error: false,
+          status: 'Change applied'
+        })
+      }).catch((err) => {
+        console.log(err.response)
+        if (err.response) {
+          this.setState({
+            error: true,
+            status: err.response.data.error
+          })
+        }
+      })
     }
   }
 
@@ -44,14 +62,14 @@ class Settings extends Component {
       <div className='body'>
         <div className='resize'>
           <div id='profilForm'>
+            { this.state.error
+              ? <span className='error'>{this.state.status}</span>
+              : <span className='status'>{this.state.status}</span>
+            }
             Name :
             <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Mail :
             <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            Password :
-            <input type='password' name='password' value={this.state.password} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            Confirm password :
-            <input type='password' name='confirmPwd' value={this.state.confirmPwd} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
             <input type='submit' value='Logout' onClick={() => {
               global.localStorage.removeItem('Token')

@@ -6,7 +6,7 @@ function error (res, data, err) {
   res.status(err)
   res.json({
     success: false,
-    msg: data
+    error: data
   })
 }
 
@@ -29,7 +29,7 @@ module.exports = (req, res) => {
       user.state = res[0].state
       user.role = res[0].role
     }).catch((err) => {
-      console.log(new Error(err))
+      console.log(err)
       return error(res, 'User not found', 404)
     })
   } else if (req.params.id !== 'me') {
@@ -54,53 +54,54 @@ module.exports = (req, res) => {
       model.getUserByMail(req.body.mail).then((results) => {
         if (results.length === 0) {
           user.mail = req.body.mail.toLowerCase()
+          if (req.params.id === 'me') {
+            model.updateUser(user).then((results) => {
+              if (results.message.split(' ')[5] === '0') {
+                res.status(400)
+                return res.json({
+                  success: false,
+                  error: 'Nothing has change'
+                })
+              } else {
+                res.status(200)
+                return res.json({
+                  success: true
+                })
+              }
+            }).catch((err) => {
+              console.log(err)
+              return error(res, 'Internal error', 500)
+            })
+          } else if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
+            model.updateUser(user).then((results) => {
+              if (results.message.split(' ')[5] === '0') {
+                res.status(400)
+                res.json({
+                  success: false,
+                  error: 'Nothing has change'
+                })
+              } else {
+                res.status(200)
+                res.json({
+                  success: true
+                })
+              }
+            }).catch((err) => {
+              console.log(new Error(err))
+              return error(res, 'Internal error', 500)
+            })
+          } else {
+            return error(res, 'Internal error', 500)
+          }
         } else {
           return error(res, 'Mail already taken', 400)
         }
       }).catch((err) => {
-        console.log(new Error(err))
+        console.log(err)
         return error(res, 'Internal error', 500)
       })
+    } else {
+      return error(res, 'Invalid mail', 400)
     }
-  }
-
-  if (req.params.id === 'me') {
-    model.updateUser(user).then((results) => {
-      if (results.message.split(' ')[5] === '0') {
-        res.status(400)
-        res.json({
-          success: false,
-          message: 'Nothing has change'
-        })
-      } else {
-        res.status(200)
-        res.json({
-          success: true
-        })
-      }
-    }).catch((err) => {
-      console.log(new Error(err))
-      return error(res, 'Internal error', 500)
-    })
-  } else if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
-    model.updateUser(user).then((results) => {
-      if (results.message.split(' ')[5] === '0') {
-        res.status(400)
-        res.json({
-          success: false,
-          message: 'Nothing has change'
-        })
-      } else {
-        res.status(200)
-        res.json({
-          success: true
-        })
-      }
-    }).catch((err) => {
-      console.log(new Error(err))
-      return error(res, 'Internal error', 500)
-    })
-  } else {
-    return error(res, 'Internal error', 500)
   }
 }

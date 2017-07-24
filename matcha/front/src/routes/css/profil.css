@@ -1,13 +1,11 @@
 #profilForm {
     padding: 0;
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
-    overflow: auto;
 }
 
 #profilForm > input, #profilForm > textarea, #profilForm > select {
@@ -74,20 +72,20 @@
 
 .dropzone {
     margin: 5px;
-    width: 5em;
-    height: 5em;
+    width: 75px;
+    height: 75px;
+    flex: none;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     border: 1px solid #000;
     border-radius: 50%;
-    overflow: hidden
 }
 
 .dropzoneView {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
 }
 
 .pictureView {

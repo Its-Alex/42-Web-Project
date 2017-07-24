@@ -34,26 +34,30 @@ class Settings extends Component {
    * @param {object} event
    */
   handleKeyPress (event) {
-    
+    if (event.key === 'Enter' || event.target.value === 'Save') {
+      console.log('tets')
+    }
   }
 
   render () {
     return (
       <div className='body'>
-        <div id='profilForm'>
-          <input type='submit' value='Logout' onClick={() => {
-            global.localStorage.removeItem('Token')
-            this.props.history.push('/auth/login')
-          }} />
-          Name :
-          <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Mail :
-          <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Password :
-          <input type='password' name='password' value={this.state.password} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Confirm password :
-          <input type='password' name='confirmPwd' value={this.state.confirmPwd} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' value='Next' onClick={this.handleKeyPress} />
+        <div className='resize'>
+          <div id='profilForm'>
+            Name :
+            <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            Mail :
+            <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            Password :
+            <input type='password' name='password' value={this.state.password} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            Confirm password :
+            <input type='password' name='confirmPwd' value={this.state.confirmPwd} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='submit' value='Save' onClick={this.handleKeyPress} />
+            <input type='submit' value='Logout' onClick={() => {
+              global.localStorage.removeItem('Token')
+              this.props.history.push('/auth/login')
+            }} />
+          </div>
         </div>
       </div>
     )

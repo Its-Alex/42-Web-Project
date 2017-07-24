@@ -47,6 +47,7 @@ a {
   width: 100%;
   background-color: var(--backgroundColor);
   z-index: 0;
+  overflow-x: auto;
 }
 
 .error {

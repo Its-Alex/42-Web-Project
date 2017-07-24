@@ -75,22 +75,22 @@ class Profil extends Component {
   sendPicture (pic, index) {
     axiosInst.put('/picture/' + index, {pic: pic}).then((res) => {
       this.setState({
-        error: '',
+        error: false,
         status: 'Picture uploded'
       })
     }).catch((err) => {
       if (err) console.log(err.response)
       this.setState({
-        error: 'Failed upload picture',
-        status: ''
+        error: true,
+        status: 'Failed upload picture'
       })
     })
   }
 
   onDropReject () {
     this.setState({
-      error: 'Invalid image',
-      status: ''
+      error: true,
+      status: 'Invalid image'
     })
   }
 
@@ -198,7 +198,7 @@ class Profil extends Component {
    * @param {object} event
    */
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.value === 'Next') {
+    if (event.key === 'Enter' || event.target.value === 'Save') {
       /**
        * Get adress data from google geocode API
        */
@@ -221,7 +221,7 @@ class Profil extends Component {
           password: this.state.password
         }).then((res) => {
           this.setState({
-            error: '',
+            error: false,
             status: 'Changes made',
             birthday: res.data.profil.birthday,
             bio: res.data.profil.bio,
@@ -234,8 +234,8 @@ class Profil extends Component {
         }).catch((err) => {
           if (err.response) {
             this.setState({
-              error: err.response.data.error,
-              status: ''
+              error: true,
+              status: err.response.data.error
             })
           } else if (err.request) {
             console.log(err.request)
@@ -245,7 +245,10 @@ class Profil extends Component {
         })
       }).catch((err) => {
         if (err.response) {
-          this.setState({error: 'Google API Error'})
+          this.setState({
+            error: true,
+            status: 'Google API Error'
+          })
         } else if (err.request) {
           console.log(err.request)
         } else {
@@ -261,13 +264,8 @@ class Profil extends Component {
         <div id='profilForm'>
           {
             this.state.error
-            ? <span className='error' >{this.state.error}</span>
-            : null
-          }
-          {
-            this.state.status
-            ? <span className='status'>{this.state.status}</span>
-            : null
+              ? <span className='error'>{this.state.status}</span>
+              : <span className='status'>{this.state.status}</span>
           }
           <div className='dropzoneView'>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)} onDropRejected={this.onDropReject}>
@@ -308,7 +306,7 @@ class Profil extends Component {
           <input type='text' name='location' value={this.state.location} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           Confirm password :
           <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' value='Next' onClick={this.handleKeyPress} />
+          <input type='submit' value='Save' onClick={this.handleKeyPress} />
         </div>
       </div>
     )

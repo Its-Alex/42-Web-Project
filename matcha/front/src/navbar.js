@@ -31,6 +31,7 @@ class Navbar extends Component {
         <ul>
           <li><Link to='/search'>Search</Link></li>
           <li><Link to='/profil'>Profil</Link></li>
+          <li><Link to='/chat'>Chat</Link></li>
         </ul>
       </div>
     )

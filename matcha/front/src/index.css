@@ -7,17 +7,13 @@
   --backgroundColor: #F6F7FB;
 }
 
-html, body, #root {
+html, body, #root, .router {
   margin: 0;
   padding: 0;
   width: 100%;
   height: 100%;
   font-family: 'Lato', monospace;
   font-size: 1em;
-}
-
-#root {
-  overflow-x: auto;
 }
 
 input {
@@ -30,8 +26,6 @@ a {
 }
 
 .router {
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

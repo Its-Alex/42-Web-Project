@@ -29,6 +29,7 @@
     "minimatch": "^3.0.4",
     "mysql": "^2.13.0",
     "uuid": "^3.0.1",
+    "uuid-validate": "^0.0.2",
     "validator": "^7.0.0",
     "ws": "^3.0.0"
   }

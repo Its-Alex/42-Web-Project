@@ -8,7 +8,7 @@ wss.on('connection', (ws) => {
       try {
         data = JSON.parse(data)
       } catch (err) {
-        return console.log(new Error('Receive invalid WS data'))
+        return console.log('Receive invalid WS data')
       }
     } else {
       ws.send('Bad request')
@@ -22,9 +22,10 @@ wss.on('connection', (ws) => {
           db.get().then((db) => {
             db.query('SELECT users.id FROM users JOIN tokens ON users.id = tokens.user WHERE tokens.token = ?', [data.token], (err, res) => {
               if (err) return console.log(err)
-              if (res.length === 0) return console.log(new Error('User not found'))
+              if (res.length === 0) return console.log('User not found')
               wss.clients.forEach((elem) => {
                 if (ws === elem) elem.id = res[0].id
+                ws.send('Connected')
               })
             })
           }).catch((err) => {
@@ -41,10 +42,10 @@ wss.on('connection', (ws) => {
                 client.send(data.msg)
                 db.get().then((db) => {
                   db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [ws.id, client.id, data.msg, new Date().getTime()], (err, res) => {
-                    if (err) return console.log(new Error(err))
+                    if (err) return console.log(err)
                   })
                 }).catch((err) => {
-                  console.log(new Error(err))
+                  console.log(err)
                 })
               }
             })
@@ -52,7 +53,7 @@ wss.on('connection', (ws) => {
         }
         break
       default:
-        console.log(new Error('Receive invalid WS method'))
+        console.log('Receive invalid WS method')
         break
     }
   })
@@ -80,7 +81,7 @@ wss.on('connection', (ws) => {
         if (err) return console.log(err)
       })
     }).catch((err) => {
-      console.log(new Error(err))
+      console.log(err)
     })
   })
 })
@@ -90,8 +91,8 @@ wss.on('connection', (ws) => {
  */
 setInterval(() => {
   wss.clients.forEach(function (ws) {
-    if (ws.isAlive === false) return ws.terminate()
+    if (ws.isAlive === false || ws.id === undefined) return ws.terminate()
     ws.isAlive = false
     ws.ping('', false, true)
   })
-}, 30000)
+}, 3000)

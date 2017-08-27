@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ws from '../ws.js'
-// import axiosInst from '../axios.js'
+import axiosInst from '../axios.js'
 // import Moment from 'react-moment'
 import './css/profil.css'
 
@@ -15,6 +15,11 @@ class Chat extends Component {
    * Get user's datas
    */
   componentDidMount () {
+    axiosInst.get('/chat').then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log(err)
+    })
     ws.onmessage(this.props.history, (event) => {
 
     })

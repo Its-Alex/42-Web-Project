@@ -1,4 +1,5 @@
 const model = require('../../models/chat.js')
+const userModel = require('../../models/user.js')
 
 function error (res, data, err) {
   res.status(err)

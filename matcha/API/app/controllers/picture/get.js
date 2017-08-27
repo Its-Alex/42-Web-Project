@@ -17,6 +17,7 @@ module.exports = (req, res) => {
   if (req.params.token === undefined) return error(res, 'Bad token', 200)
   if (req.params.token.match(/[a-zA-Z0-9]{128}/)) {
     userModel.getUserByToken(req.params.token).then((user) => {
+      if (user.length === 0) return error(res, 'No user found', 200)
       if (!fs.existsSync(dir + user[0].id) ||
       !fs.existsSync(dir + user[0].id + '/' + req.params.id + '.png')) {
         res.set('Content-Type', 'image/svg+xml')

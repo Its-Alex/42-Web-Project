@@ -5,6 +5,7 @@ import Search from './search.js'
 import Notifications from './notifications.js'
 import Settings from './settings.js'
 import Profil from './profil.js'
+import OtherProfil from './otherProfil.js'
 import NotFound from './notFound.js'
 import axios from 'axios'
 import axiosInst from '../axios.js'
@@ -94,6 +95,7 @@ class App extends Component {
           <Route exact path='/search'>
             <Search ws={this.state.ws} />
           </Route>
+          <Route exact path='/profil/:user' component={OtherProfil} />
           <Route exact path='/profil'>
             <Profil />
           </Route>

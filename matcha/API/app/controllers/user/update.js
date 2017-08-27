@@ -37,7 +37,7 @@ module.exports = (req, res) => {
   }
 
   if (typeof req.body.name !== 'undefined') {
-    if (req.body.name.length <= 36 || req.body.name.match(/^([a-zA-Z0-9]+)$/)) user.name = req.body.name
+    if (req.body.name.length <= 36 && req.body.name.match(/^([a-zA-Z]+)$/)) user.name = req.body.name
   }
   if (typeof req.body.password !== 'undefined') {
     if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {

@@ -21,7 +21,21 @@ class Login extends Component {
       this.props.history.push('/profil')
     }
     if (global.localStorage.getItem('signToken')) {
-      this.props.history.push('/auth/profil')
+      axios.get('http://localhost:3005/profil/me', {
+        headers: {'Authorization': `Bearer ${global.localStorage.getItem('signToken')}`}
+      }).then((res) => {
+        let token = global.localStorage.getItem('signToken')
+        global.localStorage.removeItem('signToken')
+        global.localStorage.setItem('Token', token)
+        this.props.history.push('/')
+      }).catch((err) => {
+        console.log(err.response)
+        if (err.response.data.msg === 'False token') {
+          global.localStorage.removeItem('signToken')
+          this.props.history.push('/auth/login')
+        }
+        this.props.history.push('/auth/profil')
+      })
     }
   }
 

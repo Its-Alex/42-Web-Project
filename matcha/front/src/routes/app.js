@@ -6,22 +6,19 @@ import Notifications from './notifications.js'
 import Settings from './settings.js'
 import Profil from './profil.js'
 import OtherProfil from './otherProfil.js'
+import Chat from './chat.js'
 import NotFound from './notFound.js'
+import ws from '../ws.js'
 import axios from 'axios'
 import axiosInst from '../axios.js'
 
 // https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
 class App extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      ws: null
-    }
-  }
-
   componentWillMount () {
+    global.Notification.requestPermission()
+    ws.connect()
+    ws.onmessage(this.props.history, () => {})
     /**
      * Redirect user if his path is equal to '/'
      */
@@ -59,31 +56,10 @@ class App extends Component {
             let token = global.localStorage.getItem('Token')
             global.localStorage.removeItem('Token')
             global.localStorage.setItem('signToken', token)
-            this.props.history.push('/auth/profil')
+            this.props.history.push('/auth/login')
           }
         })
       }
-
-      /**
-       * Init WebSocket
-       */
-      let ws = new global.WebSocket('ws://localhost:3004/')
-      ws.onopen = (event) => {
-        ws.send(JSON.stringify({
-          method: 'connect',
-          token: global.localStorage.getItem('Token')
-        }))
-      }
-      ws.onmessage = (msg) => {
-        console.log(msg.data)
-      }
-
-      /**
-       * Set WebSocket in state
-       */
-      this.setState({
-        ws: ws
-      })
     }
   }
 
@@ -93,7 +69,7 @@ class App extends Component {
         <Navbar />
         <Switch>
           <Route exact path='/search'>
-            <Search ws={this.state.ws} />
+            <Search />
           </Route>
           <Route exact path='/profil/:user' component={OtherProfil} />
           <Route exact path='/profil'>
@@ -104,6 +80,9 @@ class App extends Component {
           </Route>
           <Route exact path='/settings'>
             <Settings history={this.props.history} />
+          </Route>
+          <Route exact path='/chat'>
+            <Chat history={this.props.history} />
           </Route>
           <Route component={NotFound} />
         </Switch>

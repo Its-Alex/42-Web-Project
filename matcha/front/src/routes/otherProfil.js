@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import axiosInst from '../axios.js'
+import Moment from 'react-moment'
 import './css/profil.css'
 
 class OtherProfil extends Component {
@@ -8,7 +10,7 @@ class OtherProfil extends Component {
     this.state = {
       error: '',
       status: '',
-      username: this.props.match.params.user,
+      username: '',
       birthday: '',
       bio: '',
       popularity: '',
@@ -16,18 +18,51 @@ class OtherProfil extends Component {
       type: '',
       tags: '',
       location: '',
+      lastConnect: '',
       password: '',
       img: [
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/1`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/2`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/3`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/4`
+        '',
+        '',
+        '',
+        '',
+        ''
       ]
     }
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+  /**
+   * Get user's datas
+   */
   componentWillMount () {
+    axiosInst.get(`/otherProfil/${this.props.match.params.user}`).then(res => {
+      if (res.data.success === true) {
+        this.setState({
+          username: res.data.name,
+          birthday: res.data.profil[0].birthday,
+          bio: res.data.profil[0].bio,
+          popularity: res.data.profil[0].popularity,
+          genre: (res.data.profil[0].genre === 'M') ? 'Man' : 'Woman',
+          type: (res.data.profil[0].type === 'M') ? 'Mens' : (res.data.profil[0].type === 'F') ? 'Womens' : 'Mens and Womans',
+          tags: res.data.profil[0].tags,
+          location: res.data.profil[0].location,
+          lastConnect: res.data.profil[0].lastConnect,
+          img: [
+            `http://localhost:3005/picture/${res.data.id}/0`,
+            `http://localhost:3005/picture/${res.data.id}/1`,
+            `http://localhost:3005/picture/${res.data.id}/2`,
+            `http://localhost:3005/picture/${res.data.id}/3`,
+            `http://localhost:3005/picture/${res.data.id}/4`
+          ]
+        })
+      } else {
+        this.setState({
+          error: res.data.error
+        })
+      }
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   /**
@@ -35,14 +70,27 @@ class OtherProfil extends Component {
    * @param {object} event
    */
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.value === 'Save') {
+    if (event.target.value === 'Like') {
     }
   }
 
   render () {
     return (
       <div className='body'>
-        {this.state.username}
+        <img src={this.state.img[0]} alt='First' height='50px' width='50px' />
+        <img src={this.state.img[1]} alt='Second' height='50px' width='50px' />
+        <img src={this.state.img[2]} alt='Third' height='50px' width='50px' />
+        <img src={this.state.img[3]} alt='Four' height='50px' width='50px' />
+        <img src={this.state.img[4]} alt='Five' height='50px' width='50px' />
+        <p><b>Popularity : </b>{this.state.popularity}</p>
+        <p><b>Name : </b>{this.state.username}</p>
+        <p><b>Is : </b>{this.state.genre}</p>
+        <p><b>Birthday : </b>{this.state.birthday}</p>
+        <p><b>Looking for : </b>{this.state.type}</p>
+        <p><b>Bio : </b>{this.state.bio}</p>
+        <p><b>Last location : </b>{this.state.location}</p>
+        <p><b>Tags : </b>{this.state.tags}</p>
+        <p><b>Connected : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>
       </div>
     )
   }

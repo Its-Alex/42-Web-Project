@@ -4,7 +4,7 @@ const middle = require('../middlewares.js')
 
 router.use(middle('USER'))
 
-// Path who need auth admin
+// Path who need auth user
 router.get('/:id', require('../controllers/profil/get.js'))
 router.post('/', require('../controllers/profil/create.js'))
 router.patch('/', require('../controllers/profil/update.js'))

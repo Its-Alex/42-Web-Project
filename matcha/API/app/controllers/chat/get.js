@@ -13,7 +13,7 @@ module.exports = (req, res) => {
     if (chat.length === 0) return error(res, 'No user found', 200)
     res.send({
       success: true,
-      people: chat
+      chat: chat
     })
   }).catch(err => {
     console.log(err)

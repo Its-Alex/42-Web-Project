@@ -4,32 +4,49 @@ import axiosInst from '../axios.js'
 // import Moment from 'react-moment'
 import './css/profil.css'
 
+// class Talks extends Component {
+//   constructor (props) {
+//     super(props)
+
+//     this.state = {
+//       name: this.props.name,
+//       image: `http://localhost:3005/picture/${this.props.id}/0`
+//     }
+//   }
+
+//   render () {
+//     return (
+//       <div className='talks'>
+//         {this.state.name}
+//       </div>
+//     )
+//   }
+// }
+
 class Chat extends Component {
   constructor (props) {
     super(props)
 
+    this.state = {
+      chat: []
+    }
     this.handleChange = this.handleChange.bind(this)
   }
 
   /**
    * Get user's datas
    */
-  componentDidMount () {
+  componentWillMount () {
+    let self = this
+    console.log(self.props)
     axiosInst.get('/chat').then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log(err)
-    })
-    ws.onmessage(this.props.history, (event) => {
-
-    })
-  }
-
-  /**
-   * Change websocket's onmessage callback
-   */
-  componentWillUnmount () {
-    ws.onmessage(this.props.history, (event) => {})
+      if (res.data.success !== true) return
+      console.log(res.data.chat)
+      self.setState = {
+        chat: res.data.chat
+      }
+    }).catch(err => console.log(err.response))
+    ws.onmessage(this.props.history, () => {})
   }
 
   /**
@@ -37,7 +54,7 @@ class Chat extends Component {
    * @param {object} event
    */
   handleChange (event) {
-    console.log(event)
+    console.log(this.state)
   }
 
   render () {
@@ -48,5 +65,6 @@ class Chat extends Component {
     )
   }
 }
+// <Talks name={this.state.chat[0].name} id={this.state.chat[0].id} />
 
 export default Chat

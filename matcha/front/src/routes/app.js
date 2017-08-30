@@ -16,20 +16,19 @@ import axiosInst from '../axios.js'
 
 class App extends Component {
   componentWillMount () {
-    global.Notification.requestPermission()
     ws.connect()
     ws.onmessage(this.props.history, () => {})
     /**
-     * Redirect user if his path is equal to '/'
+     * Check if user is connected adn exist
      */
-    if (this.props.location.pathname === '/') {
-      this.props.history.push('/profil')
+    if (!global.localStorage.getItem('Token')) {
+      this.props.history.push('/auth/login')
     } else {
       /**
-       * Check if user is connected adn exist
+       * Redirect user if his path is equal to '/'
        */
-      if (!global.localStorage.getItem('Token')) {
-        this.props.history.push('/auth/login')
+      if (this.props.location.pathname === '/') {
+        this.props.history.push('/profil')
       } else {
         /**
          * Check if user has a profil if not he will be redirect
@@ -45,12 +44,8 @@ class App extends Component {
             axiosInst.post('geoloc', {
               lat: res.data.location.lat,
               lng: res.data.location.lng
-            }).catch((err) => {
-              console.log(err)
-            })
-          }).catch((err) => {
-            console.log(err)
-          })
+            }).catch((err) => console.log(err))
+          }).catch((err) => console.log(err))
         }).catch((error) => {
           if (error.response) {
             let token = global.localStorage.getItem('Token')

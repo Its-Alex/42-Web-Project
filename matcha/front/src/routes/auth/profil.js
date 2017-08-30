@@ -48,7 +48,8 @@ class Login extends Component {
       }).then((res) => {
         if (res.status === 201) {
           global.localStorage.removeItem('signToken')
-          this.props.history.push('/')
+          global.localStorage.removeItem('Token')
+          this.props.history.push('/auth/login')
         }
       }).catch((err) => {
         if (err.response) {

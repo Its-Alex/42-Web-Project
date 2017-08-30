@@ -47,7 +47,6 @@ module.exports = (role) => {
             password: results[0].password,
             mail: results[0].mail,
             role: results[0].role,
-            state: results[0].state
           }
           next()
         } else {

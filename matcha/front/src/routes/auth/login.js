@@ -32,7 +32,9 @@ class Login extends Component {
         console.log(err.response)
         if (err.response.data.msg === 'False token') {
           global.localStorage.removeItem('signToken')
+          global.localStorage.removeItem('Token')
           this.props.history.push('/auth/login')
+          return
         }
         this.props.history.push('/auth/profil')
       })
@@ -51,7 +53,7 @@ class Login extends Component {
       }).then((res) => {
         if (res.data.success === true) {
           global.localStorage.setItem('Token', res.data.token)
-          this.props.history.push('/')
+          this.props.history.push('/profil')
         }
       }).catch((err) => {
         if (err.response) {

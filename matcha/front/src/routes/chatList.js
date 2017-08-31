@@ -18,7 +18,7 @@ import './css/profil.css'
   }
 }
 
-@observer class Chat extends Component {
+@observer class ChatList extends Component {
   constructor (props) {
     super(props)
 
@@ -56,4 +56,4 @@ import './css/profil.css'
   }
 }
 
-export default Chat
+export default ChatList

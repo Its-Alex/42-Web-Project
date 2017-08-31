@@ -12,7 +12,7 @@ import Notifications from './notifications.js'
 import Settings from './settings.js'
 import Profil from './profil.js'
 import OtherProfil from './otherProfil.js'
-import Chat from './chat.js'
+import ChatList from './chatList.js'
 import NotFound from './notFound.js'
 
 const chatStore = observable({
@@ -82,7 +82,7 @@ class App extends Component {
             <Settings history={this.props.history} />
           </Route>
           <Route exact path='/chat'>
-            <Chat history={this.props.history} store={chatStore} />
+            <ChatList history={this.props.history} store={chatStore} />
           </Route>
           <Route component={NotFound} />
         </Switch>

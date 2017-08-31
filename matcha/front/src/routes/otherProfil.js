@@ -76,7 +76,7 @@ class OtherProfil extends Component {
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-start'>
         <img src={this.state.img[0]} alt='First' height='50px' width='50px' />
         <img src={this.state.img[1]} alt='Second' height='50px' width='50px' />
         <img src={this.state.img[2]} alt='Third' height='50px' width='50px' />

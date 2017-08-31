@@ -59,7 +59,7 @@ class Settings extends Component {
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-center'>
         <div className='resize'>
           <div id='profilForm'>
             { this.state.error

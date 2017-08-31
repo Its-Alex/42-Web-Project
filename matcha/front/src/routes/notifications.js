@@ -24,7 +24,7 @@ class Notifications extends Component {
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-start'>
         <p>Notifications :</p>
         {this.state.notifications.map(notif => <p>{notif}</p>)}
       </div>

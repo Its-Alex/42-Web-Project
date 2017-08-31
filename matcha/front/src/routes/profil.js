@@ -260,7 +260,7 @@ class Profil extends Component {
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-center'>
         <div id='profilForm'>
           {
             this.state.error

@@ -50,7 +50,7 @@ class Search extends Component {
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-start'>
         <input className='searchInput' type='text' placeholder='Search' />
       </div>
     )

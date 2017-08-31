@@ -10,9 +10,9 @@ import './css/profil.css'
 @observer class Talks extends Component {
   render () {
     return (
-      <div id={'talks ' + this.props.userID} onClick={this.props.onClick} >
-        <img src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main' />
-        <p>{this.props.name}</p>
+      <div id={'talks ' + this.props.userID} onClick={this.props.onClick} style={{width: '100%'}} >
+        <img src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main' style={{pointerEvents: 'none'}}/>
+        <p style={{pointerEvents: 'none'}}>{this.props.name}</p>
       </div>
     )
   }
@@ -45,10 +45,10 @@ import './css/profil.css'
 
   render () {
     return (
-      <div className='body'>
+      <div className='body flex-start'>
         {this.props.store.chat.map(elem => {
-          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event) => {
-            console.log(event)
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            console.log(event.target)
           }} />
         })}
       </div>

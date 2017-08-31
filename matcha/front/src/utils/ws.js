@@ -32,16 +32,10 @@ module.exports = {
       }))
     }
   },
-  msg: (to, msg) => {
-    if (available !== true) return
-    ws.send(JSON.stringify({
-      method: 'send',
-      to: to,
-      msg: msg
-    }))
+  send: (data) => {
+    if (available === true) ws.send(JSON.stringify(data))
   },
   onmessage: (history, cb) => {
-    if (available !== true) return
     ws.onmessage = (event) => {
       if (event.data === 'Connected') {
         available = true
@@ -61,37 +55,59 @@ module.exports = {
 
       if (typeof data === 'object' && data !== null) {
         switch (data.method) {
-          case 'like':
-            sendNotif('Like', {
-              body: 'Someone like you!',
-              icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
-            }, () => {
-              history.push(`/profil/${data.from}`)
-            })
+          case 'notification':
+            switch (data.type) {
+              case 'like':
+                sendNotif('Like', {
+                  body: 'Someone like you!',
+                  icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
+                }, () => {
+                  history.push(`/profil/${data.user}`)
+                })
+                break
+              case 'liked':
+                sendNotif('Like back', {
+                  body: 'Someone you like, likes you too!',
+                  icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
+                }, () => {
+                  history.push(`/profil/${data.user}`)
+                })
+                break
+              case 'view':
+                sendNotif('View', {
+                  body: 'Someone is currently viewing your profile!',
+                  icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
+                }, () => {
+                  history.push(`/profil/${data.user}`)
+                })
+                break
+              case 'dislike':
+                sendNotif('Dislike', {
+                  body: 'Someone dislike you just now!',
+                  icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
+                }, () => {
+                  history.push(`/profil/${data.user}`)
+                })
+                break
+              default:
+                break
+            }
             break
-          case 'liked':
-            sendNotif('Like back', {
-              body: 'Someone you like, likes you too!',
-              icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
-            }, () => {
-              history.push(`/profil/${data.from}`)
-            })
-            break
-          case 'view':
-            sendNotif('View', {
-              body: 'Someone is currently viewing your profile!',
-              icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
-            }, () => {
-              history.push(`/profil/${data.from}`)
-            })
-            break
-          case 'dislike':
-            sendNotif('Dislike', {
-              body: 'Someone dislike you just now!',
-              icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
-            }, () => {
-              history.push(`/profil/${data.from}`)
-            })
+          case 'chat':
+            switch (data.type) {
+              case 'receive':
+                if (data.from !== data.for && history.location.indexOf(data.from) === -1) {
+                  sendNotif('New chat', {
+                    body: `You receive a new chat!`,
+                    icon: ''
+                  }, () => {
+                    history.push(`/chat/${data.from}`)
+                  })
+                }
+                break
+              default:
+                break
+            }
             break
           default:
             break

@@ -28,28 +28,57 @@ wss.on('connection', (ws) => {
                 ws.send('Connected')
               })
             })
-          }).catch((err) => {
-            return console.log(err)
-          })
+          }).catch((err) => console.log(err))
         }
         break
-      case 'send':
+      case 'sendChat':
         if (data.to && typeof data.to === 'string') {
           if (data.msg && typeof data.msg === 'string') {
-            wss.clients.forEach(function (client) {
+            wss.clients.forEach(client => {
               if (client.id === undefined) return
-              if (client.id === data.to && client.id !== ws.id) {
-                client.send(data.msg)
+              if (client.id === data.to) {
                 db.get().then((db) => {
-                  db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [ws.id, client.id, data.msg, new Date().getTime()], (err, res) => {
+                  db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
+                    ws.id,
+                    client.id,
+                    data.msg,
+                    Date.now()
+                  ], (err, res) => {
                     if (err) return console.log(err)
+                    client.send(JSON.stringify({
+                      method: 'chat',
+                      type: 'receive',
+                      from: ws.id,
+                      for: client.id
+                    }))
                   })
-                }).catch((err) => {
-                  console.log(err)
-                })
+                }).catch((err) => console.log(err))
               }
             })
           }
+        }
+        break
+      case 'view':
+        if (data.to && typeof data.to === 'string') {
+          wss.clients.forEach(client => {
+            if (client.id === data.to && client.id !== data.to) {
+              db.get().then(db => {
+                db.query('INSERT INTO notifications (performUser, concernUser, notification, date)', [
+                  ws.id,
+                  client.id,
+                  'view',
+                  Date.now()
+                ], (err, res) => {
+                  if (err) return console.log(err)
+                  client.send(JSON.stringify({
+                    method: 'notification',
+                    type: 'view',
+                    user: ws.id
+                  }))
+                })
+              }).catch(err => console.log(err))
+            }
+          })
         }
         break
       default:
@@ -77,7 +106,7 @@ wss.on('connection', (ws) => {
    */
   ws.on('close', (event) => {
     db.get().then((db) => {
-      db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [new Date().getTime(), ws.id], (err, res) => {
+      db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [Date.now(), ws.id], (err, res) => {
         if (err) return console.log(err)
       })
     }).catch((err) => {
@@ -90,9 +119,18 @@ wss.on('connection', (ws) => {
  * Update all connections and close those that are broken
  */
 setInterval(() => {
-  wss.clients.forEach(function (ws) {
+  wss.clients.forEach(ws => {
     if (ws.isAlive === false || ws.id === undefined) return ws.terminate()
     ws.isAlive = false
     ws.ping('', false, true)
   })
-}, 3000)
+}, 30000)
+
+module.exports = {
+  sendToId: (id, data) => {
+    wss.clients.forEach(ws => {
+      if (ws.id !== id) return
+      ws.send(JSON.stringify(data))
+    })
+  }
+}

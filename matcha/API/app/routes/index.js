@@ -39,6 +39,7 @@ router.get('/otherProfil/:id', middle('USER'), require('../controllers/otherProf
 router.use('/user', require('./user.js'))
 router.use('/profil', require('./profil.js'))
 router.use('/picture', require('./picture.js'))
+router.use('/like', require('./like.js'))
 router.use('/chat', require('./chat.js'))
 
 module.exports = router

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axiosInst from '../axios.js'
+import axiosInst from '../utils/axios.js'
 import './css/search.css'
 
 class Search extends Component {

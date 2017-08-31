@@ -33,7 +33,7 @@ module.exports = {
     }
   },
   msg: (to, msg) => {
-    if (available === false) return
+    if (available !== true) return
     ws.send(JSON.stringify({
       method: 'send',
       to: to,
@@ -41,6 +41,7 @@ module.exports = {
     }))
   },
   onmessage: (history, cb) => {
+    if (available !== true) return
     ws.onmessage = (event) => {
       if (event.data === 'Connected') {
         available = true

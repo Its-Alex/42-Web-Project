@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import ws from '../ws.js'
+import ws from '../utils/ws.js'
 import axios from 'axios'
-import axiosInst from '../axios.js'
+import axiosInst from '../utils/axios.js'
+import {observable} from 'mobx'
 // https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
-import Navbar from '../navbar.js'
+import Navbar from './navbar.js'
 import Search from './search.js'
 import Notifications from './notifications.js'
 import Settings from './settings.js'
@@ -13,6 +14,10 @@ import Profil from './profil.js'
 import OtherProfil from './otherProfil.js'
 import Chat from './chat.js'
 import NotFound from './notFound.js'
+
+const chatStore = observable({
+  chat: []
+})
 
 class App extends Component {
   componentWillMount () {
@@ -77,7 +82,7 @@ class App extends Component {
             <Settings history={this.props.history} />
           </Route>
           <Route exact path='/chat'>
-            <Chat history={this.props.history} />
+            <Chat history={this.props.history} store={chatStore} />
           </Route>
           <Route component={NotFound} />
         </Switch>

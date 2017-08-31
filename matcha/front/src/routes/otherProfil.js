@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axiosInst from '../axios.js'
+import axiosInst from '../utils/axios.js'
 import Moment from 'react-moment'
 import './css/profil.css'
 

@@ -52,7 +52,7 @@
   min-height: 115px;
   border: 0;
   border-radius: 50%;
-  background-image: url('./img/avatar.svg');
+  background-image: url('../../img/avatar.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -83,14 +83,14 @@
 }
 
 #notifications {
-  background-image: url('./img/notifications.svg');
+  background-image: url('../../img/notifications.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 #settings {
-  background-image: url('./img/settings.svg');
+  background-image: url('../../img/settings.svg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

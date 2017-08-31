@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
-import axiosInst from '../axios.js'
+import axiosInst from '../utils/axios.js'
 import './css/profil.css'
 class Profil extends Component {
   constructor (props) {

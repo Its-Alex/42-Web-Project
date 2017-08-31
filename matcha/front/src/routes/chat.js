@@ -1,37 +1,27 @@
 import React, { Component } from 'react'
-import ws from '../ws.js'
-import axiosInst from '../axios.js'
+import axiosInst from '../utils/axios.js'
 // import Moment from 'react-moment'
-import {observer, observable} from 'mobx-react'
+import {observer} from 'mobx-react'
 import './css/profil.css'
 
-// class Talks extends Component {
-//   constructor (props) {
-//     super(props)
-
-//     this.state = {
-//       name: this.props.name,
-//       image: `http://localhost:3005/picture/${this.props.id}/0`
-//     }
-//   }
-
-//   render () {
-//     return (
-//       <div className='talks'>
-//         {this.state.name}
-//       </div>
-//     )
-//   }
-// }
-
+/**
+ * Component to show the list of user
+ */
+@observer class Talks extends Component {
+  render () {
+    return (
+      <div id={'talks ' + this.props.userID} onClick={this.props.onClick} >
+        <img src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main' />
+        <p>{this.props.name}</p>
+      </div>
+    )
+  }
+}
 
 @observer class Chat extends Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      chat: []
-    }
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -40,15 +30,10 @@ import './css/profil.css'
    */
   componentWillMount () {
     let self = this
-    console.log(self.props)
     axiosInst.get('/chat').then(res => {
       if (res.data.success !== true) return
-      console.log(res.data.chat)
-      self.setState = {
-        chat: res.data.chat
-      }
+      self.props.store.chat = res.data.chat
     }).catch(err => console.log(err.response))
-    ws.onmessage(this.props.history, () => {})
   }
 
   /**
@@ -56,17 +41,19 @@ import './css/profil.css'
    * @param {object} event
    */
   handleChange (event) {
-    console.log(this.state)
   }
 
   render () {
     return (
       <div className='body'>
-        <button onClick={this.handleChange} />
+        {this.props.store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event) => {
+            console.log(event)
+          }} />
+        })}
       </div>
     )
   }
 }
-// <Talks name={this.state.chat[0].name} id={this.state.chat[0].id} />
 
 export default Chat

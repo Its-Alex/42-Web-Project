@@ -13,7 +13,7 @@ function error (res, data, err) {
 module.exports = (req, res) => {
   model.removeLike(req.user.id, req.params.id).then(result => {
     if (result.affectedRows === 0) return error(res, 'User not liked', 200)
-    modelNotif.addNotificaton(req.user.id, req.params.id, 'dislike').then(result => {
+    modelNotif.addNotification(req.user.id, req.params.id, 'dislike').then(result => {
       if (result.affectedRows === 0) return error(res, 'User has not been notified', 200)
       res.json({success: true})
       ws.sendToId(req.params.id, {

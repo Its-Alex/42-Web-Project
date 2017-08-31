@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axiosInst from '../utils/axios.js'
 import Moment from 'react-moment'
-import './css/profil.css'
 
 class OtherProfil extends Component {
   constructor (props) {
@@ -63,6 +62,10 @@ class OtherProfil extends Component {
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  componentDidMount () {
+    
   }
 
   /**

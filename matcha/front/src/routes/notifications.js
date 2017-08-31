@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+// import Moment from 'react-moment'
 import axiosInst from '../utils/axios.js'
-import './css/profil.css'
 
 class Notifications extends Component {
   constructor (props) {
@@ -12,9 +12,10 @@ class Notifications extends Component {
   }
 
   componentWillMount () {
+    let self = this
     axiosInst.get('/notifications').then((result) => {
-      console.log(result.data)
-      this.setState = {
+      console.log(result.data.notifications)
+      self.setState = {
         notifications: result.data.notifications
       }
     }).catch((err) => {
@@ -22,14 +23,20 @@ class Notifications extends Component {
     })
   }
 
+  handleClick () {
+    console.log(this.state.notifications)
+  }
+
   render () {
     return (
-      <div className='body flex-start'>
+      <div className='body flex-start' onClick={this.handleClick.bind(this)}>
         <p>Notifications :</p>
-        {this.state.notifications.map(notif => <p>{notif}</p>)}
       </div>
     )
   }
 }
+        // {this.state.notifications.map(notif => {
+        //   return <p>Salut</p>
+        // })}
 
 export default Notifications

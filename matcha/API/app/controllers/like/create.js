@@ -11,11 +11,12 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
+  if (req.user.id === req.params.id) return error(res, 'Cannot like yourself', 200)
   model.getLike(req.user.id, req.params.id).then(result => {
     if (result.length !== 0) return error(res, 'User already liked', 200)
     model.addLike(req.user.id, req.params.id).then(result => {
       if (result.affectedRows === 0) return error(res, 'User not liked', 200)
-      modelNotif.addNotificaton(req.user.id, req.params.id, 'like').then(result => {
+      modelNotif.addNotification(req.user.id, req.params.id, 'like').then(result => {
         if (result.affectedRows === 0) return error(res, 'User has not been notified', 200)
         ws.sendToId(req.params.id, {
           method: 'notification',

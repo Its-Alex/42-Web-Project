@@ -1,7 +1,29 @@
 const db = require('../db.js')
 
 module.exports = {
-  addNotificaton: (perform, concern, notification) => {
+  getNotifications: (user) => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('SELECT \
+                  user1.name AS performName, \
+                  user2.name AS concernName, \
+                  notifications.performUser, \
+                  notifications.concernUser, \
+                  notifications.notification AS type, \
+                  notifications.seen, \
+                  notifications.date \
+                  FROM notifications \
+                  INNER JOIN users as user1 on user1.id = notifications.performUser \
+                  INNER JOIN users as user2 on user2.id = notifications.concernUser \
+                  WHERE performUser = ? OR concernUser = ? ORDER BY date ASC',
+        [user, user], (err, res) => {
+          if (err) reject(err)
+          resolve(res)
+        })
+      })
+    })
+  },
+  addNotification: (perform, concern, notification) => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {
         db.query('INSERT INTO notifications (performUser, concernUser, notification, date) VALUES (?, ?, ?, ?)',

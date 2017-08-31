@@ -35,6 +35,9 @@ class App extends Component {
       if (this.props.location.pathname === '/') {
         this.props.history.push('/profil')
       } else {
+        axiosInst.get('/getId').then(res => {
+          global.localStorage.setItem('id', res.data.id)
+        })
         /**
          * Check if user has a profil if not he will be redirect
          */
@@ -76,7 +79,7 @@ class App extends Component {
             <Profil />
           </Route>
           <Route exact path='/notifications'>
-            <Notifications />
+            <Notifications history={this.props.history} />
           </Route>
           <Route exact path='/settings'>
             <Settings history={this.props.history} />

@@ -17,9 +17,10 @@ module.exports = {
                     name: first.name,
                     chat: []
                   })
-                  res.splice(index, 1)
+                  // res.splice(index, 1)
                 }
               }
+              console.log(people)
             }, this)
           }, this)
           db.query('SELECT * FROM chats WHERE receiver = ? OR sender = ? ORDER BY date ASC', [

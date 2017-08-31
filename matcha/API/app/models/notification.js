@@ -15,7 +15,7 @@ module.exports = {
                   FROM notifications \
                   INNER JOIN users as user1 on user1.id = notifications.performUser \
                   INNER JOIN users as user2 on user2.id = notifications.concernUser \
-                  WHERE performUser = ? OR concernUser = ? ORDER BY date ASC',
+                  WHERE performUser = ? OR concernUser = ? ORDER BY date DESC',
         [user, user], (err, res) => {
           if (err) reject(err)
           resolve(res)

@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
+import ws from '../ws.js'
+import axios from 'axios'
+import axiosInst from '../axios.js'
+// https://developers.google.com/maps/documentation/static-maps/?hl=fr
+
 import Navbar from '../navbar.js'
 import Search from './search.js'
 import Notifications from './notifications.js'
@@ -8,11 +13,6 @@ import Profil from './profil.js'
 import OtherProfil from './otherProfil.js'
 import Chat from './chat.js'
 import NotFound from './notFound.js'
-import ws from '../ws.js'
-import axios from 'axios'
-import axiosInst from '../axios.js'
-
-// https://developers.google.com/maps/documentation/static-maps/?hl=fr
 
 class App extends Component {
   componentWillMount () {

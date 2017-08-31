@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ws from '../ws.js'
 import axiosInst from '../axios.js'
 // import Moment from 'react-moment'
+import {observer, observable} from 'mobx-react'
 import './css/profil.css'
 
 // class Talks extends Component {
@@ -23,7 +24,8 @@ import './css/profil.css'
 //   }
 // }
 
-class Chat extends Component {
+
+@observer class Chat extends Component {
   constructor (props) {
     super(props)
 

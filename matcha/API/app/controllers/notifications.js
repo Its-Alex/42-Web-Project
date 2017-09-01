@@ -9,10 +9,12 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
-  model.getNotifications(req.user.id).then(result => {
-    res.json({
-      success: true,
-      notifications: result
+  model.getNotifications(req.user.id).then(notifications => {
+    model.setSeen(req.user.id).then(result => {
+      res.json({
+        success: true,
+        notifications: notifications
+      })
     })
   }).catch(err => {
     console.log(err)

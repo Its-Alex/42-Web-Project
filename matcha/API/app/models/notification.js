@@ -44,5 +44,16 @@ module.exports = {
         })
       }).catch(err => reject(err))
     })
+  },
+  setSeen: (user) => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('UPDATE notifications SET seen = 1 WHERE concernUser = ?',
+        [user], (err, res) => {
+          if (err) reject(err)
+          resolve(res)
+        })
+      }).catch(err => reject(err))
+    })
   }
 }

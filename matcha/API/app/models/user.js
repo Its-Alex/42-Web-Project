@@ -101,7 +101,7 @@ module.exports = {
   updateUser: (body) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ?, where id = ?', [
+        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ?, WHERE id = ?', [
           body.name,
           body.mail,
           body.password,

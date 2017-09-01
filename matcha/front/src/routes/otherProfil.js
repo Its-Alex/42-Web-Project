@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 import axiosInst from '../utils/axios.js'
 import Moment from 'react-moment'
 
-class OtherProfil extends Component {
+class OtherProfil extends React.Component {
   constructor (props) {
     super(props)
 
     this.state = {
       error: '',
-      status: '',
       username: '',
       birthday: '',
       bio: '',
@@ -80,6 +79,11 @@ class OtherProfil extends Component {
   render () {
     return (
       <div className='body flex-start'>
+        {
+          this.state.error
+            ? <span className='error'>{this.state.error}</span>
+            : null
+        }
         <img src={this.state.img[0]} alt='First' height='50px' width='50px' />
         <img src={this.state.img[1]} alt='Second' height='50px' width='50px' />
         <img src={this.state.img[2]} alt='Third' height='50px' width='50px' />

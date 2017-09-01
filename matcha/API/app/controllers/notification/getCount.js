@@ -9,8 +9,11 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
-  model.getNotifications(req.user.id).then(result => {
-    console.log(result)
+  model.getNotificationsNotSeen(req.user.id).then(result => {
+    res.json({
+      success: true,
+      number: result[0].count
+    })
   }).catch(err => {
     console.log(err)
     return error(res, 'Internal error', 500)

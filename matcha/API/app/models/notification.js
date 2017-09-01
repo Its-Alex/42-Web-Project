@@ -23,6 +23,17 @@ module.exports = {
       })
     })
   },
+  getNotificationsNotSeen: (userId) => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('SELECT COUNT(*) as count FROM notifications WHERE concernUser = ? AND seen = 0',
+        [userId], (err, res) => {
+          if (err) reject(err)
+          resolve(res)
+        })
+      }).catch(err => reject(err))
+    })
+  },
   addNotification: (perform, concern, notification) => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {

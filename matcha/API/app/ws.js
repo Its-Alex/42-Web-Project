@@ -98,7 +98,7 @@ wss.on('connection', (ws) => {
    * Handle WebSocket errors
    */
   ws.on('error', (error) => {
-    console.log(new Error(error))
+    console.log(error)
   })
 
   /**
@@ -124,7 +124,7 @@ setInterval(() => {
     ws.isAlive = false
     ws.ping('', false, true)
   })
-}, 30000)
+}, 10000)
 
 module.exports = {
   sendToId: (id, data) => {

@@ -53,6 +53,7 @@ module.exports = {
         return
       }
 
+      console.log(data)
       if (typeof data === 'object' && data !== null) {
         switch (data.method) {
           case 'notification':
@@ -65,7 +66,7 @@ module.exports = {
                   history.push(`/profil/${data.user}`)
                 })
                 break
-              case 'liked':
+              case 'likeback':
                 sendNotif('Like back', {
                   body: 'Someone you like, likes you too!',
                   icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'

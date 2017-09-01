@@ -34,7 +34,7 @@ class OtherProfil extends Component {
    * Get user's datas
    */
   componentWillMount () {
-    axiosInst.get(`/otherProfil/${this.props.match.params.user}`).then(res => {
+    axiosInst().get(`/otherProfil/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
         this.setState({
           username: res.data.name,

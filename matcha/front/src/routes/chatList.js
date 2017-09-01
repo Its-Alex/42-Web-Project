@@ -30,7 +30,7 @@ import './css/profil.css'
    */
   componentWillMount () {
     let self = this
-    axiosInst.get('/chat').then(res => {
+    axiosInst().get('/chat').then(res => {
       if (res.data.success !== true) return
       self.props.store.chat = res.data.chat
     }).catch(err => console.log(err.response))

@@ -53,6 +53,7 @@ class Login extends Component {
       }).then((res) => {
         if (res.data.success === true) {
           global.localStorage.setItem('Token', res.data.token)
+          global.localStorage.setItem('id', res.data.id)
           this.props.history.push('/profil')
         }
       }).catch((err) => {

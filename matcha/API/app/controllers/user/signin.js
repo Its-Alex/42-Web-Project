@@ -56,7 +56,8 @@ module.exports = (req, res) => {
       res.status(200)
       res.json({
         success: true,
-        token
+        token,
+        id: user[0].id
       })
     }).catch((err) => {
       console.log(new Error(err))

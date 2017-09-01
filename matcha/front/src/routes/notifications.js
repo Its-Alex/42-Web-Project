@@ -12,7 +12,7 @@ class Notifications extends React.Component {
   }
 
   componentWillMount () {
-    axiosInst.get('/notifications').then((result) => {
+    axiosInst().get('/notifications').then((result) => {
       this.setState({
         notifications: result.data.notifications
       })
@@ -37,22 +37,22 @@ class Notifications extends React.Component {
           if (global.localStorage.getItem('id') !== notif.performUser) {
             switch (notif.type) {
               case 'like':
-                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> like you <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> like you <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               case 'dislike':
-                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> dislike you <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> dislike you <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               case 'view':
-                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> view your profil <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}><b style={{pointerEvents: 'none'}}>{notif.performName}</b> view your profil <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               default:
                 break
             }
           } else {
             switch (notif.type) {
               case 'like':
-                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)}>You have like <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}>You have like <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               case 'dislike':
-                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)}>You have dislike <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}>You have dislike <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               case 'view':
-                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)}>You have view <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> profil's <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
+                return <p key={Math.random()} id={notif.concernUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}>You have view <b style={{pointerEvents: 'none'}}>{notif.concernName}</b> profil's <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} /></p>
               default:
                 break
             }

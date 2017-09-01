@@ -17,7 +17,7 @@ class Settings extends Component {
   }
 
   componentWillMount () {
-    axiosInst.get('/user/me').then((res) => {
+    axiosInst().get('/user/me').then((res) => {
       this.setState({
         error: false,
         status: '',
@@ -37,7 +37,7 @@ class Settings extends Component {
    */
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Save') {
-      axiosInst.patch('user/me', {
+      axiosInst().patch('user/me', {
         name: this.state.name,
         mail: this.state.mail
       }).then((res) => {
@@ -73,6 +73,7 @@ class Settings extends Component {
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
             <input type='submit' value='Logout' onClick={() => {
               global.localStorage.removeItem('Token')
+              global.localStorage.removeItem('id')
               this.props.history.push('/auth/login')
             }} />
           </div>

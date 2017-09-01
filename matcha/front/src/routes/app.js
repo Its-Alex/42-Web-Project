@@ -35,13 +35,10 @@ class App extends Component {
       if (this.props.location.pathname === '/') {
         this.props.history.push('/profil')
       } else {
-        axiosInst.get('/getId').then(res => {
-          global.localStorage.setItem('id', res.data.id)
-        })
         /**
          * Check if user has a profil if not he will be redirect
          */
-        axiosInst.get('profil/me').then((res) => {
+        axiosInst().get('profil/me').then((res) => {
           /**
            * Get latitude and longitude of user and send it to API to get his current position
            */
@@ -49,7 +46,7 @@ class App extends Component {
             /**
              * Send latitude and longitude to server
              */
-            axiosInst.post('geoloc', {
+            axiosInst().post('geoloc', {
               lat: res.data.location.lat,
               lng: res.data.location.lng
             }).catch((err) => console.log(err))

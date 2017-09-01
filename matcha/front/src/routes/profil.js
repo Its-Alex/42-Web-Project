@@ -41,11 +41,11 @@ class Profil extends Component {
     /**
      * Get all data from user and put it into state
      */
-    axiosInst.get('/user/me').then((result) => {
+    axiosInst().get('/user/me').then((result) => {
       /**
        * Get data from profil
        */
-      axiosInst.get('/profil/me').then((res) => {
+      axiosInst().get('/profil/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,
@@ -57,10 +57,11 @@ class Profil extends Component {
           location: res.data.user.location
         })
       }).catch((err) => {
-        console.log(err)
+        console.log(err.response)
       })
     }).catch((err) => {
       console.log(err)
+      console.log(err.response)
     })
   }
 
@@ -73,7 +74,7 @@ class Profil extends Component {
   }
 
   sendPicture (pic, index) {
-    axiosInst.put('/picture/' + index, {pic: pic}).then((res) => {
+    axiosInst().put('/picture/' + index, {pic: pic}).then((res) => {
       this.setState({
         error: false,
         status: 'Picture uploded'
@@ -210,7 +211,7 @@ class Profil extends Component {
         /**
          * Update profil from data input
          */
-        axiosInst.patch('/profil', {
+        axiosInst().patch('/profil', {
           name: this.state.name,
           birthday: this.state.birthday,
           bio: this.state.bio,

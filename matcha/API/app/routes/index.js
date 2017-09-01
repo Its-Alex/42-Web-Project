@@ -33,12 +33,6 @@ router.post('/geoloc', middle('USER'), (req, res) => {
   res.send()
 })
 
-router.get('/getId', middle('USER'), (req, res) => {
-  res.json({
-    id: req.user.id
-  })
-})
-
 // All paths
 router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
 router.get('/notifications', middle('USER'), require('../controllers/notifications.js'))

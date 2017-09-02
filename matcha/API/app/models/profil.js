@@ -40,9 +40,11 @@ module.exports = {
   createProfil: profil => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('INSERT INTO profils (userId, birthday, bio, genre, type, popularity, tags) VALUES (?, ?, ?, ?, ?, ?, ?)', [
+        db.query('INSERT INTO profils (userId, birthday, firstName, lastName, bio, genre, type, popularity, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
           profil.id,
           profil.birthday,
+          profil.firstName,
+          profil.lastName,
           profil.bio,
           profil.genre,
           profil.type,
@@ -59,9 +61,11 @@ module.exports = {
   updateProfil: profil => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {
-        db.query('UPDATE profils SET birthday = ?, bio = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
+        db.query('UPDATE profils SET birthday = ?, bio = ?, firstName = ?, lastName = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
           profil.birthday,
           profil.bio,
+          profil.firstName,
+          profil.lastName,
           profil.genre,
           profil.type,
           profil.tags,

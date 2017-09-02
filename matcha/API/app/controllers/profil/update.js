@@ -32,6 +32,20 @@ module.exports = (req, res) => {
     return error(res, 'Bio invalid', 400)
   }
 
+  if (req.body.firstName === undefined || req.body.firstName === '' ||
+    req.body.firstName > 36 || !req.body.firstName.match(/[a-zA-Z]/)) {
+    return error(res, 'First name invalid', 400)
+  } else {
+    profil.firstName = req.body.firstName
+  }
+
+  if (req.body.lastName === undefined || req.body.lastName === '' ||
+    req.body.lastName > 36 || !req.body.lastName.match(/[a-zA-Z]/)) {
+    return error(res, 'Last name invalid', 400)
+  } else {
+    profil.lastName = req.body.lastName
+  }
+
   if (req.body.genre !== undefined && req.body.genre.length === 1 && (req.body.genre === 'M' ||
   req.body.genre === 'F' || req.body.genre === 'B')) {
     profil.genre = req.body.genre
@@ -72,10 +86,6 @@ module.exports = (req, res) => {
     })
   }).catch((err) => {
     console.log(err)
-    res.status(500)
-    res.json({
-      success: false,
-      err: 'Internal server error'
-    })
+    error(res, 'Internal server error', 500)
   })
 }

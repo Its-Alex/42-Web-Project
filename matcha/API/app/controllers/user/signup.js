@@ -27,8 +27,8 @@ module.exports = (req, res) => {
     error(res, 'Body error', 400)
     return
   }
-  if (valid.isEmpty(req.body.name) || valid.isEmpty(req.body.mail) ||
-  valid.isEmpty(req.body.password) || valid.isEmpty(req.body.validPwd)) {
+  if (req.body.name === '' || req.body.mail === '' ||
+  req.body.password === '' || req.body.validPwd === '') {
     return error(res, 'Empty field(s)', 400)
   }
   if (req.body.password !== req.body.validPwd) {
@@ -37,7 +37,7 @@ module.exports = (req, res) => {
   if (req.body.name.length > 36 || !req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
     return error(res, 'Invalid name', 400)
   }
-  if (!valid.isEmail(req.body.mail)) {
+  if (!req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
     return error(res, 'Invalid mail', 400)
   } else {
     req.body.mail = req.body.mail.toLowerCase()

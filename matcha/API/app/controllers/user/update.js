@@ -1,6 +1,5 @@
 const model = require('../../models/user.js')
 const bcrypt = require('bcryptjs')
-const valid = require('validator')
 
 function error (res, data, err) {
   res.status(err)
@@ -43,7 +42,7 @@ module.exports = (req, res) => {
     }
   }
   if (typeof req.body.mail !== 'undefined') {
-    if (valid.isEmail(req.body.mail)) {
+    if (req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
       model.getUserByMail(req.body.mail).then((results) => {
         if (results.length === 0) {
           user.mail = req.body.mail.toLowerCase()

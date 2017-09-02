@@ -1,0 +1,7 @@
+.no-pointer {
+    pointer-events: 'none'
+}
+
+.onclick {
+    cursor: 'pointer'
+}

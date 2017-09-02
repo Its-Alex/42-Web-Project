@@ -12,6 +12,8 @@ class Profile extends Component {
       error: '',
       status: '',
       name: '',
+      firstName: '',
+      lastName: '',
       birthday: '',
       bio: '',
       popularity: '',
@@ -51,6 +53,8 @@ class Profile extends Component {
           name: result.data.user.name,
           birthday: res.data.user.birthday,
           bio: res.data.user.bio,
+          firstName: res.data.user.firstName,
+          lastName: res.data.user.lastName,
           popularity: res.data.user.popularity,
           genre: (res.data.user.genre === 'M') ? 'M' : 'F',
           type: (res.data.user.type === 'M') ? 'M' : (res.data.user.type === 'F') ? 'F' : 'B',
@@ -215,6 +219,8 @@ class Profile extends Component {
         axiosInst().patch('/profil', {
           name: this.state.name,
           birthday: this.state.birthday,
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           bio: this.state.bio,
           genre: (this.state.genre === 'M') ? 'M' : 'F',
           type: (this.state.type === 'M') ? 'M' : (this.state.type === 'F') ? 'F' : 'B',
@@ -227,6 +233,8 @@ class Profile extends Component {
             status: 'Changes made',
             birthday: res.data.profil.birthday,
             bio: res.data.profil.bio,
+            firstName: res.data.profil.firstName,
+            lastName: res.data.profil.lastName,
             genre: res.data.profil.genre,
             type: res.data.profil.type,
             tags: res.data.profil.tags,
@@ -287,6 +295,10 @@ class Profile extends Component {
             </Dropzone>
           </div>
           <p>Popularity : {this.state.popularity}</p>
+          First name :
+          <input type='text' name='firstName' value={this.state.firstName} placeholder='First name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          Last name :
+          <input type='text' name='lastName' value={this.state.lastName} placeholder='Last name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           Birthday :
           <input type='date' name='birthday' placeholder='yyyy-dd-mm' value={this.state.birthday} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           Bio :

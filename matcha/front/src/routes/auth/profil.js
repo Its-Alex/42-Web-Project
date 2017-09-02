@@ -8,10 +8,12 @@ class Login extends Component {
 
     this.state = {
       error: null,
+      firstName: '',
+      lastName: '',
       birthday: '',
       bio: '',
       genre: 'M',
-      type: 'M',
+      type: 'B',
       tags: '',
       axios: axios.create({
         baseURL: 'http://localhost:3005/',
@@ -42,6 +44,8 @@ class Login extends Component {
       this.state.axios.post('profil', {
         birthday: this.state.birthday,
         bio: this.state.bio,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
         genre: this.state.genre,
         type: this.state.type,
         tags: this.state.tags
@@ -71,6 +75,8 @@ class Login extends Component {
           <span className='error'>{this.state.error}</span>
           <div className='divForm'>
             <input type='date' name='birthday' placeholder='yyyy-dd-mm' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='text' name='firstName' value={this.state.firstName} placeholder='First name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='text' name='lastName' value={this.state.lastName} placeholder='Last name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <textarea type='text' name='bio' value={this.state.bio} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Genre :
             <select name='genre' onChange={this.handleChange} >
@@ -79,9 +85,9 @@ class Login extends Component {
             </select>
             Type :
             <select name='type' onChange={this.handleChange} >
-              <option value='M' defaultValue>Men</option>
+              <option value='M'>Men</option>
               <option value='F'>Women</option>
-              <option value='B'>Bisexual</option>
+              <option value='B' defaultValue>Bisexual</option>
             </select>
             <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Next' onClick={this.handleKeyPress} />

@@ -1,5 +1,4 @@
 const model = require('../../models/user.js')
-const valid = require('validator')
 const bcrypt = require('bcryptjs')
 
 function genToken () {
@@ -26,12 +25,12 @@ module.exports = (req, res) => {
     return
   }
 
-  if (valid.isEmpty(req.body.mail) || valid.isEmpty(req.body.password)) {
+  if (req.body.mail === '' || req.body.password === '') {
     error(res, 'Empty field(s)', 400)
     return
   }
 
-  if (!valid.isEmail(req.body.mail)) {
+  if (!req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
     error(res, 'Invalid mail', 400)
     return
   } else {

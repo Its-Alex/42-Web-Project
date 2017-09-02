@@ -13,13 +13,15 @@ module.exports = (req, res) => {
 
   if (req.body.birthday === undefined || req.body.bio === undefined ||
   req.body.genre === undefined || req.body.type === undefined ||
-  req.body.tags === undefined) {
+  req.body.tags === undefined || req.body.firstName === undefined ||
+  req.body.lastName === undefined) {
     return error(res, 'Body error', 400)
   }
 
   if (req.body.birthday === '' || req.body.bio === '' ||
   req.body.location === '' || req.body.genre === '' ||
-  req.body.type === '' || req.body.tags === '') {
+  req.body.type === '' || req.body.tags === '' || req.body.firstName === '' ||
+  req.body.lastName === '') {
     return error(res, 'Empty field(s)', 400)
   }
 
@@ -32,6 +34,18 @@ module.exports = (req, res) => {
     }
     profil.birthday = req.body.birthday
     profil.age = parseInt(new Date().getFullYear()) - parseInt(birth[0])
+  }
+
+  if (req.body.firstName > 36 || !req.body.firstName.match(/[a-zA-Z]/)) {
+    return error(res, 'First name invalid')
+  } else {
+    profil.firstName = req.body.firstName
+  }
+
+  if (req.body.lastName > 36 || !req.body.lastName.match(/[a-zA-Z]/)) {
+    return error(res, 'Last name invalid')
+  } else {
+    profil.lastName = req.body.lastName
   }
 
   if (req.body.bio.length > 120) {
@@ -70,6 +84,7 @@ module.exports = (req, res) => {
   }
 
   profil.popularity = 0
+  console.log(profil)
   model.createProfil(profil).then(() => {
     res.status(201)
     res.json({

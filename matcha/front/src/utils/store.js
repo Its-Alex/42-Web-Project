@@ -1,5 +1,6 @@
-import { observable, action } from 'mobx'
+import { observable, action, useStrict } from 'mobx'
 
+useStrict(true)
 class Store {
   @observable chat
 

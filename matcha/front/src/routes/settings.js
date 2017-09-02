@@ -65,17 +65,11 @@ class Settings extends Component {
               ? <span className='error'>{this.state.status}</span>
               : <span className='status'>{this.state.status}</span>
             }
-            Name :
+            Username :
             <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Mail :
             <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
-            <input type='submit' value='Logout' onClick={() => {
-              global.localStorage.removeItem('token')
-              global.localStorage.removeItem('id')
-              
-              this.props.history.push('/auth/login')
-            }} />
           </div>
         </div>
       </div>

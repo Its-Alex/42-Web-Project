@@ -43,6 +43,8 @@ class OtherProfile extends React.Component {
           username: res.data.name,
           birthday: res.data.profil[0].birthday,
           bio: res.data.profil[0].bio,
+          firstName: res.data.profil[0].firstName,
+          lastName: res.data.profil[0].lastName,
           popularity: res.data.profil[0].popularity,
           genre: (res.data.profil[0].genre === 'M') ? 'Man' : 'Woman',
           type: (res.data.profil[0].type === 'M') ? 'Mens' : (res.data.profil[0].type === 'F') ? 'Womens' : 'Mens and Womans',
@@ -97,7 +99,9 @@ class OtherProfile extends React.Component {
         <img src={this.state.img[3]} alt='Four' height='50px' width='50px' />
         <img src={this.state.img[4]} alt='Five' height='50px' width='50px' />
         <p><b>Popularity : </b>{this.state.popularity}</p>
-        <p><b>Name : </b>{this.state.username}</p>
+        <p><b>Username : </b>{this.state.username}</p>
+        <p><b>First name : </b>{this.state.firstName}</p>
+        <p><b>Last name : </b>{this.state.lastName}</p>
         <p><b>Is : </b>{this.state.genre}</p>
         <p><b>Birthday : </b>{this.state.birthday}</p>
         <p><b>Looking for : </b>{this.state.type}</p>

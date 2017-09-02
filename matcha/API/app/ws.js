@@ -62,7 +62,6 @@ wss.on('connection', (ws) => {
         if (data.to && typeof data.to === 'string') {
           wss.clients.forEach(client => {
             if (client.id === data.to && ws.id !== data.to) {
-              console.log('send')
               client.send(JSON.stringify({
                 method: 'notification',
                 type: 'view',

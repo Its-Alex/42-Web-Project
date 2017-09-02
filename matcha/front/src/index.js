@@ -8,7 +8,7 @@ import Auth from './routes/auth/index.js'
 import registerServiceWorker from './utils/registerServiceWorker'
 import './index.css'
 
-class Index extends React.Component {  
+class Index extends React.Component {
   render () {
     return (
       <Router>

@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import axiosInst from '../utils/axios.js'
 import ws from '../utils/ws.js'
-import {observable} from 'mobx'
 
 import Navbar from './navbar.js'
 import Search from './search.js'
@@ -13,10 +12,6 @@ import Settings from './settings.js'
 import Profil from './profil.js'
 import OtherProfil from './otherProfil.js'
 import ChatList from './chatList.js'
-
-const chatStore = observable({
-  chat: []
-})
 
 class App extends React.Component {
   componentWillMount () {
@@ -65,9 +60,7 @@ class App extends React.Component {
           <Route exact path='/profil' component={Profil} />
           <Route exact path='/notifications' component={Notifications} />
           <Route exact path='/settings' component={Settings} />
-          <Route exact path='/chat'>
-            <ChatList history={this.props.history} store={chatStore} />
-          </Route>
+          <Route exact path='/chat' component={ChatList} />
           <Redirect to='/profil' />
         </Switch>
       </div>

@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
-import axiosInst from '../utils/axios.js'
-// import Moment from 'react-moment'
-import {observer} from 'mobx-react'
+import React from 'react'
 import './css/profil.css'
+
+import axiosInst from '../utils/axios.js'
+import store from '../utils/store.js'
+// import Moment from 'react-moment'
+
+import {observer} from 'mobx-react'
 
 /**
  * Component to show the list of user
  */
-@observer class Talks extends Component {
+@observer class Talks extends React.Component {
   render () {
     return (
       <div id={'talks ' + this.props.userID} onClick={this.props.onClick} style={{width: '100%'}} >
@@ -18,7 +21,7 @@ import './css/profil.css'
   }
 }
 
-@observer class ChatList extends Component {
+@observer class ChatList extends React.Component {
   constructor (props) {
     super(props)
 
@@ -29,10 +32,9 @@ import './css/profil.css'
    * Get user's datas
    */
   componentWillMount () {
-    let self = this
     axiosInst().get('/chat').then(res => {
       if (res.data.success !== true) return
-      self.props.store.chat = res.data.chat
+      store.setChat(res.data.chat)
     }).catch(err => console.log(err.response))
   }
 
@@ -46,11 +48,11 @@ import './css/profil.css'
   render () {
     return (
       <div className='body flex-start'>
-        {this.props.store.chat.map(elem => {
-          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
-            console.log(event.target)
-          }} />
-        })}
+      {store.chat.map(elem => {
+        return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+          console.log(event.target)
+        }} />
+      })}
       </div>
     )
   }

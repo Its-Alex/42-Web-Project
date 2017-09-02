@@ -15,14 +15,14 @@ import ChatList from './chatList.js'
 
 class App extends React.Component {
   componentWillMount () {
-    ws.connect()
-    ws.onmessage(this.props.history, () => {})
     /**
      * Check if user is connected adn exist
      */
     if (!global.localStorage.getItem('token')) {
       return this.props.history.push('/auth/login')
     } else {
+      ws.connect()
+      ws.onmessage(this.props.history, () => {})
       /**
        * Check if user has a profil if not he will be redirect
        */
@@ -61,7 +61,9 @@ class App extends React.Component {
           <Route exact path='/notifications' component={Notifications} />
           <Route exact path='/settings' component={Settings} />
           <Route exact path='/chat' component={ChatList} />
-          <Redirect to='/profile' />
+          {(global.localStorage.getItem('token'))
+          ? <Redirect to='/profile' />
+          : null}
         </Switch>
       </div>
     )

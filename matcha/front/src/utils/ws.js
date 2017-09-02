@@ -28,7 +28,7 @@ module.exports = {
     ws.onopen = (event) => {
       ws.send(JSON.stringify({
         method: 'connect',
-        token: global.localStorage.getItem('Token')
+        token: global.localStorage.getItem('token')
       }))
     }
   },

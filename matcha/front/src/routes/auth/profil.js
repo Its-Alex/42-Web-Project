@@ -24,7 +24,7 @@ class Login extends Component {
   }
 
   componentWillMount () {
-    if (global.localStorage.getItem('Token')) {
+    if (global.localStorage.getItem('token')) {
       this.props.history.push('/')
     }
     if (!global.localStorage.getItem('signToken')) {
@@ -48,7 +48,7 @@ class Login extends Component {
       }).then((res) => {
         if (res.status === 201) {
           global.localStorage.removeItem('signToken')
-          global.localStorage.removeItem('Token')
+          global.localStorage.removeItem('token')
           this.props.history.push('/auth/login')
         }
       }).catch((err) => {

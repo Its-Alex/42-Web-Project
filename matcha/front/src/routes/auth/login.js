@@ -17,26 +17,23 @@ class Login extends Component {
   }
 
   componentWillMount () {
-    if (global.localStorage.getItem('Token')) {
-      this.props.history.push('/profil')
-    }
     if (global.localStorage.getItem('signToken')) {
       axios.get('http://localhost:3005/profil/me', {
         headers: {'Authorization': `Bearer ${global.localStorage.getItem('signToken')}`}
       }).then((res) => {
         let token = global.localStorage.getItem('signToken')
         global.localStorage.removeItem('signToken')
-        global.localStorage.setItem('Token', token)
-        this.props.history.push('/')
+        global.localStorage.setItem('token', token)
+        return this.props.history.push('/')
       }).catch((err) => {
         console.log(err.response)
         if (err.response.data.msg === 'False token') {
           global.localStorage.removeItem('signToken')
-          global.localStorage.removeItem('Token')
-          this.props.history.push('/auth/login')
-          return
+          global.localStorage.removeItem('token')
+          global.localStorage.removeItem('id')
+          return this.props.history.push('/auth/login')
         }
-        this.props.history.push('/auth/profil')
+        return this.props.history.push('/auth/profil')
       })
     }
   }
@@ -52,7 +49,7 @@ class Login extends Component {
         password: this.state.password
       }).then((res) => {
         if (res.data.success === true) {
-          global.localStorage.setItem('Token', res.data.token)
+          global.localStorage.setItem('token', res.data.token)
           global.localStorage.setItem('id', res.data.id)
           this.props.history.push('/profil')
         }

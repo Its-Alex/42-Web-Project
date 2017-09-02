@@ -12,8 +12,8 @@ class Navbar extends Component {
   }
 
   componentDidMount () {
-    if (global.localStorage.getItem('Token') !== undefined) {
-      let url = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`
+    if (global.localStorage.getItem('token') !== undefined) {
+      let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0`
       document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
     }
   }

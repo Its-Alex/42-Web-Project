@@ -72,8 +72,9 @@ class Settings extends Component {
             <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
             <input type='submit' value='Logout' onClick={() => {
-              global.localStorage.removeItem('Token')
+              global.localStorage.removeItem('token')
               global.localStorage.removeItem('id')
+              
               this.props.history.push('/auth/login')
             }} />
           </div>

@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 import App from './routes/app.js'
 import Auth from './routes/auth/index.js'
+
 import registerServiceWorker from './utils/registerServiceWorker'
 import './index.css'
 
-class Index extends Component {
+class Index extends React.Component {  
   render () {
     return (
       <Router>

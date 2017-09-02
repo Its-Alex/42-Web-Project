@@ -33,6 +33,9 @@ class OtherProfil extends React.Component {
    * Get user's datas
    */
   componentWillMount () {
+    if (this.props.match.params.user === global.localStorage.getItem('id')) {
+      return this.props.history.push('/profil')
+    }
     axiosInst().get(`/otherProfil/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
         this.setState({

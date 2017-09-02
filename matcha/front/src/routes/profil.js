@@ -20,11 +20,11 @@ class Profil extends Component {
       location: '',
       password: '',
       img: [
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/1`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/2`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/3`,
-        `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/4`
+        `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0`,
+        `http://localhost:3005/picture/${global.localStorage.getItem('token')}/1`,
+        `http://localhost:3005/picture/${global.localStorage.getItem('token')}/2`,
+        `http://localhost:3005/picture/${global.localStorage.getItem('token')}/3`,
+        `http://localhost:3005/picture/${global.localStorage.getItem('token')}/4`
       ]
     }
 
@@ -113,7 +113,7 @@ class Profil extends Component {
       }
     })
     setTimeout(() => {
-      let url = `http://localhost:3005/picture/${global.localStorage.getItem('Token')}/0?${new Date().getTime()}`
+      let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0?${new Date().getTime()}`
       document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
     }, 50)
   }

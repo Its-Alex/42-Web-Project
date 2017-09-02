@@ -19,7 +19,7 @@ class Login extends Component {
   }
 
   componentWillMount () {
-    if (global.localStorage.getItem('Token')) {
+    if (global.localStorage.getItem('token')) {
       this.props.history.push('/')
     }
     if (global.localStorage.getItem('signToken')) {

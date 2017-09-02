@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 import axiosInst from '../utils/axios.js'
-import './css/profil.css'
-class Profil extends Component {
+import './css/profile.css'
+
+class Profile extends Component {
   constructor (props) {
     super(props)
 
@@ -43,7 +44,7 @@ class Profil extends Component {
      */
     axiosInst().get('/user/me').then((result) => {
       /**
-       * Get data from profil
+       * Get data from profile
        */
       axiosInst().get('/profil/me').then((res) => {
         this.setState({
@@ -314,4 +315,4 @@ class Profil extends Component {
   }
 }
 
-export default Profil
+export default Profile

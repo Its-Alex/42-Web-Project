@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axiosInst from '../utils/axios.js'
-import './css/profil.css'
 
 class Settings extends Component {
   constructor (props) {

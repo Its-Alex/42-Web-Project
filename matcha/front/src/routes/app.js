@@ -9,8 +9,8 @@ import Navbar from './navbar.js'
 import Search from './search.js'
 import Notifications from './notifications.js'
 import Settings from './settings.js'
-import Profil from './profil.js'
-import OtherProfil from './otherProfil.js'
+import Profile from './profile.js'
+import OtherProfile from './otherProfile.js'
 import ChatList from './chatList.js'
 
 class App extends React.Component {
@@ -56,12 +56,12 @@ class App extends React.Component {
         <Navbar />
         <Switch>
           <Route exact path='/search' component={Search} />
-          <Route exact path='/profil/:user' component={OtherProfil} />
-          <Route exact path='/profil' component={Profil} />
+          <Route exact path='/profile/:user' component={OtherProfile} />
+          <Route exact path='/profile' component={Profile} />
           <Route exact path='/notifications' component={Notifications} />
           <Route exact path='/settings' component={Settings} />
           <Route exact path='/chat' component={ChatList} />
-          <Redirect to='/profil' />
+          <Redirect to='/profile' />
         </Switch>
       </div>
     )

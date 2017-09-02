@@ -1,5 +1,4 @@
 import React from 'react'
-import './css/profil.css'
 
 import axiosInst from '../utils/axios.js'
 import store from '../utils/store.js'

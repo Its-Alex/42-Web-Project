@@ -58,7 +58,7 @@ wss.on('connection', (ws) => {
           }
         }
         break
-      case 'view':
+      case 'viewProfile':
         if (data.to && typeof data.to === 'string') {
           wss.clients.forEach(client => {
             if (client.id === data.to && client.id !== data.to) {

@@ -2,7 +2,7 @@ import React from 'react'
 import axiosInst from '../utils/axios.js'
 import Moment from 'react-moment'
 
-class OtherProfil extends React.Component {
+class OtherProfile extends React.Component {
   constructor (props) {
     super(props)
 
@@ -36,7 +36,7 @@ class OtherProfil extends React.Component {
     if (this.props.match.params.user === global.localStorage.getItem('id')) {
       return this.props.history.push('/profil')
     }
-    axiosInst().get(`/otherProfil/${this.props.match.params.user}`).then(res => {
+    axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
         this.setState({
           username: res.data.name,
@@ -106,4 +106,4 @@ class OtherProfil extends React.Component {
   }
 }
 
-export default OtherProfil
+export default OtherProfile

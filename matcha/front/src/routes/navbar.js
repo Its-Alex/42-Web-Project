@@ -30,7 +30,7 @@ class Navbar extends Component {
         </div>
         <ul>
           <li><Link to='/search'>Search</Link></li>
-          <li><Link to='/profil'>Profil</Link></li>
+          <li><Link to='/profile'>Profile</Link></li>
           <li><Link to='/chat'>Chat</Link></li>
         </ul>
       </div>

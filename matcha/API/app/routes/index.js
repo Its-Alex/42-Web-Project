@@ -36,7 +36,7 @@ router.post('/geoloc', middle('USER'), (req, res) => {
 // All paths
 router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
 router.get('/notifications', middle('USER'), require('../controllers/notifications.js'))
-router.get('/otherProfil/:id', middle('USER'), require('../controllers/otherProfil.js'))
+router.get('/otherProfile/:id', middle('USER'), require('../controllers/otherProfil.js'))
 router.use('/user', require('./user.js'))
 router.use('/profil', require('./profil.js'))
 router.use('/picture', require('./picture.js'))

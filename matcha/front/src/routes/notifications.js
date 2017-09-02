@@ -26,7 +26,7 @@ class Notifications extends React.Component {
   }
 
   handleClick (event) {
-    this.props.history.push('/profil/' + event.target.id)
+    this.props.history.push('/profile/' + event.target.id)
   }
 
   render () {

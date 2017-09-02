@@ -63,7 +63,7 @@ module.exports = {
                   body: 'Someone like you!',
                   icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
                 }, () => {
-                  history.push(`/profil/${data.user}`)
+                  history.push(`/profile/${data.user}`)
                 })
                 break
               case 'likeback':
@@ -71,7 +71,7 @@ module.exports = {
                   body: 'Someone you like, likes you too!',
                   icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
                 }, () => {
-                  history.push(`/profil/${data.user}`)
+                  history.push(`/profile/${data.user}`)
                 })
                 break
               case 'view':
@@ -79,7 +79,7 @@ module.exports = {
                   body: 'Someone is currently viewing your profile!',
                   icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
                 }, () => {
-                  history.push(`/profil/${data.user}`)
+                  history.push(`/profile/${data.user}`)
                 })
                 break
               case 'dislike':
@@ -87,7 +87,7 @@ module.exports = {
                   body: 'Someone dislike you just now!',
                   icon: 'https://maxcdn.icons8.com/Share/icon/nolan/User_Interface//like_it1600.png'
                 }, () => {
-                  history.push(`/profil/${data.user}`)
+                  history.push(`/profile/${data.user}`)
                 })
                 break
               default:

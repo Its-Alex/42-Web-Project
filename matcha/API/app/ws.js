@@ -61,24 +61,25 @@ wss.on('connection', (ws) => {
       case 'viewProfile':
         if (data.to && typeof data.to === 'string') {
           wss.clients.forEach(client => {
-            if (client.id === data.to && client.id !== data.to) {
-              db.get().then(db => {
-                db.query('INSERT INTO notifications (performUser, concernUser, notification, date)', [
-                  ws.id,
-                  client.id,
-                  'view',
-                  Date.now()
-                ], (err, res) => {
-                  if (err) return console.log(err)
-                  client.send(JSON.stringify({
-                    method: 'notification',
-                    type: 'view',
-                    user: ws.id
-                  }))
-                })
-              }).catch(err => console.log(err))
+            if (client.id === data.to && ws.id !== data.to) {
+              console.log('send')
+              client.send(JSON.stringify({
+                method: 'notification',
+                type: 'view',
+                user: ws.id
+              }))
             }
           })
+          db.get().then(db => {
+            db.query('INSERT INTO notifications (performUser, concernUser, notification, date) VALUES (?, ?, ?, ?)', [
+              ws.id,
+              data.to,
+              'view',
+              Date.now()
+            ], (err, res) => {
+              if (err) return console.log(err)
+            })
+          }).catch(err => console.log(err))
         }
         break
       default:
@@ -124,7 +125,7 @@ setInterval(() => {
     ws.isAlive = false
     ws.ping('', false, true)
   })
-}, 10000)
+}, 3000)
 
 module.exports = {
   sendToId: (id, data) => {

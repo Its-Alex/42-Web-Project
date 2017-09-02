@@ -1,6 +1,7 @@
 import React from 'react'
 import axiosInst from '../utils/axios.js'
 import Moment from 'react-moment'
+import ws from '../utils/ws.js'
 
 class OtherProfile extends React.Component {
   constructor (props) {
@@ -67,7 +68,10 @@ class OtherProfile extends React.Component {
   }
 
   componentDidMount () {
-    
+    ws.send({
+      method: 'viewProfile',
+      to: this.props.match.params.user
+    })
   }
 
   /**

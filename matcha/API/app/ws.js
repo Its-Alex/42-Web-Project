@@ -4,6 +4,12 @@ const wss = new WebSocket.Server({ port: 3004 })
 
 let conUserList = []
 
+let broadcast = data => {
+  wss.clients.forEach(client => {
+    client.send(JSON.stringify(data))
+  })
+}
+
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
     if (typeof data === 'string') {
@@ -29,6 +35,10 @@ wss.on('connection', (ws) => {
                 if (ws === elem) {
                   elem.id = res[0].id
                   conUserList.push(res[0].id)
+                  broadcast({
+                    method: 'conUserList',
+                    conUserList
+                  })
                 }
                 ws.send(`{"Connected": "true"}`)
               })
@@ -111,6 +121,10 @@ wss.on('connection', (ws) => {
    */
   ws.on('close', (event) => {
     delete conUserList.splice(conUserList.indexOf(ws.id), 1)
+    broadcast({
+      method: 'conUserList',
+      conUserList
+    })
     db.get().then((db) => {
       db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [Date.now(), ws.id], (err, res) => {
         if (err) return console.log(err)
@@ -129,19 +143,11 @@ setInterval(() => {
     if (client.isAlive === false || client.id === undefined) return client.terminate()
     client.isAlive = false
     client.ping('', false, true)
-    client.send(JSON.stringify({
-      method: 'conUserList',
-      conUserList
-    }))
   })
-}, 5000)
+}, 30000)
 
 module.exports = {
-  broadcast: (data) => {
-    wss.clients.forEach(client => {
-      client.send(data)
-    })
-  },
+  broadcast,
   sendToId: (id, data) => {
     wss.clients.forEach(ws => {
       if (ws.id !== id) return

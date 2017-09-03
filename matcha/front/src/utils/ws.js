@@ -35,7 +35,9 @@ module.exports = {
     ws.close()
   },
   send: (data) => {
-    ws.send(JSON.stringify(data))
+    if (ws.readyState === 1) {
+      ws.send(JSON.stringify(data))
+    }
   },
   onmessage: (history, cb) => {
     ws.onmessage = (event) => {

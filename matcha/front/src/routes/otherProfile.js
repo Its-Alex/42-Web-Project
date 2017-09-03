@@ -1,14 +1,20 @@
 import React from 'react'
-import axiosInst from '../utils/axios.js'
+import {observer} from 'mobx-react';
 import Moment from 'react-moment'
+
+import axiosInst from '../utils/axios.js'
+import Store from '../utils/store.js'
 import ws from '../utils/ws.js'
 
+@observer
 class OtherProfile extends React.Component {
   constructor (props) {
     super(props)
 
+    this._isMounted = false
     this.state = {
       error: '',
+      _isMonted: false,
       username: '',
       birthday: '',
       bio: '',
@@ -64,17 +70,21 @@ class OtherProfile extends React.Component {
           error: res.data.error
         })
       }
-    }).catch(err => {
-      console.log(err)
-    })
+    }).catch(err => console.log(err.response))
   }
 
   componentDidMount () {
+    this._isMounted = true
     ws.send({
       method: 'viewProfile',
       to: this.props.match.params.user
     })
   }
+
+  componentWillUnmount () {
+    this._isMounted = false
+  }
+  
 
   /**
    * Handle when a key is pressed
@@ -83,6 +93,23 @@ class OtherProfile extends React.Component {
   handleKeyPress (event) {
     if (event.target.value === 'Like') {
     }
+  }
+
+  updateLastConnect() {
+    if (this.state.lastConnect + 5000 < Date.now() && this._isMounted === true) {
+      axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
+        if (res.data.success === true) {
+          this.setState({
+            lastConnect: res.data.profil[0].lastConnect,
+          })
+        } else {
+          this.setState({
+            error: res.data.error
+          })
+        }
+      }).catch(err => console.log(err.response))
+    }
+    return (<p><b>Last connect : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>)
   }
 
   render () {
@@ -108,7 +135,9 @@ class OtherProfile extends React.Component {
         <p><b>Bio : </b>{this.state.bio}</p>
         <p><b>Last location : </b>{this.state.location}</p>
         <p><b>Tags : </b>{this.state.tags}</p>
-        <p><b>Connected : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>
+        {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
+        ? this.updateLastConnect()
+        : <p><b>Connected</b></p>}
       </div>
     )
   }

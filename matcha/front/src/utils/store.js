@@ -10,12 +10,14 @@ class Store {
     this.conUserList = []
   }
 
-  @action setChat(chat) {
-    this.chat = chat
-  }
-
-  @action setConUserList(list) {
+  @action
+  setConUserList(list) {
     this.conUserList = list
+  }
+  
+  @action
+  setChat(chat) {
+    this.chat = chat
   }
 }
 

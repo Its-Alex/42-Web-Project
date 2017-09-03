@@ -56,7 +56,6 @@ class App extends React.Component {
     ws.init()
     ws.onmessage(this.props.history, () => {})
   }
-  
 
   render () {
     return (

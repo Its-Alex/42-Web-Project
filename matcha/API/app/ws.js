@@ -2,6 +2,8 @@ const db = require('./db.js')
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 3004 })
 
+let connectList = []
+
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
     if (typeof data === 'string') {
@@ -24,8 +26,11 @@ wss.on('connection', (ws) => {
               if (err) return console.log(err)
               if (res.length === 0) return console.log('User not found')
               wss.clients.forEach((elem) => {
-                if (ws === elem) elem.id = res[0].id
-                ws.send('Connected')
+                if (ws === elem) {
+                  elem.id = res[0].id
+                  connectList.push(res[0].id)
+                }
+                ws.send(`{"Connected": "true"}`)
               })
             })
           }).catch((err) => console.log(err))
@@ -105,6 +110,7 @@ wss.on('connection', (ws) => {
    * Update last time connected in database
    */
   ws.on('close', (event) => {
+    delete connectList[ws.id]
     db.get().then((db) => {
       db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [Date.now(), ws.id], (err, res) => {
         if (err) return console.log(err)
@@ -119,14 +125,23 @@ wss.on('connection', (ws) => {
  * Update all connections and close those that are broken
  */
 setInterval(() => {
-  wss.clients.forEach(ws => {
-    if (ws.isAlive === false || ws.id === undefined) return ws.terminate()
-    ws.isAlive = false
-    ws.ping('', false, true)
+  wss.clients.forEach(client => {
+    if (client.isAlive === false || client.id === undefined) return client.terminate()
+    client.isAlive = false
+    client.ping('', false, true)
+    client.send(JSON.stringify({
+      method: 'connectedList',
+      connectList
+    }))
   })
-}, 3000)
+}, 5000)
 
 module.exports = {
+  broadcast: (data) => {
+    wss.clients.forEach(client => {
+      client.send(data)
+    })
+  },
   sendToId: (id, data) => {
     wss.clients.forEach(ws => {
       if (ws.id !== id) return

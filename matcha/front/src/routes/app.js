@@ -15,14 +15,15 @@ import ChatList from './chatList.js'
 
 class App extends React.Component {
   componentWillMount () {
+    ws.init()
+    ws.onmessage(this.props.history, () => {})
+
     /**
      * Check if user is connected adn exist
      */
     if (!global.localStorage.getItem('token')) {
       return this.props.history.push('/auth/login')
     } else {
-      ws.connect()
-      ws.onmessage(this.props.history, () => {})
       /**
        * Check if user has a profil if not he will be redirect
        */
@@ -48,6 +49,10 @@ class App extends React.Component {
         }
       })
     }
+  }
+
+  componentWillUnmount () {
+    ws.close()
   }
 
   render () {

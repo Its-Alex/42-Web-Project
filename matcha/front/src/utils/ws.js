@@ -1,8 +1,7 @@
 /**
  * Init WebSocket
  */
-const ws = new global.WebSocket('ws://localhost:3004/')
-let available = false
+let ws = null
 
 let sendNotif = (title, option, onclick) => {
   if (!('Notification' in window)) {
@@ -24,7 +23,9 @@ let sendNotif = (title, option, onclick) => {
 }
 
 module.exports = {
-  connect: () => {
+  init: () => {
+    ws = new global.WebSocket('ws://localhost:3004/')
+
     ws.onopen = (event) => {
       ws.send(JSON.stringify({
         method: 'connect',
@@ -32,16 +33,15 @@ module.exports = {
       }))
     }
   },
+  close: () => {
+    ws.close()
+  },
   send: (data) => {
-    if (available === true) ws.send(JSON.stringify(data))
+    ws.send(JSON.stringify(data))
   },
   onmessage: (history, cb) => {
     ws.onmessage = (event) => {
-      if (event.data === 'Connected') {
-        available = true
-        return
-      }
-
+      console.log(event.data)
       if (typeof event.data === 'string') {
         try {
           var data = JSON.parse(event.data)
@@ -53,7 +53,6 @@ module.exports = {
         return
       }
 
-      console.log(data)
       if (typeof data === 'object' && data !== null) {
         switch (data.method) {
           case 'notification':

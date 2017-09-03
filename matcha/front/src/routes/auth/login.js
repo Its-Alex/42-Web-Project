@@ -51,7 +51,7 @@ class Login extends Component {
         if (res.data.success === true) {
           global.localStorage.setItem('token', res.data.token)
           global.localStorage.setItem('id', res.data.id)
-          this.props.history.push('/profil')
+          this.props.history.push('/profile')
         }
       }).catch((err) => {
         if (err.response) {

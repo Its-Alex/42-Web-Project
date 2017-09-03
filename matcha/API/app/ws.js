@@ -2,7 +2,7 @@ const db = require('./db.js')
 const WebSocket = require('ws')
 const wss = new WebSocket.Server({ port: 3004 })
 
-let connectList = []
+let conUserList = []
 
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
@@ -28,7 +28,7 @@ wss.on('connection', (ws) => {
               wss.clients.forEach((elem) => {
                 if (ws === elem) {
                   elem.id = res[0].id
-                  connectList.push(res[0].id)
+                  conUserList.push(res[0].id)
                 }
                 ws.send(`{"Connected": "true"}`)
               })
@@ -110,7 +110,7 @@ wss.on('connection', (ws) => {
    * Update last time connected in database
    */
   ws.on('close', (event) => {
-    delete connectList[ws.id]
+    delete conUserList.splice(conUserList.indexOf(ws.id), 1)
     db.get().then((db) => {
       db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [Date.now(), ws.id], (err, res) => {
         if (err) return console.log(err)
@@ -130,8 +130,8 @@ setInterval(() => {
     client.isAlive = false
     client.ping('', false, true)
     client.send(JSON.stringify({
-      method: 'connectedList',
-      connectList
+      method: 'conUserList',
+      conUserList
     }))
   })
 }, 5000)

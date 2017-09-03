@@ -1,6 +1,4 @@
-/**
- * Init WebSocket
- */
+const store = require('./store.js')
 let ws = null
 
 let sendNotif = (title, option, onclick) => {
@@ -41,7 +39,6 @@ module.exports = {
   },
   onmessage: (history, cb) => {
     ws.onmessage = (event) => {
-      console.log(event.data)
       if (typeof event.data === 'string') {
         try {
           var data = JSON.parse(event.data)
@@ -108,6 +105,9 @@ module.exports = {
               default:
                 break
             }
+            break
+          case 'conUserList':
+            store.default.setConUserList(data.conUserList)
             break
           default:
             break

@@ -6,7 +6,11 @@ let conUserList = []
 
 let broadcast = data => {
   wss.clients.forEach(client => {
-    client.send(JSON.stringify(data))
+    if (client.readyState === 1) {
+      client.send(JSON.stringify(data))
+    } else {
+      console.log(client.id + ' was unable to receive data')
+    }
   })
 }
 

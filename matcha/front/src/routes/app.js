@@ -15,9 +15,6 @@ import ChatList from './chatList.js'
 
 class App extends React.Component {
   componentWillMount () {
-    ws.init()
-    ws.onmessage(this.props.history, () => {})
-
     /**
      * Check if user is connected adn exist
      */
@@ -54,6 +51,12 @@ class App extends React.Component {
   componentWillUnmount () {
     ws.close()
   }
+
+  componentDidMount () {
+    ws.init()
+    ws.onmessage(this.props.history, () => {})
+  }
+  
 
   render () {
     return (

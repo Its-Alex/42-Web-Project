@@ -27,11 +27,13 @@ class Login extends Component {
         return this.props.history.push('/')
       }).catch((err) => {
         console.log(err.response)
-        if (err.response.data.msg === 'False token') {
-          global.localStorage.removeItem('signToken')
-          global.localStorage.removeItem('token')
-          global.localStorage.removeItem('id')
-          return this.props.history.push('/auth/login')
+        if (err.response) {
+          if (err.response.data.msg === 'False token') {
+            global.localStorage.removeItem('signToken')
+            global.localStorage.removeItem('token')
+            global.localStorage.removeItem('id')
+            return this.props.history.push('/auth/login')
+          }
         }
         return this.props.history.push('/auth/profile')
       })

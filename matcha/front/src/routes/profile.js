@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
+
 import axiosInst from '../utils/axios.js'
 import './css/profile.css'
+
+var NotificationSystem = require('react-notification-system')
 
 class Profile extends Component {
   constructor (props) {
     super(props)
 
+    this._notificationSystem = null
     this.state = {
-      error: '',
-      status: '',
+      notificationSystem: null,
       name: '',
       firstName: '',
       lastName: '',
@@ -70,6 +73,10 @@ class Profile extends Component {
     })
   }
 
+  componentDidMount () {
+    this._notificationSystem = this.refs.notificationSystem
+  }
+
   /**
    * Update state from Handled event
    * @param {object} event
@@ -80,15 +87,17 @@ class Profile extends Component {
 
   sendPicture (pic, index) {
     axiosInst().put('/picture/' + index, {pic: pic}).then((res) => {
-      this.setState({
-        error: false,
-        status: 'Picture uploded'
+      this._notificationSystem.addNotification({
+        level: 'success',
+        title: 'Picture upload :',
+        message: 'Done'
       })
     }).catch((err) => {
       if (err) console.log(err.response)
-      this.setState({
-        error: true,
-        status: 'Failed upload picture'
+      this._notificationSystem.addNotification({
+        level: 'error',
+        title: 'Picture upload :',
+        message: err.response.data.error
       })
     })
   }
@@ -229,8 +238,6 @@ class Profile extends Component {
           password: this.state.password
         }).then((res) => {
           this.setState({
-            error: false,
-            status: 'Changes made',
             birthday: res.data.profil.birthday,
             bio: res.data.profil.bio,
             firstName: res.data.profil.firstName,
@@ -241,28 +248,35 @@ class Profile extends Component {
             location: res.data.profil.location,
             password: ''
           })
+          this._notificationSystem.addNotification({
+            level: 'success',
+            title: 'Modify data:',
+            message: 'Done'
+          })
         }).catch((err) => {
           if (err.response) {
-            this.setState({
-              error: true,
-              status: err.response.data.error
+            this._notificationSystem.addNotification({
+              level: 'error',
+              title: 'Modify data:',
+              message: err.response.data.error
             })
           } else if (err.request) {
             console.log(err.request)
           } else {
-            console.log(new Error(err.message))
+            console.log(err.message)
           }
         })
       }).catch((err) => {
         if (err.response) {
-          this.setState({
-            error: true,
-            status: 'Google API Error'
+          this._notificationSystem.addNotification({
+            level: 'error',
+            title: 'Action unsuccessful',
+            message: 'Google API Error'
           })
         } else if (err.request) {
           console.log(err.request)
         } else {
-          console.log(new Error(err.message))
+          console.log(err.message)
         }
       })
     }
@@ -272,11 +286,6 @@ class Profile extends Component {
     return (
       <div className='body flex-center'>
         <div id='profilForm'>
-          {
-            this.state.error
-              ? <span className='error'>{this.state.status}</span>
-              : <span className='status'>{this.state.status}</span>
-          }
           <div className='dropzoneView'>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[0]} alt='Profil 1' />
@@ -321,6 +330,7 @@ class Profile extends Component {
           Confirm password :
           <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='submit' value='Save' onClick={this.handleKeyPress} />
+          <NotificationSystem ref='notificationSystem' />
         </div>
       </div>
     )

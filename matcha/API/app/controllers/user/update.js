@@ -18,29 +18,25 @@ module.exports = (req, res) => {
     role: req.user.role
   }
 
-  if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
-    model.getUserByToken(req.params.id).then((res) => {
-      user.id = res[0].id
-      user.name = res[0].name
-      user.mail = res[0].mail
-      user.password = res[0].password
-      user.role = res[0].role
-    }).catch((err) => {
-      console.log(err)
-      return error(res, 'User not found', 404)
-    })
-  } else if (req.params.id !== 'me') {
+  if (req.params.id !== 'me') {
     return error(res, 'Not authorized', 401)
   }
 
   if (typeof req.body.name !== 'undefined') {
-    if (req.body.name.length <= 36 && req.body.name.match(/^([a-zA-Z0-9]+)$/)) user.name = req.body.name
+    if (req.body.name.length <= 36 &&
+    req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
+      user.name = req.body.name
+    }
   }
+
   if (typeof req.body.password !== 'undefined') {
-    if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {
+    if (req.body.password === req.body.validPwd ||
+    req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
+    req.body.password.length >= 8) {
       user.password = bcrypt.hashSync(req.body.password, 10)
     }
   }
+
   if (typeof req.body.mail !== 'undefined') {
     if (req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
       model.getUserByMail(req.body.mail).then((results) => {

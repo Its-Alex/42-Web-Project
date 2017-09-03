@@ -61,7 +61,7 @@ class Notifications extends React.Component {
               case 'view':
                 return (
                   <p key={Math.random()} id={notif.performUser} onClick={this.handleClick.bind(this)} style={{cursor: 'pointer'}}>
-                    <b style={{pointerEvents: 'none'}}>{notif.performName}</b> views your profil <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} />
+                    <b style={{pointerEvents: 'none'}}>{notif.performName}</b> views your profile <Moment style={{pointerEvents: 'none'}} fromNow date={new Date(notif.date)} />
                   </p>
                 )
               default:

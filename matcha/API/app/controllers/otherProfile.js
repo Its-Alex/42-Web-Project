@@ -1,5 +1,5 @@
 const userModel = require('../models/user.js')
-const profilModel = require('../models/profil.js')
+const profileModel = require('../models/profile.js')
 
 function error (res, data, err) {
   res.status(err)
@@ -12,13 +12,13 @@ function error (res, data, err) {
 module.exports = (req, res) => {
   userModel.getUserById(req.params.id).then(user => {
     if (user.length === 0) return error(res, 'No user found', 200)
-    profilModel.getProfilById(req.params.id).then(profil => {
-      if (profil.length === 0) return error(res, 'User has no profil', 200)
+    profileModel.getProfileById(req.params.id).then(profile => {
+      if (profile.length === 0) return error(res, 'User has no profile', 200)
       res.json({
         success: true,
         id: user[0].id,
         name: user[0].name,
-        profil: profil
+        profile: profile
       })
     }).catch(err => {
       console.log(err)

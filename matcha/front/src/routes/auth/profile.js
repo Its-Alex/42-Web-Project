@@ -41,7 +41,7 @@ class Login extends Component {
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Next') {
       if (event.target.name === 'bio') return
-      this.state.axios.post('profil', {
+      this.state.axios.post('profile', {
         birthday: this.state.birthday,
         bio: this.state.bio,
         firstName: this.state.firstName,

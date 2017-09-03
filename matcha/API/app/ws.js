@@ -126,7 +126,7 @@ wss.on('connection', (ws) => {
       conUserList
     })
     db.get().then((db) => {
-      db.query('UPDATE profils SET lastConnect = ? WHERE profils.userId = ?', [Date.now(), ws.id], (err, res) => {
+      db.query('UPDATE profiles SET lastConnect = ? WHERE profiles.userId = ?', [Date.now(), ws.id], (err, res) => {
         if (err) return console.log(err)
       })
     }).catch((err) => {

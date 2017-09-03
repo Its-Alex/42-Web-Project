@@ -1,4 +1,4 @@
-const model = require('../../models/profil.js')
+const model = require('../../models/profile.js')
 
 function error (res, data, err) {
   res.status(err)
@@ -9,7 +9,7 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
-  var profil = {id: req.user.id}
+  var profile = {id: req.user.id}
 
   if (req.body.birthday === undefined || req.body.bio === undefined ||
   req.body.genre === undefined || req.body.type === undefined ||
@@ -32,38 +32,38 @@ module.exports = (req, res) => {
     if (birth[0] > new Date().getFullYear()) {
       return error(res, 'Birthday invalid', 400)
     }
-    profil.birthday = req.body.birthday
-    profil.age = parseInt(new Date().getFullYear()) - parseInt(birth[0])
+    profile.birthday = req.body.birthday
+    profile.age = parseInt(new Date().getFullYear()) - parseInt(birth[0])
   }
 
   if (req.body.firstName > 36 || !req.body.firstName.match(/[a-zA-Z]/)) {
     return error(res, 'First name invalid')
   } else {
-    profil.firstName = req.body.firstName
+    profile.firstName = req.body.firstName
   }
 
   if (req.body.lastName > 36 || !req.body.lastName.match(/[a-zA-Z]/)) {
     return error(res, 'Last name invalid')
   } else {
-    profil.lastName = req.body.lastName
+    profile.lastName = req.body.lastName
   }
 
   if (req.body.bio.length > 120) {
     return error(res, 'Bio too long max size 120 characters', 400)
   } else {
-    profil.bio = req.body.bio
+    profile.bio = req.body.bio
   }
 
   if (req.body.genre.length === 1 && (req.body.genre === 'M' ||
   req.body.genre === 'F' || req.body.genre === 'B')) {
-    profil.genre = req.body.genre
+    profile.genre = req.body.genre
   } else {
     return error(res, 'Bad genre', 400)
   }
 
   if (req.body.type.length === 1 && (req.body.type === 'M' ||
   req.body.type === 'F' || req.body.type === 'B')) {
-    profil.type = req.body.type
+    profile.type = req.body.type
   } else {
     return error(res, 'Bad type', 400)
   }
@@ -78,14 +78,14 @@ module.exports = (req, res) => {
         if (element === elemCheck && index !== elemKey) delete tags[index]
       }, this)
     }, this)
-    profil.tags = tags.join(' ')
+    profile.tags = tags.join(' ')
   } else {
-    profil.tags = ''
+    profile.tags = ''
   }
 
-  profil.popularity = 0
-  console.log(profil)
-  model.createProfil(profil).then(() => {
+  profile.popularity = 0
+  console.log(profile)
+  model.createProfile(profile).then(() => {
     res.status(201)
     res.json({
       success: true

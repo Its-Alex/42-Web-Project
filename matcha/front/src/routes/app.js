@@ -25,9 +25,9 @@ class App extends React.Component {
       return this.props.history.push('/auth/login')
     } else {
       /**
-       * Check if user has a profil if not he will be redirect
+       * Check if user has a profile if not he will be redirect
        */
-      axiosInst().get('profil/me').then((res) => {
+      axiosInst().get('profile/me').then((res) => {
         /**
          * Get latitude and longitude of user and send it to API to get his current position
          */

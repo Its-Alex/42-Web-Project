@@ -60,7 +60,7 @@ class Settings extends Component {
     return (
       <div className='body flex-center'>
         <div className='resize'>
-          <div id='profilForm'>
+          <div id='profileForm'>
             { this.state.error
               ? <span className='error'>{this.state.status}</span>
               : <span className='status'>{this.state.status}</span>

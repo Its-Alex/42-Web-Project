@@ -52,18 +52,6 @@ a {
   justify-content: center;
 }
 
-.error {
-    margin: 10px;
-    color: red;
-    font-size: 1.5em;
-}
-
-.status {
-    margin: 10px;
-    color: green;
-    font-size: 1.5em;
-}
-
 .notice {
   position: absolute;
   margin: 1em;

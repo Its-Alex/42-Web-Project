@@ -1,10 +1,10 @@
 const db = require('../db.js')
 
 module.exports = {
-  getProfils: () => {
+  getProfiles: () => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('SELECT * FROM profils', [], (err, results) => {
+        db.query('SELECT * FROM profiles', [], (err, results) => {
           if (err) return reject(err)
           resolve(results)
         })
@@ -13,10 +13,10 @@ module.exports = {
       })
     })
   },
-  getProfilById: id => {
+  getProfileById: id => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('SELECT * FROM profils WHERE userId = ?', [id], (err, results) => {
+        db.query('SELECT * FROM profiles WHERE userId = ?', [id], (err, results) => {
           if (err) return reject(err)
           resolve(results)
         })
@@ -25,7 +25,7 @@ module.exports = {
       })
     })
   },
-  getProfilByToken: token => {
+  getProfileByToken: token => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
         db.query('', [token], (err, results) => {
@@ -37,19 +37,19 @@ module.exports = {
       })
     })
   },
-  createProfil: profil => {
+  createProfile: profile => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('INSERT INTO profils (userId, birthday, firstName, lastName, bio, genre, type, popularity, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-          profil.id,
-          profil.birthday,
-          profil.firstName,
-          profil.lastName,
-          profil.bio,
-          profil.genre,
-          profil.type,
-          profil.popularity,
-          profil.tags], (err, results) => {
+        db.query('INSERT INTO profiles (userId, birthday, firstName, lastName, bio, genre, type, popularity, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+          profile.id,
+          profile.birthday,
+          profile.firstName,
+          profile.lastName,
+          profile.bio,
+          profile.genre,
+          profile.type,
+          profile.popularity,
+          profile.tags], (err, results) => {
             if (err) {
               return reject(err)
             }
@@ -58,19 +58,19 @@ module.exports = {
       }).catch((err) => reject(err))
     })
   },
-  updateProfil: profil => {
+  updateProfile: profile => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {
-        db.query('UPDATE profils SET birthday = ?, bio = ?, firstName = ?, lastName = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
-          profil.birthday,
-          profil.bio,
-          profil.firstName,
-          profil.lastName,
-          profil.genre,
-          profil.type,
-          profil.tags,
-          profil.location,
-          profil.id
+        db.query('UPDATE profiles SET birthday = ?, bio = ?, firstName = ?, lastName = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
+          profile.birthday,
+          profile.bio,
+          profile.firstName,
+          profile.lastName,
+          profile.genre,
+          profile.type,
+          profile.tags,
+          profile.location,
+          profile.id
         ], (err, results) => {
           if (err) return reject(err)
           return resolve()

@@ -18,7 +18,7 @@ class Login extends Component {
 
   componentWillMount () {
     if (global.localStorage.getItem('signToken')) {
-      axios.get('http://localhost:3005/profil/me', {
+      axios.get('http://localhost:3005/profile/me', {
         headers: {'Authorization': `Bearer ${global.localStorage.getItem('signToken')}`}
       }).then((res) => {
         let token = global.localStorage.getItem('signToken')
@@ -33,7 +33,7 @@ class Login extends Component {
           global.localStorage.removeItem('id')
           return this.props.history.push('/auth/login')
         }
-        return this.props.history.push('/auth/profil')
+        return this.props.history.push('/auth/profile')
       })
     }
   }

@@ -1,4 +1,4 @@
-#profilForm {
+#profileForm {
     padding: 0;
     width: 100%;
     display: flex;
@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-#profilForm > input, #profilForm > textarea, #profilForm > select {
+#profileForm > input, #profileForm > textarea, #profileForm > select {
     font-size: 1em;
     margin: 6px;
     outline: none;
@@ -22,11 +22,11 @@
     border: 2px solid var(--whiteInput);
 }
 
-#profilForm > input::placeholder, #profilForm > textarea::placeholder {
+#profileForm > input::placeholder, #profileForm > textarea::placeholder {
     color: var(--placeHolder);
 }
 
-#profilForm > input[type=submit] {
+#profileForm > input[type=submit] {
     margin: 15px;
     padding: 2px 0px 2px 0px;
     background-color: var(--blue);
@@ -36,29 +36,29 @@
     box-sizing: content-box;
 }
 
-#profilForm > input[type=email]:focus, #profilForm > input[type=text]:focus, #profilForm > input[type=password]:focus,
-#profilForm > input[type=date]:focus, #profilForm > textarea:focus, #profilForm > select:focus {
+#profileForm > input[type=email]:focus, #profileForm > input[type=text]:focus, #profileForm > input[type=password]:focus,
+#profileForm > input[type=date]:focus, #profileForm > textarea:focus, #profileForm > select:focus {
     border: 2px solid var(--blue);
     border-radius: 4px;
     background-color: #fff;
 }
 
-#profilForm > input[type=submit]:hover {
+#profileForm > input[type=submit]:hover {
     cursor: pointer;
 }
 
-#profilForm > textarea {
+#profileForm > textarea {
     resize: none;
     height: 4em;
     width: 30%;
 }
 
-#profilForm > input[type=radio] {
+#profileForm > input[type=radio] {
     height: 14px;
     width: 14px;
 }
 
-#profilForm > label {
+#profileForm > label {
     display: block;
     display: flex;
     flex-direction: row;
@@ -66,7 +66,7 @@
     align-items: center;
 }
 
-#profilForm > label > input, label > p {
+#profileForm > label > input, label > p {
     margin: 10px;
 }
 

@@ -23,7 +23,7 @@ class Login extends Component {
       this.props.history.push('/')
     }
     if (global.localStorage.getItem('signToken')) {
-      this.props.history.push('/profil')
+      this.props.history.push('/profile')
     }
   }
 
@@ -41,7 +41,7 @@ class Login extends Component {
       }).then((res) => {
         if (res.data.success === true && res.status === 201) {
           global.localStorage.setItem('signToken', res.data.token)
-          this.props.history.push('/auth/profil')
+          this.props.history.push('/auth/profile')
         } else {
           this.setState({error: res.data.msg})
         }

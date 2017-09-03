@@ -101,7 +101,7 @@ module.exports = {
   updateUser: (body) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ?, WHERE id = ?', [
+        db.query('UPDATE users SET name = ?, mail = ?, password = ?, role = ? WHERE id = ?', [
           body.name,
           body.mail,
           body.password,
@@ -119,7 +119,7 @@ module.exports = {
   deleteUser: (id) => {
     return new Promise((resolve, reject) => {
       db.get().then((db) => {
-        db.query('DELETE users, tokens, profils FROM users INNER JOIN profils ON users.id = profils.userId INNER JOIN tokens ON users.id = tokens.user WHERE users.id = ?', [id], (err, results) => {
+        db.query('DELETE users, tokens, profiles FROM users INNER JOIN profiles ON users.id = profiles.userId INNER JOIN tokens ON users.id = tokens.user WHERE users.id = ?', [id], (err, results) => {
           if (err) return reject(err)
           db.query('DELETE FROM users WHERE id = ?', [id], (err, res) => {
             if (err) return reject(err)

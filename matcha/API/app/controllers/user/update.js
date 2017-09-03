@@ -34,7 +34,7 @@ module.exports = (req, res) => {
   }
 
   if (typeof req.body.name !== 'undefined') {
-    if (req.body.name.length <= 36 && req.body.name.match(/^([a-zA-Z]+)$/)) user.name = req.body.name
+    if (req.body.name.length <= 36 && req.body.name.match(/^([a-zA-Z0-9]+)$/)) user.name = req.body.name
   }
   if (typeof req.body.password !== 'undefined') {
     if (req.body.password === req.body.validPwd || req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) || req.body.password.length >= 8) {
@@ -49,6 +49,7 @@ module.exports = (req, res) => {
         }
 
         if (req.params.id === 'me') {
+          console.log(user)
           model.updateUser(user).then((results) => {
             if (results.message.split(' ')[5] === '0') {
               res.status(400)
@@ -81,11 +82,11 @@ module.exports = (req, res) => {
               })
             }
           }).catch((err) => {
-            console.log(new Error(err))
+            console.log(err)
             return error(res, 'Internal error', 500)
           })
         } else {
-          return error(res, 'Internal error', 500)
+          return error(res, 'Bad request', 200)
         }
       }).catch((err) => {
         console.log(err)

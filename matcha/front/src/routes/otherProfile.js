@@ -41,22 +41,22 @@ class OtherProfile extends React.Component {
    */
   componentWillMount () {
     if (this.props.match.params.user === global.localStorage.getItem('id')) {
-      return this.props.history.push('/profil')
+      return this.props.history.push('/profile')
     }
     axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
         this.setState({
           username: res.data.name,
-          birthday: res.data.profil[0].birthday,
-          bio: res.data.profil[0].bio,
-          firstName: res.data.profil[0].firstName,
-          lastName: res.data.profil[0].lastName,
-          popularity: res.data.profil[0].popularity,
-          genre: (res.data.profil[0].genre === 'M') ? 'Man' : 'Woman',
-          type: (res.data.profil[0].type === 'M') ? 'Mens' : (res.data.profil[0].type === 'F') ? 'Womens' : 'Mens and Womans',
-          tags: res.data.profil[0].tags,
-          location: res.data.profil[0].location,
-          lastConnect: res.data.profil[0].lastConnect,
+          birthday: res.data.profile[0].birthday,
+          bio: res.data.profile[0].bio,
+          firstName: res.data.profile[0].firstName,
+          lastName: res.data.profile[0].lastName,
+          popularity: res.data.profile[0].popularity,
+          genre: (res.data.profile[0].genre === 'M') ? 'Man' : 'Woman',
+          type: (res.data.profile[0].type === 'M') ? 'Mens' : (res.data.profile[0].type === 'F') ? 'Womens' : 'Mens and Womans',
+          tags: res.data.profile[0].tags,
+          location: res.data.profile[0].location,
+          lastConnect: res.data.profile[0].lastConnect,
           img: [
             `http://localhost:3005/picture/${res.data.id}/0`,
             `http://localhost:3005/picture/${res.data.id}/1`,
@@ -100,7 +100,7 @@ class OtherProfile extends React.Component {
       axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
         if (res.data.success === true) {
           this.setState({
-            lastConnect: res.data.profil[0].lastConnect,
+            lastConnect: res.data.profile[0].lastConnect,
           })
         } else {
           this.setState({

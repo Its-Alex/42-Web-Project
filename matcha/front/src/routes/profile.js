@@ -51,7 +51,7 @@ class Profile extends Component {
       /**
        * Get data from profile
        */
-      axiosInst().get('/profil/me').then((res) => {
+      axiosInst().get('/profile/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,
@@ -128,7 +128,7 @@ class Profile extends Component {
     })
     setTimeout(() => {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0?${new Date().getTime()}`
-      document.getElementById('pictureProfil').style.backgroundImage = `url('${url}')`
+      document.getElementById('pictureProfile').style.backgroundImage = `url('${url}')`
     }, 50)
   }
 
@@ -223,9 +223,9 @@ class Profile extends Component {
       }
       axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
         /**
-         * Update profil from data input
+         * Update profile from data input
          */
-        axiosInst().patch('/profil', {
+        axiosInst().patch('/profile', {
           name: this.state.name,
           birthday: this.state.birthday,
           firstName: this.state.firstName,
@@ -238,14 +238,14 @@ class Profile extends Component {
           password: this.state.password
         }).then((res) => {
           this.setState({
-            birthday: res.data.profil.birthday,
-            bio: res.data.profil.bio,
-            firstName: res.data.profil.firstName,
-            lastName: res.data.profil.lastName,
-            genre: res.data.profil.genre,
-            type: res.data.profil.type,
-            tags: res.data.profil.tags,
-            location: res.data.profil.location,
+            birthday: res.data.profile.birthday,
+            bio: res.data.profile.bio,
+            firstName: res.data.profile.firstName,
+            lastName: res.data.profile.lastName,
+            genre: res.data.profile.genre,
+            type: res.data.profile.type,
+            tags: res.data.profile.tags,
+            location: res.data.profile.location,
             password: ''
           })
           this._notificationSystem.addNotification({
@@ -285,22 +285,22 @@ class Profile extends Component {
   render () {
     return (
       <div className='body flex-center'>
-        <div id='profilForm'>
+        <div id='profileForm'>
           <div className='dropzoneView'>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)} onDropRejected={this.onDropReject}>
-              <img className='pictureView' src={this.state.img[0]} alt='Profil 1' />
+              <img className='pictureView' src={this.state.img[0]} alt='Profile 1' />
             </Dropzone>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop2.bind(this)} onDropRejected={this.onDropReject}>
-              <img className='pictureView' src={this.state.img[1]} alt='Profil 2' />
+              <img className='pictureView' src={this.state.img[1]} alt='Profile 2' />
             </Dropzone>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop3.bind(this)} onDropRejected={this.onDropReject}>
-              <img className='pictureView' src={this.state.img[2]} alt='Profil 3' />
+              <img className='pictureView' src={this.state.img[2]} alt='Profile 3' />
             </Dropzone>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop4.bind(this)} onDropRejected={this.onDropReject}>
-              <img className='pictureView' src={this.state.img[3]} alt='Profil 4' />
+              <img className='pictureView' src={this.state.img[3]} alt='Profile 4' />
             </Dropzone>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop5.bind(this)} onDropRejected={this.onDropReject}>
-              <img className='pictureView' src={this.state.img[4]} alt='Profil 5' />
+              <img className='pictureView' src={this.state.img[4]} alt='Profile 5' />
             </Dropzone>
           </div>
           <p>Popularity : {this.state.popularity}</p>

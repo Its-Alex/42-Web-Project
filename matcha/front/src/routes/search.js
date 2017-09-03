@@ -21,7 +21,7 @@ class Search extends Component {
 
   componentWillMount () {
     axiosInst().get('/user/me').then((result) => {
-      axiosInst().get('/profil/me').then((res) => {
+      axiosInst().get('/profile/me').then((res) => {
         this.setState({
           name: result.data.user.name,
           birthday: res.data.user.birthday,

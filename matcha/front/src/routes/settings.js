@@ -8,8 +8,8 @@ class Settings extends Component {
     this.state = {
       name: '',
       mail: '',
-      password: '',
-      confirmPwd: ''
+      newPassword: '',
+      oldPassword: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleKeyPress = this.handleKeyPress.bind(this)
@@ -18,8 +18,6 @@ class Settings extends Component {
   componentWillMount () {
     axiosInst().get('/user/me').then((res) => {
       this.setState({
-        error: false,
-        status: '',
         name: res.data.user.name,
         mail: res.data.user.mail
       })
@@ -38,18 +36,21 @@ class Settings extends Component {
     if (event.key === 'Enter' || event.target.value === 'Save') {
       axiosInst().patch('user/me', {
         name: this.state.name,
-        mail: this.state.mail
+        mail: this.state.mail,
+        newPassword: this.state.newPassword,
+        oldPassword: this.state.oldPassword
       }).then((res) => {
-        this.setState({
-          error: false,
-          status: 'Change applied'
+        this.props.notification.addNotification({
+          level: 'success',
+          title: 'Modify data:',
+          message: 'Done'
         })
       }).catch((err) => {
-        console.log(err.response)
         if (err.response) {
-          this.setState({
-            error: true,
-            status: err.response.data.error
+          this.props.notification.addNotification({
+            level: 'error',
+            title: 'Modify data:',
+            message: err.response.data.error
           })
         }
       })
@@ -61,14 +62,12 @@ class Settings extends Component {
       <div className='body flex-center'>
         <div className='resize'>
           <div id='profileForm'>
-            { this.state.error
-              ? <span className='error'>{this.state.status}</span>
-              : <span className='status'>{this.state.status}</span>
-            }
             Username :
             <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             Mail :
             <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Old password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
           </div>
         </div>

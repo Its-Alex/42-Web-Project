@@ -13,7 +13,17 @@ import Profile from './profile.js'
 import OtherProfile from './otherProfile.js'
 import ChatList from './chatList.js'
 
+var NotificationSystem = require('react-notification-system')
+
 class App extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      notification: {}
+    }
+  }
+
   componentWillMount () {
     /**
      * Check if user is connected adn exist
@@ -55,6 +65,9 @@ class App extends React.Component {
   componentDidMount () {
     ws.init()
     ws.onmessage(this.props.history, () => {})
+    this.setState({
+      notification: this.refs.notificationSystem
+    })
   }
 
   render () {
@@ -64,14 +77,20 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/search' component={Search} />
           <Route exact path='/profile/:user' component={OtherProfile} />
-          <Route exact path='/profile' component={Profile} />
+          <Route exact path='/profile' render={({ match, location, history }) =>
+            <Profile match={match} location={location} history={history}
+              notification={this.state.notification} />
+          } />
           <Route exact path='/notifications' component={Notifications} />
-          <Route exact path='/settings' component={Settings} />
+          <Route exact path='/settings' render={() =>
+            <Settings notification={this.state.notification} />
+          } />
           <Route exact path='/chat' component={ChatList} />
           {(global.localStorage.getItem('token'))
           ? <Redirect to='/profile' />
           : null}
         </Switch>
+        <NotificationSystem ref='notificationSystem' />
       </div>
     )
   }

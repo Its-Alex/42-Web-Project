@@ -11,7 +11,7 @@ function error (res, data, err) {
 
 module.exports = (req, res) => {
   if (!bcrypt.compareSync(req.body.password, req.user.password)) {
-    return error(res, 'Wrong password', 400)
+    return error(res, 'Password invalid', 400)
   }
 
   var profile = {id: req.user.id}

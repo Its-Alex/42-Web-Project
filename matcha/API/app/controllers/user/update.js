@@ -22,18 +22,21 @@ module.exports = (req, res) => {
     return error(res, 'Not authorized', 401)
   }
 
-  if (typeof req.body.name !== 'undefined') {
+  if (!bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
+    return error(res, 'Password invalid', 400)
+  }
+
+  if (typeof req.body.name !== 'undefined' && req.body.name !== '') {
     if (req.body.name.length <= 36 &&
     req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
       user.name = req.body.name
     }
   }
 
-  if (typeof req.body.password !== 'undefined') {
-    if (req.body.password === req.body.validPwd ||
-    req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
-    req.body.password.length >= 8) {
-      user.password = bcrypt.hashSync(req.body.password, 10)
+  if (typeof req.body.newPassword !== 'undefined' && req.body.newPassword !== '') {
+    if (req.body.newPassword.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
+    req.body.newPassword.length >= 8) {
+      user.password = bcrypt.hashSync(req.body.newPassword, 10)
     }
   }
 

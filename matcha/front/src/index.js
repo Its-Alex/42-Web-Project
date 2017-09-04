@@ -8,18 +8,12 @@ import Auth from './routes/auth/index.js'
 import registerServiceWorker from './utils/registerServiceWorker'
 import './index.css'
 
-class Index extends React.Component {
-  render () {
-    return (
-      <Router>
-        <Switch>
-          <Route path='/auth' component={Auth} />
-          <Route path='/' component={App} />
-        </Switch>
-      </Router>
-    )
-  }
-}
-
-ReactDOM.render(<Index />, document.getElementById('root'))
+ReactDOM.render((
+  <Router>
+    <Switch>
+      <Route path='/auth' component={Auth} />
+      <Route path='/' component={App} />
+    </Switch>
+  </Router>
+), document.getElementById('root'))
 registerServiceWorker()

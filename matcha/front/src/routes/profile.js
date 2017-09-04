@@ -5,16 +5,11 @@ import axios from 'axios'
 import axiosInst from '../utils/axios.js'
 import './css/profile.css'
 
-var NotificationSystem = require('react-notification-system')
-
 class Profile extends Component {
   constructor (props) {
     super(props)
 
-    this._notificationSystem = null
     this.state = {
-      notificationSystem: null,
-      name: '',
       firstName: '',
       lastName: '',
       birthday: '',
@@ -45,36 +40,21 @@ class Profile extends Component {
 
   componentWillMount () {
     /**
-     * Get all data from user and put it into state
+     * Get data from profile
      */
-    axiosInst().get('/user/me').then((result) => {
-      /**
-       * Get data from profile
-       */
-      axiosInst().get('/profile/me').then((res) => {
-        this.setState({
-          name: result.data.user.name,
-          birthday: res.data.user.birthday,
-          bio: res.data.user.bio,
-          firstName: res.data.user.firstName,
-          lastName: res.data.user.lastName,
-          popularity: res.data.user.popularity,
-          genre: (res.data.user.genre === 'M') ? 'M' : 'F',
-          type: (res.data.user.type === 'M') ? 'M' : (res.data.user.type === 'F') ? 'F' : 'B',
-          tags: res.data.user.tags,
-          location: res.data.user.location
-        })
-      }).catch((err) => {
-        console.log(err.response)
+    axiosInst().get('/profile/me').then((res) => {
+      this.setState({
+        birthday: res.data.user.birthday,
+        bio: res.data.user.bio,
+        firstName: res.data.user.firstName,
+        lastName: res.data.user.lastName,
+        popularity: res.data.user.popularity,
+        genre: (res.data.user.genre === 'M') ? 'M' : 'F',
+        type: (res.data.user.type === 'M') ? 'M' : (res.data.user.type === 'F') ? 'F' : 'B',
+        tags: res.data.user.tags,
+        location: res.data.user.location
       })
-    }).catch((err) => {
-      console.log(err)
-      console.log(err.response)
-    })
-  }
-
-  componentDidMount () {
-    this._notificationSystem = this.refs.notificationSystem
+    }).catch((err) => console.log(err.response))
   }
 
   /**
@@ -87,14 +67,14 @@ class Profile extends Component {
 
   sendPicture (pic, index) {
     axiosInst().put('/picture/' + index, {pic: pic}).then((res) => {
-      this._notificationSystem.addNotification({
+      this.props.notification.addNotification({
         level: 'success',
         title: 'Picture upload :',
         message: 'Done'
       })
     }).catch((err) => {
       if (err) console.log(err.response)
-      this._notificationSystem.addNotification({
+      this.props.notification.addNotification({
         level: 'error',
         title: 'Picture upload :',
         message: err.response.data.error
@@ -226,7 +206,6 @@ class Profile extends Component {
          * Update profile from data input
          */
         axiosInst().patch('/profile', {
-          name: this.state.name,
           birthday: this.state.birthday,
           firstName: this.state.firstName,
           lastName: this.state.lastName,
@@ -248,14 +227,14 @@ class Profile extends Component {
             location: res.data.profile.location,
             password: ''
           })
-          this._notificationSystem.addNotification({
+          this.props.notification.addNotification({
             level: 'success',
             title: 'Modify data:',
             message: 'Done'
           })
         }).catch((err) => {
           if (err.response) {
-            this._notificationSystem.addNotification({
+            this.props.notification.addNotification({
               level: 'error',
               title: 'Modify data:',
               message: err.response.data.error
@@ -268,7 +247,7 @@ class Profile extends Component {
         })
       }).catch((err) => {
         if (err.response) {
-          this._notificationSystem.addNotification({
+          this.props.notification.addNotification({
             level: 'error',
             title: 'Action unsuccessful',
             message: 'Google API Error'
@@ -330,7 +309,6 @@ class Profile extends Component {
           Confirm password :
           <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='submit' value='Save' onClick={this.handleKeyPress} />
-          <NotificationSystem ref='notificationSystem' />
         </div>
       </div>
     )

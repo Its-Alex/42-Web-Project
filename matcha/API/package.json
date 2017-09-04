@@ -4,7 +4,7 @@
   "description": "Dating site",
   "main": "app/index.js",
   "scripts": {
-    "test": "nodemon app/index.js",
+    "test": "NODE_ENV=development nodemon app/index.js",
     "start": "NODE_ENV=production node ./app/index.js"
   },
   "keywords": [
@@ -14,7 +14,6 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^1.11.0",
-    "semistandard": "^11.0.0",
     "standard": "^10.0.2"
   },
   "dependencies": {
@@ -22,11 +21,8 @@
     "base64-regex": "^2.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
-    "core-util-is": "^1.0.2",
     "cors": "^2.8.3",
     "express": "^4.15.3",
-    "geoip-lite": "^1.2.1",
-    "minimatch": "^3.0.4",
     "mysql": "^2.13.0",
     "uuid": "^3.0.1",
     "uuid-validate": "^0.0.2",

@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
-import axiosInst from '../utils/axios.js'
+import React from 'react'
 
-class Settings extends Component {
+import axiosInst from '../utils/axios.js'
+let zxcvbn = require('zxcvbn')
+
+class Settings extends React.Component {
   constructor (props) {
     super(props)
 
@@ -25,6 +27,9 @@ class Settings extends Component {
   }
 
   handleChange (event) {
+    if (event.target.name === 'newPassword') {
+      console.log(zxcvbn(event.target.value))
+    }
     this.setState({[event.target.name]: event.target.value})
   }
 

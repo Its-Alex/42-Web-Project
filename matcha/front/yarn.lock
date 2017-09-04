@@ -5989,13 +5989,6 @@ react-notification-system@^0.2.15:
     object-assign "^4.0.1"
     prop-types "^15.5.6"
 
-react-password-strength@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-password-strength/-/react-password-strength-2.0.0.tgz#eae75c56a2378248bda9624a5792f2ac2d0fc0c5"
-  dependencies:
-    prop-types "^15.5.10"
-    zxcvbn "^4.3.0"
-
 react-router-dom@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"
@@ -7779,6 +7772,6 @@ yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
 
-zxcvbn@^4.3.0:
+zxcvbn@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/zxcvbn/-/zxcvbn-4.4.2.tgz#28ec17cf09743edcab056ddd8b1b06262cc73c30"

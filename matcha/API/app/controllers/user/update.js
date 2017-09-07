@@ -34,8 +34,8 @@ module.exports = (req, res) => {
   }
 
   if (typeof req.body.newPassword !== 'undefined' && req.body.newPassword !== '') {
-    if (req.body.newPassword.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
-    req.body.newPassword.length >= 8) {
+    if (req.body.newPassword.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) &&
+    req.body.newPassword.length >= 8 && zxcvbn(req.body.password).score >= 4) {
       user.password = bcrypt.hashSync(req.body.newPassword, 10)
     }
   }

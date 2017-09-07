@@ -27,9 +27,6 @@ class Settings extends React.Component {
   }
 
   handleChange (event) {
-    if (event.target.name === 'newPassword') {
-      console.log(zxcvbn(event.target.value))
-    }
     this.setState({[event.target.name]: event.target.value})
   }
 
@@ -39,6 +36,15 @@ class Settings extends React.Component {
    */
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.value === 'Save') {
+      let zxcvbnScore = zxcvbn(this.state.newPassword).score
+
+      if (zxcvbnScore < 4 || this.state.newPassword.length < 8) {
+        return this.props.notification.addNotification({
+          level: 'error',
+          title: 'Modify data:',
+          message: 'Password too weak or too small (8 char min)'
+        })
+      }
       axiosInst().patch('user/me', {
         name: this.state.name,
         mail: this.state.mail,

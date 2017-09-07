@@ -2,6 +2,7 @@ const model = require('../../models/user.js')
 const valid = require('validator')
 const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
+const zxcvbn = require('zxcvbn')
 
 function genToken () {
   var str = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`
@@ -43,7 +44,7 @@ module.exports = (req, res) => {
     req.body.mail = req.body.mail.toLowerCase()
   }
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
-  req.body.password.length < 8) {
+  req.body.password.length < 8 || zxcvbn(req.body.password).score < 4) {
     return error(res, 'Invalid password', 400)
   } else {
     req.body.password = bcrypt.hashSync(req.body.password, 10)

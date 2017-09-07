@@ -8,10 +8,11 @@ import ws from '../utils/ws.js'
 
 @observer
 class OtherProfile extends React.Component {
+  _isMounted = false
+
   constructor (props) {
     super(props)
 
-    this._isMounted = false
     this.state = {
       error: '',
       _isMonted: false,
@@ -79,8 +80,8 @@ class OtherProfile extends React.Component {
       method: 'viewProfile',
       to: this.props.match.params.user
     })
-  }
-
+  }  
+  
   componentWillUnmount () {
     this._isMounted = false
   }
@@ -92,17 +93,22 @@ class OtherProfile extends React.Component {
    */
   handleKeyPress (event) {
     if (event.target.value === 'Like') {
+    } else if (event.target.value === 'Dislike') {
+    } else if (event.target.value === 'Block') {
     }
   }
 
+  /**
+   * Update when websocket receive new user connect/disconnect
+   */
   updateLastConnect() {
     if (this.state.lastConnect + 5000 < Date.now() && this._isMounted === true) {
       axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
-        if (res.data.success === true) {
+        if (res.data.success === true && this._isMounted === true) {
           this.setState({
             lastConnect: res.data.profile[0].lastConnect,
           })
-        } else {
+        } else if (this._isMounted === true) {
           this.setState({
             error: res.data.error
           })

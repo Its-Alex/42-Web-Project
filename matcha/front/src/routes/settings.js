@@ -78,7 +78,7 @@ class Settings extends React.Component {
             Mail :
             <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Old password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Save' onClick={this.handleKeyPress} />
           </div>
         </div>

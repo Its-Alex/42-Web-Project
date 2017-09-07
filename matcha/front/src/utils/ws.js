@@ -32,9 +32,11 @@ module.exports = {
     }
   },
   close: () => {
+    if (!ws) return
     ws.close()
   },
   send: (data) => {
+    if (!ws) return
     if (ws.readyState === 1) {
       ws.send(JSON.stringify(data))
     }

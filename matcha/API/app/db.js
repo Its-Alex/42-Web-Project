@@ -6,7 +6,7 @@ var db
 module.exports = {
   connect: () => {
     db = mysql.createConnection({
-      host: 'sql.itsalex.fr',
+      host: 'localhost',
       user: 'matcha',
       password: '123456',
       database: 'matcha',

@@ -193,7 +193,7 @@ class Profile extends Component {
    * @param {object} event
    */
   handleKeyPress (event) {
-    if (event.key === 'Enter' || event.target.value === 'Save') {
+    if ((event.key === 'Enter' || event.target.value === 'Save') && event.target.name !== 'bio') {
       /**
        * Get adress data from google geocode API
        */
@@ -306,8 +306,7 @@ class Profile extends Component {
           <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           Location :
           <input type='text' name='location' value={this.state.location} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Confirm password :
-          <input type='password' name='password' value={this.state.password} placeholder='Password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          <input type='password' name='password' value={this.state.password} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           <input type='submit' value='Save' onClick={this.handleKeyPress} />
         </div>
       </div>

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import './form.css'
 
+let zxcvbn = require('zxcvbn')
+
 class Login extends Component {
   constructor (props) {
     super(props)
@@ -33,6 +35,11 @@ class Login extends Component {
 
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.className === 'submit') {
+      let zxcvbnScore = zxcvbn(this.state.newPassword).score
+      
+      if (zxcvbnScore < 4 || this.state.newPassword.length < 8) {
+        return this.setState({error: 'Password too weak or too small (8 char min)'})
+      }
       axios.post('http://localhost:3005/user/signup', {
         name: this.state.name,
         mail: this.state.email,

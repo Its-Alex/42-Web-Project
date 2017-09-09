@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import './css/navbar.css'
 
-class Navbar extends Component {
+class Navbar extends React.Component {
   componentDidMount () {
     if (global.localStorage.getItem('token') !== undefined) {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0`
@@ -14,14 +14,14 @@ class Navbar extends Component {
     return (
       <div id='navbar'>
         <div id='imgContainer'>
-          <div className='pictureProfile' id='pictureProfile' alt='Profile' />
+          <img id='pictureProfile' alt='Profile' src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' />
           <div id='imgButtonContainer'>
-            <Link to='/notifications'><div id='notifications' className='imgButton' alt='Notifications' /></Link>
-            <Link to='/settings'><div id='settings' className='imgButton' alt='Settings' /></Link>
+            <Link to='/notifications' id='notificationsButton' />
+            <Link to='/settings' id='settingsButton' />
           </div>
         </div>
         <ul>
-          <li><Link to='/search'>Search</Link></li>
+          <li><Link to='/search' alt='Search'>Search</Link></li>
           <li><Link to='/profile'>Profile</Link></li>
           <li><Link to='/chat'>Chat</Link></li>
           <li><Link to='/auth/login' onClick={() => {

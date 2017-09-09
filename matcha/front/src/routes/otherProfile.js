@@ -14,8 +14,7 @@ class OtherProfile extends React.Component {
     super(props)
 
     this.state = {
-      error: '',
-      _isMonted: false,
+      isLike: false,
       username: '',
       birthday: '',
       bio: '',
@@ -34,7 +33,8 @@ class OtherProfile extends React.Component {
         ''
       ]
     }
-    this.handleKeyPress = this.handleKeyPress.bind(this)
+
+    this.handleAction = this.handleAction.bind(this)
   }
 
   /**
@@ -91,10 +91,40 @@ class OtherProfile extends React.Component {
    * Handle when a key is pressed
    * @param {object} event
    */
-  handleKeyPress (event) {
-    if (event.target.value === 'Like') {
-    } else if (event.target.value === 'Dislike') {
-    } else if (event.target.value === 'Block') {
+  handleAction (event) {
+    if (event.target.id === 'likeButton') {
+      axiosInst().post(`/like/${this.props.match.params.user}`).then(res => {
+        if (res.data.success === false) {
+          this.props.notification.addNotification({
+            level: 'error',
+            title: 'Action successful',
+            message: res.data.error
+          })
+        } else if (res.data.success === true) {
+          this.props.notification.addNotification({
+            level: 'success',
+            title: 'Action unsuccessful',
+            message: 'User liked'
+          })
+        }
+      }).catch(err => console.log(err.response))
+    } else if (event.target.id === 'dislikeButton') {
+      axiosInst().delete(`/like/${this.props.match.params.user}`).then(res => {
+        if (res.data.success === false) {
+          this.props.notification.addNotification({
+            level: 'error',
+            title: 'Action successful',
+            message: res.data.error
+          })
+        } else if (res.data.success === true) {
+          this.props.notification.addNotification({
+            level: 'success',
+            title: 'Action unsuccessful',
+            message: 'User disliked'
+          })
+        }
+      }).catch(err => {console.log(err.response)})
+    } else if (event.target.id === 'blockButton') {
     }
   }
 
@@ -144,6 +174,9 @@ class OtherProfile extends React.Component {
         {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
         ? this.updateLastConnect()
         : <p><b>Connected</b></p>}
+        <button id='likeButton' onClick={this.handleAction} />
+        <button id='dislikeButton' onClick={this.handleAction} />
+        <button id='blockButton' onClick={this.handleAction} />
       </div>
     )
   }

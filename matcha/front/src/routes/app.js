@@ -76,7 +76,9 @@ class App extends React.Component {
         <Navbar />
         <Switch>
           <Route exact path='/search' component={Search} />
-          <Route exact path='/profile/:user' component={OtherProfile} />
+          <Route exact path='/profile/:user' render={({ match, location, history }) =>
+            <OtherProfile match={match} location={location} history={history} notification={this.state.notification} />
+          } />
           <Route exact path='/profile' render={({ match, location, history }) =>
             <Profile match={match} location={location} history={history}
               notification={this.state.notification} />

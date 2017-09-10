@@ -1,98 +1,107 @@
 :root {
-  --blue: #3C9AFB;
-  --whiteInput: #F0F0F0;
-  --placeHolder: #B7B7BA;
-  --textInputForm: #b6b6ba;
-  --textColor: #76767a;
-  --backgroundColor: #F6F7FB;
+    --blue: #3C9AFB;
+    --whiteInput: #F0F0F0;
+    --placeHolder: #B7B7BA;
+    --textInputForm: #b6b6ba;
+    --textColor: #76767a;
+    --backgroundColor: #F6F7FB;
 }
 
 html, body, #root, .router {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  font-family: 'Open Sans', monospace;
-  font-size: 1em;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 200;
+    font-size: 1em;
 }
 
-input {
-  font-family: 'Open Sans', monospace;
+input, select {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 400;
 }
 
 a {
-  text-decoration: none;
-  color: var(--textColor);
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--textColor);
+}
+
+b {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 500;
 }
 
 .router {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .body {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  font-size: 1em;
-  width: 100%;
-  background-color: var(--backgroundColor);
-  z-index: 0;
-  overflow-x: auto;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    width: 100%;
+    background-color: var(--backgroundColor);
+    z-index: 0;
+    overflow-x: auto;
 }
 
 .flex-start {
-  flex-direction: column;
-  justify-content: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .flex-center {
-  flex-direction: column;
-  justify-content: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .notice {
-  position: absolute;
-  margin: 1em;
-  background: #F9F9F9;
-  padding: 1em 1em 1em 2em;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+    position: absolute;
+    margin: 1em;
+    background: #F9F9F9;
+    padding: 1em 1em 1em 2em;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
 }
 
 .notice:before {
-  position: absolute;
-  top: 50%;
-  margin-top: -17px;
-  left: -17px;
-  background-color: #DDD;
-  color: #FFF;
-  width: 30px;
-  height: 30px;
-  border-radius: 100%;
-  text-align: center;
-  line-height: 30px;
-  font-weight: bold;
-  font-family: Georgia;
-  text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    left: -17px;
+    background-color: #DDD;
+    color: #FFF;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    text-align: center;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: Georgia;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
 }
 
 .error {
-  border: 1px solid #FF4136;
-  border-left: 4px solid #FF4136;
+    border: 1px solid #FF4136;
+    border-left: 4px solid #FF4136;
 }
 
 .error:before {
-  content: "X";
-  background-color: #FF4136;
+    content: "X";
+    background-color: #FF4136;
 }
 
 .success {
-  border: 1px solid #2ECC40;
-  border-left: 4px solid #2ECC40;
+    border: 1px solid #2ECC40;
+    border-left: 4px solid #2ECC40;
 }
 
 .success:before {
-  content: "√";
-  background-color: #2ECC40;
+    content: "√";
+    background-color: #2ECC40;
 }

@@ -9,7 +9,8 @@ import {observer} from 'mobx-react'
 /**
  * Component to show the list of user
  */
-@observer class Talks extends React.Component {
+@observer
+class Talks extends React.Component {
   render () {
     return (
       <div id={'talks ' + this.props.userID} onClick={this.props.onClick} style={{width: '100%'}} >
@@ -20,7 +21,8 @@ import {observer} from 'mobx-react'
   }
 }
 
-@observer class ChatList extends React.Component {
+@observer
+class ChatList extends React.Component {
   constructor (props) {
     super(props)
 

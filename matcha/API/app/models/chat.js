@@ -42,5 +42,16 @@ module.exports = {
         })
       }).catch(err => reject(err))
     })
+  },
+  getChatWith: (performId, concernId) => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('SELECT * FROM chats WHERE (sender = ? AND receiver = ?) OR (sender = ? AND receiver = ?) ORDER BY date ASC',
+        [performId, concernId, concernId, performId], (err, res) => {
+          if (err) reject(err)
+          resolve(res)
+        })
+      }).catch(err => reject(err))
+    })
   }
 }

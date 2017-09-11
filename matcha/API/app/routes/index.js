@@ -37,6 +37,7 @@ router.post('/geoloc', middle('USER'), (req, res) => {
 router.get('/users', middle('ADMIN'), require('../controllers/users.js'))
 router.get('/notifications', middle('USER'), require('../controllers/notifications.js'))
 router.get('/otherProfile/:id', middle('USER'), require('../controllers/otherProfile.js'))
+router.use('/chats', middle('USER'), require('../controllers/chats.js'))
 router.use('/user', require('./user.js'))
 router.use('/profile', require('./profile.js'))
 router.use('/picture', require('./picture.js'))

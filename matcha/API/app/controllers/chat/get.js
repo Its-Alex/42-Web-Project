@@ -9,14 +9,14 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
-  model.getChatPeople(req.user.id).then(chat => {
-    if (chat.length === 0) return error(res, 'No user found', 200)
-    res.send({
+  model.getChatWith(req.user.id, req.params.id).then(result => {
+    if (result.length === 0) return error(res, 'No text chat', 200)
+    res.json({
       success: true,
-      chat: chat
+      texts: result
     })
   }).catch(err => {
     console.log(err)
-    return error(res, 'Internal server', 500)
+    return error(res, 'Internal server error', 500)
   })
 }

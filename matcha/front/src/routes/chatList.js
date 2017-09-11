@@ -27,7 +27,7 @@ class ChatList extends React.Component {
    * Get user's datas
    */
   componentWillMount () {
-    axiosInst().get('/chat').then(res => {
+    axiosInst().get('/chats').then(res => {
       if (res.data.success !== true) return
       store.setChat(res.data.chat)
     }).catch(err => console.log(err.response))

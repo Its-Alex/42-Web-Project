@@ -16,6 +16,7 @@ let broadcast = data => {
 
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
+    console.log(data)
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data)
@@ -51,27 +52,29 @@ wss.on('connection', (ws) => {
         }
         break
       case 'sendChat':
-        if (data.to && typeof data.to === 'string') {
-          if (data.msg && typeof data.msg === 'string') {
+      if (data.to && typeof data.to === 'string') {
+        if (data.msg && typeof data.msg === 'string') {
+          console.log('test')
+          db.get().then((db) => {
+              db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
+                ws.id,
+                data.to,
+                data.msg,
+                Date.now()
+              ], (err, res) => {
+                if (err) return console.log(err)
+              }).catch((err) => console.log(err))
+            })
             wss.clients.forEach(client => {
-              if (client.id === undefined) return
               if (client.id === data.to) {
-                db.get().then((db) => {
-                  db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
-                    ws.id,
-                    client.id,
-                    data.msg,
-                    Date.now()
-                  ], (err, res) => {
-                    if (err) return console.log(err)
-                    client.send(JSON.stringify({
-                      method: 'chat',
-                      type: 'receive',
-                      from: ws.id,
-                      for: client.id
-                    }))
-                  })
-                }).catch((err) => console.log(err))
+                client.send(JSON.stringify({
+                  method: 'chat',
+                  type: 'receive',
+                  text: data.msg,
+                  from: ws.id,
+                  for: client.id,
+                  date: Date.now()
+                }))
               }
             })
           }

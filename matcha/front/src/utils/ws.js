@@ -1,5 +1,7 @@
-const store = require('./store.js')
+const store = require('./store.js').default
 let ws = null
+
+console.log(store)
 
 let sendNotif = (title, option, onclick) => {
   if (!('Notification' in window)) {
@@ -97,12 +99,19 @@ module.exports = {
           case 'chat':
             switch (data.type) {
               case 'receive':
-                if (data.from !== data.for && history.location.indexOf(data.from) === -1) {
+                if (data.from !== data.for && history.location.pathname.indexOf(data.from) === -1) {
                   sendNotif('New chat', {
                     body: `You receive a new chat!`,
                     icon: ''
                   }, () => {
                     history.push(`/chat/${data.from}`)
+                  })
+                } else {
+                  store.addUserChat({
+                    date: Date.now(),
+                    receiver: data.for,
+                    sender: data.from,
+                    text: data.text
                   })
                 }
                 break
@@ -111,7 +120,7 @@ module.exports = {
             }
             break
           case 'conUserList':
-            store.default.setConUserList(data.conUserList)
+            store.setConUserList(data.conUserList)
             break
           default:
             break

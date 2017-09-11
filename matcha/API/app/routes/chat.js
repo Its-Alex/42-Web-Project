@@ -5,6 +5,6 @@ const middle = require('../middlewares.js')
 router.use(middle('USER'))
 
 // Path who need auth user
-router.get('/', require('../controllers/chat/get.js'))
+router.get('/:id', require('../controllers/chat/get.js'))
 
 module.exports = router

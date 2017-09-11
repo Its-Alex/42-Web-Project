@@ -12,6 +12,7 @@ import Settings from './settings.js'
 import Profile from './profile.js'
 import OtherProfile from './otherProfile.js'
 import ChatList from './chatList.js'
+import Chat from './chat.js'
 
 var NotificationSystem = require('react-notification-system')
 
@@ -87,6 +88,7 @@ class App extends React.Component {
           <Route exact path='/settings' render={() =>
             <Settings notification={this.state.notification} />
           } />
+          <Route exact path='/chat/:id' component={Chat} />
           <Route exact path='/chat' component={ChatList} />
           {(global.localStorage.getItem('token'))
           ? <Redirect to='/profile' />

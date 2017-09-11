@@ -52,10 +52,9 @@ wss.on('connection', (ws) => {
         }
         break
       case 'sendChat':
-      if (data.to && typeof data.to === 'string') {
-        if (data.msg && typeof data.msg === 'string') {
-          console.log('test')
-          db.get().then((db) => {
+        if (data.to && typeof data.to === 'string') {
+          if (data.msg && typeof data.msg === 'string') {
+            db.get().then(db => {
               db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
                 ws.id,
                 data.to,
@@ -63,8 +62,8 @@ wss.on('connection', (ws) => {
                 Date.now()
               ], (err, res) => {
                 if (err) return console.log(err)
-              }).catch((err) => console.log(err))
-            })
+              })
+            }).catch((err) => console.log(err))
             wss.clients.forEach(client => {
               if (client.id === data.to) {
                 client.send(JSON.stringify({

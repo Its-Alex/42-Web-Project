@@ -37,7 +37,6 @@ class Chat extends React.Component {
           text: []
         }
       }
-      console.log(chat)
       store.setUserChat(chat)
     }).catch(err => {
       console.log(err.response)
@@ -54,8 +53,12 @@ class Chat extends React.Component {
       text: []
     })
   }
-  
 
+  componentDidUpdate (prevProps, prevState) {
+    let div = document.getElementById('chat-message')
+    div.scrollTop = div.scrollHeight
+  }
+  
   /**
    * Handle when a key is pressed
    * @param {object} event
@@ -92,7 +95,7 @@ class Chat extends React.Component {
             if (elem.sender === this.props.match.params.id) {
               text = (
                 <div key={Math.random()} className='chat-text-receive'>
-                  <p className='chat-text'>{elem.text}</p>
+                  <p className='chat-text'>{elem.text}</p><br />
                   <span className='chat-date'>
                     <Moment fromNow date={elem.date} />
                   </span>
@@ -101,7 +104,7 @@ class Chat extends React.Component {
             } else {
               text = (
                 <div key={Math.random()} className='chat-text-send'>
-                  <p className='chat-text'>{elem.text}</p>
+                  <p className='chat-text'>{elem.text}</p><br />
                   <span className='chat-date'>
                     <Moment fromNow date={elem.date} />
                   </span>

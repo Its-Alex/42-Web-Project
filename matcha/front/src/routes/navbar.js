@@ -14,7 +14,7 @@ class Navbar extends React.Component {
     return (
       <div id='navbar'>
         <div id='imgContainer'>
-          <img id='pictureProfile' alt='Profile' src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' />
+          <div id='pictureProfile' />
           <div id='imgButtonContainer'>
             <Link to='/notifications' id='notificationsButton' />
             <Link to='/settings' id='settingsButton' />

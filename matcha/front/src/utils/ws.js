@@ -1,8 +1,6 @@
 const store = require('./store.js').default
 let ws = null
 
-console.log(store)
-
 let sendNotif = (title, option, onclick) => {
   if (!('Notification' in window)) {
     global.alert('Ce navigateur ne supporte pas les notifications desktop')

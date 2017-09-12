@@ -23,6 +23,7 @@ class App extends React.Component {
     this.state = {
       notification: {}
     }
+    this.handleShowNav = this.handleShowNav.bind(this)
   }
 
   componentWillMount () {
@@ -71,9 +72,15 @@ class App extends React.Component {
     })
   }
 
+  handleShowNav (event) {
+    event.preventDefault()
+    document.getElementById('navbar').classList.toggle('hidden')
+  }
+
   render () {
     return (
       <div className='router'>
+        <button id='showNavButton' onClick={this.handleShowNav} />
         <Navbar />
         <Switch>
           <Route exact path='/search' component={Search} />

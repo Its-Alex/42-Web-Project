@@ -16,7 +16,6 @@ let broadcast = data => {
 
 wss.on('connection', (ws) => {
   ws.on('message', (data) => {
-    console.log(data)
     if (typeof data === 'string') {
       try {
         data = JSON.parse(data)

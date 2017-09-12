@@ -23,7 +23,15 @@ html, body, #root, .router {
 
 input, select {
     font-family: 'Source Sans Pro', sans-serif;
+    min-height: 28px;
+    min-width: 100px;
     font-weight: 400;
+    font-size: 0.8em;
+}
+
+textarea {
+    min-height: 60px;
+    min-width: 115px;
 }
 
 a {
@@ -50,7 +58,6 @@ b {
     padding: 0;
     display: flex;
     align-items: center;
-    font-size: 1em;
     width: 100%;
     background-color: var(--backgroundColor);
     overflow-x: auto;
@@ -66,47 +73,36 @@ b {
     justify-content: center;
 }
 
-.notice {
-    position: absolute;
-    margin: 1em;
-    background: #F9F9F9;
-    padding: 1em 1em 1em 2em;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+#showNavBtn {
+    z-index: 10;
+	position: fixed;
+	top: 15px;
+	left: 15px;
+	cursor: pointer;
+	transition: left 0.6s cubic-bezier(.6, .05, .28, .91);
 }
 
-.notice:before {
-    position: absolute;
-    top: 50%;
-    margin-top: -17px;
-    left: -17px;
-    background-color: #DDD;
-    color: #FFF;
+#showNavBtn > div {
     width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    text-align: center;
-    line-height: 30px;
-    font-weight: bold;
-    font-family: Georgia;
-    text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+    height: 2px;
+    margin-bottom: 8px;
+    background-color: #343838;
+    transition: transform 0.6s cubic-bezier(.6, .05, .28, .91), opacity 0.6s, background-color 250ms;
 }
 
-.error {
-    border: 1px solid #FF4136;
-    border-left: 4px solid #FF4136;
+#showNavBtn.active {
+	left: 15px;
 }
 
-.error:before {
-    content: "X";
-    background-color: #FF4136;
+#showNavBtn.active > #top {
+    transform: translateY(10px) rotate(-135deg);
 }
 
-.success {
-    border: 1px solid #2ECC40;
-    border-left: 4px solid #2ECC40;
+#showNavBtn.active > #middle {
+    opacity: 0;
+    transform: rotate(135deg);
 }
 
-.success:before {
-    content: "√";
-    background-color: #2ECC40;
+#showNavBtn.active > #bottom {
+    transform: translateY(-10px) rotate(-45deg);
 }

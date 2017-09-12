@@ -73,14 +73,21 @@ class App extends React.Component {
   }
 
   handleShowNav (event) {
-    event.preventDefault()
-    document.getElementById('navbar').classList.toggle('hidden')
+    const sidebar = document.getElementById('navbar')
+    const sidebarBtn = document.getElementById('showNavBtn')
+
+    sidebar.classList.toggle('hidden')
+    sidebarBtn.classList.toggle('active');
   }
 
   render () {
     return (
       <div className='router'>
-        <button id='showNavButton' onClick={this.handleShowNav} />
+        <div id="showNavBtn" onClick={this.handleShowNav}>
+          <div id='top'></div>
+          <div id='middle'></div>
+          <div id='bottom'></div>
+        </div>
         <Navbar />
         <Switch>
           <Route exact path='/search' component={Search} />

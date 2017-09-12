@@ -1,21 +1,27 @@
 #profileForm {
-    padding: 0;
+    padding: 0; 
+    margin: 0;
+    height: 100%;
     width: 100%;
-    overflow-y: scroll;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     text-align: center;
 }
 
-#profileForm > input, #profileForm > textarea, #profileForm > select {
+#profileForm > div {
+    width: 100%;
+    margin: 5px;
+}
+
+#profileForm > div > input, #profileForm > div > textarea, #profileForm > div > select {
+    min-width: 100px;
     font-size: 1em;
-    margin: 6px;
+    padding: 3px;
     outline: none;
-    width: 20%;
     border-radius: 6px;
-    height: 1.8em;
     border: none;
     text-align: center;
     color: var(--textInputForm);
@@ -23,11 +29,11 @@
     border: 2px solid var(--whiteInput);
 }
 
-#profileForm > input::placeholder, #profileForm > textarea::placeholder {
+#profileForm > div > input::placeholder, #profileForm > div > textarea::placeholder {
     color: var(--placeHolder);
 }
 
-#profileForm > input[type=submit] {
+#profileForm > div > input[type=submit] {
     margin: 15px;
     padding: 2px 0px 2px 0px;
     background-color: var(--blue);
@@ -37,29 +43,29 @@
     box-sizing: content-box;
 }
 
-#profileForm > input[type=email]:focus, #profileForm > input[type=text]:focus, #profileForm > input[type=password]:focus,
-#profileForm > input[type=date]:focus, #profileForm > textarea:focus, #profileForm > select:focus {
+#profileForm > div > input[type=email]:focus, #profileForm > div > input[type=text]:focus, #profileForm > div > input[type=password]:focus,
+#profileForm > div > input[type=date]:focus, #profileForm > div > textarea:focus, #profileForm > div > select:focus {
     border: 2px solid var(--blue);
     border-radius: 4px;
     background-color: #fff;
 }
 
-#profileForm > input[type=submit]:hover {
+#profileForm > div > input[type=submit]:hover {
     cursor: pointer;
 }
 
-#profileForm > textarea {
+#profileForm > div > textarea {
     resize: none;
     height: 4em;
-    width: 30%;
+    min-width: 250px;
 }
 
-#profileForm > input[type=radio] {
+#profileForm > div > input[type=radio] {
     height: 14px;
     width: 14px;
 }
 
-#profileForm > label {
+#profileForm > div > label {
     display: block;
     display: flex;
     flex-direction: row;
@@ -67,8 +73,11 @@
     align-items: center;
 }
 
-#profileForm > label > input, label > p {
-    margin: 10px;
+#dropzoneView {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .dropzone {
@@ -82,12 +91,7 @@
     overflow: hidden;
     border: 1px solid #000;
     border-radius: 50%;
-}
-
-.dropzoneView {
-    display: flex;
-    flex-flow: row wrap;
-}
+}    
 
 .pictureView {
     width: auto;

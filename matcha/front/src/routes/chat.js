@@ -54,6 +54,12 @@ class Chat extends React.Component {
     })
   }
 
+  componentDidMount () {
+    let img = document.getElementById('chat-userImg')
+    // img.background = 
+  }
+  
+
   componentDidUpdate (prevProps, prevState) {
     let div = document.getElementById('chat-message')
     div.scrollTop = div.scrollHeight
@@ -88,6 +94,10 @@ class Chat extends React.Component {
   render () {
     return (
       <div className='body flex-start'>
+        <div id='chat-userData'>
+          <div id='chat-userImg'/>
+          <p id='chat-userName'>{this.props.name}</p>
+        </div>
         <div id='chat-message'>
           {store.userChat.text.map(elem => {
             let text

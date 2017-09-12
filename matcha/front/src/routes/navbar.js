@@ -12,7 +12,7 @@ class Navbar extends React.Component {
 
   render () {
     return (
-      <div id='navbar'>
+      <div id='navbar' className='hidden' >
         <div id='imgContainer'>
           <div id='pictureProfile' />
           <div id='imgButtonContainer'>

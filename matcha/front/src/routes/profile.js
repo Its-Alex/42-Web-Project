@@ -265,7 +265,7 @@ class Profile extends Component {
     return (
       <div className='body flex-center'>
         <div id='profileForm'>
-          <div className='dropzoneView'>
+          <div id='dropzoneView'>
             <Dropzone className='dropzone' disablePreview accept='image/png' maxSize={512000} onDrop={this.onDrop1.bind(this)} onDropRejected={this.onDropReject}>
               <img className='pictureView' src={this.state.img[0]} alt='Profile 1' />
             </Dropzone>
@@ -283,31 +283,51 @@ class Profile extends Component {
             </Dropzone>
           </div>
           <p>Popularity : {this.state.popularity}</p>
-          First name :
-          <input type='text' name='firstName' value={this.state.firstName} placeholder='First name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Last name :
-          <input type='text' name='lastName' value={this.state.lastName} placeholder='Last name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Birthday :
-          <input type='date' name='birthday' placeholder='yyyy-dd-mm' value={this.state.birthday} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Bio :
-          <textarea type='text' name='bio' value={this.state.bio} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Genre :
-          <select name='genre' value={this.state.genre === 'M' ? 'M' : 'F'} onChange={this.handleChange} >
+          <div>
+            <label>First name :</label>
+            <input type='text' name='firstName' value={this.state.firstName} placeholder='First name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Last name :</label>
+            <input type='text' name='lastName' value={this.state.lastName} placeholder='Last name' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Birthday :</label>
+            <input type='date' name='birthday' placeholder='yyyy-dd-mm' value={this.state.birthday} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Bio :</label>
+            <textarea name='bio' value={this.state.bio} placeholder='Bio' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Genre :</label>
+            <select name='genre' value={this.state.genre === 'M' ? 'M' : 'F'} onChange={this.handleChange} >
             <option value='M'>Man</option>
             <option value='F'>Woman</option>
-          </select>
-          Type :
-          <select name='type' value={(this.state.type === 'M') ? 'M' : (this.state.type === 'F') ? 'F' : 'B'} onChange={this.handleChange} >
+            </select>
+          </div>
+          <div>
+            <label>Type :</label>
+            <select name='type' value={(this.state.type === 'M') ? 'M' : (this.state.type === 'F') ? 'F' : 'B'} onChange={this.handleChange} >
             <option value='M'>Men</option>
             <option value='F'>Woman</option>
             <option value='B'>Bisexual</option>
-          </select>
-          Tags :
-          <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          Location :
-          <input type='text' name='location' value={this.state.location} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='password' name='password' value={this.state.password} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-          <input type='submit' value='Save' onClick={this.handleKeyPress} />
+            </select>
+          </div>
+          <div>
+            <label>Tags :</label>
+            <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Location :</label>
+            <input type='text' name='location' value={this.state.location} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <input type='password' name='password' value={this.state.password} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <input type='submit' value='Save' onClick={this.handleKeyPress} />
+          </div>
         </div>
       </div>
     )

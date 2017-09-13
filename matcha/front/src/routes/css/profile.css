@@ -16,6 +16,10 @@
     margin: 5px;
 }
 
+#profileForm > p {
+    margin: 2px;
+}
+
 #profileForm > div > input, #profileForm > div > textarea, #profileForm > div > select {
     min-width: 100px;
     font-size: 1em;

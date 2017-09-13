@@ -16,6 +16,9 @@ class Talks extends React.Component {
       <div id={this.props.userID} className='talks' onClick={this.props.onClick}>
         <img className='talksImg' src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main'/>
         <p className='talksName'>{this.props.name}</p>
+        {(store.conUserList.indexOf(this.props.userID) === -1)
+          ? <div className='userDisconnected' ></div>
+          : <div className='userConnected' ></div>}
       </div>
     )
   }
@@ -35,7 +38,7 @@ class ChatList extends React.Component {
 
   render () {
     return (
-      <div className='body flex-start'>
+      <div className='body flex-mosaique'>
         {store.chat.map(elem => {
           return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
             this.props.history.push(`/chat/${elem.id}`)

@@ -73,13 +73,23 @@ class Settings extends React.Component {
       <div className='body flex-center'>
         <div className='resize'>
           <div id='profileForm'>
-            Username :
-            <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            Mail :
-            <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            <input type='submit' value='Save' onClick={this.handleKeyPress} />
+            <div>
+              <label>Username :</label>
+              <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            </div>
+            <div>
+              <label>Mail :</label>
+              <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            </div>
+            <div>
+              <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            </div>
+            <div>
+              <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            </div>
+            <div>
+              <input type='submit' value='Save' onClick={this.handleKeyPress} />
+            </div>
           </div>
         </div>
       </div>

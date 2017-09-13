@@ -57,7 +57,6 @@ b {
     margin: 0;
     padding: 0;
     display: flex;
-    align-items: center;
     width: 100%;
     background-color: var(--backgroundColor);
     overflow-x: auto;
@@ -66,11 +65,19 @@ b {
 .flex-start {
     flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
 }
 
 .flex-center {
     flex-direction: column;
     justify-content: center;
+    align-items: center;    
+}
+
+.flex-mosaique {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 #showNavBtn {

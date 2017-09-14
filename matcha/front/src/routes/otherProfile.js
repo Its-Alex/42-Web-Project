@@ -6,6 +6,8 @@ import axiosInst from '../utils/axios.js'
 import Store from '../utils/store.js'
 import ws from '../utils/ws.js'
 
+import './css/otherProfile.css'
+
 @observer
 class OtherProfile extends React.Component {
   _isMounted = false
@@ -72,6 +74,11 @@ class OtherProfile extends React.Component {
         })
       }
     }).catch(err => console.log(err.response))
+    axiosInst().get(`/like/${this.props.match.params.user}`).then(res => {
+      if (res.data.success === true) {
+        this.setState({isLike: true})
+      }
+    }).catch(err => console.log(err))
   }
 
   componentDidMount () {
@@ -101,6 +108,7 @@ class OtherProfile extends React.Component {
             message: res.data.error
           })
         } else if (res.data.success === true) {
+          this.setState({isLike: true})
           this.props.notification.addNotification({
             level: 'success',
             title: 'Action unsuccessful',
@@ -117,6 +125,7 @@ class OtherProfile extends React.Component {
             message: res.data.error
           })
         } else if (res.data.success === true) {
+          this.setState({isLike: false})
           this.props.notification.addNotification({
             level: 'success',
             title: 'Action unsuccessful',
@@ -125,6 +134,38 @@ class OtherProfile extends React.Component {
         }
       }).catch(err => {console.log(err.response)})
     } else if (event.target.id === 'blockButton') {
+      axiosInst().post('/block', {id: this.props.match.params.user}).then(res => {
+        if (res.data.success === false) {
+          this.props.notification.addNotification({
+            level: 'error',
+            title: 'Action unsuccessful',
+            message: res.data.error
+          })
+        } else if (res.data.success === true) {
+          this.props.notification.addNotification({
+            level: 'success',
+            title: 'Action successful',
+            message: 'User blocked'
+          })
+          this.props.history.push('/profil')
+        }
+      }).catch(err => {console.log(err.response)})
+    } else if (event.target.id === 'fakeButton') {
+      axiosInst().post('/fake', {id: this.props.match.params.user}).then(res => {
+        if (res.data.success === false) {
+          this.props.notification.addNotification({
+            level: 'error',
+            title: 'Action unsuccessful',
+            message: res.data.error
+          })
+        } else if (res.data.success === true) {
+          this.props.notification.addNotification({
+            level: 'success',
+            title: 'Action successful',
+            message: 'User was reported like a fake'
+          })
+        }
+      }).catch(err => {console.log(err.response)})
     }
   }
 
@@ -151,35 +192,43 @@ class OtherProfile extends React.Component {
   render () {
     return (
       <div className='body flex-start'>
-        {
-          this.state.error
-            ? <span className='error'>{this.state.error}</span>
-            : null
-        }
-        <img src={this.state.img[0]} alt='First' height='50px' width='50px' />
-        <img src={this.state.img[1]} alt='Second' height='50px' width='50px' />
-        <img src={this.state.img[2]} alt='Third' height='50px' width='50px' />
-        <img src={this.state.img[3]} alt='Four' height='50px' width='50px' />
-        <img src={this.state.img[4]} alt='Five' height='50px' width='50px' />
-        <p><b>Popularity : </b>{this.state.popularity}</p>
-        <p><b>Username : </b>{this.state.username}</p>
-        <p><b>First name : </b>{this.state.firstName}</p>
-        <p><b>Last name : </b>{this.state.lastName}</p>
-        <p><b>Is : </b>{this.state.genre}</p>
-        <p><b>Birthday : </b>{this.state.birthday}</p>
-        <p><b>Looking for : </b>{this.state.type}</p>
-        <p><b>Bio : </b>{this.state.bio}</p>
-        <p><b>Last location : </b>{this.state.location}</p>
-        <p><b>Tags : </b>{this.state.tags}</p>
-        {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
-        ? this.updateLastConnect()
-        : <p><b>Connected</b></p>}
-        <button id='likeButton' onClick={this.handleAction} />
-        <button id='dislikeButton' onClick={this.handleAction} />
-        <button id='blockButton' onClick={this.handleAction} />
+        <div id='profile-container'>
+          <div id='profile-img'>
+            <div style={{'backgroundImage': `url(${this.state.img[0]})`}} />
+            <div style={{'backgroundImage': `url(${this.state.img[1]})`}} />
+            <div style={{'backgroundImage': `url(${this.state.img[2]})`}} />
+            <div style={{'backgroundImage': `url(${this.state.img[3]})`}} />
+            <div style={{'backgroundImage': `url(${this.state.img[4]})`}} />
+          </div>
+          <div id='profile-data'>
+            <p><b>Popularity : </b>{this.state.popularity}</p>
+            <p><b>Username : </b>{this.state.username}</p>
+            <p><b>First name : </b>{this.state.firstName}</p>
+            <p><b>Last name : </b>{this.state.lastName}</p>
+            <p><b>Is : </b>{this.state.genre}</p>
+            <p><b>Birthday : </b>{this.state.birthday}</p>
+            <p><b>Looking for : </b>{this.state.type}</p>
+            <p><b>Bio : </b>{this.state.bio}</p>
+            <p><b>Last location : </b>{this.state.location}</p>
+            <p><b>Tags : </b>{this.state.tags}</p>
+          </div>
+          <div id='profile-btn'>
+            {!this.state.isLike ? (
+              <button id='likeButton' onClick={this.handleAction}>Like</button>
+            ) : (
+              <button id='dislikeButton' onClick={this.handleAction}>Dislike</button>
+            )}
+            <button id='fakeButton' onClick={this.handleAction}>Fake account</button>
+            <button id='blockButton' onClick={this.handleAction}>Block</button>
+          </div>
+        </div>
       </div>
     )
   }
 }
+
+// {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
+//   ? this.updateLastConnect()
+//   : <p><b>Connected</b></p>}
 
 export default OtherProfile

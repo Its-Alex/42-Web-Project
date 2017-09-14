@@ -1,0 +1,69 @@
+#profile-container {
+    padding: 0; 
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+#profile-img, #profile-data, #profile-btn {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-btn {
+    padding: 0 30vw;
+}
+
+#profile-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#profile-data > p {
+    margin: 10px;
+}
+
+#profile-btn > button {
+    margin: 0 9.1%;
+    height: 5vh;
+    min-height: 25px;
+    width: 15%;
+    min-width: 50px;
+    border-radius: 4px;
+    box-shadow: none;
+    border: none;
+}
+
+#profile-img > div {
+    margin: 10px;
+    width: 170px;
+    height: 170px;
+    border: 0;
+    border-color: none;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0px 0px 50px 6px #E0E0E0;
+}
+
+#likeButton {
+    box-shadow: none;
+    background-color: green;
+}
+
+#dislikeButton {
+    background-color: red;
+}

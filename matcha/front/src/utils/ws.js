@@ -118,7 +118,9 @@ module.exports = {
             }
             break
           case 'conUserList':
-            store.setConUserList(data.conUserList)
+            if (store.conUserList !== data.conUserList) {
+              store.setConUserList(data.conUserList)
+            }
             break
           default:
             break

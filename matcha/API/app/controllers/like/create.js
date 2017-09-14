@@ -1,6 +1,9 @@
 const model = require('../../models/like.js')
 const modelNotif = require('../../models/notification.js')
 const ws = require('../../ws.js')
+const path = require('path')
+const dir = path.dirname(require.main.filename) + '/pictures/'
+const fs = require('fs')
 
 function error (res, data, err) {
   res.status(err)
@@ -11,6 +14,9 @@ function error (res, data, err) {
 }
 
 module.exports = (req, res) => {
+  if (!fs.existsSync(dir + req.user.id + '/0.png')) {
+    return error(res, 'You need to have a profil picture to do this!', 200)
+  }
   if (req.user.id === req.params.id) return error(res, 'Cannot like yourself', 200)
   model.getLike(req.user.id, req.params.id).then(result => {
     if (result.length !== 0) return error(res, 'User already liked', 200)

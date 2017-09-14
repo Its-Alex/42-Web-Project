@@ -17,6 +17,8 @@ class OtherProfile extends React.Component {
 
     this.state = {
       isLike: false,
+      isReport: false,
+      likeBack: false,
       username: '',
       birthday: '',
       bio: '',
@@ -48,7 +50,12 @@ class OtherProfile extends React.Component {
     }
     axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
+        if (res.data.block === true) {
+          this.props.history.push('/profile')
+        }
         this.setState({
+          isReport: res.data.report,
+          likeBack: res.data.likeBack,
           username: res.data.name,
           birthday: res.data.profile[0].birthday,
           bio: res.data.profile[0].bio,
@@ -211,6 +218,12 @@ class OtherProfile extends React.Component {
             <p><b>Bio : </b>{this.state.bio}</p>
             <p><b>Last location : </b>{this.state.location}</p>
             <p><b>Tags : </b>{this.state.tags}</p>
+            {this.state.isReport ? (
+              <p><b>This user like you</b></p>
+            ) : null}
+            {this.state.isReport ? (
+              <p><b>User was reported like a fake account by you</b></p>
+            ) : null}
           </div>
           <div id='profile-btn'>
             {!this.state.isLike ? (
@@ -229,6 +242,7 @@ class OtherProfile extends React.Component {
 
 // {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
 //   ? this.updateLastConnect()
-//   : <p><b>Connected</b></p>}
+//   : <p><b>Connected</b></p>}            
+
 
 export default OtherProfile

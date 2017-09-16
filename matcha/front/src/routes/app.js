@@ -7,6 +7,7 @@ import ws from '../utils/ws.js'
 
 import Navbar from './navbar.js'
 import Search from './search.js'
+import Find from './find.js'
 import Notifications from './notifications.js'
 import Settings from './settings.js'
 import Profile from './profile.js'
@@ -91,6 +92,7 @@ class App extends React.Component {
         <Navbar />
         <Switch>
           <Route exact path='/search' component={Search} />
+          <Route exact path='/find' component={Find} />
           <Route exact path='/profile/:user' render={({ match, location, history }) =>
             <OtherProfile match={match} location={location} history={history} notification={this.state.notification} />
           } />

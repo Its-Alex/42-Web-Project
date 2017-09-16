@@ -22,5 +22,15 @@ module.exports = {
         })
       }).catch(err => reject(err))
     })
-  }
+  },
+  getAllBlockedBy: (id) => {
+    return new Promise((resolve, reject) => {
+      db.get().then(db => {
+        db.query('SELECT * FROM blocks WHERE performUser = ?', [id], (err, res) => {
+          if (err) reject(err)
+          resolve(res)
+        })
+      }).catch(err => reject(err))
+    })
+  },
 }

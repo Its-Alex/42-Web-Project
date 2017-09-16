@@ -35,6 +35,7 @@ class Navbar extends React.Component {
           </div>
         </div>
         <ul>
+          <li><Link to='/find' alt='Find' onClick={this.handleShowNav}>Find</Link></li>
           <li><Link to='/search' alt='Search' onClick={this.handleShowNav}>Search</Link></li>
           <li><Link to='/profile' onClick={this.handleShowNav}>Profile</Link></li>
           <li><Link to='/chat' onClick={this.handleShowNav}>Chat</Link></li>

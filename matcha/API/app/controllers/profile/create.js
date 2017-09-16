@@ -83,8 +83,7 @@ module.exports = (req, res) => {
     profile.tags = ''
   }
 
-  profile.popularity = 0
-  console.log(profile)
+  profile.popularity = 50
   model.createProfile(profile).then(() => {
     res.status(201)
     res.json({

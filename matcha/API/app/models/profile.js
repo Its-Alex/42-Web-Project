@@ -20,9 +20,7 @@ module.exports = {
           if (err) return reject(err)
           resolve(results)
         })
-      }).catch((err) => {
-        reject(err)
-      })
+      }).catch((err) =>reject(err))
     })
   },
   getProfileByToken: token => {

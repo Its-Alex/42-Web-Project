@@ -23,6 +23,7 @@ WHERE users.id != ? AND popularity > ? AND popularity < ?'
         query += ` AND (profiles.type = 'B' OR profiles.type = ?)`
         params.push(userProfile.genre)
       }
+      query += ` AND profiles.lastConnect IS NOT NULL`
       db.get().then(db => {
         db.query(query, params, (err, res) => {
           if (err) reject(err)

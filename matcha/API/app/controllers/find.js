@@ -1,6 +1,7 @@
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')
 const model = require('../models/find.js')
+const getDist = require('../getDist.js')
 const async = require('async')
 
 function error (res, data, err) {
@@ -48,41 +49,60 @@ module.exports = (req, res) => {
     /**
      * Get all users who was match
      */
-    profileModel.getProfileById(req.user.id).then(result => {
-      model.getResults(result[0] ,[
+    profileModel.getProfileById(req.user.id).then(user => {
+      if (typeof user[0].lat !== 'number' && typeof user[0].lng !== 'number') {
+        return cb('User has no location', null)
+      }
+      model.getResults(user[0] ,[
         req.user.id,
         req.body.minPop,
         req.body.maxPop
       ]).then(result => {
-        cb(null, result)
+        return cb(null, result, user[0])
       }).catch(err => cb(err, null))
     }).catch(err => cb(err, null))
-  }, (params, cb) => {
+  }, (params, user, cb) => {
     /**
      * Delete blocked user form list
      */
     blockModel.getAllBlockedBy(req.user.id).then(result => {
       async.each(result, (profile, callback) => {
         for (let i = 0; i < params.length; i++) {
-          let element = params[i];
-          params[i].birthday = getAge(element.birthday)
-          if (element.birthday > req.body.maxAge || elemnt.birthday < req.body.minAge ||
-          element.popularity > req.body.maxPop || element.popularity < req.body.minPop ||
-          params[i].concernUser === profile.id) {
-            delete params[i]
-          }
+          /**
+           * Need to remove blocked user
+           */
         }
-        callback()
+        return callback()
       }, (err) => {
         if (err) return cb(err, null)
-        cb(null, params)
       })
+      return cb(null, params, user)
     }).catch(err => cb(err, null))
-  },(params, cb) => {
+  },(params, user, cb) => {
+    // console.log(params)
     for (let i = 0; i < params.length; i++) {
+      let element = params[i];
+      element.birthday = getAge(element.birthday)
+      // if (element.birthday > req.body.maxAge || elemnt.birthday < req.body.minAge) {
+      //   delete params[i]
+      // }
+      // if (element.popularity > req.body.maxPop || element.popularity < req.body.minPop) {
+      //   delete params[i]
+      // }
+      // if (typeof element.lng !== 'number' || typeof element.lat !== 'number') {
+      //   delete params[i]
+      // }    
+      // let dist = getDist({
+      //   lat: element.lat,
+      //   lng: element.lng
+      // }, {
+      //   lat: user.lat,
+      //   lng: user.lng
+      // })
+      // console.log(dist)
     }
     console.log(params)
-    cb(null, params)
+    return cb(null, params)
   }], (err, result) => {
     if (err) {
       console.log(err)

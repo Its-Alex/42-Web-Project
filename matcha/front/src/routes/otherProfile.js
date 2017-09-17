@@ -242,7 +242,7 @@ class OtherProfile extends React.Component {
 
 // {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
 //   ? this.updateLastConnect()
-//   : <p><b>Connected</b></p>}            
+//   : <p><b>Connected</b></p>}
 
 
 export default OtherProfile

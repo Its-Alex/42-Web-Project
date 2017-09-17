@@ -64,8 +64,12 @@ module.exports = (req, res) => {
     blockModel.getAllBlockedBy(req.user.id).then(result => {
       async.each(result, (profile, callback) => {
         for (let i = 0; i < params.length; i++) {
-          if (params[i].concernUser === profile.id) {
-            delete(params[i])
+          let element = params[i];
+          params[i].birthday = getAge(element.birthday)
+          if (element.birthday > req.body.maxAge || elemnt.birthday < req.body.minAge ||
+          element.popularity > req.body.maxPop || element.popularity < req.body.minPop ||
+          params[i].concernUser === profile.id) {
+            delete params[i]
           }
         }
         callback()
@@ -75,6 +79,9 @@ module.exports = (req, res) => {
       })
     }).catch(err => cb(err, null))
   },(params, cb) => {
+    for (let i = 0; i < params.length; i++) {
+    }
+    console.log(params)
     cb(null, params)
   }], (err, result) => {
     if (err) {

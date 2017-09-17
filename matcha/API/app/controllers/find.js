@@ -1,7 +1,7 @@
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')
 const model = require('../models/find.js')
-const waterfall = require('async').waterfall
+const async = require('async')
 
 function error (res, data, err) {
   res.status(err)
@@ -44,7 +44,10 @@ module.exports = (req, res) => {
     })
   }
 
-  waterfall([(cb) => {
+  async.waterfall([(cb) => {
+    /**
+     * Get all users who was match
+     */
     profileModel.getProfileById(req.user.id).then(result => {
       model.getResults(result[0] ,[
         req.user.id,
@@ -55,13 +58,24 @@ module.exports = (req, res) => {
       }).catch(err => cb(err, null))
     }).catch(err => cb(err, null))
   }, (params, cb) => {
+    /**
+     * Delete blocked user form list
+     */
     blockModel.getAllBlockedBy(req.user.id).then(result => {
-      console.log(result)
-      for (var i = 0; i < params.length; i++) {
-        // console.log(params[i]);
-      }
-      cb(null, params)
+      async.each(result, (profile, callback) => {
+        for (let i = 0; i < params.length; i++) {
+          if (params[i].concernUser === profile.id) {
+            delete(params[i])
+          }
+        }
+        callback()
+      }, (err) => {
+        if (err) return cb(err, null)
+        cb(null, params)
+      })
     }).catch(err => cb(err, null))
+  },(params, cb) => {
+    cb(null, params)
   }], (err, result) => {
     if (err) {
       console.log(err)

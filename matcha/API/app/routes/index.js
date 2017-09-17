@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
 router.post('/geoloc', middle('USER'), (req, res) => {
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${req.body.lat},${req.body.lng}&key=AIzaSyA0RO-FTbhyy6pDzm3EX04YImmfqjmATKI&language=fr&region=FR`).then((res) => {
     db.get().then((db) => {
-      db.query('UPDATE profiles JOIN users ON profiles.userId = users.id set profiles.location = ? WHERE users.id = ?', [res.data.results[2].formatted_address, req.user.id], (err, results) => {
+      db.query('UPDATE profiles JOIN users ON profiles.userId = users.id SET profiles.location = ?, profiles.lat = ?, profiles.lng = ? WHERE users.id = ?',
+      [res.data.results[2].formatted_address, req.body.lat, req.body.lng, req.user.id], (err, results) => {
         if (err) {
           console.log(err)
         }

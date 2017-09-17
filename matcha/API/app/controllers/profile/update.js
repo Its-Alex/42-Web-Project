@@ -78,6 +78,11 @@ module.exports = (req, res) => {
     return error(res, 'Invalid location', 400)
   }
 
+  if (typeof req.body.lat === 'number' || typeof req.body.lng === 'number') {
+    profile.lat = req.body.lat
+    profile.lng = req.body.lng
+  }
+
   model.updateProfile(profile).then(() => {
     res.status(200)
     res.json({

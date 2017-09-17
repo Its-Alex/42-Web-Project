@@ -59,7 +59,7 @@ module.exports = {
   updateProfile: profile => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {
-        db.query('UPDATE profiles SET birthday = ?, bio = ?, firstName = ?, lastName = ?, genre = ?, type = ?, tags = ?, location = ? WHERE userId = ?', [
+        db.query('UPDATE profiles SET birthday = ?, bio = ?, firstName = ?, lastName = ?, genre = ?, type = ?, tags = ?, location = ?, lat = ?, lng = ? WHERE userId = ?', [
           profile.birthday,
           profile.bio,
           profile.firstName,
@@ -68,6 +68,8 @@ module.exports = {
           profile.type,
           profile.tags,
           profile.location,
+          profile.lat,
+          profile.lng,
           profile.id
         ], (err, results) => {
           if (err) return reject(err)

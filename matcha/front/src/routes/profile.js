@@ -205,6 +205,7 @@ class Profile extends Component {
         /**
          * Update profile from data input
          */
+        console.log(res.data.results[0].geometry.location)
         axiosInst().patch('/profile', {
           birthday: this.state.birthday,
           firstName: this.state.firstName,
@@ -214,6 +215,8 @@ class Profile extends Component {
           type: (this.state.type === 'M') ? 'M' : (this.state.type === 'F') ? 'F' : 'B',
           tags: this.state.tags,
           location: res.data.results[0].formatted_address,
+          lat: res.data.results[0].geometry.location.lat,
+          lng: res.data.results[0].geometry.location.lng,
           password: this.state.password
         }).then((res) => {
           this.setState({
@@ -234,6 +237,7 @@ class Profile extends Component {
           })
         }).catch((err) => {
           if (err.response) {
+            console.log(err.response)
             this.props.notification.addNotification({
               level: 'error',
               title: 'Modify data:',

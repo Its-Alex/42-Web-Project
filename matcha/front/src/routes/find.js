@@ -4,34 +4,16 @@ import axios from 'axios'
 import axiosInst from '../utils/axios.js'
 import './css/find.css'
 
-let sortByAgeDesc = (a, b) => {
-  if (a.birthday < b.birthday) return 1
-  else if (a.birthday > b.birthday) return -1
-  else if (a.birthday === b.birthday) return 0
-}
-
 let sortByAgeAsc = (a, b) => {
   if (a.birthday < b.birthday) return -1
   else if (a.birthday > b.birthday) return 1
   else if (a.birthday === b.birthday) return 0
 }
 
-let sortByPopDesc = (a, b) => {
-  if (a.popularity < b.popularity) return 1
-  else if (a.popularity > b.popularity) return -1
-  else if (a.popularity === b.popularity) return 0
-}
-
 let sortByPopAsc = (a, b) => {
   if (a.popularity < b.popularity) return -1
   else if (a.popularity > b.popularity) return 1
   else if (a.popularity === b.popularity) return 0
-}
-
-let sortByDistDesc = (a, b) => {
-  if (a.dist < b.dist) return 1
-  else if (a.dist > b.dist) return -1
-  else if (a.dist === b.dist) return 0
 }
 
 let sortByDistAsc = (a, b) => {
@@ -66,60 +48,18 @@ class Find extends Component {
     this.updateResults()
   }
 
-  orderBy (event) {
-    document.getElementById('distance').classList.remove('active')
-    document.getElementById('tags').classList.remove('active')
-    document.getElementById('popularity').classList.remove('active')
-    document.getElementById('age').classList.remove('active')
-
-    if (event.target.id === 'age') {
-      this.setState((state) => {
-        if (state.orderBy === 'age') {
-          return this.setState({
-            results: this.state.results.sort(sortByAgeDesc),
-            orderBy: 'ageDesc'
-          })
-        } else {
-          return this.setState({
-            results: this.state.results.sort(sortByAgeAsc),
-            orderBy: 'age'
-          })
-        }
-      })
-      event.target.classList.toggle('active')
-    } else if (event.target.id === 'distance') {
-      this.setState((state) => {
-        if (state.orderBy === 'distance') {
-          return this.setState({
-            results: this.state.results.sort(sortByDistDesc),
-            orderBy: 'distanceDesc'
-          })
-        } else {
-          return this.setState({
-            results: this.state.results.sort(sortByDistAsc),
-            orderBy: 'distance'
-          })
-        }
-      })
-      event.target.classList.toggle('active')
-    } else if (event.target.id === 'popularity') {
-      event.target.classList.toggle('active')
-      this.setState((state) => {
-        if (state.orderBy === 'popularity') {
-          return this.setState({
-            results: this.state.results.sort(sortByPopDesc),
-            orderBy: 'popularityDesc'
-          })
-        } else {
-          return this.setState({
-            results: this.state.results.sort(sortByPopAsc),
-            orderBy: 'popularity'
-          })
-        }
-      })
-    } else if (event.target.id === 'tags') {
-      event.target.classList.toggle('active')
+  onChange (event) {
+    let name = event.target.name
+    if (name === 'maxPop' || name === 'minPop' ||
+    name === 'minAge' || name === 'maxAge') {
+      if (event.target.value > 100) event.target.value = 100
+      if (event.target.value < 0) event.target.value = 0
     }
+    if (name === 'dist') {
+      if (event.target.value > 100000) event.target.value = 100000
+      if (event.target.value < 0) event.target.value = 0
+    }
+    this.setState({[event.target.name]: event.target.value})
   }
 
   updateResults () {
@@ -172,25 +112,96 @@ class Find extends Component {
     }
   }
 
-  search (event) {
-    if (event.key === 'Enter') {
-      console.log('LEL')
-      this.updateResults()
+  sortByTags (a, b) {
+    let nA = 0
+    let nB = 0
+
+    this.state.currentUser.tags.split(' ').forEach(element => {
+      a.tags.split(' ').forEach(elemA => {
+        if (elemA === element) nA++
+      })
+      b.tags.split(' ').forEach(elemB => {
+        if (elemB === element) nB++
+      })
+    })
+    if (nA < nB) return 1
+    else if (nA > nB) return -1
+    else if (nA === nB) return 0
+  }
+
+  orderBy (event) {
+    document.getElementById('distance').classList.remove('active')
+    document.getElementById('tags').classList.remove('active')
+    document.getElementById('popularity').classList.remove('active')
+    document.getElementById('age').classList.remove('active')
+
+    if (event.target.id === 'age') {
+      this.setState((state) => {
+        if (state.orderBy === 'age') {
+          return this.setState({
+            results: this.state.results.reverse(),
+            orderBy: 'ageDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByAgeAsc),
+            orderBy: 'age'
+          })
+        }
+      })
+      event.target.classList.toggle('active')
+    } else if (event.target.id === 'distance') {
+      this.setState((state) => {
+        if (state.orderBy === 'distance') {
+          return this.setState({
+            results: this.state.results.reverse(),
+            orderBy: 'distanceDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByDistAsc),
+            orderBy: 'distance'
+          })
+        }
+      })
+      event.target.classList.toggle('active')
+    } else if (event.target.id === 'popularity') {
+      event.target.classList.toggle('active')
+      this.setState((state) => {
+        if (state.orderBy === 'popularity') {
+          return this.setState({
+            results: this.state.results.reverse(),
+            orderBy: 'popularityDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByPopAsc),
+            orderBy: 'popularity'
+          })
+        }
+      })
+    } else if (event.target.id === 'tags') {
+      event.target.classList.toggle('active')
+      this.setState((state) => {
+        if (state.orderBy === 'tags') {
+          return this.setState({
+            results: this.state.results.reverse(),
+            orderBy: 'tagsDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(this.sortByTags.bind(this)),
+            orderBy: 'tags'
+          })
+        }
+      })
     }
   }
 
-  onChange (event) {
-    let name = event.target.name
-    if (name === 'maxPop' || name === 'minPop' ||
-    name === 'minAge' || name === 'maxAge') {
-      if (event.target.value > 100) event.target.value = 100
-      if (event.target.value < 0) event.target.value = 0
+  search (event) {
+    if (event.key === 'Enter') {
+      this.updateResults()
     }
-    if (name === 'dist') {
-      if (event.target.value > 100000) event.target.value = 100000
-      if (event.target.value < 0) event.target.value = 0
-    }
-    this.setState({[event.target.name]: event.target.value})
   }
 
   render () {

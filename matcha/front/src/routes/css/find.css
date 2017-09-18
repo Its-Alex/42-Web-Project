@@ -37,6 +37,7 @@
     padding: 5px 12px;
     border-radius: 20px;
     background-color: #DDD;
+    cursor: pointer;
 }
 
 #params > div > div.active {

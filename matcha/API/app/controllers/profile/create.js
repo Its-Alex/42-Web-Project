@@ -70,18 +70,30 @@ module.exports = (req, res) => {
 
   if (req.body.tags !== undefined) {
     let tags = req.body.tags.split(' ')
-    tags.forEach((element, elemKey) => {
-      if (element[0] !== '#' || element.length > 20) {
-        return error(res, 'Tags must be formatted as follows: #word', 400)
+    profile.tags = tags.filter((elem, key) => {
+      if (elem[0] === '#' && elem.length <= 20) {
+        tags.forEach((element, index) => {
+          if (element === elem && index !== key) elem = null
+        })
+        return elem
       }
-      tags.forEach((elemCheck, index) => {
-        if (element === elemCheck && index !== elemKey) delete tags[index]
-      }, this)
-    }, this)
-    profile.tags = tags.join(' ')
-  } else {
-    profile.tags = ''
+    }).join(' ')
   }
+
+  // if (req.body.tags !== undefined) {
+  //   let tags = req.body.tags.split(' ')
+  //   tags.forEach((element, elemKey) => {
+  //     if (element[0] !== '#' || element.length > 20) {
+  //       return error(res, 'Tags must be formatted as follows: #word', 400)
+  //     }
+  //     tags.forEach((elemCheck, index) => {
+  //       if (element === elemCheck && index !== elemKey) delete tags[index]
+  //     }, this)
+  //   }, this)
+  //   profile.tags = tags.join(' ')
+  // } else {
+  //   profile.tags = ''
+  // }
 
   profile.popularity = 50
   model.createProfile(profile).then(() => {

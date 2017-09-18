@@ -24,6 +24,10 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.0",
     "standard": "^10.0.3"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

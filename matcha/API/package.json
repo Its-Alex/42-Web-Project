@@ -13,8 +13,9 @@
   "author": "malexand",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^8.0.0",
     "nodemon": "^1.11.0",
-    "standard": "^10.0.2"
+    "standard": "^10.0.3"
   },
   "dependencies": {
     "async": "^2.5.0",
@@ -30,5 +31,8 @@
     "validator": "^7.0.0",
     "ws": "^3.0.0",
     "zxcvbn": "^4.4.2"
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

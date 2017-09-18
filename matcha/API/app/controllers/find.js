@@ -29,8 +29,8 @@ module.exports = (req, res) => {
   typeof req.body.filterByTags !== 'string' || typeof req.body.isLoc !== 'boolean' ||
   typeof req.body.orderBy !== 'string' ||
   typeof req.body.minAge !== 'number' || typeof req.body.maxAge !== 'number' ||
-  typeof req.body.minDist !== 'number' || typeof req.body.maxDist !== 'number' ||
-  typeof req.body.minPop !== 'number' || typeof req.body.maxPop !== 'number') {
+  typeof req.body.minPop !== 'number' || typeof req.body.maxPop !== 'number' ||
+  typeof req.body.Dist !== 'number') {
     return res.json({
       success: false,
       error: 'Invalid fields'
@@ -38,11 +38,23 @@ module.exports = (req, res) => {
   }
 
   if (req.body.minAge < 0 || req.body.maxAge > 100 ||
-  req.body.minDist < 0 || req.body.maxDist > 500 ||
-  req.body.minPop < 0 || req.body.maxPop > 100) {
+  req.body.minPop < 0 || req.body.maxPop > 100 ||
+  req.body.Dist > 100000 || req.body.Dist < 0) {
     return res.json({
       success: false,
       error: 'Invalid fields'
+    })
+  }
+
+  if (req.body.filterByTags !== '') {
+    let tags = req.body.filterByTags.split(' ')
+    req.body.filterByTags = tags.filter((elem, key) => {
+      if (elem[0] === '#' && elem.length <= 20) {
+        tags.forEach((element, index) => {
+          if (element === elem && index !== key) elem = null
+        })
+        return elem
+      }
     })
   }
 
@@ -84,6 +96,11 @@ module.exports = (req, res) => {
      * Check all query params
      */
     async.filter(params, (element, callback) => {
+      // Update current data
+      delete element.password
+      delete element.role
+      delete element.mail
+      delete element.userId
       element.birthday = getAge(element.birthday)
       element.dist = getDist({
         lat: element.lat,
@@ -92,11 +109,16 @@ module.exports = (req, res) => {
         lat: user.lat,
         lng: user.lng
       }) / 1000
+
+      // Check filter
       if (element.birthday > req.body.maxAge || element.birthday < req.body.minAge ||
       element.popularity > req.body.maxPop || element.popularity < req.body.minPop ||
+      element.dist >= req.body.Dist || element.popularity < req.body.minPop ||
       typeof element.lng !== 'number' || typeof element.lat !== 'number') {
         return callback(null, !element)
       }
+
+      // Search by location
       if (req.body.isLoc === true && getDist({
         lat: element.lat,
         lng: element.lng
@@ -105,6 +127,29 @@ module.exports = (req, res) => {
         lng: req.body.lngLocation
       }) > 10000.00) {
         return callback(null, !element)
+      }
+
+      // Search by tags
+      if (req.body.filterByTags.length !== 0) {
+        let userTags = element.tags.split(' ')
+        let find = false
+
+        for (let i = 0; i < req.body.filterByTags.length; i++) {
+          let element1 = req.body.filterByTags[i]
+
+          for (var y = 0; y < userTags.length; y++) {
+            let element2 = userTags[y]
+
+            if (element1 === element2) {
+              find = true
+            }
+          }
+          if (find === false) {
+            return callback(null, !element)
+          } else {
+            find = false
+          }
+        }
       }
       return callback(null, element)
     }, (err, results) => {
@@ -121,7 +166,8 @@ module.exports = (req, res) => {
     }
     res.json({
       success: true,
-      results: params
+      results: params,
+      user: user
     })
   })
 }

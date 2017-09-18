@@ -14,11 +14,11 @@ class Find extends Component {
       orderBy: 'popularity',
       minAge: 0,
       maxAge: 99,
-      minDist: 0,
-      maxDist: 100,
+      Dist: 100000,
       minPop: 0,
       maxPop: 100,
-      results: []
+      results: [],
+      currentUser: {}
     }
     this.orderBy = this.orderBy.bind(this)
     this.search = this.search.bind(this)
@@ -54,12 +54,14 @@ class Find extends Component {
           orderBy: this.state.orderBy,
           minAge: this.state.minAge,
           maxAge: this.state.maxAge,
-          minDist: this.state.minDist,
-          maxDist: this.state.maxDist,
+          Dist: this.state.Dist,
           minPop: this.state.minPop,
           maxPop: this.state.maxPop
         }).then(res => {
-          console.log(res)
+          this.setState({
+            results: res.data.results,
+            currentUser: res.data.user
+          })
         }).catch((err) => console.log(err.response))
       }).catch((err) => console.log(err.response))
     } else {
@@ -71,12 +73,14 @@ class Find extends Component {
         orderBy: this.state.orderBy,
         minAge: this.state.minAge,
         maxAge: this.state.maxAge,
-        minDist: this.state.minDist,
-        maxDist: this.state.maxDist,
+        Dist: this.state.Dist,
         minPop: this.state.minPop,
         maxPop: this.state.maxPop
       }).then(res => {
-        console.log(res)
+        this.setState({
+          results: res.data.results,
+          currentUser: res.data.user
+        })
       }).catch((err) => console.log(err.response))
     }
   }
@@ -88,7 +92,12 @@ class Find extends Component {
   }
 
   onChange (event) {
-    console.log(event.target.name)
+    let name = event.target.name
+    if (name === 'maxPop' || name === 'minPop' ||
+    name === 'minAge' || name === 'maxAge') {
+      if (event.target.value > 100) event.target.value = 100
+      if (event.target.value < 0) event.target.value = 0
+    }
     this.setState({[event.target.name]: event.target.value})
   }
 
@@ -100,12 +109,11 @@ class Find extends Component {
 
             <input name='filterByLocation' type='text' value={this.state.filterByLocation} placeholder='Find by localisation' onChange={this.onChange} onKeyPress={this.search} />
             <input name='filterByTags' type='text' value={this.state.filterByTags} placeholder='Find by tags' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='minPop' type='number' min='0' step='1' max='100' placeholder='Min popularity' />
-            <input name='maxPop' type='number' min='0' step='1' max='100' placeholder='Max popularity' />
-            <input name='minAge' type='number' min='0' step='1' max='100' placeholder='Min age' />
-            <input name='maxAge' type='number' min='0' step='1' max='100' placeholder='Max age' />
-            <input name='minDist' type='number' min='0' step='1' max='100' placeholder='Min distance' />
-            <input name='maxDist' type='number' min='0' step='1' max='100' placeholder='Max distance' />
+            <input name='minPop' type='number' min='0' step='1' max='100' placeholder='Min popularity' onChange={this.onChange} />
+            <input name='maxPop' type='number' min='0' step='1' max='100' placeholder='Max popularity' onChange={this.onChange} />
+            <input name='minAge' type='number' min='0' step='1' max='100' placeholder='Min age' onChange={this.onChange} />
+            <input name='maxAge' type='number' min='0' step='1' max='100' placeholder='Max age' onChange={this.onChange} />
+            <input name='Dist' type='number' min='0' step='1' max='100000' placeholder='Max distance' onChange={this.onChange} />
           </div>
           <div id='orderBy'>
             <div id='age' onClick={this.orderBy} >Age</div>
@@ -114,8 +122,17 @@ class Find extends Component {
             <div id='tags' onClick={this.orderBy} >Tags</div>
           </div>
         </div>
-        <div id='results'>
-          {this.state.results}
+        <div id='searchResult'>
+          {this.state.results.map((elem) => {
+            return (
+              <div key={elem.id} id={elem.id}>
+                <img className='searchImg' src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main' />
+                {elem.firstName}
+                {elem.lastName}
+                {elem.birthday}
+              </div>
+            )
+          })}
         </div>
       </div>
     )

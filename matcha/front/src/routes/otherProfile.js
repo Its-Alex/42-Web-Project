@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import Moment from 'react-moment'
 
 import axiosInst from '../utils/axios.js'
-import Store from '../utils/store.js'
+// import Store from '../utils/store.js'
 import ws from '../utils/ws.js'
 
 import './css/otherProfile.css'

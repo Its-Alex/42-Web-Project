@@ -1,0 +1,115 @@
+.custom-body {
+    padding: 0; 
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    text-align: center;
+}
+
+#params {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#params > div {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#params > div > input {
+    margin: 10px 20px 10px 20px;
+}
+
+#params > div > div {
+    margin: 10px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background-color: #DDD;
+}
+
+#params > div > div.active {
+    background-color: #AAA;
+}
+
+#params input, #params textarea, #params select {
+    font-size: 1em;
+    margin: 6px;
+    outline: none;
+    width: 20%;
+    min-width: 134px;
+    border-radius: 6px;
+    min-height: 1.8em;
+    border: none;
+    text-align: center;
+    color: var(--textInputForm);
+    background-color: var(--whiteInput);
+    border: 2px solid var(--whiteInput);
+}
+
+#params input::placeholder, #params textarea::placeholder {
+    color: var(--placeHolder);
+}
+
+#params input[type=submit] {
+    margin: 15px;
+    padding: 2px 0px 2px 0px;
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    color: #F6FbFD;
+    border-radius: 4px;
+    box-sizing: content-box;
+}
+
+#params input[type=email]:focus, #params input[type=text]:focus, #params input[type=password]:focus, 
+#params input[type=number]:focus {
+    border: 2px solid var(--blue);
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+#params input[type=submit]:hover {
+    cursor: pointer;
+}
+
+#searchResult {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#searchResult > div {
+    margin: 20px 1.6vw;
+    width: 16vw;
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px #DDD, -2px -2px 5px #DDD;
+}
+
+#searchResult > div > img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+#searchResult > div > p {
+    margin: 10px 5px;
+}

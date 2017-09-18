@@ -4,6 +4,42 @@ import axios from 'axios'
 import axiosInst from '../utils/axios.js'
 import './css/find.css'
 
+let sortByAgeDesc = (a, b) => {
+  if (a.birthday < b.birthday) return 1
+  else if (a.birthday > b.birthday) return -1
+  else if (a.birthday === b.birthday) return 0
+}
+
+let sortByAgeAsc = (a, b) => {
+  if (a.birthday < b.birthday) return -1
+  else if (a.birthday > b.birthday) return 1
+  else if (a.birthday === b.birthday) return 0
+}
+
+let sortByPopDesc = (a, b) => {
+  if (a.popularity < b.popularity) return 1
+  else if (a.popularity > b.popularity) return -1
+  else if (a.popularity === b.popularity) return 0
+}
+
+let sortByPopAsc = (a, b) => {
+  if (a.popularity < b.popularity) return -1
+  else if (a.popularity > b.popularity) return 1
+  else if (a.popularity === b.popularity) return 0
+}
+
+let sortByDistDesc = (a, b) => {
+  if (a.dist < b.dist) return 1
+  else if (a.dist > b.dist) return -1
+  else if (a.dist === b.dist) return 0
+}
+
+let sortByDistAsc = (a, b) => {
+  if (a.dist < b.dist) return -1
+  else if (a.dist > b.dist) return 1
+  else if (a.dist === b.dist) return 0
+}
+
 class Find extends Component {
   constructor (props) {
     super(props)
@@ -12,11 +48,11 @@ class Find extends Component {
       filterByLocation: '',
       filterByTags: '',
       orderBy: 'popularity',
-      minAge: 0,
-      maxAge: 99,
-      Dist: 100000,
-      minPop: 0,
-      maxPop: 100,
+      minAge: '0',
+      maxAge: '99',
+      dist: '100000',
+      minPop: '0',
+      maxPop: '100',
       results: [],
       currentUser: {}
     }
@@ -31,15 +67,59 @@ class Find extends Component {
   }
 
   orderBy (event) {
-    console.log(event.target.id)
+    document.getElementById('distance').classList.remove('active')
+    document.getElementById('tags').classList.remove('active')
+    document.getElementById('popularity').classList.remove('active')
+    document.getElementById('age').classList.remove('active')
+
     if (event.target.id === 'age') {
-      this.setState({orderBy: event.target.id})
+      this.setState((state) => {
+        if (state.orderBy === 'age') {
+          return this.setState({
+            results: this.state.results.sort(sortByAgeDesc),
+            orderBy: 'ageDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByAgeAsc),
+            orderBy: 'age'
+          })
+        }
+      })
+      event.target.classList.toggle('active')
     } else if (event.target.id === 'distance') {
-      this.setState({orderBy: event.target.id})
+      this.setState((state) => {
+        if (state.orderBy === 'distance') {
+          return this.setState({
+            results: this.state.results.sort(sortByDistDesc),
+            orderBy: 'distanceDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByDistAsc),
+            orderBy: 'distance'
+          })
+        }
+      })
+      event.target.classList.toggle('active')
     } else if (event.target.id === 'popularity') {
-      this.setState({orderBy: event.target.id})
+      event.target.classList.toggle('active')
+      this.setState((state) => {
+        if (state.orderBy === 'popularity') {
+          return this.setState({
+            results: this.state.results.sort(sortByPopDesc),
+            orderBy: 'popularityDesc'
+          })
+        } else {
+          return this.setState({
+            results: this.state.results.sort(sortByPopAsc),
+            orderBy: 'popularity'
+          })
+        }
+      })
     } else if (event.target.id === 'tags') {
-      this.setState({orderBy: event.target.id})
+      event.target.classList.toggle('active')
+      
     }
   }
 
@@ -54,7 +134,7 @@ class Find extends Component {
           orderBy: this.state.orderBy,
           minAge: this.state.minAge,
           maxAge: this.state.maxAge,
-          Dist: this.state.Dist,
+          dist: this.state.dist,
           minPop: this.state.minPop,
           maxPop: this.state.maxPop
         }).then(res => {
@@ -73,20 +153,29 @@ class Find extends Component {
         orderBy: this.state.orderBy,
         minAge: this.state.minAge,
         maxAge: this.state.maxAge,
-        Dist: this.state.Dist,
+        dist: this.state.dist,
         minPop: this.state.minPop,
         maxPop: this.state.maxPop
       }).then(res => {
-        this.setState({
-          results: res.data.results,
-          currentUser: res.data.user
-        })
+        if (res.data.results !== undefined && res.data.results !== null &&
+        res.data.user !== undefined && res.data.user !== null) {
+          this.setState({
+            results: res.data.results,
+            currentUser: res.data.user
+          })
+        } else {
+          this.setState({
+            results: [],
+            currentUser: []
+          })
+        }
       }).catch((err) => console.log(err.response))
     }
   }
 
   search (event) {
     if (event.key === 'Enter') {
+      console.log('LEL')
       this.updateResults()
     }
   }
@@ -98,22 +187,25 @@ class Find extends Component {
       if (event.target.value > 100) event.target.value = 100
       if (event.target.value < 0) event.target.value = 0
     }
+    if (name === 'dist') {
+      if (event.target.value > 100000) event.target.value = 100000
+      if (event.target.value < 0) event.target.value = 0
+    }
     this.setState({[event.target.name]: event.target.value})
   }
 
   render () {
     return (
-      <div className='body flex-start'>
+      <div className='custom-body'>
         <div id='params'>
           <div>
-
             <input name='filterByLocation' type='text' value={this.state.filterByLocation} placeholder='Find by localisation' onChange={this.onChange} onKeyPress={this.search} />
             <input name='filterByTags' type='text' value={this.state.filterByTags} placeholder='Find by tags' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='minPop' type='number' min='0' step='1' max='100' placeholder='Min popularity' onChange={this.onChange} />
-            <input name='maxPop' type='number' min='0' step='1' max='100' placeholder='Max popularity' onChange={this.onChange} />
-            <input name='minAge' type='number' min='0' step='1' max='100' placeholder='Min age' onChange={this.onChange} />
-            <input name='maxAge' type='number' min='0' step='1' max='100' placeholder='Max age' onChange={this.onChange} />
-            <input name='Dist' type='number' min='0' step='1' max='100000' placeholder='Max distance' onChange={this.onChange} />
+            <input name='minPop' type='number' value={this.state.minPop} min='0' step='1' max='100' placeholder='Min popularity' onChange={this.onChange} onKeyPress={this.search} />
+            <input name='maxPop' type='number' value={this.state.maxPop} min='0' step='1' max='100' placeholder='Max popularity' onChange={this.onChange} onKeyPress={this.search} />
+            <input name='minAge' type='number' value={this.state.minAge} min='0' step='1' max='100' placeholder='Min age' onChange={this.onChange} onKeyPress={this.search} />
+            <input name='maxAge' type='number' value={this.state.maxAge} min='0' step='1' max='100' placeholder='Max age' onChange={this.onChange} onKeyPress={this.search} />
+            <input name='dist' type='number' value={this.state.dist} min='0' step='1' max='100000' placeholder='Max distance' onChange={this.onChange} onKeyPress={this.search} />
           </div>
           <div id='orderBy'>
             <div id='age' onClick={this.orderBy} >Age</div>
@@ -125,11 +217,15 @@ class Find extends Component {
         <div id='searchResult'>
           {this.state.results.map((elem) => {
             return (
-              <div key={elem.id} id={elem.id}>
-                <img className='searchImg' src={`http://localhost:3005/picture/${this.props.userID}/0`} alt='Main' />
-                {elem.firstName}
-                {elem.lastName}
-                {elem.birthday}
+              <div key={elem.id} id={elem.id} onClick={(event) => {
+                event.preventDefault()
+                this.props.history.push(`/profile/${elem.id}`)
+              }}>
+                <img className='searchImg' src={`http://localhost:3005/picture/${elem.id}/0`} alt='Main' />
+                <p><b>Firstname:</b> {elem.firstName}</p>
+                <p><b>Lastname:</b> {elem.lastName}</p>
+                <p><b>Popularity:</b> {elem.popularity}</p>
+                <p><b>Age:</b> {elem.birthday}</p>
               </div>
             )
           })}

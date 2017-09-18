@@ -3,7 +3,7 @@ const async = require('async')
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')
 const model = require('../models/find.js')
-const getDist = require('../getDist.js')
+const getDist = require('../getdist.js')
 
 function error (res, data, err) {
   res.status(err)
@@ -28,9 +28,9 @@ module.exports = (req, res) => {
   if (typeof req.body.latLocation !== 'number' || typeof req.body.lngLocation !== 'number' ||
   typeof req.body.filterByTags !== 'string' || typeof req.body.isLoc !== 'boolean' ||
   typeof req.body.orderBy !== 'string' ||
-  typeof req.body.minAge !== 'number' || typeof req.body.maxAge !== 'number' ||
-  typeof req.body.minPop !== 'number' || typeof req.body.maxPop !== 'number' ||
-  typeof req.body.Dist !== 'number') {
+  typeof req.body.minAge !== 'string' || typeof req.body.maxAge !== 'string' ||
+  typeof req.body.minPop !== 'string' || typeof req.body.maxPop !== 'string' ||
+  typeof req.body.dist !== 'string') {
     return res.json({
       success: false,
       error: 'Invalid fields'
@@ -39,7 +39,7 @@ module.exports = (req, res) => {
 
   if (req.body.minAge < 0 || req.body.maxAge > 100 ||
   req.body.minPop < 0 || req.body.maxPop > 100 ||
-  req.body.Dist > 100000 || req.body.Dist < 0) {
+  req.body.dist > 100000 || req.body.dist < 0) {
     return res.json({
       success: false,
       error: 'Invalid fields'
@@ -57,6 +57,12 @@ module.exports = (req, res) => {
       }
     })
   }
+
+  req.body.minAge = parseInt(req.body.minAge)
+  req.body.maxAge = parseInt(req.body.maxAge)
+  req.body.minPop = parseInt(req.body.minPop)
+  req.body.maxPop = parseInt(req.body.maxPop)
+  req.body.dist = parseInt(req.body.dist)
 
   async.waterfall([(cb) => {
     /**
@@ -113,7 +119,7 @@ module.exports = (req, res) => {
       // Check filter
       if (element.birthday > req.body.maxAge || element.birthday < req.body.minAge ||
       element.popularity > req.body.maxPop || element.popularity < req.body.minPop ||
-      element.dist >= req.body.Dist || element.popularity < req.body.minPop ||
+      element.dist >= req.body.dist || element.popularity < req.body.minPop ||
       typeof element.lng !== 'number' || typeof element.lat !== 'number') {
         return callback(null, !element)
       }

@@ -1,8 +1,9 @@
+const axios = require('axios')
+const async = require('async')
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')
 const model = require('../models/find.js')
 const getDist = require('../getDist.js')
-const async = require('async')
 
 function error (res, data, err) {
   res.status(err)
@@ -13,19 +14,19 @@ function error (res, data, err) {
 }
 
 let getAge = dateString => {
-  var today = new Date();
-  var birthDate = new Date(dateString);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
+  var today = new Date()
+  var birthDate = new Date(dateString)
+  var age = today.getFullYear() - birthDate.getFullYear()
+  var m = today.getMonth() - birthDate.getMonth()
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
+    age--
   }
-  return age;
+  return age
 }
 
 module.exports = (req, res) => {
-  if (typeof req.body.filterByLocation !== 'string' ||
-  typeof req.body.filterByTags !== 'string' ||
+  if (typeof req.body.latLocation !== 'number' || typeof req.body.lngLocation !== 'number' ||
+  typeof req.body.filterByTags !== 'string' || typeof req.body.isLoc !== 'boolean' ||
   typeof req.body.orderBy !== 'string' ||
   typeof req.body.minAge !== 'number' || typeof req.body.maxAge !== 'number' ||
   typeof req.body.minDist !== 'number' || typeof req.body.maxDist !== 'number' ||
@@ -47,13 +48,13 @@ module.exports = (req, res) => {
 
   async.waterfall([(cb) => {
     /**
-     * Get all users who was match
+     * Get current user and all users who was match
      */
     profileModel.getProfileById(req.user.id).then(user => {
       if (typeof user[0].lat !== 'number' && typeof user[0].lng !== 'number') {
-        return cb('User has no location', null)
+        return cb(new Error('User has no location'), null)
       }
-      model.getResults(user[0] ,[
+      model.getResults(user[0], [
         req.user.id,
         req.body.minPop,
         req.body.maxPop
@@ -78,39 +79,49 @@ module.exports = (req, res) => {
       })
       return cb(null, params, user)
     }).catch(err => cb(err, null))
-  },(params, user, cb) => {
-    // console.log(params)
-    for (let i = 0; i < params.length; i++) {
-      let element = params[i];
+  }, (params, user, cb) => {
+    /**
+     * Check all query params
+     */
+    async.filter(params, (element, callback) => {
       element.birthday = getAge(element.birthday)
-      // if (element.birthday > req.body.maxAge || elemnt.birthday < req.body.minAge) {
-      //   delete params[i]
-      // }
-      // if (element.popularity > req.body.maxPop || element.popularity < req.body.minPop) {
-      //   delete params[i]
-      // }
-      // if (typeof element.lng !== 'number' || typeof element.lat !== 'number') {
-      //   delete params[i]
-      // }    
-      // let dist = getDist({
-      //   lat: element.lat,
-      //   lng: element.lng
-      // }, {
-      //   lat: user.lat,
-      //   lng: user.lng
-      // })
-      // console.log(dist)
-    }
+      element.dist = getDist({
+        lat: element.lat,
+        lng: element.lng
+      }, {
+        lat: user.lat,
+        lng: user.lng
+      }) / 1000
+      if (element.birthday > req.body.maxAge || element.birthday < req.body.minAge ||
+      element.popularity > req.body.maxPop || element.popularity < req.body.minPop ||
+      typeof element.lng !== 'number' || typeof element.lat !== 'number') {
+        return callback(null, !element)
+      }
+      if (req.body.isLoc === true && getDist({
+        lat: element.lat,
+        lng: element.lng
+      }, {
+        lat: req.body.latLocation,
+        lng: req.body.lngLocation
+      }) > 10000.00) {
+        return callback(null, !element)
+      }
+      return callback(null, element)
+    }, (err, results) => {
+      if (err) cb(err, null)
+      cb(null, results, user)
+    })
+  }, (params, user, cb) => {
     console.log(params)
-    return cb(null, params)
-  }], (err, result) => {
+    cb(null, params, user)
+  }], (err, params, user) => {
     if (err) {
       console.log(err)
       return error(res, 'Internal server error', 500)
     }
     res.json({
       success: true,
-      results: result
+      results: params
     })
   })
 }

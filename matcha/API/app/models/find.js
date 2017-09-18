@@ -3,9 +3,7 @@ const db = require('../db.js')
 module.exports = {
   getResults: (userProfile, params) => {
     return new Promise((resolve, reject) => {
-      let query ='SELECT * from profiles \
-INNER JOIN users ON profiles.userId = users.id \
-WHERE users.id != ? AND popularity > ? AND popularity < ?'
+      let query = 'SELECT * from profiles INNER JOIN users ON profiles.userId = users.id WHERE users.id != ? AND popularity > ? AND popularity < ?'
 
       if (userProfile.type === 'M') {
         if (userProfile.genre === 'M') {

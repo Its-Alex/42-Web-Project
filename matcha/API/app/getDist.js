@@ -1,9 +1,8 @@
-let rad = function(x) {
+let rad = (x) => {
   return x * Math.PI / 180
 }
 
 module.exports = (p1, p2) => {
-  console.log('test')
   var R = 6378137 // Earth’s mean radius in meter
   var dLat = rad(p2.lat - p1.lat)
   var dLong = rad(p2.lng - p1.lng)

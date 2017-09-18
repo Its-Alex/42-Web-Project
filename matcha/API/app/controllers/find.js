@@ -130,7 +130,7 @@ module.exports = (req, res) => {
       }, {
         lat: req.body.latLocation,
         lng: req.body.lngLocation
-      }) > 10000.00) {
+      }) > 50000.00) {
         return callback(null, !element)
       }
 

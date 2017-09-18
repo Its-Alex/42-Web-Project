@@ -80,23 +80,32 @@ wss.on('connection', (ws) => {
         break
       case 'viewProfile':
         if (data.to && typeof data.to === 'string') {
-          wss.clients.forEach(client => {
-            if (client.id === data.to && ws.id !== data.to) {
-              client.send(JSON.stringify({
-                method: 'notification',
-                type: 'view',
-                user: ws.id
-              }))
-            }
-          })
           db.get().then(db => {
-            db.query('INSERT INTO notifications (performUser, concernUser, notification, date) VALUES (?, ?, ?, ?)', [
-              ws.id,
-              data.to,
-              'view',
-              Date.now()
-            ], (err, res) => {
+            db.query('SELECT * FROM blocks INNER JOIN users on blocks.concernUser = users.id WHERE blocks.concernUser = ?', [ws.id], (err, res) => {
               if (err) return console.log(err)
+              let block = false
+              console.log(res)
+              res.forEach(element => {
+                if (element.performUser === data.to) block = true
+              })
+              if (block === true) return
+              db.query('INSERT INTO notifications (performUser, concernUser, notification, date) VALUES (?, ?, ?, ?)', [
+                ws.id,
+                data.to,
+                'view',
+                Date.now()
+              ], (err, res) => {
+                if (err) return console.log(err)
+                wss.clients.forEach(client => {
+                  if (client.id === data.to && ws.id !== data.to) {
+                    client.send(JSON.stringify({
+                      method: 'notification',
+                      type: 'view',
+                      user: ws.id
+                    }))
+                  }
+                })
+              })
             })
           }).catch(err => console.log(err))
         }
@@ -125,7 +134,7 @@ wss.on('connection', (ws) => {
    * Update last time connected in database
    */
   ws.on('close', (event) => {
-    delete conUserList.splice(conUserList.indexOf(ws.id), 1)
+    conUserList.splice(conUserList.indexOf(ws.id), 1)
     broadcast({
       method: 'conUserList',
       conUserList

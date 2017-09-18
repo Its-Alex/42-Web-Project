@@ -2,7 +2,7 @@ const async = require('async')
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')
 const model = require('../models/find.js')
-const getDist = require('../getdist.js')
+const getDist = require('../getDist.js')
 
 function error (res, data, err) {
   res.status(err)
@@ -36,7 +36,13 @@ module.exports = (req, res) => {
     })
   }
 
-  if (req.body.minAge < 0 || req.body.maxAge > 100 ||
+  req.body.minAge = parseInt(req.body.minAge)
+  req.body.maxAge = parseInt(req.body.maxAge)
+  req.body.minPop = parseInt(req.body.minPop)
+  req.body.maxPop = parseInt(req.body.maxPop)
+  req.body.dist = parseInt(req.body.dist)
+
+  if (req.body.minAge < 18 || req.body.maxAge > 100 ||
   req.body.minPop < 0 || req.body.maxPop > 100 ||
   req.body.dist > 100000 || req.body.dist < 0) {
     return res.json({
@@ -56,12 +62,6 @@ module.exports = (req, res) => {
       }
     })
   }
-
-  req.body.minAge = parseInt(req.body.minAge)
-  req.body.maxAge = parseInt(req.body.maxAge)
-  req.body.minPop = parseInt(req.body.minPop)
-  req.body.maxPop = parseInt(req.body.maxPop)
-  req.body.dist = parseInt(req.body.dist)
 
   async.waterfall([(cb) => {
     /**

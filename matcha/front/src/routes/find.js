@@ -30,7 +30,7 @@ class Find extends Component {
       filterByLocation: '',
       filterByTags: '',
       orderBy: 'popularity',
-      minAge: '0',
+      minAge: '18',
       maxAge: '99',
       dist: '100000',
       minPop: '0',
@@ -209,13 +209,13 @@ class Find extends Component {
       <div className='custom-body'>
         <div id='params'>
           <div>
-            <input name='filterByLocation' type='text' value={this.state.filterByLocation} placeholder='Find by localisation' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='filterByTags' type='text' value={this.state.filterByTags} placeholder='Find by tags' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='minPop' type='number' value={this.state.minPop} min='0' step='1' max='100' placeholder='Min popularity' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='maxPop' type='number' value={this.state.maxPop} min='0' step='1' max='100' placeholder='Max popularity' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='minAge' type='number' value={this.state.minAge} min='0' step='1' max='100' placeholder='Min age' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='maxAge' type='number' value={this.state.maxAge} min='0' step='1' max='100' placeholder='Max age' onChange={this.onChange} onKeyPress={this.search} />
-            <input name='dist' type='number' value={this.state.dist} min='0' step='1' max='100000' placeholder='Max distance' onChange={this.onChange} onKeyPress={this.search} />
+            <p><input name='filterByLocation' type='text' value={this.state.filterByLocation} placeholder='Find by localisation' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><input name='filterByTags' type='text' value={this.state.filterByTags} placeholder='Find by tags' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><b>Minimum popularity: </b><input name='minPop' type='number' value={this.state.minPop} min='0' step='1' max='100' placeholder='Min popularity' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><b>Maximum popularity: </b><input name='maxPop' type='number' value={this.state.maxPop} min='0' step='1' max='100' placeholder='Max popularity' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><b>Minimum age: </b><input name='minAge' type='number' value={this.state.minAge} min='18' step='1' max='100' placeholder='Min age' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><b>Maximum age: </b><input name='maxAge' type='number' value={this.state.maxAge} min='0' step='1' max='100' placeholder='Max age' onChange={this.onChange} onKeyPress={this.search} /></p>
+            <p><b>Maximum distance: </b><input name='dist' type='number' value={this.state.dist} min='0' step='1' max='100000' placeholder='Max distance' onChange={this.onChange} onKeyPress={this.search} /></p>
           </div>
           <div id='orderBy'>
             <div id='age' onClick={this.orderBy} >Age</div>

@@ -45,44 +45,45 @@ class OtherProfile extends React.Component {
    * Get user's datas
    */
   componentWillMount () {
-    if (this.props.match.params.user === global.localStorage.getItem('id')) {
-      return this.props.history.push('/profile')
-    }
     axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
       if (res.data.success === true) {
         if (res.data.block === true) {
           this.props.history.push('/profile')
         }
-        this.setState({
-          isReport: res.data.report,
-          likeBack: res.data.likeBack,
-          username: res.data.name,
-          birthday: res.data.profile[0].birthday,
-          bio: res.data.profile[0].bio,
-          firstName: res.data.profile[0].firstName,
-          lastName: res.data.profile[0].lastName,
-          popularity: res.data.profile[0].popularity,
-          genre: (res.data.profile[0].genre === 'M') ? 'Man' : 'Woman',
-          type: (res.data.profile[0].type === 'M') ? 'Mens' : (res.data.profile[0].type === 'F') ? 'Womens' : 'Mens and Womans',
-          tags: res.data.profile[0].tags,
-          location: res.data.profile[0].location,
-          lastConnect: res.data.profile[0].lastConnect,
-          img: [
-            `http://localhost:3005/picture/${res.data.id}/0`,
-            `http://localhost:3005/picture/${res.data.id}/1`,
-            `http://localhost:3005/picture/${res.data.id}/2`,
-            `http://localhost:3005/picture/${res.data.id}/3`,
-            `http://localhost:3005/picture/${res.data.id}/4`
-          ]
-        })
+        if (this._isMounted === true) {
+          this.setState({
+            isReport: res.data.report,
+            likeBack: res.data.likeBack,
+            username: res.data.name,
+            birthday: res.data.profile[0].birthday,
+            bio: res.data.profile[0].bio,
+            firstName: res.data.profile[0].firstName,
+            lastName: res.data.profile[0].lastName,
+            popularity: res.data.profile[0].popularity,
+            genre: (res.data.profile[0].genre === 'M') ? 'Man' : 'Woman',
+            type: (res.data.profile[0].type === 'M') ? 'Mens' : (res.data.profile[0].type === 'F') ? 'Womens' : 'Mens and Womans',
+            tags: res.data.profile[0].tags,
+            location: res.data.profile[0].location,
+            lastConnect: res.data.profile[0].lastConnect,
+            img: [
+              `http://localhost:3005/picture/${res.data.id}/0`,
+              `http://localhost:3005/picture/${res.data.id}/1`,
+              `http://localhost:3005/picture/${res.data.id}/2`,
+              `http://localhost:3005/picture/${res.data.id}/3`,
+              `http://localhost:3005/picture/${res.data.id}/4`
+            ]
+          })
+        }
       } else {
-        this.setState({
-          error: res.data.error
-        })
+        if (this._isMounted === true) {
+          this.setState({
+            error: res.data.error
+          })
+        }
       }
     }).catch(err => console.log(err.response))
     axiosInst().get(`/like/${this.props.match.params.user}`).then(res => {
-      if (res.data.success === true) {
+      if (res.data.success === true && this._isMounted === true) {
         this.setState({isLike: true})
       }
     }).catch(err => console.log(err))
@@ -90,6 +91,9 @@ class OtherProfile extends React.Component {
 
   componentDidMount () {
     this._isMounted = true
+    if (this.props.match.params.user === global.localStorage.getItem('id')) {
+      return this.props.history.push('/profile')
+    }
     ws.send({
       method: 'viewProfile',
       to: this.props.match.params.user

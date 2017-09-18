@@ -28,8 +28,12 @@
     flex-wrap: wrap;
 }
 
-#params > div > input {
+#params > div > p > input {
     margin: 10px 20px 10px 20px;
+}
+
+#params > div > p {
+    margin: 5px 5px;
 }
 
 #params > div > div {
@@ -98,6 +102,7 @@
     min-width: 280px;
     max-width: 300px;
     min-height: 300px;
+    max-height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,9 +111,11 @@
 }
 
 #searchResult > div > img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+    margin: 5% 0;
+    pointer-events: none;
+    height: 50%;
+    overflow: hidden;
+    width: auto;
 }
 
 #searchResult > div > p {

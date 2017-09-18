@@ -119,7 +119,6 @@ class Find extends Component {
       })
     } else if (event.target.id === 'tags') {
       event.target.classList.toggle('active')
-      
     }
   }
 

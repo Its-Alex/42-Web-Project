@@ -1,4 +1,3 @@
-const axios = require('axios')
 const async = require('async')
 const profileModel = require('../models/profile.js')
 const blockModel = require('../models/block.js')

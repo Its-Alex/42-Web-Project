@@ -205,7 +205,6 @@ class Profile extends Component {
         /**
          * Update profile from data input
          */
-        console.log(res.data.results[0].geometry.location)
         axiosInst().patch('/profile', {
           birthday: this.state.birthday,
           firstName: this.state.firstName,

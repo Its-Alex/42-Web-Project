@@ -5,7 +5,7 @@ var db
 
 let connect = () => {
   db = mysql.createConnection({
-    host: 'localhost',
+    host: 'sql.itsalex.fr',
     user: 'matcha',
     password: '123456',
     database: 'matcha',

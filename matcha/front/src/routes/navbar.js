@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axiosInst from '../utils/axios.js'
 import './css/navbar.css'
 
 class Navbar extends React.Component {
@@ -13,6 +14,13 @@ class Navbar extends React.Component {
     if (global.localStorage.getItem('token') !== undefined) {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0`
       document.getElementById('pictureProfile').style.backgroundImage = `url('${url}')`
+      axiosInst().get('/notification').then(res => {
+        if (res.data.number !== 0) {
+          document.getElementById('notificationsButton').classList.add('active')
+        }
+      }).catch(err => {
+        console.log(err.response)
+      })
     }
   }
 

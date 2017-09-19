@@ -4,6 +4,7 @@ import Login from './login.js'
 import Signin from './signup.js'
 import Forgot from './forget.js'
 import Profile from './profile.js'
+import Recover from './recover.js'
 
 class Index extends Component {
   componentWillMount () {
@@ -19,7 +20,8 @@ class Index extends Component {
           <Route exact path='/auth/login' component={Login} />
           <Route exact path='/auth/signup' component={Signin} />
           <Route exact path='/auth/profile' component={Profile} />
-          <Route exact path='/auth/forgot' component={Forgot} />
+          <Route exact path='/auth/forget' component={Forgot} />
+          <Route exact path='/auth/forget/:hash' component={Recover} />
           <Redirect to='/auth/login' />
         </Switch>
       </div>

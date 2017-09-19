@@ -5,6 +5,8 @@ const middle = require('../middlewares.js')
 // User public path
 router.post('/signin', require('../controllers/user/signin.js'))
 router.post('/signup', require('../controllers/user/signup.js'))
+router.post('/forgetPwd', require('../controllers/user/forgetPwd.js'))
+router.patch('/forgetPwd/:hash', require('../controllers/user/resetPwd.js'))
 
 // Path who need auth
 router.get('/:id', middle('USER'), require('../controllers/user/get.js'))

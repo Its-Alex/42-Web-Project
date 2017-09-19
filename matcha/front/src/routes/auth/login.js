@@ -82,7 +82,7 @@ class Login extends Component {
           </div>
           <div className='divLink'>
             <Link to='/auth/signup' className='link'>Sign up</Link>
-            <Link to='/auth/forgot' className='link'>Forgot your password ?</Link>
+            <Link to='/auth/forget' className='link'>Forgot your password ?</Link>
           </div>
         </div>
       </div>

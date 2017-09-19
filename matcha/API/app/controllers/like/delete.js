@@ -1,5 +1,6 @@
 const model = require('../../models/like.js')
 const modelNotif = require('../../models/notification.js')
+const modelPop = require('../../models/popularity.js')
 const ws = require('../../ws.js')
 
 function error (res, data, err) {
@@ -15,6 +16,7 @@ module.exports = (req, res) => {
     if (result.affectedRows === 0) return error(res, 'User not liked', 200)
     modelNotif.addNotification(req.user.id, req.params.id, 'dislike').then(result => {
       if (result.affectedRows === 0) return error(res, 'User has not been notified', 200)
+      modelPop.removePop(req.params.id, 1).then(res => {}).catch(err => console.log(err))
       res.json({success: true})
       ws.sendToId(req.params.id, {
         method: 'notification',

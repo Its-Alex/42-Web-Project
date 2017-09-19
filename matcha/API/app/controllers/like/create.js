@@ -1,6 +1,7 @@
 const model = require('../../models/like.js')
 const modelNotif = require('../../models/notification.js')
 const modelBlock = require('../../models/block.js')
+const modelPop = require('../../models/popularity.js')
 const ws = require('../../ws.js')
 const path = require('path')
 const dir = path.dirname(require.main.filename) + '/pictures/'
@@ -28,6 +29,7 @@ module.exports = (req, res) => {
         model.getLike(req.params.id, req.user.id).then(result => {
           if (result.length === 0) {
             modelNotif.addNotification(req.user.id, req.params.id, 'like').then(result => {
+              modelPop.addPop(req.params.id, 1).then(res => {}).catch(err => console.log(err))
               if (result.affectedRows === 0) return error(res, 'User has not been notified', 200)
               ws.sendToId(req.params.id, {
                 method: 'notification',

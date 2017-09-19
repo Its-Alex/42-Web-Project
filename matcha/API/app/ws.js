@@ -81,14 +81,10 @@ wss.on('connection', (ws) => {
       case 'viewProfile':
         if (data.to && typeof data.to === 'string') {
           db.get().then(db => {
-            db.query('SELECT * FROM blocks INNER JOIN users on blocks.concernUser = users.id WHERE blocks.concernUser = ?', [ws.id], (err, res) => {
+            db.query('SELECT * FROM blocks INNER JOIN users on blocks.concernUser = users.id WHERE (blocks.concernUser = ? AND blocks.performUser = ?) OR (blocks.concernUser = ? AND blocks.performUser = ?)',
+            [ws.id, data.to, data.to, ws.id], (err, res) => {
               if (err) return console.log(err)
-              let block = false
-              console.log(res)
-              res.forEach(element => {
-                if (element.performUser === data.to) block = true
-              })
-              if (block === true) return
+              if (res.length !== 0) return
               db.query('INSERT INTO notifications (performUser, concernUser, notification, date) VALUES (?, ?, ?, ?)', [
                 ws.id,
                 data.to,

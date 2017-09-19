@@ -1,4 +1,5 @@
 const db = require('../db.js')
+const modelBlock = require('./block.js')
 
 module.exports = {
   getChatPeople: (id) => {
@@ -17,27 +18,26 @@ module.exports = {
                     name: first.name,
                     chat: []
                   })
-                  // res.splice(index, 1)
-                }
-              }
-            }, this)
-          }, this)
-          db.query('SELECT * FROM chats WHERE receiver = ? OR sender = ? ORDER BY date ASC', [
-            id,
-            id
-          ], (err, res) => {
-            if (err) reject(err)
-            res.forEach(elem => {
-              people.forEach((user, index) => {
-                if (user.id === elem.sender || user.id === elem.receiver) {
-                  people[index].chat.push({
-                    text: elem.text,
-                    date: elem.date
+                  db.query('SELECT * FROM chats WHERE receiver = ? OR sender = ? ORDER BY date ASC', [
+                    id,
+                    id
+                  ], (err, res) => {
+                    if (err) reject(err)
+                    res.forEach(elem => {
+                      people.forEach((user, index) => {
+                        if (user.id === elem.sender || user.id === elem.receiver) {
+                          people[index].chat.push({
+                            text: elem.text,
+                            date: elem.date
+                          })
+                        }
+                      })
+                    }, this)
+                    resolve(people)
                   })
                 }
-              })
-            }, this)
-            resolve(people)
+              }
+            })
           })
         })
       }).catch(err => reject(err))

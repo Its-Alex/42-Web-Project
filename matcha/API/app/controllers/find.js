@@ -86,9 +86,11 @@ module.exports = (req, res) => {
     blockModel.getAllBlockedBy(req.user.id).then(result => {
       async.each(result, (profile, callback) => {
         for (let i = 0; i < params.length; i++) {
-          /**
-           * Need to remove blocked user
-           */
+          let element = params[i]
+          if ((profile.concernUser === user.userId && profile.performUser === element.id) ||
+          (profile.concernUser === element.id && profile.performUser === user.userId)) {
+            params.splice(i, 1)
+          }
         }
         return callback()
       }, (err) => {
@@ -162,7 +164,9 @@ module.exports = (req, res) => {
       cb(null, results, user)
     })
   }, (params, user, cb) => {
-    console.log(params)
+    /**
+     * Need to do weighting
+     */
     cb(null, params, user)
   }], (err, params, user) => {
     if (err) {

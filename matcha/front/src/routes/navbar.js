@@ -21,12 +21,12 @@ class Navbar extends React.Component {
     const sidebarBtn = document.getElementById('showNavBtn')
 
     sidebar.classList.toggle('hidden')
-    sidebarBtn.classList.toggle('active');
+    sidebarBtn.classList.toggle('active')
   }  
 
   render () {
     return (
-      <div id='navbar' className='hidden' >
+      <div id='navbar' className='hidden'>
         <div id='imgContainer'>
           <div id='pictureProfile' />
           <div id='imgButtonContainer'>

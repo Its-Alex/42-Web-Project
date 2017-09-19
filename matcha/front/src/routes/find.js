@@ -63,6 +63,12 @@ class Find extends Component {
   }
 
   updateResults () {
+    let minAge = '18'
+    if (parseInt(this.state.minAge, 10) < 18) {
+      this.setState({minAge: '18'})
+    } else {
+      minAge = this.state.minAge
+    }
     if (this.state.filterByLocation !== '') {
       axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${this.state.filterByLocation.replace(' ', '+')}&key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk`).then((res) => {
         axiosInst().post('/find', {
@@ -71,16 +77,24 @@ class Find extends Component {
           lngLocation: res.data.results[0].geometry.location.lng,
           filterByTags: this.state.filterByTags,
           orderBy: this.state.orderBy,
-          minAge: this.state.minAge,
+          minAge: minAge,
           maxAge: this.state.maxAge,
           dist: this.state.dist,
           minPop: this.state.minPop,
           maxPop: this.state.maxPop
         }).then(res => {
-          this.setState({
-            results: res.data.results,
-            currentUser: res.data.user
-          })
+          if (res.data.results !== undefined && res.data.results !== null &&
+          res.data.user !== undefined && res.data.user !== null) {
+            this.setState({
+              results: res.data.results,
+              currentUser: res.data.user
+            })
+          } else {
+            this.setState({
+              results: [],
+              currentUser: []
+            })
+          }
         }).catch((err) => console.log(err.response))
       }).catch((err) => console.log(err.response))
     } else {
@@ -90,7 +104,7 @@ class Find extends Component {
         lngLocation: -1000,
         filterByTags: this.state.filterByTags,
         orderBy: this.state.orderBy,
-        minAge: this.state.minAge,
+        minAge: minAge,
         maxAge: this.state.maxAge,
         dist: this.state.dist,
         minPop: this.state.minPop,

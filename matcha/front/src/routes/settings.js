@@ -1,6 +1,6 @@
 import React from 'react'
-
 import axiosInst from '../utils/axios.js'
+import './css/settings.css'
 let zxcvbn = require('zxcvbn')
 
 class Settings extends React.Component {
@@ -71,25 +71,23 @@ class Settings extends React.Component {
   render () {
     return (
       <div className='body flex-center'>
-        <div className='resize'>
-          <div id='profileForm'>
-            <div>
-              <label>Username :</label>
-              <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            </div>
-            <div>
-              <label>Mail :</label>
-              <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            </div>
-            <div>
-              <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            </div>
-            <div>
-              <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
-            </div>
-            <div>
-              <input type='submit' value='Save' onClick={this.handleKeyPress} />
-            </div>
+        <div id='settingsForm'>
+          <div>
+            <label>Username :</label>
+            <input type='text' name='name' value={this.state.name} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <label>Mail :</label>
+            <input type='text' name='mail' value={this.state.mail} onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <input type='password' name='newPassword' value={this.state.newPassword} placeholder='New password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <input type='password' name='oldPassword' value={this.state.oldPassword} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+          </div>
+          <div>
+            <input type='submit' value='Save' onClick={this.handleKeyPress} />
           </div>
         </div>
       </div>

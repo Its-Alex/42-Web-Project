@@ -1,0 +1,103 @@
+#settingsForm {
+    padding: 0; 
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+#settingsForm > div {
+    width: 100%;
+    margin: 5px;
+}
+
+#settingsForm > p {
+    margin: 2px;
+}
+
+#settingsForm > div > input, #settingsForm > div > textarea, #settingsForm > div > select {
+    min-width: 100px;
+    font-size: 1em;
+    padding: 3px;
+    outline: none;
+    border-radius: 6px;
+    border: none;
+    text-align: center;
+    color: var(--textInputForm);
+    background-color: var(--whiteInput);
+    border: 2px solid var(--whiteInput);
+}
+
+#settingsForm > div > input::placeholder, #settingsForm > div > textarea::placeholder {
+    color: var(--placeHolder);
+}
+
+#settingsForm > div > input[type=submit] {
+    margin: 15px;
+    padding: 2px 0px 2px 0px;
+    background-color: var(--blue);
+    border: 2px solid var(--blue);
+    color: #F6FbFD;
+    border-radius: 4px;
+    box-sizing: content-box;
+}
+
+#settingsForm > div > input[type=email]:focus, #settingsForm > div > input[type=text]:focus, #settingsForm > div > input[type=password]:focus,
+#settingsForm > div > input[type=date]:focus, #settingsForm > div > textarea:focus, #settingsForm > div > select:focus {
+    border: 2px solid var(--blue);
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+#settingsForm > div > input[type=submit]:hover {
+    cursor: pointer;
+}
+
+#settingsForm > div > textarea {
+    resize: none;
+    height: 4em;
+    min-width: 250px;
+}
+
+#settingsForm > div > input[type=radio] {
+    height: 14px;
+    width: 14px;
+}
+
+#settingsForm > div > label {
+    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#dropzoneView {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.dropzone {
+    margin: 5px;
+    width: 75px;
+    height: 75px;
+    flex: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid #000;
+    border-radius: 50%;
+}    
+
+.pictureView {
+    width: auto;
+    height: 100%;
+}

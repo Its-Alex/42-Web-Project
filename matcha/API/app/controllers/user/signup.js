@@ -1,5 +1,4 @@
 const model = require('../../models/user.js')
-const valid = require('validator')
 const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
 const zxcvbn = require('zxcvbn')

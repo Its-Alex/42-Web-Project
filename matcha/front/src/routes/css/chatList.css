@@ -1,8 +1,10 @@
 .talks {
-    margin: 2.5vh 2vw;
-    height: 45vh;
-    width: 20vw;
+    margin: 4.1vh 1.3vw;
+    padding: 5px;
+    height: 25vh;
+    width: 16vw;
     min-width: 215px;
+    min-height: 250px; 
     max-height: 400px;
     display: flex;
     overflow: hidden;

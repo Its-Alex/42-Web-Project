@@ -44,6 +44,41 @@ class ChatList extends React.Component {
             this.props.history.push(`/chat/${elem.id}`)
           }} />
         })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
+        {store.chat.map(elem => {
+          return <Talks key={elem.id} name={elem.name} userID={elem.id} onClick={(event, data) => {
+            this.props.history.push(`/chat/${elem.id}`)
+          }} />
+        })}
       </div>
     )
   }

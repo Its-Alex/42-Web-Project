@@ -54,27 +54,32 @@ wss.on('connection', (ws) => {
         if (data.to && typeof data.to === 'string') {
           if (data.msg && typeof data.msg === 'string') {
             db.get().then(db => {
-              db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
-                ws.id,
-                data.to,
-                data.msg,
-                Date.now()
-              ], (err, res) => {
+              db.query('SELECT * FROM blocks INNER JOIN users on blocks.concernUser = users.id WHERE (blocks.concernUser = ? AND blocks.performUser = ?) OR (blocks.concernUser = ? AND blocks.performUser = ?)',
+              [ws.id, data.to, data.to, ws.id], (err, res) => {
                 if (err) return console.log(err)
+                if (res.length !== 0) return
+                db.query('INSERT INTO chats (sender, receiver, text, date) VALUES (?, ?, ?, ?)', [
+                  ws.id,
+                  data.to,
+                  data.msg,
+                  Date.now()
+                ], (err, res) => {
+                  wss.clients.forEach(client => {
+                    if (client.id === data.to) {
+                      client.send(JSON.stringify({
+                        method: 'chat',
+                        type: 'receive',
+                        text: data.msg,
+                        from: ws.id,
+                        for: client.id,
+                        date: Date.now()
+                      }))
+                    }
+                  })
+                  if (err) return console.log(err)
+                })
               })
             }).catch((err) => console.log(err))
-            wss.clients.forEach(client => {
-              if (client.id === data.to) {
-                client.send(JSON.stringify({
-                  method: 'chat',
-                  type: 'receive',
-                  text: data.msg,
-                  from: ws.id,
-                  for: client.id,
-                  date: Date.now()
-                }))
-              }
-            })
           }
         }
         break

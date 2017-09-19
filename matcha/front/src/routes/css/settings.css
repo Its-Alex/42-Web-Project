@@ -21,7 +21,7 @@
 }
 
 #settingsForm > div > input, #settingsForm > div > textarea, #settingsForm > div > select {
-    min-width: 100px;
+    min-width: 200px;
     font-size: 1em;
     padding: 3px;
     outline: none;

@@ -6,10 +6,10 @@ import './css/navbar.css'
 class Navbar extends React.Component {
   constructor (props) {
     super(props)
-    
+
     this.handleShowNav = this.handleShowNav.bind(this)
   }
-  
+
   componentDidMount () {
     if (global.localStorage.getItem('token') !== undefined) {
       let url = `http://localhost:3005/picture/${global.localStorage.getItem('token')}/0`

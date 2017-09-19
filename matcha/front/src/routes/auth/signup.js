@@ -35,9 +35,9 @@ class Login extends Component {
 
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.className === 'submit') {
-      let zxcvbnScore = zxcvbn(this.state.newPassword).score
-      
-      if (zxcvbnScore < 4 || this.state.newPassword.length < 8) {
+      let zxcvbnScore = zxcvbn(this.state.password).score
+
+      if (zxcvbnScore < 4 || this.state.password.length < 8) {
         return this.setState({error: 'Password too weak or too small (8 char min)'})
       }
       axios.post('http://localhost:3005/user/signup', {

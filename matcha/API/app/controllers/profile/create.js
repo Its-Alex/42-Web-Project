@@ -8,6 +8,17 @@ function error (res, data, err) {
   })
 }
 
+let getAge = dateString => {
+  var today = new Date()
+  var birthDate = new Date(dateString)
+  var age = today.getFullYear() - birthDate.getFullYear()
+  var m = today.getMonth() - birthDate.getMonth()
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--
+  }
+  return age
+}
+
 module.exports = (req, res) => {
   var profile = {id: req.user.id}
 
@@ -29,11 +40,10 @@ module.exports = (req, res) => {
     return error(res, 'Birthday not well formated', 400)
   } else {
     let birth = req.body.birthday.split('-')
-    if (birth[0] > new Date().getFullYear()) {
+    if (parseInt(birth[0], 10) > new Date().getFullYear()) {
       return error(res, 'Birthday invalid', 400)
     }
     profile.birthday = req.body.birthday
-    profile.age = parseInt(new Date().getFullYear()) - parseInt(birth[0])
   }
 
   if (req.body.firstName > 36 || !req.body.firstName.match(/[a-zA-Z]/)) {
@@ -66,6 +76,10 @@ module.exports = (req, res) => {
     profile.type = req.body.type
   } else {
     return error(res, 'Bad type', 400)
+  }
+
+  if (getAge(req.body.birthday) < 18 || getAge(req.body.birthday) > 99) {
+    return error(res, 'Bad age', 400)
   }
 
   if (req.body.tags !== undefined) {

@@ -4,7 +4,7 @@ const uuid = require('uuid')
 const bcrypt = require('bcryptjs')
 const zxcvbn = require('zxcvbn')
 
-function genToken () {
+let genToken = () => {
   var str = `abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`
   var token = ''
 

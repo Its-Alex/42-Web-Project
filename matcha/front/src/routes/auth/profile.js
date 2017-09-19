@@ -57,10 +57,8 @@ class Login extends Component {
         }
       }).catch((err) => {
         if (err.response) {
-          console.log(err.response)
+          // console.log(err.response)
           this.setState({error: err.response.data.msg})
-        } else if (err.request) {
-          console.log(err.request)
         } else {
           console.log(new Error(err.message))
         }
@@ -84,10 +82,10 @@ class Login extends Component {
               <option value='F'>Woman</option>
             </select>
             Type :
-            <select name='type' onChange={this.handleChange} >
+            <select name='type' value={this.state.type} onChange={this.handleChange} >
               <option value='M'>Men</option>
               <option value='F'>Women</option>
-              <option value='B' defaultValue>Bisexual</option>
+              <option value='B'>Bisexual</option>
             </select>
             <input type='text' name='tags' value={this.state.tags} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
             <input type='submit' value='Next' onClick={this.handleKeyPress} />

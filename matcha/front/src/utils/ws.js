@@ -57,6 +57,7 @@ module.exports = {
       if (typeof data === 'object' && data !== null) {
         switch (data.method) {
           case 'notification':
+            document.getElementById('notificationsButton').classList.add('active')
             switch (data.type) {
               case 'like':
                 sendNotif('Like', {

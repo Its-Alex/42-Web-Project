@@ -106,6 +106,10 @@
     background-position: center;
 }
 
+#notificationsButton.active {
+    background-image: url('../../img/notSeen.svg');
+}
+
 #settingsButton {
     height: 30px;
     width: 30px;

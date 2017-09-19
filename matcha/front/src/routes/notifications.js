@@ -22,6 +22,7 @@ class Notifications extends React.Component {
   }
 
   componentDidMount () {
+    document.getElementById('notificationsButton').classList.remove('active')
     axiosInst().post('/notification').then((result) => {
       if (result.data.success !== true) console.log(result.data)
     }).catch((err) => {

@@ -19,7 +19,6 @@ module.exports = (req, res) => {
         return cb(null, chat)
       }).catch(err => cb(err, null))
     }, (err, chats) => {
-      console.log(chats)
       if (err) {
         console.log(err)
         return error(res, 'Internal server', 500)

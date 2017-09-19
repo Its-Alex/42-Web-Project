@@ -83,6 +83,7 @@ module.exports = (req, res) => {
     /**
      * Delete blocked user form list
      */
+    console.log(params)
     blockModel.getAllBlockedBy(req.user.id).then(result => {
       async.each(result, (profile, callback) => {
         for (let i = 0; i < params.length; i++) {
@@ -164,9 +165,7 @@ module.exports = (req, res) => {
       cb(null, results, user)
     })
   }, (params, user, cb) => {
-    /**
-     * Need to do weighting
-     */
+    // Need to find how to do ponderation using dist age and pop
     cb(null, params, user)
   }], (err, params, user) => {
     if (err) {

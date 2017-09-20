@@ -3,9 +3,9 @@
   "name": "Dating site",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "256x256",
-      "type": "image/png"
+      "src": "favicon/favicon.ico",
+      "sizes": "200x200",
+      "type": "image/ico"
     }
   ],
   "start_url": "./index.html",

@@ -12,7 +12,7 @@ class Index extends Component {
       return this.props.history.push('/profile')
     }
   }
-  
+
   render () {
     return (
       <div className='router'>

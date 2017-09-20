@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import './form.css'
 
-class Login extends Component {
+class Profile extends Component {
   constructor (props) {
     super(props)
 
@@ -28,9 +28,6 @@ class Login extends Component {
   componentWillMount () {
     if (global.localStorage.getItem('token')) {
       this.props.history.push('/')
-    }
-    if (!global.localStorage.getItem('signToken')) {
-      this.props.history.push('/login')
     }
   }
 
@@ -95,4 +92,4 @@ class Login extends Component {
   }
 }
 
-export default Login
+export default Profile

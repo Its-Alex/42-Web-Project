@@ -101,8 +101,8 @@ class Find extends Component {
               currentUser: []
             })
           }
-        }).catch((err) => console.log(err.response))
-      }).catch((err) => console.log(err.response))
+        }).catch((err) => err)
+      }).catch((err) => err)
     } else {
       axiosInst().post('/find', {
         isLoc: false,

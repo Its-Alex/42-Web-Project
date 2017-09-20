@@ -34,7 +34,7 @@ wss.on('connection', (ws) => {
           db.get().then((db) => {
             db.query('SELECT users.id FROM users JOIN tokens ON users.id = tokens.user WHERE tokens.token = ?', [data.token], (err, res) => {
               if (err) return console.log(err)
-              if (res.length === 0) return console.log('User not found')
+              if (res.length === 0) return
               wss.clients.forEach((elem) => {
                 if (ws === elem) {
                   elem.id = res[0].id

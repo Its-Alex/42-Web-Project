@@ -33,7 +33,7 @@ class ChatList extends React.Component {
     axiosInst().get('/chats').then(res => {
       if (res.data.success !== true) return
       store.setChat(res.data.chat)
-    }).catch(err => console.log(err.response))
+    }).catch(err => console.log(err))
   }
 
   render () {

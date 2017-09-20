@@ -1,13 +1,12 @@
 const db = require('../db.js')
-const modelBlock = require('./block.js')
 
 module.exports = {
   getChatPeople: (id) => {
     return new Promise((resolve, reject) => {
       db.get().then(db => {
         db.query('SELECT name, performUser, concernUser FROM likes INNER JOIN users ON likes.concernUser = users.id WHERE performUser = ? OR concernUser = ?', [id, id], (err, res) => {
-          if (err) reject(err)
-          if (res.length === 0) return null
+          if (err) return reject(err)
+          if (res.length === 0) return reject(new Error('No user found!'))
           let people = []
           res.forEach(first => {
             res.forEach((second, index) => {
@@ -15,30 +14,13 @@ module.exports = {
                 if (first.concernUser === second.performUser) {
                   people.push({
                     id: first.concernUser,
-                    name: first.name,
-                    chat: []
-                  })
-                  db.query('SELECT * FROM chats WHERE receiver = ? OR sender = ? ORDER BY date ASC', [
-                    id,
-                    id
-                  ], (err, res) => {
-                    if (err) reject(err)
-                    res.forEach(elem => {
-                      people.forEach((user, index) => {
-                        if (user.id === elem.sender || user.id === elem.receiver) {
-                          people[index].chat.push({
-                            text: elem.text,
-                            date: elem.date
-                          })
-                        }
-                      })
-                    }, this)
-                    resolve(people)
+                    name: first.name
                   })
                 }
               }
             })
           })
+          return resolve(people)
         })
       }).catch(err => reject(err))
     })

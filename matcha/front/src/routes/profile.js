@@ -94,9 +94,10 @@ class Profile extends Component {
   }
 
   onDropReject () {
-    this.setState({
-      error: true,
-      status: 'Invalid image'
+    this.props.notification.addNotification({
+      level: 'error',
+      title: 'Picture upload :',
+      message: 'Failed'
     })
   }
 
@@ -340,7 +341,7 @@ class Profile extends Component {
           </div>
           <div>
             <label>Location :</label>
-            <input type='text' name='location' value={this.state.location} placeholder='Related tags' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
+            <input type='text' name='location' value={this.state.location} placeholder='Current location' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />
           </div>
           <div>
             <input type='password' name='password' value={this.state.password} placeholder='Confirm password' onChange={this.handleChange} onKeyPress={this.handleKeyPress} />

@@ -23,7 +23,13 @@ module.exports = (req, res) => {
         console.log(err)
         return error(res, 'Internal server', 500)
       }
-      res.send({
+      if (chats.length === 0) {
+        return res.json({
+          success: false,
+          chat: []
+        })
+      }
+      res.json({
         success: true,
         chat: chats
       })

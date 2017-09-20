@@ -43,7 +43,7 @@ module.exports = (req, res) => {
     req.body.mail = req.body.mail.toLowerCase()
   }
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
-  req.body.password.length < 8 || zxcvbn(req.body.password).score < 4) {
+  req.body.password.length < 8 || zxcvbn(req.body.password).score <= 2) {
     return error(res, 'Invalid password', 400)
   } else {
     req.body.password = bcrypt.hashSync(req.body.password, 10)

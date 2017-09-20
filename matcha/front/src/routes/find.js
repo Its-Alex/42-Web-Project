@@ -255,9 +255,10 @@ class Find extends Component {
                 <p><b>Firstname:</b> {elem.firstName}</p>
                 <p><b>Lastname:</b> {elem.lastName}</p>
                 <p><b>Popularity:</b> {elem.popularity}</p>
+                <p><b>genre:</b> {elem.genre}</p>
+                <p><b>Age:</b> {elem.birthday}</p>
                 <p><b>Tags:</b> {elem.tags}</p>
                 <p><b>Score:</b> {elem.score}%</p>
-                <p><b>Age:</b> {elem.birthday}</p>
               </div>
             )
           })}

@@ -24,27 +24,27 @@ function error (res, data, err) {
 module.exports = (req, res) => {
   if (req.body.name === undefined || req.body.mail === undefined ||
   req.body.password === undefined || req.body.validPwd === undefined) {
-    error(res, 'Body error', 400)
+    error(res, 'Body error', 403)
     return
   }
   if (req.body.name === '' || req.body.mail === '' ||
   req.body.password === '' || req.body.validPwd === '') {
-    return error(res, 'Empty field(s)', 400)
+    return error(res, 'Empty field(s)', 403)
   }
   if (req.body.password !== req.body.validPwd) {
-    return error(res, 'Password does not match', 400)
+    return error(res, 'Password does not match', 403)
   }
   if (req.body.name.length > 36 || !req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
-    return error(res, 'Invalid name', 400)
+    return error(res, 'Invalid name', 403)
   }
   if (!req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-    return error(res, 'Invalid mail', 400)
+    return error(res, 'Invalid mail', 403)
   } else {
     req.body.mail = req.body.mail.toLowerCase()
   }
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
   req.body.password.length < 8 || zxcvbn(req.body.password).score <= 2) {
-    return error(res, 'Invalid password', 400)
+    return error(res, 'Invalid password', 403)
   } else {
     req.body.password = bcrypt.hashSync(req.body.password, 10)
   }

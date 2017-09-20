@@ -27,7 +27,7 @@ app.use((req, res) => {
 
 // Start web server
 app.listen(port, () => {
-  console.log('Start at ' + port)
+  // console.log('Start at ' + port)
 })
 
 // End connecton with database

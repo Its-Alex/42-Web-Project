@@ -73,12 +73,14 @@ class Profile extends Component {
         message: 'Done'
       })
     }).catch((err) => {
-      if (err) console.log(err.response)
-      this.props.notification.addNotification({
-        level: 'error',
-        title: 'Picture upload :',
-        message: err.response.data.error
-      })
+      if (err) {
+        // console.log(err.response)
+        this.props.notification.addNotification({
+          level: 'error',
+          title: 'Picture upload :',
+          message: err.response.data.error
+        })
+      }
     })
   }
 
@@ -205,6 +207,13 @@ class Profile extends Component {
         /**
          * Update profile from data input
          */
+        if (res.data.results.length === 0) {
+          return this.props.notification.addNotification({
+            level: 'error',
+            title: 'Action unsuccessful',
+            message: 'Adress not found'
+          })
+        }
         axiosInst().patch('/profile', {
           birthday: this.state.birthday,
           firstName: this.state.firstName,
@@ -236,7 +245,7 @@ class Profile extends Component {
           })
         }).catch((err) => {
           if (err.response) {
-            console.log(err.response)
+            // console.log(err.response)
             this.props.notification.addNotification({
               level: 'error',
               title: 'Modify data:',

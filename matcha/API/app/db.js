@@ -17,9 +17,9 @@ let connect = () => {
       error = err.stack
     }
     if (db.threadId !== null) {
-      console.log('Connected as id ' + db.threadId)
+      // console.log('Connected as id ' + db.threadId)
     } else {
-      console.log('Connection to database failed!')
+      // console.log('Connection to database failed!')
       process.exit(1)
     }
   })

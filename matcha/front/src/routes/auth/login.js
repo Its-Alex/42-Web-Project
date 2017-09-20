@@ -28,7 +28,7 @@ class Login extends Component {
         global.localStorage.setItem('token', token)
         return this.props.history.push('/')
       }).catch((err) => {
-        console.log(err.response)
+        // console.log(err.response)
         if (err.response) {
           if (err.response.data.msg === 'False token') {
             global.localStorage.removeItem('signToken')

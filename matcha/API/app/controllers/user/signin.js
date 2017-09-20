@@ -21,17 +21,17 @@ function error (res, data, err) {
 
 module.exports = (req, res) => {
   if (req.body.mail === undefined || req.body.password === undefined) {
-    error(res, 'Body error', 400)
+    error(res, 'Body error', 403)
     return
   }
 
   if (req.body.mail === '' || req.body.password === '') {
-    error(res, 'Empty field(s)', 400)
+    error(res, 'Empty field(s)', 403)
     return
   }
 
   if (!req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
-    error(res, 'Invalid mail', 400)
+    error(res, 'Invalid mail', 403)
     return
   } else {
     req.body.mail = req.body.mail.toLowerCase()
@@ -39,16 +39,16 @@ module.exports = (req, res) => {
 
   if (!req.body.password.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) ||
   req.body.password.length < 6) {
-    error(res, 'Invalid password', 400)
+    error(res, 'Invalid password', 403)
     return
   }
 
   model.getUserByMail(req.body.mail).then((user) => {
     if (user[0] === undefined) {
-      return error(res, 'User not found', 400)
+      return error(res, 'User not found', 403)
     }
     if (!bcrypt.compareSync(req.body.password, user[0].password)) {
-      return error(res, 'Invalid password', 400)
+      return error(res, 'Invalid password', 403)
     }
     let token = genToken()
     model.insertToken(user[0].id, token).then(() => {

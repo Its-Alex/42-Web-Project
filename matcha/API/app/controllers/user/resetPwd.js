@@ -14,7 +14,6 @@ function error (res, data, err) {
 module.exports = (req, res) => {
   let pwd
 
-  console.log(req.body)
   if (typeof req.body.newPassword !== 'string' || typeof req.body.confirmNewPassword !== 'string' ||
   typeof req.body.mail !== 'string') {
     return error(res, 'Invalid fields', 200)

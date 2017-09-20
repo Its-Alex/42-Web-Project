@@ -23,6 +23,16 @@ let getAge = dateString => {
   return age
 }
 
+let sortByDistAsc = (a, b) => {
+  if (a.dist < b.dist) return -1
+  else if (a.dist > b.dist) return 1
+  else if (a.dist === b.dist) return 0
+}
+
+let sortByPond = (a, b) => {
+  
+}
+
 module.exports = (req, res) => {
   if (typeof req.body.latLocation !== 'number' || typeof req.body.lngLocation !== 'number' ||
   typeof req.body.filterByTags !== 'string' || typeof req.body.isLoc !== 'boolean' ||
@@ -102,6 +112,12 @@ module.exports = (req, res) => {
     /**
      * Check all query params
      */
+    let max = {
+      popularity: 1,
+      nbTags: 1,
+      dist: 1
+    }
+
     async.filter(params, (element, callback) => {
       // Update current data
       delete element.password
@@ -124,6 +140,14 @@ module.exports = (req, res) => {
       typeof element.lng !== 'number' || typeof element.lat !== 'number') {
         return callback(null, !element)
       }
+
+      // Count same tags as user
+      element.nbTags = 0
+      user.tags.split(' ').forEach(elmtUser => {
+        element.tags.split(' ').forEach(elmtFind => {
+          if (elmtFind === elmtUser) element.nbTags++
+        })
+      })
 
       // Search by location
       if (req.body.isLoc === true && getDist({
@@ -158,13 +182,21 @@ module.exports = (req, res) => {
           }
         }
       }
+      if (element.dist > max.dist) max.dist = element.dist
+      if (element.popularity > max.popularity) max.popularity = element.popularity
+      if (element.nbTags > max.nbTags) max.nbTags = element.nbTags
       return callback(null, element)
     }, (err, results) => {
       if (err) cb(err, null)
-      cb(null, results, user)
+      cb(null, results, user, max)
     })
-  }, (params, user, cb) => {
-    // Need to find how to do ponderation using dist age and pop
+  }, (params, user, max, cb) => {    
+    params.forEach(elmt => {
+      let pctPop = elmt.popularity * 100 / max.popularity
+      let pctNbtags = elmt.nbTags * 100 / max.nbTags
+      let pctDist = 100 - (elmt.dist * 100 / max.dist)
+      elmt.score = parseInt((pctPop + 2 * pctNbtags + 3 * pctDist) / 6, 10)
+    })
     cb(null, params, user)
   }], (err, params, user) => {
     if (err) {

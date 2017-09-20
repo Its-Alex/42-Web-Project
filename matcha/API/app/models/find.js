@@ -22,7 +22,6 @@ module.exports = {
         params.push(userProfile.genre)
       }
       query += ` AND profiles.lastConnect IS NOT NULL`
-      console.log(query)
       db.get().then(db => {
         db.query(query, params, (err, res) => {
           if (err) reject(err)

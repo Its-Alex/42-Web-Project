@@ -22,6 +22,12 @@ let sortByDistAsc = (a, b) => {
   else if (a.dist === b.dist) return 0
 }
 
+let sortByScoreDesc = (a, b) => {
+  if (a.score < b.score) return 1
+  else if (a.score > b.score) return -1
+  else if (a.score === b.score) return 0
+}
+
 class Find extends Component {
   constructor (props) {
     super(props)
@@ -32,7 +38,7 @@ class Find extends Component {
       orderBy: 'popularity',
       minAge: '18',
       maxAge: '99',
-      dist: '100000',
+      dist: '100',
       minPop: '0',
       maxPop: '100',
       results: [],
@@ -86,7 +92,7 @@ class Find extends Component {
           if (res.data.results !== undefined && res.data.results !== null &&
           res.data.user !== undefined && res.data.user !== null) {
             this.setState({
-              results: res.data.results,
+              results: res.data.results.sort(sortByScoreDesc),
               currentUser: res.data.user
             })
           } else {
@@ -113,7 +119,7 @@ class Find extends Component {
         if (res.data.results !== undefined && res.data.results !== null &&
         res.data.user !== undefined && res.data.user !== null) {
           this.setState({
-            results: res.data.results,
+            results: res.data.results.sort(sortByScoreDesc),
             currentUser: res.data.user
           })
         } else {
@@ -249,6 +255,8 @@ class Find extends Component {
                 <p><b>Firstname:</b> {elem.firstName}</p>
                 <p><b>Lastname:</b> {elem.lastName}</p>
                 <p><b>Popularity:</b> {elem.popularity}</p>
+                <p><b>Tags:</b> {elem.tags}</p>
+                <p><b>Score:</b> {elem.score}%</p>
                 <p><b>Age:</b> {elem.birthday}</p>
               </div>
             )

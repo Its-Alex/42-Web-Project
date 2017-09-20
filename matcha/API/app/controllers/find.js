@@ -83,7 +83,6 @@ module.exports = (req, res) => {
     /**
      * Delete blocked user form list
      */
-    console.log(params)
     blockModel.getAllBlockedBy(req.user.id).then(result => {
       async.each(result, (profile, callback) => {
         for (let i = 0; i < params.length; i++) {

@@ -64,6 +64,7 @@ wss.on('connection', (ws) => {
                   data.msg,
                   Date.now()
                 ], (err, res) => {
+                  if (err) return console.log(err)
                   wss.clients.forEach(client => {
                     if (client.id === data.to) {
                       client.send(JSON.stringify({

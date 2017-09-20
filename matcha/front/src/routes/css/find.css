@@ -113,7 +113,7 @@
 #searchResult > div > img {
     margin: 5% 0;
     pointer-events: none;
-    height: 50%;
+    height: 20%;
     overflow: hidden;
     width: auto;
 }

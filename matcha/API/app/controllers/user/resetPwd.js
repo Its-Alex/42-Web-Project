@@ -35,7 +35,7 @@ module.exports = (req, res) => {
     return error(res, 'Invalid password', 200)
   }
 
-  if (zxcvbn(req.body.newPassword).score < 4) {
+  if (zxcvbn(req.body.newPassword).score <= 3) {
     return error(res, 'Password too weak', 200)
   }
 

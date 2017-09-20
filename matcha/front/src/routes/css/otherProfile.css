@@ -44,6 +44,7 @@
     border-radius: 4px;
     box-shadow: none;
     border: none;
+    cursor: pointer;
 }
 
 #profile-img > div {

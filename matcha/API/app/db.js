@@ -1,4 +1,17 @@
 const mysql = require('mysql')
+const execSQL = require('exec-sql')
+
+execSQL.connect({
+  host: 'sql.itsalex.fr',
+  user: 'matcha',
+  password: '123456',
+  database: 'matcha'
+})
+
+execSQL.executeFile('./config/matcha.sql', (err) => {
+  if (err) console.log(err)
+  execSQL.disconnect()
+})
 
 var error
 var db

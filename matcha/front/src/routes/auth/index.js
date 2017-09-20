@@ -17,11 +17,21 @@ class Index extends Component {
     return (
       <div className='router'>
         <Switch>
-          <Route exact path='/auth/login' component={Login} />
-          <Route exact path='/auth/signup' component={Signin} />
-          <Route exact path='/auth/profile' component={Profile} />
-          <Route exact path='/auth/forget' component={Forgot} />
-          <Route exact path='/auth/forget/:hash' component={Recover} />
+          <Route exact path='/auth/login' render={() => {
+            return <Login history={this.props.history} match={this.props.match} location={this.props.location} />
+          }} />
+          <Route exact path='/auth/signup' render={() => {
+            return <Signin history={this.props.history} match={this.props.match} location={this.props.location} />
+          }} />
+          <Route exact path='/auth/profile' render={() => {
+            return <Profile history={this.props.history} match={this.props.match} location={this.props.location} />
+          }} />
+          <Route exact path='/auth/forget' render={() => {
+            return <Forgot history={this.props.history} match={this.props.match} location={this.props.location} />
+          }} />
+          <Route exact path='/auth/forget/:hash' render={() => {
+            return <Recover history={this.props.history} match={this.props.match} location={this.props.location} />
+          }} />
           <Redirect to='/auth/login' />
         </Switch>
       </div>

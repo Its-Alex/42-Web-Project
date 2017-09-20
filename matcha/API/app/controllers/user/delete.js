@@ -16,7 +16,7 @@ module.exports = (req, res) => {
         return res.json({
           success: true
         })
-      } else return error(res, 'Nothing has been deleted', 403)
+      } else return error(res, 'Nothing has been deleted', 200)
     }).catch((err) => {
       console.log(new Error(err))
       return error(res, 'Internal error', 500)
@@ -29,7 +29,7 @@ module.exports = (req, res) => {
           return res.json({
             success: true
           })
-        } else return error(res, 'Nothing has been deleted', 403)
+        } else return error(res, 'Nothing has been deleted', 200)
       }).catch((err) => {
         console.log(new Error(err))
         return error(res, 'Internal error', 500)

@@ -40,17 +40,26 @@ class App extends React.Component {
         /**
          * Get latitude and longitude of user and send it to API to get his current position
          */
-        axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
-          /**
-           * Send latitude and longitude to server
-           */
-          axiosInst().post('geoloc', {
-            lat: res.data.location.lat,
-            lng: res.data.location.lng
+        
+        if (res.data.success === true) {
+          axios.post('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBO1ucGtsgt5eRvN1TQg4SIbquDHrQBosk').then((res) => {
+            /**
+             * Send latitude and longitude to server
+             */
+            axiosInst().post('geoloc', {
+              lat: res.data.location.lat,
+              lng: res.data.location.lng
+            }).catch((err) => console.log(err.response))
           }).catch((err) => console.log(err.response))
-        }).catch((err) => console.log(err.response))
+        } else {
+          let token = global.localStorage.getItem('token')
+          global.localStorage.removeItem('token')
+          global.localStorage.setItem('signToken', token)
+          return this.props.history.push('/auth/login')
+        }
       }).catch((err) => {
         if (err.response) {
+          console.log(err.response)
           let token = global.localStorage.getItem('token')
           global.localStorage.removeItem('token')
           global.localStorage.setItem('signToken', token)

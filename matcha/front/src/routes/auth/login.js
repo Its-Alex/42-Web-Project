@@ -23,21 +23,21 @@ class Login extends Component {
       axios.get('http://localhost:3005/profile/me', {
         headers: {'Authorization': `Bearer ${global.localStorage.getItem('signToken')}`}
       }).then((res) => {
-        let token = global.localStorage.getItem('signToken')
-        global.localStorage.removeItem('signToken')
-        global.localStorage.setItem('token', token)
-        return this.props.history.push('/')
-      }).catch((err) => {
-        // console.log(err.response)
-        if (err.response) {
-          if (err.response.data.msg === 'False token') {
-            global.localStorage.removeItem('signToken')
-            global.localStorage.removeItem('token')
-            global.localStorage.removeItem('id')
-            return this.props.history.push('/auth/login')
-          }
+        if (res.success === true) {
+          let token = global.localStorage.getItem('signToken')
+          global.localStorage.removeItem('signToken')
+          global.localStorage.setItem('token', token)
+          return this.props.history.push('/')
+        } else if (res.data.msg === 'False token') {
+          global.localStorage.removeItem('signToken')
+          global.localStorage.removeItem('token')
+          global.localStorage.removeItem('id')
+          return this.props.history.push('/auth/login')
+        } else {
+          return this.props.history.push('/auth/profile')
         }
-        return this.props.history.push('/auth/profile')
+      }).catch((err) => {
+        console.log(err)
       })
     }
   }
@@ -48,7 +48,6 @@ class Login extends Component {
 
   handleKeyPress (event) {
     if (event.key === 'Enter' || event.target.className === 'submit') {
-
       axios.post('http://localhost:3005/user/signin', {
         mail: this.state.email,
         password: this.state.password
@@ -57,14 +56,12 @@ class Login extends Component {
           global.localStorage.setItem('token', res.data.token)
           global.localStorage.setItem('id', res.data.id)
           this.props.history.push('/profile')
+        } else {
+          this.setState({error: res.data.msg})
         }
       }).catch((err) => {
         if (err.response) {
-          this.setState({error: err.response.data.msg})
-        } else if (err.request) {
           console.log(err.request)
-        } else {
-          console.log(new Error(err.message))
         }
       })
     }

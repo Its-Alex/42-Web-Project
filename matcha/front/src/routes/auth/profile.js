@@ -51,12 +51,12 @@ class Profile extends Component {
           global.localStorage.removeItem('signToken')
           global.localStorage.removeItem('token')
           this.props.history.push('/auth/login')
+        } else {
+          this.setState({error: res.data.msg})
         }
       }).catch((err) => {
         if (err.response) {
-          this.setState({error: err.response.data.msg})
-        } else {
-          console.log(new Error(err.message))
+          console.log(err.response)
         }
       })
     }

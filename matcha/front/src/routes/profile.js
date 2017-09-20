@@ -43,6 +43,12 @@ class Profile extends Component {
      * Get data from profile
      */
     axiosInst().get('/profile/me').then((res) => {
+      let location
+      if (res.data.user.location === null) {
+        location = ''
+      } else {
+        location = res.data.user.location
+      }
       this.setState({
         birthday: res.data.user.birthday,
         bio: res.data.user.bio,
@@ -52,7 +58,7 @@ class Profile extends Component {
         genre: (res.data.user.genre === 'M') ? 'M' : 'F',
         type: (res.data.user.type === 'M') ? 'M' : (res.data.user.type === 'F') ? 'F' : 'B',
         tags: res.data.user.tags,
-        location: res.data.user.location
+        location: location
       })
     }).catch((err) => console.log(err.response))
   }
@@ -67,19 +73,22 @@ class Profile extends Component {
 
   sendPicture (pic, index) {
     axiosInst().put('/picture/' + index, {pic: pic}).then((res) => {
-      this.props.notification.addNotification({
-        level: 'success',
-        title: 'Picture upload :',
-        message: 'Done'
-      })
-    }).catch((err) => {
-      if (err) {
-        // console.log(err.response)
+      if (res.data.success === true) {
+        this.props.notification.addNotification({
+          level: 'success',
+          title: 'Picture upload :',
+          message: 'Done'
+        })
+      } else {
         this.props.notification.addNotification({
           level: 'error',
           title: 'Picture upload :',
-          message: err.response.data.error
+          message: res.data.error
         })
+      }
+    }).catch((err) => {
+      if (err) {
+        console.log(err.response)
       }
     })
   }
@@ -227,34 +236,33 @@ class Profile extends Component {
           lng: res.data.results[0].geometry.location.lng,
           password: this.state.password
         }).then((res) => {
-          this.setState({
-            birthday: res.data.profile.birthday,
-            bio: res.data.profile.bio,
-            firstName: res.data.profile.firstName,
-            lastName: res.data.profile.lastName,
-            genre: res.data.profile.genre,
-            type: res.data.profile.type,
-            tags: res.data.profile.tags,
-            location: res.data.profile.location,
-            password: ''
-          })
-          this.props.notification.addNotification({
-            level: 'success',
-            title: 'Modify data:',
-            message: 'Done'
-          })
-        }).catch((err) => {
-          if (err.response) {
-            // console.log(err.response)
+          if (res.data.success === true) {
+            this.setState({
+              birthday: res.data.profile.birthday,
+              bio: res.data.profile.bio,
+              firstName: res.data.profile.firstName,
+              lastName: res.data.profile.lastName,
+              genre: res.data.profile.genre,
+              type: res.data.profile.type,
+              tags: res.data.profile.tags,
+              location: res.data.profile.location,
+              password: ''
+            })
+            this.props.notification.addNotification({
+              level: 'success',
+              title: 'Modify data:',
+              message: 'Done'
+            })
+          } else {
             this.props.notification.addNotification({
               level: 'error',
               title: 'Modify data:',
-              message: err.response.data.error
+              message: res.data.error
             })
-          } else if (err.request) {
-            console.log(err.request)
-          } else {
-            console.log(err.message)
+          }
+        }).catch((err) => {
+          if (err.response) {
+            console.log(err.response)
           }
         })
       }).catch((err) => {
@@ -321,9 +329,9 @@ class Profile extends Component {
           <div>
             <label>Type :</label>
             <select name='type' value={(this.state.type === 'M') ? 'M' : (this.state.type === 'F') ? 'F' : 'B'} onChange={this.handleChange} >
-            <option value='M'>Men</option>
-            <option value='F'>Woman</option>
-            <option value='B'>Bisexual</option>
+              <option value='M'>Men</option>
+              <option value='F'>Woman</option>
+              <option value='B'>Bisexual</option>
             </select>
           </div>
           <div>

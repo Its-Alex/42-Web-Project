@@ -24,7 +24,7 @@ module.exports = (req, res) => {
   }
 
   if (!bcrypt.compareSync(req.body.oldPassword, req.user.password)) {
-    return error(res, 'Password invalid', 403)
+    return error(res, 'Password invalid', 200)
   }
 
   if (typeof req.body.name !== 'undefined' && req.body.name !== '') {
@@ -52,7 +52,7 @@ module.exports = (req, res) => {
           console.log(user)
           model.updateUser(user).then((results) => {
             if (results.message.split(' ')[5] === '0') {
-              res.status(403)
+              res.status(200)
               return res.json({
                 success: false,
                 error: 'Nothing has change'
@@ -70,7 +70,7 @@ module.exports = (req, res) => {
         } else if (req.params.id.length === 128 && req.user.role === 'ADMIN') {
           model.updateUser(user).then((results) => {
             if (results.message.split(' ')[5] === '0') {
-              res.status(403)
+              res.status(200)
               res.json({
                 success: false,
                 error: 'Nothing has change'
@@ -93,7 +93,7 @@ module.exports = (req, res) => {
         return error(res, 'Internal error', 500)
       })
     } else {
-      return error(res, 'Invalid mail', 403)
+      return error(res, 'Invalid mail', 200)
     }
   }
 }

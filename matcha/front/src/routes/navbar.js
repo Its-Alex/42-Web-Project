@@ -19,7 +19,9 @@ class Navbar extends React.Component {
           document.getElementById('notificationsButton').classList.add('active')
         }
       }).catch(err => {
-        console.log(err.response)
+        if (err.response) {
+          console.log(err.response)
+        }
       })
     }
   }

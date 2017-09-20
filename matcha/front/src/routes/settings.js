@@ -38,7 +38,7 @@ class Settings extends React.Component {
     if (event.key === 'Enter' || event.target.value === 'Save') {
       let zxcvbnScore = zxcvbn(this.state.newPassword).score
 
-      if (zxcvbnScore < 4 || this.state.newPassword.length < 8) {
+      if (this.state.newPassword !== '' && (zxcvbnScore < 4 || this.state.newPassword.length < 8)) {
         return this.props.notification.addNotification({
           level: 'error',
           title: 'Modify data:',
@@ -51,18 +51,22 @@ class Settings extends React.Component {
         newPassword: this.state.newPassword,
         oldPassword: this.state.oldPassword
       }).then((res) => {
-        this.props.notification.addNotification({
-          level: 'success',
-          title: 'Modify data:',
-          message: 'Done'
-        })
-      }).catch((err) => {
-        if (err.response) {
+        if (res.success === true) {
+          this.props.notification.addNotification({
+            level: 'success',
+            title: 'Modify data:',
+            message: 'Done'
+          })
+        } else {
           this.props.notification.addNotification({
             level: 'error',
             title: 'Modify data:',
-            message: err.response.data.error
+            message: res.data.error
           })
+         }
+      }).catch((err) => {
+        if (err.response) {
+          console.log(err.response)
         }
       })
     }

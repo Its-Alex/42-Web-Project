@@ -94,7 +94,6 @@ class OtherProfile extends React.Component {
     if (this.props.match.params.user === global.localStorage.getItem('id')) {
       return this.props.history.push('/profile')
     } else {
-      console.log('Send view')
       ws.send({
         method: 'viewProfile',
         to: this.props.match.params.user

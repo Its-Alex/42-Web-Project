@@ -5,7 +5,7 @@ module.exports = (role) => {
     var auth = req.get('Authorization')
 
     if (auth === undefined) {
-      res.status(401)
+      res.status(200)
       res.json({
         success: false,
         msg: 'Need Authorization in header'
@@ -14,7 +14,7 @@ module.exports = (role) => {
     }
     auth = auth.split(' ')
     if (auth[0] !== 'Bearer' || auth[1].length !== 128 || auth.length !== 2) {
-      res.status(401)
+      res.status(200)
       res.json({
         success: false,
         msg: 'Wrong authorization header'
@@ -32,7 +32,7 @@ module.exports = (role) => {
           })
         }
         if (results === undefined || results.length !== 1) {
-          res.status(401)
+          res.status(200)
           res.json({
             success: false,
             msg: 'False token'
@@ -46,7 +46,7 @@ module.exports = (role) => {
             name: results[0].name,
             password: results[0].password,
             mail: results[0].mail,
-            role: results[0].role,
+            role: results[0].role
           }
           next()
         } else {

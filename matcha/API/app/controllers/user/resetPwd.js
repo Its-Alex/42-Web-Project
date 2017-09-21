@@ -42,7 +42,7 @@ module.exports = (req, res) => {
   modelUser.getUserByMail(req.body.mail).then(user => {
     if (user.length === 0) return error(res, 'User not found', 200)
     model.checkHash(user[0].id, req.params.hash).then(results => {
-      if (results.length === 0) return error(res, 'No password forgotten request')
+      if (results.length === 0) return error(res, 'No password forgotten request', 200)
       model.updatePwd(user[0].id, pwd).then(result => {
         if (result.constructor.name === 'OkPacket') {
           model.delHash(user[0].id).then(result => {

@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import Moment from 'react-moment'
 
 import axiosInst from '../utils/axios.js'
-// import Store from '../utils/store.js'
+import Store from '../utils/store.js'
 import ws from '../utils/ws.js'
 
 import './css/otherProfile.css'
@@ -223,7 +223,10 @@ class OtherProfile extends React.Component {
             <p><b>Bio : </b>{this.state.bio}</p>
             <p><b>Last location : </b>{this.state.location}</p>
             <p><b>Tags : </b>{this.state.tags}</p>
-            {this.state.isReport ? (
+            {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
+            ? this.updateLastConnect()
+            : <p><b>Connected</b></p>}
+            {this.state.likeBack ? (
               <p><b>This user like you</b></p>
             ) : null}
             {this.state.isReport ? (
@@ -244,10 +247,5 @@ class OtherProfile extends React.Component {
     )
   }
 }
-
-// {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
-//   ? this.updateLastConnect()
-//   : <p><b>Connected</b></p>}
-
 
 export default OtherProfile

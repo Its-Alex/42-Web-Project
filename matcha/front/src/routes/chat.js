@@ -79,17 +79,18 @@ class Chat extends React.Component {
   }
 
   handleConfirm (event) {
-    if (event.key === 'Enter') {
+    let chat = this.state.chatInput.trim()
+    if (event.key === 'Enter' && chat !== '') {
       ws.send({
         method: 'sendChat',
         to: this.props.match.params.id,
-        msg: this.state.chatInput
+        msg: chat
       })
       store.addUserChat({
         date: Date.now(),
         sender: global.localStorage.getItem('id'),
         receiver: this.props.match.params.id,
-        text: this.state.chatInput
+        text: chat
       })
       this.setState({'chatInput': ''})
     }

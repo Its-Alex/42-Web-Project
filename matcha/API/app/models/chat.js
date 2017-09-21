@@ -6,7 +6,6 @@ module.exports = {
       db.get().then(db => {
         db.query('SELECT name, performUser, concernUser FROM likes INNER JOIN users ON likes.concernUser = users.id WHERE performUser = ? OR concernUser = ?', [id, id], (err, res) => {
           if (err) return reject(err)
-          if (res.length === 0) return reject(new Error('No user found!'))
           let people = []
           res.forEach(first => {
             res.forEach((second, index) => {

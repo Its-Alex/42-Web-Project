@@ -60,7 +60,7 @@ class Profile extends Component {
         tags: res.data.user.tags,
         location: location
       })
-    }).catch((err) => console.log(err.response))
+    }).catch((err) => err)
   }
 
   /**

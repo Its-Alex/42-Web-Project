@@ -51,7 +51,7 @@ class Settings extends React.Component {
         newPassword: this.state.newPassword,
         oldPassword: this.state.oldPassword
       }).then((res) => {
-        if (res.success === true) {
+        if (res.data.success === true) {
           this.props.notification.addNotification({
             level: 'success',
             title: 'Modify data:',
@@ -63,7 +63,7 @@ class Settings extends React.Component {
             title: 'Modify data:',
             message: res.data.error
           })
-         }
+        }
       }).catch((err) => {
         if (err.response) {
           console.log(err.response)

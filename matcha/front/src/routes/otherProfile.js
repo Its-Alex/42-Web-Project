@@ -75,11 +75,12 @@ class OtherProfile extends React.Component {
           })
         }
       } else {
-        if (this._isMounted === true) {
-          this.setState({
-            error: res.data.error
-          })
-        }
+        this.props.notification.addNotification({
+          level: 'error',
+          title: 'Action successful',
+          message: res.data.error
+        })
+        this.props.history.push('/profile')
       }
     }).catch(err => console.log(err.response))
     axiosInst().get(`/like/${this.props.match.params.user}`).then(res => {

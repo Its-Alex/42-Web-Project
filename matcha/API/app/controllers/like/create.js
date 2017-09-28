@@ -27,9 +27,9 @@ module.exports = (req, res) => {
       model.addLike(req.user.id, req.params.id).then(result => {
         if (result.affectedRows === 0) return error(res, 'User not liked', 200)
         model.getLike(req.params.id, req.user.id).then(result => {
+          modelPop.addPop(req.params.id, 1).then(res => {}).catch(err => console.log(err))
           if (result.length === 0) {
             modelNotif.addNotification(req.user.id, req.params.id, 'like').then(result => {
-              modelPop.addPop(req.params.id, 1).then(res => {}).catch(err => console.log(err))
               if (result.affectedRows === 0) return error(res, 'User has not been notified', 200)
               ws.sendToId(req.params.id, {
                 method: 'notification',

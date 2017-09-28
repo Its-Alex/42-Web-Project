@@ -27,21 +27,21 @@ module.exports = (req, res) => {
     return error(res, 'Password invalid', 200)
   }
 
-  if (typeof req.body.name !== 'undefined' && req.body.name !== '') {
+  if (typeof req.body.name === 'string' && req.body.name !== '') {
     if (req.body.name.length <= 36 &&
     req.body.name.match(/^([a-zA-Z0-9]+)$/)) {
       user.name = req.body.name
     }
   }
 
-  if (typeof req.body.newPassword !== 'undefined' && req.body.newPassword !== '') {
+  if (typeof req.body.newPassword === 'string' && req.body.newPassword !== '') {
     if (req.body.newPassword.match(/^([a-zA-Z0-9!@#$%^&*()\\/]+)$/) &&
-    req.body.newPassword.length >= 8 && zxcvbn(req.body.password).score >= 4) {
+    req.body.newPassword.length >= 8 && zxcvbn(req.body.newPassword).score >= 4) {
       user.password = bcrypt.hashSync(req.body.newPassword, 10)
     }
   }
 
-  if (typeof req.body.mail !== 'undefined') {
+  if (typeof req.body.mail === 'string') {
     if (req.body.mail.match(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/)) {
       model.getUserByMail(req.body.mail).then((results) => {
         if (results.length === 0) {
@@ -49,7 +49,6 @@ module.exports = (req, res) => {
         }
 
         if (req.params.id === 'me') {
-          console.log(user)
           model.updateUser(user).then((results) => {
             if (results.message.split(' ')[5] === '0') {
               res.status(200)

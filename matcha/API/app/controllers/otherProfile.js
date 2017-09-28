@@ -21,8 +21,8 @@ module.exports = (req, res) => {
     if (user.length === 0) return error(res, 'No user found', 200)
     profileModel.getProfileById(req.params.id).then(profile => {
       if (profile.length === 0) return error(res, 'User has no profile', 200)
-      blockModel.userIsBlocked(req.user.id, req.params.id).then(results => {
-        if (results.length !== 0) block = true
+      blockModel.checkForNotif(req.user.id, req.params.id).then(results => {
+        if (!results) return error(res, 'User is block', 200)
         reportModel.userIsReported(req.user.id, req.params.id).then(results => {
           if (results.length !== 0) report = true
           likeModel.getLike(user[0].id, req.user.id).then(results => {

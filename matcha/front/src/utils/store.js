@@ -2,18 +2,12 @@ import { observable, action, useStrict } from 'mobx'
 
 useStrict(true)
 class Store {
-  @observable chat
-  @observable userChat
-  @observable conUserList
-
-  constructor (props) {
-    this.chat = []
-    this.userChat = {
+  @observable chat = []
+  @observable userChat = {
       user: null,
       text: []
     }
-    this.conUserList = []
-  }
+  @observable conUserList = []
 
   @action
   setUserChat (chat) {

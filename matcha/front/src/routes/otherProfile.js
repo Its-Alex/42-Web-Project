@@ -182,26 +182,6 @@ class OtherProfile extends React.Component {
     }
   }
 
-  /**
-   * Update when websocket receive new user connect/disconnect
-   */
-  updateLastConnect() {
-    if (this.state.lastConnect + 5000 < Date.now() && this._isMounted === true) {
-      axiosInst().get(`/otherProfile/${this.props.match.params.user}`).then(res => {
-        if (res.data.success === true && this._isMounted === true) {
-          this.setState({
-            lastConnect: res.data.profile[0].lastConnect,
-          })
-        } else if (this._isMounted === true) {
-          this.setState({
-            error: res.data.error
-          })
-        }
-      }).catch(err => console.log(err.response))
-    }
-    return (<p><b>Last connect : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>)
-  }
-
   render () {
     return (
       <div className='body flex-start'>
@@ -225,7 +205,7 @@ class OtherProfile extends React.Component {
             <p><b>Last location : </b>{this.state.location}</p>
             <p><b>Tags : </b>{this.state.tags}</p>
             {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
-            ? this.updateLastConnect()
+            ? <p><b>Last connect : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>
             : <p><b>Connected</b></p>}
             {this.state.likeBack ? (
               <p><b>This user like you</b></p>

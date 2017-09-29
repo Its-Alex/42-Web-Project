@@ -323,8 +323,8 @@ class Profile extends Component {
           <div>
             <label>Genre :</label>
             <select name='genre' value={this.state.genre === 'M' ? 'M' : 'F'} onChange={this.handleChange} >
-            <option value='M'>Man</option>
-            <option value='F'>Woman</option>
+              <option value='M'>Man</option>
+              <option value='F'>Woman</option>
             </select>
           </div>
           <div>

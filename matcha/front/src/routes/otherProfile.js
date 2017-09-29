@@ -182,6 +182,8 @@ class OtherProfile extends React.Component {
     }
   }
 
+  findConUser
+
   render () {
     return (
       <div className='body flex-start'>
@@ -204,10 +206,9 @@ class OtherProfile extends React.Component {
             <p><b>Bio : </b>{this.state.bio}</p>
             <p><b>Last location : </b>{this.state.location}</p>
             <p><b>Tags : </b>{this.state.tags}</p>
-            <p><b>Last connect : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>
-            {(Store.conUserList.indexOf(this.props.match.params.user) === -1)
-            ? null
-            : <p><b>Connected</b></p>}
+            {(Store.conUserList.indexOf(this.props.match.params.user) !== -1)
+            ? <p><b>Connected</b></p>
+            : <p><b>Last connect : </b><Moment fromNow date={new Date(this.state.lastConnect)} /></p>}
             {this.state.likeBack ? (
               <p><b>This user like you</b></p>
             ) : null}

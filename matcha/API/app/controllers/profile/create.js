@@ -95,35 +95,19 @@ module.exports = (req, res) => {
   // }
 
   if (req.body.tags !== undefined) {
-    let err = 'no'
     let tags = req.body.tags.split(' ')
     tags.forEach((element, elemKey) => {
       if (element[0] !== '#' || element.length > 20) {
-        error(res, 'Tags must be formatted as follows: #word', 200)
-        err = 'yes'
+        return error(res, 'Tags must be formatted as follows: #word', 400)
       }
       tags.forEach((elemCheck, index) => {
         if (element === elemCheck && index !== elemKey) delete tags[index]
       }, this)
     }, this)
-    if (err === 'yes') return
     profile.tags = tags.join(' ')
+  } else {
+    profile.tags = ''
   }
-
-  // if (req.body.tags !== undefined) {
-  //   let tags = req.body.tags.split(' ')
-  //   tags.forEach((element, elemKey) => {
-  //     if (element[0] !== '#' || element.length > 20) {
-  //       return error(res, 'Tags must be formatted as follows: #word', 400)
-  //     }
-  //     tags.forEach((elemCheck, index) => {
-  //       if (element === elemCheck && index !== elemKey) delete tags[index]
-  //     }, this)
-  //   }, this)
-  //   profile.tags = tags.join(' ')
-  // } else {
-  //   profile.tags = ''
-  // }
 
   profile.popularity = 50
   model.createProfile(profile).then(() => {

@@ -96,27 +96,35 @@ module.exports = (req, res) => {
 
   if (req.body.tags !== undefined) {
     let tags = req.body.tags.split(' ')
+    let err = false
     tags.forEach((element, elemKey) => {
       if (element[0] !== '#' || element.length > 20) {
-        return error(res, 'Tags must be formatted as follows: #word', 400)
+        err = true
       }
       tags.forEach((elemCheck, index) => {
         if (element === elemCheck && index !== elemKey) delete tags[index]
       }, this)
     }, this)
+    if (err === true) return error(res, 'Tags must be formatted as follows: #word', 200)
     profile.tags = tags.join(' ')
   } else {
     profile.tags = ''
   }
 
   profile.popularity = 50
-  model.createProfile(profile).then(() => {
-    res.status(201)
-    res.json({
-      success: true
+  model.getProfileById(req.user.id).then(result => {
+    if (result.length !== 0) return error(res, 'User has already a profile')
+    model.createProfile(profile).then(() => {
+      res.status(201)
+      res.json({
+        success: true
+      })
+    }).catch((err) => {
+      console.log(err)
+      return error(res, 'Internal server error', 500)
     })
   }).catch((err) => {
-    console.log(new Error(err))
+    console.log(err)
     return error(res, 'Internal server error', 500)
   })
 }

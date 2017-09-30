@@ -20,12 +20,9 @@ function splitFirst($occu, $str)
     return $array;
 }
 
-if ($argc > 1)
-{
-    foreach ($argv as $key => $value)
-    {
-        if ($key !== 0)
-        {
+if ($argc > 1) {
+    foreach ($argv as $key => $value) {
+        if ($key !== 0) {
             $array = splitFirst(":", $value);
             if (count($array) > 1)
                 if (!strcmp($argv[1], $array[0]))
